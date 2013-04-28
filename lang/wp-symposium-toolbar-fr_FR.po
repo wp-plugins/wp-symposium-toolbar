@@ -1,0 +1,351 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Symposium Toolbar v0.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-03-21 14:01:35+0000\n"
+"Last-Translator: admin <alphagolf@rocketmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: wp-symposium-toolbar.php:105
+#: wp-symposium-toolbar.php:120
+#: wp-symposium-toolbar.php:121
+#: wp-symposium-toolbar_admin.php:45
+#@ wp-symposium-toolbar
+msgid "Toolbar"
+msgstr "Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:19
+#@ default
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:64
+#@ wp-symposium-toolbar
+msgid "Which of the WP User Options should be displayed?"
+msgstr "Quelles options utilisateur doivent être affichées ?"
+
+#: wp-symposium-toolbar_admin.php:68
+#@ wp-symposium-toolbar
+msgid "The avatar of the user"
+msgstr "L'avatar de l'utilisateur"
+
+#: wp-symposium-toolbar_admin.php:72
+#@ wp-symposium-toolbar
+msgid "The user name"
+msgstr "Le nom d'utilisateur"
+
+#: wp-symposium-toolbar_admin.php:76
+#@ wp-symposium-toolbar
+msgid "The Edit Profile link"
+msgstr "Le lien Modifier mon profil"
+
+#: wp-symposium-toolbar_admin.php:86
+#@ wp-symposium-toolbar
+msgid "Rewrite the Edit Profile URL, to link to the WPS Profile Settings page?"
+msgstr "Réécrire l'URL vers la page Modifier mon Profil, pour qu'il soit dirigé vers la page de réglages WPS ?"
+
+#: wp-symposium-toolbar_admin.php:96
+#@ wp-symposium-toolbar
+msgid "Display the Log Out link?"
+msgstr "Afficher le lien Déconnection ?"
+
+#: wp-symposium-toolbar_admin.php:162
+#@ wp-symposium
+msgid "Save Changes"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:57
+#@ wp-symposium-toolbar
+msgid "Through the following options, you can configure what will be displayed in the User Menu, located at the right end of the WP Toolbar, upper right corner of the screen."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:62
+#@ wp-symposium-toolbar
+msgid "Default WP items"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:101
+#@ wp-symposium-toolbar
+msgid "WP Symposium items"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:103
+#@ wp-symposium-toolbar
+msgid "List the items to add to the WP User Menu, or leave empty for nothing"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:104
+#@ wp-symposium-toolbar
+msgid "First level menu items between brackets, second level menu items without brakets."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:105
+#@ wp-symposium-toolbar
+msgid "One row per item, \"Title=view\", if omitted the default WPS Profile view will be used."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:106
+#@ wp-symposium-toolbar
+msgid "Item can also be \"Title=URL\" where URL starts with \"http://\""
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:113
+#@ wp-symposium-toolbar
+msgid "Available WPS Profile views:"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:114
+#@ wp-symposium-toolbar
+msgid "Defaults to profile info,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:115
+#@ wp-symposium-toolbar
+msgid "Defaults to personal information,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:116
+#@ wp-symposium-toolbar
+msgid "Defaults to community settings,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:117
+#@ wp-symposium-toolbar
+msgid "Defaults to avatar upload,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:118
+#@ wp-symposium-toolbar
+msgid "Defaults to member activity,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:119
+#@ wp-symposium-toolbar
+msgid "Defaults to friends activity,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:120
+#@ wp-symposium-toolbar
+msgid "Defaults to all activity,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:121
+#@ wp-symposium-toolbar
+msgid "Defaults to groups the member belongs to,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:122
+#@ wp-symposium-toolbar
+msgid "Defaults to member friends,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:123
+#@ wp-symposium-toolbar
+msgid "Defaults to where the member is @mentionned,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:124
+#@ wp-symposium-toolbar
+msgid "Defaults to show who the member is following,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:125
+#@ wp-symposium-toolbar
+msgid "Defaults to show who the member is followed by,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:126
+#@ wp-symposium-toolbar
+msgid "Defaults to show the Lounge,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:127
+#@ wp-symposium-toolbar
+msgid "Defaults to member gallery,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:128
+#@ wp-symposium-toolbar
+msgid "Defaults to member events,"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:130
+#@ wp-symposium-toolbar
+msgid "Other WPS Pages:"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:131
+#@ wp-symposium-toolbar
+msgid "Displays the mailbox of the member"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:137
+#@ wp-symposium-toolbar
+msgid "Through the following options, you can configure the admin bits displayed in the WP Toolbar: WPS Admin Menu and WP Edit Page link. These items will only show for users with sufficient capabilities."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:142
+#@ wp-symposium-toolbar
+msgid "Admin Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:146
+#@ wp-symposium-toolbar
+msgid "Display the WP Symposium Admin Menu?"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:155
+#@ wp-symposium-toolbar
+msgid "Display the WP Edit Page link?"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:163
+#@ wp-symposium-toolbar
+msgid "Please reload this page a second time to check for any modification !..."
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:121
+#@ wp-symposium-toolbar
+msgid "Options"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:122
+#@ wp-symposium-toolbar
+msgid "Profile"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:123
+#@ wp-symposium-toolbar
+msgid "Plus"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:124
+#@ wp-symposium-toolbar
+msgid "Forum"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:125
+#@ wp-symposium-toolbar
+msgid "Directory"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:126
+#: wp-symposium-toolbar_functions.php:199
+#@ wp-symposium-toolbar
+msgid "Mail"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:127
+#@ wp-symposium-toolbar
+msgid "Groups"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:128
+#@ wp-symposium-toolbar
+msgid "Gallery"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:129
+#@ wp-symposium-toolbar
+msgid "Alerts"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:130
+#@ wp-symposium-toolbar
+msgid "Panel"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:131
+#@ wp-symposium-toolbar
+msgid "Events"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:132
+#@ wp-symposium-toolbar
+msgid "Facebook"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:133
+#@ wp-symposium-toolbar
+msgid "Mobile"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:134
+#@ wp-symposium-toolbar
+msgid "Reply"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:135
+#@ wp-symposium-toolbar
+msgid "Lounge"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:137
+#@ wp-symposium-toolbar
+msgid "Manage"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:138
+#@ wp-symposium-toolbar
+msgid "Settings"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:139
+#@ wp-symposium-toolbar
+msgid "Thesaurus"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:140
+#@ wp-symposium-toolbar
+msgid "Categories"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:141
+#@ wp-symposium-toolbar
+msgid "Forum Posts"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:142
+#@ wp-symposium-toolbar
+msgid "Mail Messages"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:143
+#@ wp-symposium-toolbar
+msgid "Templates"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:144
+#@ wp-symposium-toolbar
+msgid "Audit"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:197
+#@ wp-symposium-toolbar
+msgid "New Mail"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:214
+#@ wp-symposium-toolbar
+msgid "Friend Request"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:216
+#@ wp-symposium-toolbar
+msgid "Friend"
+msgstr ""
+
