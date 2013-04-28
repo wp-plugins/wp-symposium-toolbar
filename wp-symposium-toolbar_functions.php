@@ -140,19 +140,19 @@ function symposium_toolbar_update_admin_menu() {
 	// Menu entry - Top level menu item
 	array_push( $args, array ( 'WP Symposium', 'manage_options', 'symposium_debug', 'my-symposium-admin', '', array('class' => 'my-toolbar-page') ) );	
 	
-	if ( is_multisite() ) {
-		// Query all blogs from multi-site install
-		$blogs = $wpdb->get_results("SELECT blog_id, site_id, domain, path FROM wp_blogs WHERE public = '1' AND spam = '0' AND deleted = '0' AND archived = '0' ORDER BY blog_id");
-		foreach ($blogs as $blog) {
-			 switch_to_blog($blog->blog_id, true);
-			 $blog_details = get_blog_details($blog->blog_id);
-			 var_dump($blog_details);
-			 var_dump($submenu["symposium_debug"]);
-			 echo "<br />";
-			 echo "<br />";
-		}
-		restore_current_blog();
-	}
+	// if ( is_multisite() ) {
+		// // Query all blogs from multi-site install
+		// $blogs = $wpdb->get_results("SELECT blog_id, site_id, domain, path FROM wp_blogs WHERE public = '1' AND spam = '0' AND deleted = '0' AND archived = '0' ORDER BY blog_id");
+		// foreach ($blogs as $blog) {
+			 // switch_to_blog($blog->blog_id, true);
+			 // $blog_details = get_blog_details($blog->blog_id);
+			 // var_dump($blog_details);
+			 // var_dump($submenu["symposium_debug"]);
+			 // echo "<br />";
+			 // echo "<br />";
+		// }
+		// restore_current_blog();
+	// }
 	
 	// Aggregate menu items?
 	$hidden = get_option(WPS_OPTIONS_PREFIX.'_long_menu') == "on" ? '_hidden': '';

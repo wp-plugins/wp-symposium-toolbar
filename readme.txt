@@ -7,7 +7,7 @@ Tags: wp-symposium, toolbar, admin, bar
 Requires at least: 3.0
 Tested up to: 3.5.1
 Stable tag: 0.1.0
-Version: 0.0.8
+Version: 0.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Toolbar plugin for WP Symposium
 
 == Description ==
 
-Populate the WP Toolbar with links to WP Symposium, providing single-click access to WP Symposium from the WP Toolbar:
+Populate the WP Toolbar with links to WP Symposium, providing single-click access to WP Symposium from anywhere in your WordPress site:
 
 * To the WPS settings pages for admins
 * To the WPS Profile page for users
@@ -23,7 +23,7 @@ Populate the WP Toolbar with links to WP Symposium, providing single-click acces
 
 NB: this plugin requires WP Symposium to run, as it is targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
 
-**Attention, this plugin is currently in a beta phase, for feedback and tests.**
+**Attention, this plugin is currently in a beta phase, aiming at tests and feedback.**
   
 == Installation ==
 
@@ -49,6 +49,8 @@ The first activation of the plugin will create default items in the WordPress To
 
 It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
+Remember to visit the WPS Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated on top of this page), that will re-generate the WPS Toolbar menus.
+
 == Frequently Asked Questions ==
 
 * Can I use WPS Toolbar without WP Symposium?
@@ -56,6 +58,10 @@ It will also add an Admin Menu with links to WP Symposium settings pages, visibl
 Technically you could, but it would lost most of its interrest, as it is targetted for WP Symposium sites and their users.
 
 == Changelog ==
+
+= 0.0.9. =
+
+* Hide some debug info at the WPS Install page for multisites
 
 = 0.0.8. =
 
