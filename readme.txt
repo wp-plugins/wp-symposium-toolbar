@@ -21,7 +21,9 @@ Populate the WP Toolbar with links to WP Symposium, providing single-click acces
 * To the WPS Profile page for users
 * To the mailbox and friends' list
 
-NB: this plugin requires WP Symposium to run.
+NB: this plugin requires WP Symposium to run, as it is targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
+
+**Attention, this plugin is currently in a beta phase, for feedback and tests.**
   
 == Installation ==
 
@@ -31,7 +33,7 @@ It is important you call the folder wp-symposium-toolbar and copy the contents o
 
 Alternatively, use the WordPress feature to install the plugin from the WP Dashboard.
 
-A WP Symposium Toolbar plugin should then be available for you to activate in WordPress dashboard.
+A WP Symposium Toolbar plugin should then be available through the 'Plugins' menu in WordPress, so that you activate the plugin.
 
 *Upgrade Notice*
 
@@ -41,20 +43,20 @@ Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashb
 
 *Adding the plugin to your site*
 
-You do not add this feature manually, a new options menu will appear in the WP Dashboard, under the WP Symposium settings, called "Toolbar", where you will find a few options for this plugin.
+A new options menu will appear in the WP Dashboard, under the WP Symposium settings, called "Toolbar", where you will find a few options for this plugin. Once the plugin is activated, you should visit the options page, and make sure the User Menu fit your needs.
 
-The first activation of the plugin will create default items in the WordPress Toolbar: for users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu. You can then configure these through the WPS Toolbar options page.
+The first activation of the plugin will create default items in the WordPress Toolbar: for users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
 
 It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
 == Frequently Asked Questions ==
 
-* Can I use Blog Post without WP Symposium?
+* Can I use WPS Toolbar without WP Symposium?
 
-No, you can't, this plugin requires WP Symposium as it'll reside within this plugin
+Technically you could, but it would lost most of its interrest, as it is targetted for WP Symposium sites and their users.
 
 == Changelog ==
 
-= 0.1.0. =
+= 0.0.8. =
 
-* First release
+* First release, as beta, for feedback and tests
