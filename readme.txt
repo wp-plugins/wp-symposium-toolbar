@@ -22,6 +22,8 @@ Populate the WP Toolbar with links to WP Symposium, providing single-click acces
 * To the mailbox and friends' list
 
 NB: this plugin requires WP Symposium to run, as it is targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
+
+**Attention, this plugin is currently in a beta phase, for feedback and tests.**
   
 == Installation ==
 
@@ -31,7 +33,7 @@ It is important you call the folder wp-symposium-toolbar and copy the contents o
 
 Alternatively, use the WordPress feature to install the plugin from the WP Dashboard.
 
-A WP Symposium Toolbar plugin should then be available for you to activate in WordPress dashboard.
+A WP Symposium Toolbar plugin should then be available through the 'Plugins' menu in WordPress, so that you activate the plugin.
 
 *Upgrade Notice*
 
