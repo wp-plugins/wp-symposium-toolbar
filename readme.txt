@@ -43,9 +43,9 @@ Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashb
 
 *Adding the plugin to your site*
 
-You do not add this feature manually, a new options menu will appear in the WP Dashboard, under the WP Symposium settings, called "Toolbar", where you will find a few options for this plugin.
+A new options menu will appear in the WP Dashboard, under the WP Symposium settings, called "Toolbar", where you will find a few options for this plugin. Once the plugin is activated, you should visit the options page, and make sure the User Menu fit your needs.
 
-The first activation of the plugin will create default items in the WordPress Toolbar: for users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu. You can then configure these through the WPS Toolbar options page.
+The first activation of the plugin will create default items in the WordPress Toolbar: for users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
 
 It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
