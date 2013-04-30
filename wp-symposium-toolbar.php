@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Symposium Toolbar
-Description: Toolbar plugin for WP Symposium - Customize your WP Toolbar with links to WP Symposium.
+Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can finally be part of your Social Network site
 Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
@@ -151,7 +151,7 @@ add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 // - Languages are not loaded
 // - Display a login link when not logged in
 // - Option to add a NavMenu built at Appearance > Menus
-// - Make the above two, per-role options (incl. non-connected) without impacting on server load
+// - Make the above, per-role options (incl. non-connected) without impacting on server load
 // - Add new forum category, new forum topic, new group, to the "Add New" menu  == cancelled as it may look messy to mix frontend and backend links
 // - Add a submenu item to the User Menu: Forum > My Favorites, My topics, My replies, My Forum Activity (topics and replies), All Forum Activity
 // - The above needs a landing page
@@ -162,9 +162,6 @@ function add_custom_admin_styles() {
 }
 add_action('admin_head', 'add_custom_admin_styles');
 */
-
-// Interresting readings
-// http://sumtips.com/2011/03/customize-wordpress-admin-bar.html
 
 /*
 Right side menu - Non-logged-in members
