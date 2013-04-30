@@ -4,7 +4,7 @@ Description: Toolbar plugin for WP Symposium - Customize your WP Toolbar with li
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
-Requires at least: 3.0
+Requires at least: 3.3
 Tested up to: 3.5.1
 Stable tag: 0.1.0
 Version: 0.0.9
