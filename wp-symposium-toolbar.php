@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Symposium Toolbar
-Description: Toolbar plugin for WP Symposium - Customize your WP Toolbar with links to WP Symposium.
+Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can finally be part of your Social Network site
 Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
