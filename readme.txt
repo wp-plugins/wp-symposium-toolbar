@@ -54,6 +54,12 @@ It will also add an Admin Menu with links to WP Symposium settings pages, visibl
 
 Remember to visit the WPS Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated on top of this page), that will re-generate the WPS Toolbar menus.
 
+== Upgrade Notice ==
+
+= 0.0.10 =
+
+Due a change on its option name, the WPS Admin menu will disappear after this upgrade - please, visit the plugin Options page, and save.
+
 == Changelog ==
 
 = 0.0.10. =
