@@ -1,0 +1,77 @@
+=== Plugin Name ===
+Plugin Name: WP Symposium Toolbar
+Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can really be part of your Social Network site
+Author: AlphaGolf_fr
+Contributors: AlphaGolf_fr
+Tags: wp-symposium, toolbar, admin, bar
+Requires at least: 3.3
+Tested up to: 3.5.1
+Stable tag: 0.0.10
+Version: 0.0.10
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+== Description ==
+
+Customize the WordPress Toolbar the way *you* want...
+
+Remove WordPress default items from the Toolbar if you find them unnecessary: WP logo, the site name, the site list (for multisites),...
+
+Populate the WP Toolbar with links to WP Symposium, providing single-click access to WP Symposium from anywhere in your WordPress site:
+
+* To the WPS settings pages for admins
+* To the WPS Profile page for users
+
+Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
+
+NB: this plugin is primarilly targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
+
+**Attention, this plugin is currently in a beta phase, aiming at tests and feedback.**
+  
+== Installation ==
+
+If you are installing for the first time, create a folder called wp-symposium-toolbar in your path-to/wp-content/plugins folder.
+Download the ZIP file from wordpress.org, extract its content and upload it into the wp-symposium-toolbar folder.
+It is important you call the folder wp-symposium-toolbar and copy the contents of the ZIP file into that folder. 
+
+Alternatively, use the WordPress feature to install the plugin from the WP Dashboard.
+
+A WP Symposium Toolbar plugin should then be available through the 'Plugins' menu in WordPress, so that you activate the plugin.
+
+*Upgrade Notice*
+
+If you are upgrading manually, make a copy of your current wp-symposium-toolbar plugin folder just in case anything goes wrong. Then follow the above steps: download the zip file, extract and upload the content into the plugin folder.  Make sure you de-activate and re-activate the plugin.
+
+Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashboard.  This process will automatically de-activate and re-activate the plugin.
+
+*Adding the plugin to your site*
+
+A new options menu will appear in the WP Dashboard, under the WP Symposium settings, called "Toolbar", where you will find a few options for this plugin. Once the plugin is activated, you should visit the options page, and make sure the User Menu fit your needs.
+
+The first activation of the plugin will create default items in the WordPress Toolbar: for users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
+
+It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
+
+Remember to visit the WPS Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated on top of this page), that will re-generate the WPS Toolbar menus.
+
+== Frequently Asked Questions ==
+
+* Can I use WPS Toolbar without WP Symposium?
+
+Technically you could, but it would lost most of its interrest, as it is targetted for WP Symposium sites and their users.
+
+== Changelog ==
+
+= 0.0.10. =
+
+* Correct link to "symposium_debug" over the admin menu title "WP Symposium"
+* Options to hide the Toolbar top links: wp-logo, site-name, my-sites (for multisites), get-shortlink, edit, new-content, comments, updates, search
+* Option to hide the Howdy message
+
+= 0.0.9. =
+
+* Hide some debug info at the WPS Install page for multisites
+
+= 0.0.8. =
+
+* First release, as beta, for feedback and tests
