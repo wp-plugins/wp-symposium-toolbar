@@ -138,7 +138,7 @@ function symposium_toolbar_update_admin_menu() {
 	$args = array();
 	
 	// Menu entry - Top level menu item
-	array_push( $args, array ( 'WP Symposium', 'manage_options', 'symposium_debug', 'my-symposium-admin', '', array('class' => 'my-toolbar-page') ) );	
+	array_push( $args, array ( 'WP Symposium', 'manage_options', site_url().'/wp-admin/admin.php?page=symposium_debug', 'my-symposium-admin', '', array('class' => 'my-toolbar-page') ) );	
 	
 	// if ( is_multisite() ) {
 		// // Query all blogs from multi-site install
@@ -205,7 +205,7 @@ function symposium_toolbar_link_to_wps_admin() {
 	
 	global $wp_admin_bar;
 	
-	if ( is_user_logged_in() && ( get_option('symposium_toolbar_display_admin_menu', '') == 'on' ) ) {
+	if ( is_user_logged_in() && ( get_option('symposium_toolbar_display_wps_admin_menu', '') == 'on' ) ) {
 		
 		$symposium_toolbar_admin_menu_args = get_option('symposium_toolbar_admin_menu', array() );
 		
@@ -302,6 +302,23 @@ function symposium_toolbar_edit_wp_profile_info() {
 	if ( ! $user_id )
 		return;
 	
+	if (get_option('symposium_toolbar_display_wp_howdy', '') != "on") {
+		$avatar = get_avatar( $user_id, 16 );
+		$howdy  = '';
+		$class  = empty( $avatar ) ? '' : 'with-avatar';
+
+		$wp_admin_bar->add_menu( array(
+			'id'        => 'my-account',
+			'parent'    => 'top-secondary',
+			'title'     => $howdy . $avatar,
+			'href'      => $profile_url,
+			'meta'      => array(
+				'class'     => $class,
+				'title'     => __('My Account'),
+			),
+		) );
+	}
+	
 	$profile_url = get_edit_profile_url( $user_id );
 	$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
 	$user_info_arr = explode( "><", $user_info);
@@ -348,10 +365,46 @@ function symposium_toolbar_edit_wp_profile_info() {
 		
 }
 
+/**
+ * Called on top of each site page
+ * Rework the WP Toolbar generic toplevel items, according to WPS Toolbar settings
+ */
+function symposium_toolbar_edit_wp_toolbar() {
+
+	global $wp_admin_bar;
+	
+	if (get_option('symposium_toolbar_display_wp_logo', 'on') != "on")
+		$wp_admin_bar->remove_node('wp-logo');
+	
+	if (get_option('symposium_toolbar_display_site_name', 'on') != "on")
+		$wp_admin_bar->remove_node('site-name');
+	
+	if (get_option('symposium_toolbar_display_my_sites', 'on') != "on")
+		$wp_admin_bar->remove_node('my-sites');
+	
+	if (get_option('symposium_toolbar_display_updates_icon', 'on') != "on")
+		$wp_admin_bar->remove_node('updates');
+	
+	if (get_option('symposium_toolbar_display_comments_bubble', 'on') != "on")
+		$wp_admin_bar->remove_node('comments');
+	
+	if (get_option('symposium_toolbar_display_get_shortlink', 'on') != "on")
+		$wp_admin_bar->remove_node('get-shortlink');
+	
+	if (get_option('symposium_toolbar_display_new_content', 'on') != "on")
+		$wp_admin_bar->remove_node('new-content');
+	
+	if (get_option('symposium_toolbar_display_wp_edit_page', 'on') != "on")
+		$wp_admin_bar->remove_node('edit');
+	
+	if (get_option('symposium_toolbar_display_search_field', 'on') != "on")
+		$wp_admin_bar->remove_node('search');
+}
+
 function symposium_toolbar_edit_profile_url($url, $user, $scheme) {
 
 	if ( get_option('symposium_toolbar_rewrite_wp_edit_link', '') == 'on' ) {
-		// These lines copied from get_edit_profile_url() in wp-includes/link-template.php
+		// This was copied from get_edit_profile_url() in wp-includes/link-template.php
 		if ( is_user_admin() )
 			$url = user_admin_url( 'profile.php', $scheme );
 		elseif ( is_network_admin() )
@@ -404,28 +457,36 @@ function symposium_toolbar_update_menus_before_render() {
 		update_option(WPS_OPTIONS_PREFIX.'__wps__rss_main_activated', isset($_POST['__wps__rss_main_activated']), false);
 		update_option(WPS_OPTIONS_PREFIX.'__wps__mailinglist_activated', isset($_POST['__wps__mailinglist_activated']), false);
 		update_option(WPS_OPTIONS_PREFIX.'__wps__wysiwyg_activated', isset($_POST['__wps__wysiwyg_activated']), false);
+		
+		// Since the admin has activated/deactivated sub-plugins, update the admin menu
+		symposium_toolbar_update_admin_menu();
 	}
 	
 	// See if the admin has saved settings, update them as well as the user menu
 	if ( isset($_POST["symposium_update"]) && $_POST["symposium_update"] == 'symposium_toolbar_menu' ) {
 	
+		update_option('symposium_toolbar_display_wp_logo', isset($_POST["display_wp_logo"]) ? $_POST["display_wp_logo"] : '');
+		update_option('symposium_toolbar_display_site_name', isset($_POST["display_site_name"]) ? $_POST["display_site_name"] : '');
+		update_option('symposium_toolbar_display_my_sites', isset($_POST["display_my_sites"]) ? $_POST["display_my_sites"] : '');
+		update_option('symposium_toolbar_display_updates_icon', isset($_POST["display_updates_icon"]) ? $_POST["display_updates_icon"] : '');
+		update_option('symposium_toolbar_display_comments_bubble', isset($_POST["display_comments_bubble"]) ? $_POST["display_comments_bubble"] : '');
+		update_option('symposium_toolbar_display_get_shortlink', isset($_POST["display_get_shortlink"]) ? $_POST["display_get_shortlink"] : '');
+		update_option('symposium_toolbar_display_new_content', isset($_POST["display_new_content"]) ? $_POST["display_new_content"] : '');
+		update_option('symposium_toolbar_display_edit_page', isset($_POST["display_edit_page"]) ? $_POST["display_edit_page"] : '');
+		update_option('symposium_toolbar_display_search_field', isset($_POST["display_search_field"]) ? $_POST["display_search_field"] : '');
+		update_option('symposium_toolbar_display_wps_admin_menu', isset($_POST["display_wps_admin_menu"]) ? $_POST["display_wps_admin_menu"] : '');
+		update_option('symposium_toolbar_display_notification_mail', isset($_POST["display_notification_mail"]) ? $_POST["display_notification_mail"] : '');
+		update_option('symposium_toolbar_display_notification_friendship', isset($_POST["display_notification_friendship"]) ? $_POST["display_notification_friendship"] : '');
+		
+		update_option('symposium_toolbar_display_wp_howdy', isset($_POST["display_wp_howdy"]) ? $_POST["display_wp_howdy"] : '');
 		update_option('symposium_toolbar_display_wp_avatar', isset($_POST["display_wp_avatar"]) ? $_POST["display_wp_avatar"] : '');
 		update_option('symposium_toolbar_display_wp_display_name', isset($_POST["display_wp_display_name"]) ? $_POST["display_wp_display_name"] : '');
 		update_option('symposium_toolbar_display_wp_edit_link', isset($_POST["display_wp_edit_link"]) ? $_POST["display_wp_edit_link"] : '');
 		update_option('symposium_toolbar_rewrite_wp_edit_link', isset($_POST["rewrite_edit_link"]) ? $_POST["rewrite_edit_link"] : '');
 		update_option('symposium_toolbar_display_logout_link', isset($_POST["display_logout_link"]) ? $_POST["display_logout_link"] : '');
 		update_option('symposium_toolbar_user_menu', isset($_POST["toolbar_user_menu"]) ? $_POST["toolbar_user_menu"] : '');
-		update_option('symposium_toolbar_display_notification_mail', isset($_POST["display_notification_mail"]) ? $_POST["display_notification_mail"] : '');
-		update_option('symposium_toolbar_display_notification_friendship', isset($_POST["display_notification_friendship"]) ? $_POST["display_notification_friendship"] : '');
-		update_option('symposium_toolbar_display_admin_menu', isset($_POST["display_admin_menu"]) ? $_POST["display_admin_menu"] : '');
 		
 		symposium_toolbar_update_profile_menu();
-	}
-	
-	// See if the admin has activated/deactivated sub-plugins, update the admin menu
-	if (isset($_POST['__wps__installation_update']) && $_POST['__wps__installation_update'] == 'Y') {
-	
-		symposium_toolbar_update_admin_menu();
 	}
 }
 

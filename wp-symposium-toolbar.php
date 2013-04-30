@@ -6,10 +6,10 @@ Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
-Requires at least: WordPress 3.0
+Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.1.0
-Version: 0.0.9
+Stable tag: 0.0.10
+Version: 0.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -33,7 +33,7 @@ function symposium_toolbar_activate() {
 	
 	symposium_toolbar_update_admin_menu();
 	
-	if (get_option('symposium_toolbar_user_menu') == "") {
+	if (get_option('symposium_toolbar_user_menu', '') == "") {
 		update_option('symposium_toolbar_display_wp_avatar', 'on');
 		update_option('symposium_toolbar_display_wp_display_name', 'on');
 		update_option('symposium_toolbar_display_wp_edit_link', '');  // by default, WPS Toolbar plugin should remove this link and replace it with the menu
@@ -41,7 +41,7 @@ function symposium_toolbar_activate() {
 		update_option('symposium_toolbar_display_logout_link', 'on');
 		update_option('symposium_toolbar_display_notification_mail', 'on');
 		update_option('symposium_toolbar_display_notification_friendship', 'on');
-		update_option('symposium_toolbar_display_admin_menu', 'on');
+		update_option('symposium_toolbar_display_symposium_admin_menu', 'on');
 		
 		$symposium_profile_views = "[Profile info | extended]\nProfile Details | personal\nCommunity Settings | settings\nUpload avatar | avatar\n";
 		$symposium_profile_views .= "[My Activity | wall]\nAll Activity | all\nFriends Activity | activity\n";
@@ -139,16 +139,33 @@ add_action('__wps__admin_menu_hook', 'symposium_add_toolbar_to_admin_menu');
 /* ====================================================== HOOKS/FILTERS INTO WORDPRESS ====================================================== */
 
 add_action( 'admin_bar_menu', 'symposium_toolbar_update_menus_before_render', 999 );
+add_action( 'admin_bar_menu', 'symposium_toolbar_edit_wp_toolbar', 999 );
 add_action( 'admin_bar_menu', 'symposium_toolbar_wps_notifications', 999 );
 add_action( 'admin_bar_menu', 'symposium_toolbar_edit_wp_profile_info', 999 );
 add_action( 'admin_bar_menu', 'symposium_toolbar_link_to_wps_profile', 999 );
 add_action( 'admin_bar_menu', 'symposium_toolbar_link_to_wps_admin', 999 );
 add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 
-		// TODO
-		// - in User Profile menu, check if features are activated
-		// - Languages are not loaded
-		// - WPS horizontal menu definition should probably mirror WPS Profile views for consistency with the present code
+// TODO
+// - When updating the User Menu, check if features are activated
+// - Languages are not loaded
+// - Display a login link when not logged in
+// - Option to add a NavMenu built at Appearance > Menus
+// - Make the above, per-role options (incl. non-connected) without impacting on server load
+// - Add new forum category, new forum topic, new group, to the "Add New" menu  == cancelled as it may look messy to mix frontend and backend links
+// - Add a submenu item to the User Menu: Forum > My Favorites, My topics, My replies, My Forum Activity (topics and replies), All Forum Activity
+// - The above needs a landing page
+/*
+// Description: Custom CSS styles for admin interface.
+function add_custom_admin_styles() {
+	echo '<style>#wp-logo { background-image: url('path/to/my/image.png')!important; }</style>';
+}
+add_action('admin_head', 'add_custom_admin_styles');
+*/
 
+/*
+Right side menu - Non-logged-in members
+> Display a login link for members
+*/
 
 ?>

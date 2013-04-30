@@ -1,27 +1,30 @@
 === Plugin Name ===
 Plugin Name: WP Symposium Toolbar
-Description: Toolbar plugin for WP Symposium - Customize your WP Toolbar with links to WP Symposium.
+Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can really be part of your Social Network site
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
-Requires at least: 3.0
+Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.1.0
-Version: 0.0.9
+Stable tag: 0.0.10
+Version: 0.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Toolbar plugin for WP Symposium 
-
 == Description ==
+
+Customize the WordPress Toolbar the way *you* want...
+
+Remove WordPress default items from the Toolbar: WP logo, the site name, the site list (for multisites),...
 
 Populate the WP Toolbar with links to WP Symposium, providing single-click access to WP Symposium from anywhere in your WordPress site:
 
 * To the WPS settings pages for admins
 * To the WPS Profile page for users
-* To the mailbox and friends' list
 
-NB: this plugin requires WP Symposium to run, as it is targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
+Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
+
+NB: this plugin is primarilly targetted for WP Symposium sites and their users. There are several alternatives for generic sites, your best option is to check them out if you're not running a Social Network.
 
 **Attention, this plugin is currently in a beta phase, aiming at tests and feedback.**
   
@@ -51,13 +54,13 @@ It will also add an Admin Menu with links to WP Symposium settings pages, visibl
 
 Remember to visit the WPS Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated on top of this page), that will re-generate the WPS Toolbar menus.
 
-== Frequently Asked Questions ==
-
-* Can I use WPS Toolbar without WP Symposium?
-
-Technically you could, but it would lost most of its interrest, as it is targetted for WP Symposium sites and their users.
-
 == Changelog ==
+
+= 0.0.10. =
+
+* Correct link to "symposium_debug" over the admin menu title "WP Symposium"
+* Options to hide the Toolbar top links: wp-logo, site-name, my-sites (for multisites), get-shortlink, edit, new-content, comments, updates, search
+* Option to hide the Howdy message
 
 = 0.0.9. =
 
