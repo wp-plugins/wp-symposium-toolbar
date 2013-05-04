@@ -81,8 +81,7 @@ function symposium_toolbar_update_profile_menu() {
 			}
 			
 			// Capability - if there's a capability, add it for use to display
-			if ( $symposium_toolbar_user_menu_item_array[2] )
-				$args['capability'] = trim( $symposium_toolbar_user_menu_item_array[2] );
+			// $args['capability'] = ( $symposium_toolbar_user_menu_item_array[2] ) ? trim( $symposium_toolbar_user_menu_item_array[2] ) : '';
 			
 			// Hook to modify each menu item individually
 			$args = apply_filters( 'symposium_toolbar_profile_menu_item_update', $args, $symposium_toolbar_user_menu_item_array );
@@ -109,7 +108,8 @@ function symposium_toolbar_link_to_wps_profile() {
 	$symposium_toolbar_user_menu_args = get_option( 'symposium_toolbar_user_menu_args', array() );
 	
 	foreach ( $symposium_toolbar_user_menu_args as $args ) {
-		if ( $args['title'] && ( ( $args['capability'] && current_user_can($args['capability']) ) || !$args['capability']) ) {
+		// if ( $args['title'] && ( ( $args['capability'] && current_user_can($args['capability']) ) || !$args['capability']) ) {
+		if ( $args['title'] ) {
 			$symposium_toolbar_user_menu_item = array(
 				'title' => $args['title'],
 				'id' => $args['id'],
@@ -298,6 +298,7 @@ function symposium_toolbar_edit_wp_profile_info() {
 	
 	$current_user = wp_get_current_user();
 	$user_id      = $current_user->data->ID;
+	$profile_url = get_edit_profile_url( $user_id );
 	
 	if ( ! $user_id )
 		return;
@@ -319,7 +320,6 @@ function symposium_toolbar_edit_wp_profile_info() {
 		) );
 	}
 	
-	$profile_url = get_edit_profile_url( $user_id );
 	$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
 	$user_info_arr = explode( "><", $user_info);
 	$user_info_collected = "";

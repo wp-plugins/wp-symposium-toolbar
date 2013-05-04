@@ -179,10 +179,11 @@
 						echo get_option('symposium_toolbar_user_menu', '');
 						echo '</textarea><br /><br />';
 						echo '<span class="description">' . __('Note: first level menu items between brackets, second level menu items without brakets.', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">' . __('One row per item, defined with "Title | view | capability" where only the title is mandatory.', 'wp-symposium-toolbar') . '</span><br />';
+						echo '<span class="description">' . __('One row per item, defined with "Title | view" where only the title is mandatory.', 'wp-symposium-toolbar') . '</span><br />';
 						echo '<span class="description">' . __('If the view is omitted, the default WPS Profile view will be used.', 'wp-symposium-toolbar') . '</span><br />';
 						echo '<span class="description">' . __('Items can also be defined with a URL starting with "http://" rather than relatively to a WPS page.', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">' . __('Optionally, a capability can be used to restrict the display of a menu item to users with that capability.', 'wp-symposium-toolbar') . '</span><br />'; ?>
+						// echo '<span class="description">' . __('Optionally, a capability can be used to restrict the display of a menu item to users with that capability.', 'wp-symposium-toolbar') . '</span><br />';
+						?>
 					</td><td>
 <?php					
 						echo '<span class="description">' . __('Available WPS Profile views:', 'wp-symposium-toolbar') . '</span><br />';

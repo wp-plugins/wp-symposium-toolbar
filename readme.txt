@@ -1,13 +1,13 @@
 === Plugin Name ===
 Plugin Name: WP Symposium Toolbar
-Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can finally be part of your Social Network site
+Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can really be part of your Social Network site
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.10
-Version: 0.0.10
+Stable tag: 0.0.11
+Version: 0.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ Remember to visit the WPS Install page "after you add a WP Symposium shortcode t
 Due a change on its option name, the WPS Admin menu will disappear after this upgrade - please, visit the plugin Options page, and save.
 
 == Changelog ==
+
+= 0.0.11. =
+
+* Bug fix, profile_url undefined
+* Remove capability from the User Menu (temporarilly, things will likely change here)
 
 = 0.0.10. =
 
