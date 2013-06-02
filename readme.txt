@@ -68,6 +68,10 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 
 == Changelog ==
 
+= 0.0.14. =
+
+* Fix help tabs content that was affected by previous bugfix
+
 = 0.0.13. =
 
 * Getting rid of PHP notices - sorry
