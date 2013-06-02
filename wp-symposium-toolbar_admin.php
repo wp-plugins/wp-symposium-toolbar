@@ -21,7 +21,7 @@ function symposium_toolbar_admin_page() {
     	wp_die( __('You do not have sufficient permissions to access this page.') );
   	}
 	
-	global $wpdb, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
+	global $wpdb, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations, $wps_is_active;
 	
 	// Get data to show
 	$all_navmenus =  wp_get_nav_menus();
@@ -38,7 +38,7 @@ function symposium_toolbar_admin_page() {
 	echo '<div class="wrap">';
   	
 	echo '<div id="icon-themes" class="icon32"><br /></div>';
-	if ( WPS_TOOLBAR_USES_WPS )
+	if ( $wps_is_active )
 		echo '<h2>'.__('WP Symposium Toolbar Options', 'wp-symposium-toolbar').'</h2>';
 	else 
 		echo '<h2>'.__('WPS Toolbar Options', 'wp-symposium-toolbar').'</h2>';
@@ -171,7 +171,7 @@ function symposium_toolbar_admin_page() {
 			echo '</table> 	';
 			echo '</div></div>';
 			
-			if ( WPS_TOOLBAR_USES_WPS ) {
+			if ( $wps_is_active ) {
 				// Second set of options - WP Symposium
 				echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
 				echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
@@ -275,7 +275,7 @@ function symposium_toolbar_admin_page() {
 				echo '</td>';
 			echo '</tr>';
 			
-			if ( WPS_TOOLBAR_USES_WPS ) {
+			if ( $wps_is_active ) {
 				echo '<tr valign="top">';
 					echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
 					echo '<td>';
@@ -347,7 +347,7 @@ function symposium_toolbar_admin_page() {
 						echo '</td>';
 						echo '<td style="border-bottom-color: '.$color.';">';
 							echo '<input type="text" style="width:250px;" name="display_custom_menu_icon['.$count.']" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']"';
-							if ( is_string($custom_menu[3]) && !empty($custom_menu[3]) ) echo ' value="'.$custom_menu[3].'"';// else echo ' value="'.site_url().'/url/to/my/icon.png"';
+							if ( isset($custom_menu[3]) ) if ( is_string($custom_menu[3]) && !empty($custom_menu[3]) ) echo ' value="'.$custom_menu[3].'"';// site_url().'/url/to/my/icon.png"';
 							echo '/>';
 						echo '</td>';
 						echo '</tr><tr style="background-color: '.$color.';">';

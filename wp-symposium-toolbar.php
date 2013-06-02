@@ -8,8 +8,8 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
 Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.12
-Version: 0.0.12
+Stable tag: 0.0.13
+Version: 0.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -34,14 +34,15 @@ include_once('wp-symposium-toolbar_functions.php');
 include_once('wp-symposium-toolbar_help.php');
 
 // Is WP Symposium running?
+global $wps_is_active;
 if ( ! function_exists( 'is_plugin_active_for_network' ) || ! function_exists( 'is_plugin_active' ) ) include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( is_multisite() )
-	(bool)$wps_active = is_plugin_active_for_network('wp-symposium/wp-symposium.php');
+	(bool)$wps_is_active = is_plugin_active_for_network('wp-symposium/wp-symposium.php');
 else
-	(bool)$wps_active = is_plugin_active('wp-symposium/wp-symposium.php');
-define('WPS_TOOLBAR_USES_WPS', $wps_active);
+	(bool)$wps_is_active = is_plugin_active('wp-symposium/wp-symposium.php');
+// define('WPS_TOOLBAR_USES_WPS', $wps_is_active);
 
-if ( WPS_TOOLBAR_USES_WPS && !function_exists('__wps__get_url') )
+if ( $wps_is_active && !function_exists('__wps__get_url') )
 	include_once(WP_PLUGIN_DIR .'/wp-symposium/functions.php');
 
 
@@ -144,7 +145,7 @@ register_uninstall_hook(__FILE__, 'symposium_toolbar_uninstall');
 
 
 /* ====================================================== HOOKS/FILTERS INTO WP SYMPOSIUM ====================================================== */
-if ( WPS_TOOLBAR_USES_WPS ) {
+if ( $wps_is_active ) {
 	
 	// Add row to WPS installation page showing status of the plugin through hook provided
 	function add_toolbar_installation_row() {
@@ -196,7 +197,7 @@ if (is_admin()) { add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_u
 // Toolbar rendition, chronological order
 add_filter( 'show_admin_bar', 'symposium_toolbar_show_admin_bar', 10, 1 );
 add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_edit_wp_toolbar', 999 );
-if ( WPS_TOOLBAR_USES_WPS ) {
+if ( $wps_is_active ) {
 	add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_link_to_symposium_admin', 999 );
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );

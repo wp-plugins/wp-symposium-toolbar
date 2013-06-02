@@ -17,7 +17,7 @@
 
 function symposium_toolbar_init_globals() {
 
-	global $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_menus, $wpst_locations;
+	global $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_menus, $wpst_locations, $wps_is_active;
 	
 	// Roles
 	$wpst_roles_all = array();
@@ -32,26 +32,26 @@ function symposium_toolbar_init_globals() {
 	
 	foreach ($wp_roles->roles as $key => $role) {
 		$wpst_roles_all[$key] = $role['name'];
-		if ( $role['capabilities'][$create_posts] ) {
+		if ( isset( $role['capabilities'][$create_posts] ) ) {
 			$wpst_roles_author[$key] = $role['name'];
 			$wpst_roles_new_content[$key] = $role['name'];
 		}
-		if ( $role['capabilities']['upload_files'] ) $wpst_roles_new_content[$key] = $role['name'];
-		if ( $role['capabilities']['manage_links'] ) $wpst_roles_new_content[$key] = $role['name'];
-		if ( $role['capabilities']['create_users'] ) $wpst_roles_new_content[$key] = $role['name'];
-		if ( $role['capabilities']['promote_users'] ) $wpst_roles_new_content[$key] = $role['name'];
-		if ( $role['capabilities']['edit_posts'] ) $wpst_roles_comment[$key] = $role['name'];
-		if ( $role['capabilities']['update_plugins'] ) $wpst_roles_updates[$key] = $role['name'];
-		if ( $role['capabilities']['update_themes'] ) $wpst_roles_updates[$key] = $role['name'];
-		if ( $role['capabilities']['update_core'] ) $wpst_roles_updates[$key] = $role['name'];
-		if ( $role['capabilities']['manage_options'] ) $wpst_roles_administrator[$key] = $role['name'];
+		if ( isset( $role['capabilities']['upload_files'] ) ) $wpst_roles_new_content[$key] = $role['name'];
+		if ( isset( $role['capabilities']['manage_links'] ) ) $wpst_roles_new_content[$key] = $role['name'];
+		if ( isset( $role['capabilities']['create_users'] ) ) $wpst_roles_new_content[$key] = $role['name'];
+		if ( isset( $role['capabilities']['promote_users'] ) ) $wpst_roles_new_content[$key] = $role['name'];
+		if ( isset( $role['capabilities']['edit_posts'] ) ) $wpst_roles_comment[$key] = $role['name'];
+		if ( isset( $role['capabilities']['update_plugins'] ) ) $wpst_roles_updates[$key] = $role['name'];
+		if ( isset( $role['capabilities']['update_themes'] ) ) $wpst_roles_updates[$key] = $role['name'];
+		if ( isset( $role['capabilities']['update_core'] ) ) $wpst_roles_updates[$key] = $role['name'];
+		if ( isset( $role['capabilities']['manage_options'] ) ) $wpst_roles_administrator[$key] = $role['name'];
 	}
 	$wpst_roles_all_incl_visitor = $wpst_roles_all;
 	$wpst_roles_all_incl_visitor['visitor'] = __('Visitor', 'wp-symposium-toolbar');
 	
 	// Menus
 	$wpst_menus = array();
-	if ( WPS_TOOLBAR_USES_WPS ) {
+	if ( $wps_is_active ) {
 		$profile_url = __wps__get_url('profile');
 		$profile_query_string = __wps__string_query($profile_url);
 		$mail_url = __wps__get_url('mail');
@@ -112,7 +112,7 @@ function symposium_toolbar_init_globals() {
 
 function symposium_toolbar_activate() {
 	
-	global $wpdb, $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
+	global $wpdb, $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wps_is_active;
 	
 	// Plugin globals init
 	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
@@ -142,14 +142,13 @@ function symposium_toolbar_activate() {
 	if (get_option('wpst_tech_create_custom_menus', '') == "") {
 		symposium_toolbar_create_custom_menus();
 		
-		if ( WPS_TOOLBAR_USES_WPS ) {
+		if ( $wps_is_active ) {
 			if ( !get_option('wpst_wps_admin_menu') ) update_option('wpst_wps_admin_menu', 'on');
 			if ( !is_array( get_option('wpst_wps_notification_mail', '') ) ) update_option('wpst_wps_notification_mail', array_keys($wpst_roles_all));
 			if ( !is_array( get_option('wpst_wps_notification_friendship', '') ) ) update_option('wpst_wps_notification_friendship', array_keys($wpst_roles_all));
 			if ( !get_option('wpst_myaccount_rewrite_edit_link') ) update_option('wpst_myaccount_rewrite_edit_link', 'on');
 			
 			if ( !is_array( get_option('wpst_custom_menus', '') ) ) update_option('wpst_custom_menus', array(
-				// array("wps-main", "wp-logo", array_keys($wpst_roles_all_incl_visitor), plugin_dir_url( __FILE__ ).'../wp-symposium/images/logo_admin_icon.png'),
 				array("wps-profile", "my-account", array_keys($wpst_roles_all)),
 				array("wps-login", "my-account", array("visitor"))
 			));
@@ -157,8 +156,6 @@ function symposium_toolbar_activate() {
 			// For WPS users, replace this link with links to the WPS settings pages
 			if ( !get_option('wpst_myaccount_edit_link') ) update_option('wpst_myaccount_edit_link', '');
 			
-			// Replace the WP Logo with WPS main menu
-			// update_option('wpst_toolbar_wp_logo', array());
 		} else {
 			if ( !is_array( get_option('wpst_custom_menus', '') ) ) update_option('wpst_custom_menus', array(
 				array("wps-login", "my-account", array("visitor"))
@@ -592,7 +589,6 @@ function symposium_toolbar_edit_wp_toolbar() {
 	}
 }
 
-if ( WPS_TOOLBAR_USES_WPS ) {
 /**
  * Called through the hook 'edit_profile_url' located at the end of get_edit_profile_url()
  * Affects the Edit Profile link located in the WP Toolbar (amongst other locations)
@@ -773,7 +769,6 @@ function symposium_toolbar_symposium_notifications() {
 		// Alerts
 		
 	}
-}
 }
 
 function symposium_toolbar_add_search_menu() {

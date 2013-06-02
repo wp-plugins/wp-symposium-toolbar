@@ -19,7 +19,8 @@ Customize the WordPress Toolbar the way *you* want...
 
 This plugin is primarilly targetted for WP Symposium sites. However, if you're not running a Social Network site or simply want to customize the Toolbar, you may use this plugin and benefit from its generic, per-role settings and custom menus.
 
-* Decide which of the WordPress Toolbar default items should be displayed on the Toolbar
+= Features =
+* Decide which of the WordPress Toolbar default items should be displayed
 * Per-role management for most of the settings, items and menus, adding visitors to the roles of the site
 * Redesign the WP User Menu ("My Account"), by selecting each of its default items individually
 * Create your custom menus using the WP NavMenus page, and display them in the WP Toolbar, including custom icons in the toplevel items of your menus
@@ -32,23 +33,26 @@ My thanks go to Louis, my friend at Central Geek (centralgeek.com), for his help
 
 == Installation ==
 
+= Installing the plugin =
+
 Download the ZIP file from wordpress.org, extract its content and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.
 
 Alternatively, use the WordPress feature to install the plugin from the WP Dashboard.
 
 A WP Symposium Toolbar plugin should then be available in the 'Plugins' menu in WordPress: activate the plugin.
 
-*Upgrading*
+= Upgrading the plugin =
 
 If you are upgrading manually, make a copy of your current wp-symposium-toolbar plugin folder just in case anything goes wrong. Then follow the above steps: download the zip file, extract its content and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.  Make sure you de-activate and re-activate the plugin.
 
 Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashboard.  This process will automatically de-activate and re-activate the plugin.
 
-*Adding the plugin to your site*
+= Adding the plugin to your site =
 
-A new menu will appear in the WP Dashboard, called "Toolbar", where you will find options for this plugin. Once the plugin is activated, you should visit this page, and make sure the options set by default fit your needs. Please refer to the help tabs of the options page for more information about these.
+A new menu will appear in the WP Dashboard, called "Toolbar", where you will find options for the plugin. The plugin default settings are relatively conservative, hence upon activation you shouldn't notice much difference in the Toolbar: once the plugin is activated, you should visit the options page, and modify these options so they fit your needs. Please refer to the help tabs of the options page for more information.
 
 If you're running WP Symposium, the first activation of the plugin will create default items in the WordPress Toolbar:
+
 * For users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
 * It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
@@ -58,11 +62,15 @@ Whether you're running WP Symposium or not, the first activation of the plugin w
 
 You may, of course, modify these settings, create your own custom menus, edit the default ones, and eventually remove them from the WP Toolbar.
 
-*Removing the plugin from your site*
+= Removing the plugin from your site =
 
 I would be really sorry to hear that you are not happy with this plugin, but whatever the reason is, you should know that the uninstall process will not remove NavMenus that were created for the Toolbar, since they could be used somewhere else. After uninstalling the plugin, please visit the NavMenus page at Appearance > Menus, and remove manually the menus you are no longer using.
 
 == Changelog ==
+
+= 0.0.13. =
+
+* Getting rid of PHP notices - sorry
 
 = 0.0.12. =
 
