@@ -1,0 +1,104 @@
+/*  Copyright 2012  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-icon-mail {
+	background-image: url('../images/mail-open.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
+}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-icon-new-mail {
+	background-image: url('../images/mail-closed.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
+}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-icon-friendship {
+	background-image: url('../images/friends.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
+}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-icon-new-friendship {
+	background-image: url('../images/new-friend.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
+}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-item-new-mail,
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-item-new-friendship {
+	font-weight:bold;
+	color: #70b859;
+}
+
+#wpadminbar .quicklinks .menupop li.ab-sub-secondary {
+	display: block;
+	position: relative;
+	right: auto;
+	margin: 0;
+	background: #eee;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+#wpadminbar .quicklinks .menupop li .ab-sub-secondary :hover,
+#wpadminbar .quicklinks .menupop li .ab-sub-secondary :focus {
+	background-color: #dfdfdf;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
+	min-height: 64px;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-avatar {
+	left: 16px;
+}
+
+#wpadminbar .wpst-icon {
+	position: relative;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 6px;"
+}
+
+#wpadminbar .wpst-display-none {
+	display:none;
+}
+
+#wpadminbar #wp-admin-bar-my-account .avatar-16 {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #999;
+	padding: 0;
+	background: #eee;
+	line-height: 24px;
+	vertical-align: middle;
+	margin: -3px 0 0 6px;
+	float: none;
+	display: inline;
+}
