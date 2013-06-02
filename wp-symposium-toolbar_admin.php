@@ -15,11 +15,19 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+function symposium_toolbar_admin_page() {
+
   	if (!current_user_can('manage_options'))  {
     	wp_die( __('You do not have sufficient permissions to access this page.') );
   	}
 	
-	global $wpdb;
+	global $wpdb, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
+	
+	// Get data to show
+	$all_navmenus =  wp_get_nav_menus();
+	$all_custom_menus = get_option('wpst_custom_menus', array()) ;
+	$sql = "SELECT option_name,option_value FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_%' AND option_name NOT LIKE 'wpst_tech_%' ORDER BY option_name";
+	$all_wpst_options = $wpdb->get_results( $sql );
 	
 	if ( isset($_POST["symposium_update"]) && $_POST["symposium_update"] == 'symposium_toolbar_menu' ) {
 	
@@ -27,200 +35,473 @@
 		echo "<div class='updated slideaway'><p>".__('Saved', WPS_TEXT_DOMAIN).".</p></div>";
 	}
 	
-	// Get data to show
-	(array)$submenu = get_option('symposium_toolbar_submenu');
-	
 	echo '<div class="wrap">';
   	
-	  	echo '<div id="icon-themes" class="icon32"><br /></div>';
-	  	echo '<h2>'.__('Toolbar', 'wp-symposium-toolbar').'</h2>';
-		
-		?>
-		<div class="metabox-holder"><div id="toc" class="postbox">
+	echo '<div id="icon-themes" class="icon32"><br /></div>';
+	if ( WPS_TOOLBAR_USES_WPS )
+		echo '<h2>'.__('WP Symposium Toolbar Options', 'wp-symposium-toolbar').'</h2>';
+	else 
+		echo '<h2>'.__('WPS Toolbar Options', 'wp-symposium-toolbar').'</h2>';
+	
+	echo '<form method="post" action="">';
+		echo '<div class="metabox-holder">';
+			echo '<input type="hidden" name="symposium_update" value="symposium_toolbar_menu">';
 			
-			<form method="post" action=""> 
-				<input type="hidden" name="symposium_update" value="symposium_toolbar_menu">
+			// First set of options - WP Toolbar
+			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'wp_toolbar_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('WP Toolbar', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<div class="inside" id="wp_toolbar_inside">';
+			
+			echo '<table class="form-table">';
+			
+			echo '<tr valign="top">';
+				echo '<td colspan="2">';
+					echo '<span>' . __('Select the roles for which the WP Toolbar itself and its default toplevel items (as well as their menu, if any) should be displayed, both for logged-in members with the appropriate rights, and visitors whenever they could access this item.', 'wp-symposium-toolbar') . '</span>';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('WP Toolbar', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span> ' . __('The WordPress Toolbar itself, in the frontend of the site solely, and depending on a user setting ; the WP Toolbar will always be visible in the backend.', 'wp-symposium-toolbar') . '</span>';
+					echo '<br /><span class="description"> ' . __('Note: This is the main container for all the items below, it must obviously be activated for those items to show.', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_wp_toolbar_roles', 'display_wp_toolbar', get_option('wpst_toolbar_wp_toolbar', array_keys($wpst_roles_all)), $wpst_roles_all_incl_visitor );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('WP Logo', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The WordPress logo and its menu, links to WordPress help and support', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_wp_logo_roles', 'display_wp_logo', get_option('wpst_toolbar_wp_logo', array_keys($wpst_roles_all_incl_visitor)), $wpst_roles_all_incl_visitor );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Site Name', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The site name and its menu, gives access to the site from the backend, and various dashboard pages from the frontend', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_site_name_roles', 'display_site_name', get_option('wpst_toolbar_site_name', array_keys($wpst_roles_all)), $wpst_roles_all );
+				echo '</td>';
+			echo '</tr>';
+			
+			if ( is_multisite() ) {
+			// 	if ( count( $wp_admin_bar->user->blogs ) > 0 && is_super_admin() )
+			// potential issue here when a custom menu is attached to My Sites, it'll be shown only to admins...
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>'.__('My Sites', 'wp-symposium-toolbar').'</span></td>';
+					echo '<td>';
+						echo '<span>' . __('The list of all sites of the network', 'wp-symposium-toolbar') . '</span>';
+						echo '<br /><span class="description"> ' . __('Note: This item will show only when the user is member of at least one site of the network, or is a super admin', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_my_sites_roles', 'display_my_sites', get_option('wpst_toolbar_my_sites', $wpst_roles_administrator), $wpst_roles_administrator );
+					echo '</td>';
+				echo '</tr>';
+			}
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Updates Icon', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Updates icon, links to the Updates page of the dashboard', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_updates_icon_roles', 'display_updates_icon', get_option('wpst_toolbar_updates_icon', array_keys($wpst_roles_updates)), $wpst_roles_updates );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Comments Bubble', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Comments bubble, links to the Comments moderation page', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_comments_bubble_roles', 'display_comments_bubble', get_option('wpst_toolbar_comments_bubble', array_keys($wpst_roles_comment)), $wpst_roles_comment );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Add New', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Add New menu, allows adding new content to the site', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_new_content_roles', 'display_new_content', get_option('wpst_toolbar_new_content', array_keys($wpst_roles_new_content)), $wpst_roles_new_content );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Shortlink', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Shortlink to the page / post being edited', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_get_shortlink_roles', 'display_get_shortlink', get_option('wpst_toolbar_get_shortlink', array_keys($wpst_roles_author)), $wpst_roles_author );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Edit Link', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Edit link to the Edit page for the page / post being viewed', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_edit_page_roles', 'display_edit_page', get_option('wpst_toolbar_edit_page', array_keys($wpst_roles_author)), $wpst_roles_author );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('WP User Menu', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The WP User Menu, as well as the "Howdy" message and the small avatar, located in the upper right corner of the screen - customize them below, or hide them completely from here', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_user_menu_roles', 'display_user_menu', get_option('wpst_toolbar_user_menu', array_keys($wpst_roles_all_incl_visitor)), $wpst_roles_all_incl_visitor );
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Search Icon', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('The Search icon and field, allows searching the site from the frontend', 'wp-symposium-toolbar') . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_search_field_roles', 'display_search_field', get_option('wpst_toolbar_search_field', array_keys($wpst_roles_all_incl_visitor)), $wpst_roles_all_incl_visitor );
+					
+					echo '<br /><span> ' . __('But move it to a location where it won\'t push other items when unfolding...', 'wp-symposium-toolbar') . '</span>';
+					
+					echo '<select name="move_search_field">';
+					echo '<option value="empty" SELECTED>{{'.__('Select a location', 'wp-symposium-toolbar').'}}</option>';
+					echo '<option value="top-secondary"';
+					if (get_option('wpst_toolbar_move_search_field', 'empty') == "top-secondary") echo ' SELECTED';
+					echo '>'.__('Left of the User Menu', 'wp-symposium-toolbar').'</option>';
+					echo '<option value=""';
+					if (get_option('wpst_toolbar_move_search_field', 'empty') == "") echo ' SELECTED';
+					echo '>'.__('Right of the New Content menu', 'wp-symposium-toolbar').'</option>';
+					echo '</select>';
+					
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '</table> 	';
+			echo '</div></div>';
+			
+			if ( WPS_TOOLBAR_USES_WPS ) {
+				// Second set of options - WP Symposium
+				echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+				echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+				echo '<h3 class="hndle" onclick="var div = document.getElementById(\'wp_symposium_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('WP Symposium', 'wp-symposium-toolbar').'</span></h3>';
+				echo '<div class="inside" id="wp_symposium_inside">';
 				
-				<table class="form-table"> 
+				echo '<table class="form-table">';
 				
-				<tr valign="top">
-					<td colspan="3">
-<?php					echo '<span>' . __('Through the following options, you can configure what will be displayed in the WP Toolbar, for logged-in members.', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td>
-				</tr>
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>'.__('Admin Menu', 'wp-symposium-toolbar').'</span></td>';
+					echo '<td colspan="2">';
+						echo '<input type="checkbox" name="display_wps_admin_menu" id="display_wps_admin_menu"';
+						if (get_option('wpst_wps_admin_menu', 'on') == "on") { echo " CHECKED"; }
+						echo '/><span> ' . __('Display the WP Symposium Admin Menu', 'wp-symposium-toolbar') . '</span><br />';
+					echo '</td>';
+				echo '</tr>';
 				
-				<tr valign="top">
-					<td scope="row"><label><?php echo __('WP Toolbar Default Items', 'wp-symposium-toolbar') ?></td>
-					<td colspan="2">
-<?php					echo '<span class="description">' . __('Which of the WP default toplevel items should be displayed?', 'wp-symposium-toolbar') . '</span><br />';
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>'.__('Notifications', 'wp-symposium-toolbar').'</span></td>';
+					echo '<td colspan="2">';
+						echo '<span>' . __('Display the WP Symposium Mail notification icon', 'wp-symposium-toolbar') . '</span>';
+						echo symposium_toolbar_add_roles_to_item( 'display_notification_mail_roles', 'display_notification_mail', get_option('wpst_wps_notification_mail', array_keys($wpst_roles_all)), $wpst_roles_all );
 						
-						echo '<input type="checkbox" name="display_wp_logo" id="display_wp_logo"';
-						if (get_option('symposium_toolbar_display_wp_logo', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The WordPress logo', 'wp-symposium-toolbar') . '</span><br />';
+						echo '<br /><span>' . __('Display the WP Symposium Friendship notification icon', 'wp-symposium-toolbar') . '</span>';
+						echo symposium_toolbar_add_roles_to_item( 'display_notification_friendship_roles', 'display_notification_friendship', get_option('wpst_wps_notification_friendship', array_keys($wpst_roles_all)), $wpst_roles_all );
+					echo '</td>';
+				echo '</tr>';
+				
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>'.__('NavMenus', 'wp-symposium-toolbar').'</span></td>';
+					echo '<td colspan="2">';
+						echo '<input type="checkbox" name="generate_symposium_toolbar_menus" id="generate_symposium_toolbar_menus" />';
+						echo '<span> ' . __('To re-generate the NavMenus created by WPS Toolbar for WP Symposium, delete the menu in question from the NavMenus page at ', 'wp-symposium-toolbar');
+						echo '<a href="'. admin_url('nav-menus.php') . '">' . __('Appearance') . ' > ' . __('Menus') . '</a>';
+						echo __(', check this box, and save...', 'wp-symposium-toolbar') . '</span><br /><br />';
+					echo '</td>';
+				echo '</tr>';
+			
+			echo '</table> 	';
+			echo '</div></div>';
+			}
+			
+			// Third set of options - WP User Menu
+			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'wp_user_menu_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('WP User Menu', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<div class="inside" id="wp_user_menu_inside">';
+			
+			echo '<table class="form-table">';
+			
+			echo '<tr valign="top">';
+				echo '<td colspan="3">';
+					echo '<span>' . __('The WP User Menu, also called "My Account", is located at the right end of the WP Toolbar. Define what should be displayed in the Toolbar (toplevel menu item) and in the menu, underneath.', 'wp-symposium-toolbar') . '</span>';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('"Howdy" Message', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Customize the "Howdy" message displayed in the WP Toolbar for members, leave empty for no message', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:250px;" name="display_wp_howdy" id="display_wp_howdy"  value="'.get_option('wpst_myaccount_howdy', __('Howdy', 'wp-symposium-toolbar').", %display_name%").'" />';
+					echo '<br /><span class="description"> ' . __('Available aliases:', 'wp-symposium-toolbar') . ' %login%, %name%, %nice_name%, %first_name%, %last_name%, %display_name%, %role%</span><br />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('"Howdy" message for visitors', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:250px;" name="display_wp_howdy_visitor" id="display_wp_howdy_visitor"  value="'.get_option('wpst_myaccount_howdy_visitor', __('Howdy', 'wp-symposium-toolbar').", ".__('Visitor', 'wp-symposium-toolbar')).'" />';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Default Items', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Which of the WP User Menu default items should be displayed?', 'wp-symposium-toolbar') . '</span><br />';
+					
+					echo '<input type="checkbox" name="display_wp_toolbar_avatar" id="display_wp_toolbar_avatar"';
+					if (get_option('wpst_myaccount_avatar_small', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The small size avatar of the user, in the Toolbar', 'wp-symposium-toolbar') . '</span><br />';
+					
+					echo '<input type="checkbox" name="display_wp_avatar" id="display_wp_avatar"';
+					if (get_option('wpst_myaccount_avatar', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The big size avatar of the user, in the menu', 'wp-symposium-toolbar') . '</span><br />';
+					
+					echo '<input type="checkbox" name="display_wp_display_name" id="display_wp_display_name"';
+					if (get_option('wpst_myaccount_display_name', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The user display name', 'wp-symposium-toolbar') . '</span><br />';
+					
+					echo '<input type="checkbox" name="display_wp_edit_link" id="display_wp_edit_link"';
+					if (get_option('wpst_myaccount_edit_link', '') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The Edit Profile link', 'wp-symposium-toolbar') . '</span><br />';
+					
+					echo '<input type="checkbox" name="display_logout_link" id="display_logout_link"';
+					if (get_option('wpst_myaccount_logout_link', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The Log Out link?', 'wp-symposium-toolbar') . '</span>';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>&nbsp;</span><br />';
+					
+					echo '<input type="checkbox" name="display_wp_toolbar_avatar_visitor" id="display_wp_toolbar_avatar_visitor"';
+					if (get_option('wpst_myaccount_avatar_visitor', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('The Toolbar shows a blank avatar for visitors', 'wp-symposium-toolbar') . '</span><br />';
+				echo '</td>';
+			echo '</tr>';
+			
+			if ( WPS_TOOLBAR_USES_WPS ) {
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+					echo '<td>';
+						echo '<input type="checkbox" name="rewrite_edit_link" id="rewrite_edit_link"';
+						if (get_option('wpst_myaccount_rewrite_edit_link', 'on') == "on") { echo " CHECKED"; }
+						echo '/><span for="rewrite_edit_link" class="description"> ' . __('Rewrite the Edit Profile URL, to link to the WPS Profile Settings page?', 'wp-symposium-toolbar') . '</span>';
+					echo '</td>';
+				echo '</tr>';
+			}
+			
+			echo '</table> 	';
+			echo '</div></div>';
+			
+			// Fourth set of options - Custom Menus
+			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'custom_menu_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('WP Toolbar Custom Menus', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<div class="inside" id="custom_menu_inside">';
+			
+			echo '<table class="form-table">';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('WP NavMenus', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Create and edit your WP NavMenus at ', 'wp-symposium-toolbar');
+					echo '<a href="'. admin_url('nav-menus.php') . '">' . __('Appearance') . ' > ' . __('Menus') . '</a>, ';
+					echo __('and associate them to the WP Toolbar, at predefined locations', 'wp-symposium-toolbar') . '...</span><br /><br />';
+					
+					echo '<table class="widefat">';
+					echo '<thead><tr>';
+					echo '<th>'.__('Menu Name', 'wp-symposium-toolbar').'</th>';
+					echo '<th>'.__('Location', 'wp-symposium-toolbar').'</th>';
+					echo '<th>'.__('Custom Icon', 'wp-symposium-toolbar').'</th>';
+					echo '</tr></thead>';
+					
+					echo '<tbody>';
+					$color = $color_odd = '#FCFCFC';
+					$color_even = '#F9F9F9';
+					$count = 0;
+					
+					if ( $all_custom_menus ) foreach ($all_custom_menus as $custom_menu) {
+						echo '<tr style="background-color: '.$color.';">';
+						echo '<td style="border-bottom-color: '.$color.';">';
+							if ($all_navmenus) {
+								echo '<select name="display_custom_menu_slug['.$count.']">';
+								foreach ($all_navmenus as $navmenu) {
+									echo '<option value="'. $navmenu->slug.'"';
+									if ( $custom_menu[0] == $navmenu->slug ) {
+										echo ' SELECTED';
+									}
+									echo '>'.$navmenu->name.'</option>';
+								}
+								echo '</select>';
+							} else 
+								echo '<span class="description"> ' . __('Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar') . '</span>';
+						echo '</td>';
+						echo '<td style="border-bottom-color: '.$color.';">';
+							if ( $wpst_locations ) {
+								echo '<select name="display_custom_menu_location['.$count.']">';
+								echo '<option value="remove" SELECTED>{{Remove from Toolbar}}</option>';
+								foreach ($wpst_locations as $slug => $description) {
+									echo '<option value="'. $slug.'"';
+									if ( $custom_menu[1] == $slug) { echo ' SELECTED'; }
+									echo '>'.__($description, 'wp-symposium-toolbar').'</option>';
+								}
+								echo '</select>';
+							} else
+								echo '<span class="description"> ' . __('No location found, check the value of wpst_locations in your hooks...', 'wp-symposium-toolbar') . '</span>';
+						echo '</td>';
+						echo '<td style="border-bottom-color: '.$color.';">';
+							echo '<input type="text" style="width:250px;" name="display_custom_menu_icon['.$count.']" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']"';
+							if ( is_string($custom_menu[3]) && !empty($custom_menu[3]) ) echo ' value="'.$custom_menu[3].'"';// else echo ' value="'.site_url().'/url/to/my/icon.png"';
+							echo '/>';
+						echo '</td>';
+						echo '</tr><tr style="background-color: '.$color.';">';
+						echo '<td colspan="3" style="border-top-color: '.$color.';">';
+							echo symposium_toolbar_add_roles_to_item( 'display_custom_menu_roles['.$count.']', $custom_menu[0], $custom_menu[2], $wpst_roles_all_incl_visitor );
+						echo '</td>';
+						echo '</tr>';
 						
-						echo '<input type="checkbox" name="display_site_name" id="display_site_name"';
-						if (get_option('symposium_toolbar_display_site_name', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The site name', 'wp-symposium-toolbar') . '</span><br />';
+						$color = ( $color == $color_odd ) ? $color_even : $color_odd;
+						$count = $count + 1;
+					}
+					
+					// Add new menu
+					echo '<tr style="background-color: '.$color.';">';
+					echo '<td style="border-bottom-color: '.$color.';">';
+						if ($all_navmenus) {
+							echo '<select name="new_custom_menu_slug">';
+							echo '<option value="empty" SELECTED>{{Add this menu...}}</option>';
+							foreach ($all_navmenus as $navmenu) {
+								echo '<option value="'.$navmenu->slug.'">'.$navmenu->name.'</option>';
+							}
+							echo '</select>';
+						} else
+							echo '<span class="description"> ' . __('Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar') . '</span><br />';
+					echo '</td>';
+					echo '<td style="border-bottom-color: '.$color.';">';
+						if ( $wpst_locations ) {
+							echo '<select name="new_custom_menu_location">';
+							echo '<option value="empty" SELECTED>{{... To this location}}</option>';
+							foreach ($wpst_locations as $slug => $description) {
+								echo '<option value="'. $slug.'">'.__($description, 'wp-symposium-toolbar').'</option>';
+							}
+							echo '</select>';
+						} else
+							echo '<span class="description"> ' . __('No location found, check the value of wpst_locations in your hooks...', 'wp-symposium-toolbar') . '</span>';
+					echo '</td>';
+					echo '<td style="border-bottom-color: '.$color.';">';
+						echo '<input type="text" style="width:250px;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
+					echo '</td>';
+					echo '</tr><tr style="background-color: '.$color.';">';
+					echo '<td colspan="3" style="border-top-color: '.$color.';">';
+						echo symposium_toolbar_add_roles_to_item( 'new_custom_menu_roles', 'new_custom_menu', array_keys($wpst_roles_all), $wpst_roles_all_incl_visitor );
+					echo '</td>';
+					echo '</tr>';
+					
+					echo '</tbody></table>';
+					
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('External Links', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<input type="checkbox" name="highlight_external_links" id="highlight_external_links"';
+					if (get_option('wpst_style_highlight_external_links', 'on') == "on") { echo " CHECKED"; }
+					echo '/><span class="description"> ' . __('Highlight the menu items that link to external sites with a specific styling', 'wp-symposium-toolbar') . '</span><br />';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '</table>';
+			echo '</div></div>';
+			
+			// Fifth set of options - Plugin Settings
+			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'plugin_settings_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('Plugin Settings', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<div class="inside" id="plugin_settings_inside">';
+			
+			echo '<table class="form-table">';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Import / Export', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('If you would like to export or backup the above options, copy the following into your favorite text editor and save as a text file. Reciprocally, if you would like to update those settings with a previously saved set, paste into this field and click on "Import". It is strongly recommended that you ensure this information is up to date by saving first. Do not edit this information directly !', 'wp-symposium-toolbar') . '</span><br /><br />';
+					echo '<textarea rows="12" cols="120" wrap="off" name="toolbar_import_export" id="toolbar_import_export">';
+					if ($all_wpst_options) foreach ($all_wpst_options as $wpst_option) {
+						echo $wpst_option->option_name . " => " . $wpst_option->option_value . "\n";
+					}
+					echo '</textarea>';
+					echo '<input type="submit" name="Submit" class="button" value="'.__('Import', 'wp-symposium-toolbar').'" style="min-width: 15%;float: right;"/>';
+				echo '</td>';
+			echo '</tr>';
+/*			
+			if ( is_multisite() ) {
+			
+			// Get data to show
+			(array)$blog_list = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id", ARRAY_A );
+			global $blog_id;
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Propagate Settings', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('If you would like to mirror the Toolbar settings of this site to other sites of your network, choose blogs of the network and click on "Propagate".', 'wp-symposium-toolbar') . '...<br />' . '</span>';
 						
-						if ( is_multisite() ) {
-							echo '<input type="checkbox" name="display_my_sites" id="display_my_sites"';
-							if (get_option('symposium_toolbar_display_my_sites', 'on') == "on") { echo "CHECKED"; }
-							echo '/><span class="description"> ' . __('The list of all sites of the network', 'wp-symposium-toolbar') . '</span><br />';
+					if ( $blog_list ) foreach ($blog_list as $blog) {
+						if ( $blog['blog_id'] != $blog_id ) {
+							$blog_details = get_blog_details($blog['blog_id']);
+							echo '<input type="checkbox" name="toolbar_list_sites[' . $blog['blog_id'] . ']" value="on"/>';
+							echo '<span class="description"> '.$blog_details->blogname.' '.__('at', 'wp-symposium-toolbar').' '.$blog['domain'].$blog['path'].'</span><br />';
 						}
-						
-						echo '<input type="checkbox" name="display_updates_icon" id="display_updates_icon"';
-						if (get_option('symposium_toolbar_display_updates_icon', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Updates icon', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_comments_bubble" id="display_comments_bubble"';
-						if (get_option('symposium_toolbar_display_comments_bubble', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Comments bubble', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_get_shortlink" id="display_get_shortlink"';
-						if (get_option('symposium_toolbar_display_get_shortlink', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Get Shortlink link', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_new_content" id="display_new_content"';
-						if (get_option('symposium_toolbar_display_new_content', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Add New menu', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_edit_page" id="display_edit_page"';
-						if (get_option('symposium_toolbar_display_wp_edit_page', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Edit link', 'wp-symposium-toolbar') . '</span><br />'; 
-						
-						echo '<input type="checkbox" name="display_search_field" id="display_search_field"';
-						if (get_option('symposium_toolbar_display_search_field', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Search icon and field', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<span class="description">' . __('Note: these links are displayed by WordPress when the member has the appropriate rights to access them, and on given pages only.', 'wp-symposium-toolbar') . '</span><br />'; ?>
-					</td>
-				</tr>
-				
-				<tr valign="top">
-					<td scope="row"><label><?php echo __('WP Symposium Admin Menu', 'wp-symposium-toolbar'); ?></td>
-					<td colspan="2">
-<?php					echo '<input type="checkbox" name="display_wps_admin_menu" id="display_wps_admin_menu"';
-						if (get_option('symposium_toolbar_display_wps_admin_menu', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('Display the WP Symposium Admin Menu?', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<span class="description">' . __('Note: this menu and each of its items will only show to users with the appropriate rights to access them.', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td> 
-				</tr>
-				
-				<tr valign="top"> 
-					<td scope="row"><label><?php echo __('WP Symposium Notifications', 'wp-symposium-toolbar'); ?></td>
-					<td colspan="2">
-<?php					echo '<input type="checkbox" name="display_notification_mail" id="display_notification_mail"';
-						if (get_option('symposium_toolbar_display_notification_mail', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('Display the WP Symposium Mail notification icon?', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_notification_friendship" id="display_notification_friendship"';
-						if (get_option('symposium_toolbar_display_notification_friendship', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('Display the WP Symposium Friendship notification icon?', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<span class="description">' . __('Note: these notifications could serve as a replacement for the WPS Panel, however bear in mind they will need full page refreshes to reflect the actual status of new mails and friend requests.', 'wp-symposium-toolbar') . '</span>'; ?>					</td> 
-				</tr>
-				
-				<tr valign="top">
-					<td colspan="3">
-<?php					echo '<span>' . __('Through the following options, you can configure what will be displayed in the User Menu (called "My Account" by techies) located at the right end of the WP Toolbar.', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td>
-				</tr>
-				
-				<tr valign="top"> 
-					<td scope="row"><label for="user_info"><?php echo __('WP User Menu Default Items', 'wp-symposium-toolbar') ?></td>
-					<td>
-<?php					echo '<span class="description">' . __('Which of the WP User Menu default items should be displayed?', 'wp-symposium-toolbar') . '</span><br />';
-						
-						// echo '<input type="text" name="display_wp_howdy" id="display_wp_howdy"  value="'.get_option('symposium_toolbar_display_wp_howdy', '').'" />';
-						// echo '<span class="description"> ' . __('Custom "Howdy" message, leave empty for nothing', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<input type="checkbox" name="display_wp_howdy" id="display_wp_howdy"';
-						if (get_option('symposium_toolbar_display_wp_howdy', '') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The "Howdy" message', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_wp_avatar" id="display_wp_avatar"';
-						if (get_option('symposium_toolbar_display_wp_avatar', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The bigger size avatar of the user', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_wp_display_name" id="display_wp_display_name"';
-						if (get_option('symposium_toolbar_display_wp_display_name', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The user display name', 'wp-symposium-toolbar') . '</span><br />';
-						
-						echo '<input type="checkbox" name="display_wp_edit_link" id="display_wp_edit_link"';
-						if (get_option('symposium_toolbar_display_wp_edit_link', '') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('The Edit Profile link', 'wp-symposium-toolbar') . '</span><br />'; ?>
-					</td>
-				</tr>
-				
-				<tr valign="top"> 
-					<td scope="row"><label for="rewrite_edit_link">&nbsp;</td>
-					<td>
-<?php					echo '<input type="checkbox" name="rewrite_edit_link" id="rewrite_edit_link"';
-						if (get_option('symposium_toolbar_rewrite_wp_edit_link', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('Rewrite the Edit Profile URL, to link to the WPS Profile Settings page?', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td>
-				</tr>
-				
-				<tr valign="top"> 
-					<td scope="row"><label for="display_logout_link">&nbsp;</td>
-					<td>
-<?php					echo '<input type="checkbox" name="display_logout_link" id="display_logout_link"';
-						if (get_option('symposium_toolbar_display_logout_link', 'on') == "on") { echo "CHECKED"; }
-						echo '/><span class="description"> ' . __('Display the Log Out link?', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td> 
-				</tr>
-				
-				<tr valign="top"> 
-					<td scope="row"><label for="toolbar_user_menu"><?php echo __('WP Symposium items', 'wp-symposium-toolbar') ?></label></td>
-					<td>
-<?php					echo '<span class="description">' . __('List the items to add to the WP User Menu, or leave empty for nothing', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">&nbsp;</span><br />';
-						echo '<textarea rows="11" cols="60" name="toolbar_user_menu" id="toolbar_user_menu">';
-						echo get_option('symposium_toolbar_user_menu', '');
-						echo '</textarea><br /><br />';
-						echo '<span class="description">' . __('Note: first level menu items between brackets, second level menu items without brakets.', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">' . __('One row per item, defined with "Title | view" where only the title is mandatory.', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">' . __('If the view is omitted, the default WPS Profile view will be used.', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">' . __('Items can also be defined with a URL starting with "http://" rather than relatively to a WPS page.', 'wp-symposium-toolbar') . '</span><br />';
-						// echo '<span class="description">' . __('Optionally, a capability can be used to restrict the display of a menu item to users with that capability.', 'wp-symposium-toolbar') . '</span><br />';
-						?>
-					</td><td>
-<?php					
-						echo '<span class="description">' . __('Available WPS Profile views:', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">extended - ' . __('Defaults to profile info,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">personal - ' . __('Defaults to personal information,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">settings - ' . __('Defaults to community settings,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">avatar - ' . __('Defaults to avatar upload,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">wall - ' . __('Defaults to member activity,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">activity - ' . __('Defaults to friends activity,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">all - ' . __('Defaults to all activity,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">groups - ' . __('Defaults to groups the member belongs to,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">friends - ' . __('Defaults to member friends,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">mentions - ' . __('Defaults to where the member is @mentionned,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">plus - ' . __('Defaults to show who the member is following,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">plus_me - ' . __('Defaults to show who the member is followed by,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">lounge - ' . __('Defaults to show the Lounge,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">gallery - ' . __('Defaults to member gallery,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">events - ' . __('Defaults to member events,', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">&nbsp;</span><br />';
-						echo '<span class="description">' . __('Other WPS Pages:', 'wp-symposium-toolbar') . '</span><br />';
-						echo '<span class="description">mail - ' . __('Displays the mailbox of the member', 'wp-symposium-toolbar') . '</span><br />'; ?>
-					</td> 
-				</tr>
-  				
-<?php /* ?>
-				<tr valign="top">
-					<td colspan="3">
-<?php					echo '<span>' . __('Through the following options, you can configure what will be displayed in the WP Toolbar, for non-logged-in users.', 'wp-symposium-toolbar') . '</span>'; ?>
-					</td>
-				</tr> <?php /* */ ?>
-				
-				</table> 	
-			 
-				<p class="submit" style='margin-left:6px;'> 
-				<input type="submit" name="Submit" class="button-primary" value="<?php echo __('Save Changes', 'wp-symposium-toolbar'); ?>" /> 
-				</p> 
-			</form>
+					}
+					echo '<input type="submit" name="Submit" class="button" value="'.__('Propagate', 'wp-symposium-toolbar').'" style="min-width: 15%;float: right;"/>';
+				echo '</td>';
+			echo '</tr>';
 			
-		</div></div>
+			} /* */
+			
+			echo '</table> 	';
+			echo '</div></div>';
+			
+			echo '<p class="submit" style="min-width: 15%;margin-left:6px;">';
+			echo '<input type="submit" name="Submit" class="button-primary" value="'.__('Save Changes', 'wp-symposium-toolbar').'" />';
+			echo '</p>';
+		echo '</div>';
+	echo '</form>';
+	echo '</div>';
+}
 
+function symposium_toolbar_add_roles_to_item( $name, $slug, $option, $roles ) {
+
+	$html = '<div id="'.$name.'">';
+		
+		if ($roles) {
+			
+			// list roles available for this item
+			foreach ($roles as $key => $role) {
+				$html .= '<input type="checkbox" name="'.$name.'[]" value="'.$key.'"';
+				if ( is_array( $option ) ) if ( in_array( $key, $option ) ) { $html .= " CHECKED"; }
+				$html .= '><span class="description"> '.__($role).'</span>&nbsp;&nbsp;&nbsp;';
+			}
+			
+			// Add a toggle link
+			$html .= '<div id="all_none" style="float:right;"><a id="all_none_'.$slug.'" ';
+			$html .= 'onclick="var items=document.getElementById(\''.$name.'\').getElementsByTagName(\'input\'); var checked = items[0].checked; for(var i in items) items[i].checked = ! checked;"';
+			$html .= '>toggle all / none</a></div>';
+		}
+/*		
+		// list roles available for this item
+		foreach ($roles as $key => $role) {
+			$html .= '<input type="checkbox" name="'.$name.'[]" value="'.$key.'" onclick="var checkbox = document.getElementById(\'all_none_'.$slug.'\'); checkbox.indeterminate = true;"';
+			if ( is_array( $option ) )
+				if ( in_array( $key, $option ) ) { $html .= " CHECKED"; }
+			$html .= '><span class="description"> '.$role.'</span>&nbsp;&nbsp;&nbsp;';
+		}
+		
+		// Add a toggle checkbox
+		$html .= '<div id="all_none" style="float: right;"><input type="checkbox" id="all_none_'.$slug.'" ';
+		$html .= 'onclick="var checkboxes=document.getElementById(\''.$name.'\').getElementsByTagName(\'input\'); for(var i in checkboxes) checkboxes[i].checked = this.checked;"';
+		if ( $option == array_keys($roles) ) $html .= ' CHECKED';
+		$html .= '><span class="description"> all/none</span></div>';
+		if ( count($option) < count($roles) )  $html .= '<div onload="var checkbox = document.getElementById(\'all_none_'.$slug.'\').getElementsByTagName(\'input\'); checkbox.indeterminate = true;"></div>';
+/* */	
+	$html .= '</div>';
+	
+	return $html;
+}
+?>

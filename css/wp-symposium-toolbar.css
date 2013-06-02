@@ -55,3 +55,50 @@
 	font-weight:bold;
 	color: #70b859;
 }
+
+#wpadminbar .quicklinks .menupop li.ab-sub-secondary {
+	display: block;
+	position: relative;
+	right: auto;
+	margin: 0;
+	background: #eee;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+#wpadminbar .quicklinks .menupop li .ab-sub-secondary :hover,
+#wpadminbar .quicklinks .menupop li .ab-sub-secondary :focus {
+	background-color: #dfdfdf;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
+	min-height: 64px;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-avatar {
+	left: 16px;
+}
+
+#wpadminbar .wpst-icon {
+	position: relative;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 6px;"
+}
+
+#wpadminbar .wpst-display-none {
+	display:none;
+}
+
+#wpadminbar #wp-admin-bar-my-account .avatar-16 {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #999;
+	padding: 0;
+	background: #eee;
+	line-height: 24px;
+	vertical-align: middle;
+	margin: -3px 0 0 6px;
+	float: none;
+	display: inline;
+}

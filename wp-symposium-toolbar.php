@@ -8,66 +8,53 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
 Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.11
-Version: 0.0.11
+Stable tag: 0.0.12
+Version: 0.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+// Stop this plugin if WP < 3.3
+global $wp_version;
+if( version_compare( $wp_version, '3.3', '<' ) )
+	return false;
+
+
+/* ====================================================================== MAIN =========================================================================== */
 
 if ( !defined('WPS_OPTIONS_PREFIX') ) define('WPS_OPTIONS_PREFIX', 'symposium');
 if ( !defined('WPS_TEXT_DOMAIN') ) define('WPS_TEXT_DOMAIN', 'wp-symposium');
 if ( !defined('WPS_DIR') ) define('WPS_DIR', 'wp-symposium');
 
+include_once('wp-symposium-toolbar_admin.php');
 include_once('wp-symposium-toolbar_functions.php');
+include_once('wp-symposium-toolbar_help.php');
 
-/* ====================================================================== MAIN =========================================================================== */
+// Is WP Symposium running?
+if ( ! function_exists( 'is_plugin_active_for_network' ) || ! function_exists( 'is_plugin_active' ) ) include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( is_multisite() )
+	(bool)$wps_active = is_plugin_active_for_network('wp-symposium/wp-symposium.php');
+else
+	(bool)$wps_active = is_plugin_active('wp-symposium/wp-symposium.php');
+define('WPS_TOOLBAR_USES_WPS', $wps_active);
+
+if ( WPS_TOOLBAR_USES_WPS && !function_exists('__wps__get_url') )
+	include_once(WP_PLUGIN_DIR .'/wp-symposium/functions.php');
+
 
 function symposium_toolbar_main() {
-	// Although there is nothing to put here, it is used to inform Wordpress that it is activated.
-	// Ties in with symposium_add_toolbar_to_admin_menu() function below.
+	// Ties in with add_toolbar_installation_row() function below.
 }
-
-/* ===================================================================== ADMIN =========================================================================== */
-
-function symposium_toolbar_activate() {
-	
-	symposium_toolbar_update_admin_menu();
-	
-	if (get_option('symposium_toolbar_user_menu', '') == "") {
-		update_option('symposium_toolbar_display_wp_avatar', 'on');
-		update_option('symposium_toolbar_display_wp_display_name', 'on');
-		update_option('symposium_toolbar_display_wp_edit_link', '');  // by default, WPS Toolbar plugin should remove this link and replace it with the menu
-		update_option('symposium_toolbar_rewrite_wp_edit_link', 'on');
-		update_option('symposium_toolbar_display_logout_link', 'on');
-		update_option('symposium_toolbar_display_notification_mail', 'on');
-		update_option('symposium_toolbar_display_notification_friendship', 'on');
-		update_option('symposium_toolbar_display_symposium_admin_menu', 'on');
-		
-		$symposium_profile_views = "[Profile info | extended]\nProfile Details | personal\nCommunity Settings | settings\nUpload avatar | avatar\n";
-		$symposium_profile_views .= "[My Activity | wall]\nAll Activity | all\nFriends Activity | activity\n";
-		$symposium_profile_views .= "[Social]\nFriends | friends\nGroups | groups\n@mentions | mentions\nFollowing | plus\nFollowers | plus_me\nLounge | lounge\n";
-		$symposium_profile_views .= "[More]\nMail | mail\nEvents | events\nGallery | gallery";
-		update_option('symposium_toolbar_user_menu', $symposium_profile_views);
-		symposium_toolbar_update_profile_menu();
-	}
-}
-register_activation_hook(__FILE__,'symposium_toolbar_activate');
-
-function symposium_toolbar_deactivate() {
-	// Nothing to put here either.
-}
-register_deactivation_hook(__FILE__, 'symposium_toolbar_deactivate');
-
-function symposium_toolbar_uninstall() {
-	
-	global $wpdb;
-	
-	// Delete all options
-	$wpdb->query( "DELETE FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'symposium_toolbar_%'" );
-}
-register_uninstall_hook(__FILE__, 'symposium_toolbar_uninstall');
 
 function symposium_toolbar_init() {
+	
+	global $wpst_roles_all;
+	
+	// Constant init
+	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
 	// Load CSS into WordPress the correct way
 	$myStyleUrl = WP_PLUGIN_URL . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar.css';
@@ -80,92 +67,164 @@ function symposium_toolbar_init() {
 	// Language files
 	// Get mo file name from locale
 	$locale = get_locale();															// Default locale
-	$locale = apply_filters( 'plugin_locale', $locale, 'wp-symposium-toolbar' );	// Traditional WordPress plugin locale filter
-	$locale = apply_filters( 'wp-symposium-toolbar_locale', $locale );				// Plugin specific locale filter
 	$mofile = 'wp-symposium-toolbar-' . $locale . '.mo';							// Language file
 	
 	// Setup paths to current locale file
-	$plugin_dir	= WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/lang/';
-	$lang_dir = WP_LANG_DIR . '/wp-symposium-toolbar/';
+	$plugin_dir	= dirname(plugin_basename(__FILE__)) . '/lang/';
 	
 	// Look in plugin folder WP_PLUGIN_DIR/wp-symposium-toolbar/lang/
-	if ( file_exists( $plugin_dir . $mofile ) ) {
+	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_dir . $mofile ) )
 		if ( function_exists('load_plugin_textdomain') ) { load_plugin_textdomain( 'wp-symposium-toolbar', false, $plugin_dir ); }
-	
-	// Look in languages folder WP_LANG_DIR/wp-symposium-toolbar/
-	} elseif ( file_exists( $lang_dir . $mofile ) ) {
-		if ( function_exists('load_plugin_textdomain') ) { load_plugin_textdomain( 'wp-symposium-toolbar', false, $lang_dir ); }
-	}
 }
 add_action('init', 'symposium_toolbar_init');
 
 
-/* ====================================================== HOOKS/FILTERS INTO WP SYMPOSIUM ====================================================== */
+/* ===================================================================== ADMIN =========================================================================== */
 
-// Add row to WPS installation page showing status of the plugin through hook provided
-function add_toolbar_installation_row() {
+function symposium_toolbar_trigger_activate() {
 	
-	__wps__install_row(
-		'wpcustomtoolbar',																								// unique identifier
-		__('Toolbar', 'wp-symposium-toolbar'), 																			// plugin title
-		'', 																											// shortcode
-		'symposium_toolbar_main',																						// main function
-		'-', 																											// internal URL path or -
-		'wp-symposium-toolbar/wp-symposium-toolbar.php', 																// main plugin file
-		'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php', 											// admin page
-		'__wps__activated'																								// set as activated on installation page
-	);
+	global $wpdb;
 	
-	// Even if these are duplicated from calls located elsewhere, it might be better to leave them so that menus are updated
-	// by simply visiting the WPS Install page, in case anything has changed somewhere else in the site plugins or config...
+	if ( is_multisite() && is_main_site() ) {
+		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
+		$blogs = $wpdb->get_results( $query, ARRAY_A );
+		
+		foreach ($blogs as $blog) {
+			switch_to_blog( $blog['blog_id'] );
+			symposium_toolbar_activate();
+		}
+		restore_current_blog();
+	} else
+		symposium_toolbar_activate();
+	
 	symposium_toolbar_update_admin_menu();
-	symposium_toolbar_update_profile_menu();
 }
-add_action('__wps__installation_hook', 'add_toolbar_installation_row');
+register_activation_hook(__FILE__,'symposium_toolbar_trigger_activate');
 
-// Add "Toolbar" to WP Symposium admin menu via hook
-function symposium_add_toolbar_to_admin_menu() {
-	add_submenu_page(
-		'symposium_debug',
-		__('Toolbar', 'wp-symposium-toolbar'),
-		__('Toolbar', 'wp-symposium-toolbar'),
-		'edit_themes',
-		'wp-symposium-toolbar/wp-symposium-toolbar_admin.php'
-	);
+function symposium_toolbar_deactivate() {
+
+	// global $wpdb;
+	
+	// Post install - update WPS Admin Menu
+	// if ( is_multisite() && is_main_site() ) {
+		// $query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
+		// $blogs = $wpdb->get_results( $query, ARRAY_A );
+		
+		// foreach ($blogs as $blog) {
+			// switch_to_blog( $blog['blog_id'] );
+			// update_option('wpst_post_install', '');
+		// }
+		// restore_current_blog();
+	// } else
+		// Post install - update WPS Admin Menu
+		// update_option('wpst_post_install', '');
 }
-add_action('__wps__admin_menu_hook', 'symposium_add_toolbar_to_admin_menu');
+register_deactivation_hook(__FILE__, 'symposium_toolbar_deactivate');
+
+function symposium_toolbar_uninstall() {
+	
+	global $wpdb;
+	
+	// Delete all options
+	if ( is_multisite() && is_main_site() ) {
+		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
+		$blogs = $wpdb->get_results( $query, ARRAY_A );
+		
+		foreach ($blogs as $blog) {
+			switch_to_blog( $blog['blog_id'] );
+			$wpdb->query( "DELETE FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_%'" );
+		}
+		restore_current_blog();
+	} else
+		$wpdb->query( "DELETE FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_%'" );
+	
+	// Do not delete NavMenus as we don't know if they aren't used somewhere else than in WP Toolbar...
+}
+register_uninstall_hook(__FILE__, 'symposium_toolbar_uninstall');
+
+
+/* ====================================================== HOOKS/FILTERS INTO WP SYMPOSIUM ====================================================== */
+if ( WPS_TOOLBAR_USES_WPS ) {
+	
+	// Add row to WPS installation page showing status of the plugin through hook provided
+	function add_toolbar_installation_row() {
+		
+		__wps__install_row(
+			'wpcustomtoolbar',																								// unique identifier
+			__('Toolbar', 'wp-symposium-toolbar'), 																			// plugin title
+			'', 																											// shortcode
+			'symposium_toolbar_main',																						// main function
+			'-', 																											// internal URL path or -
+			'wp-symposium-toolbar/wp-symposium-toolbar.php', 																// main plugin file
+			'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php', 											// admin page
+			'__wps__activated'																								// set as activated on installation page
+		);
+		
+		// Even if this is duplicated from calls located elsewhere, leave here so that the Admin Menu is updated
+		// by visiting the WPS Install page, in case anything has changed somewhere else in the site plugins or config...
+		symposium_toolbar_update_admin_menu();
+	}
+	add_action('__wps__installation_hook', 'add_toolbar_installation_row');
+
+	// Add "Toolbar" to WP Symposium admin menu via hook
+	function symposium_toolbar_add_to_admin_menu() {
+		add_submenu_page(
+			'symposium_debug',
+			__('Toolbar', 'wp-symposium-toolbar'),
+			__('Toolbar', 'wp-symposium-toolbar'),
+			'edit_themes',
+			'wp-symposium-toolbar/wp-symposium-toolbar_admin.php',
+			'symposium_toolbar_admin_page'
+		);
+	}
+	add_action('__wps__admin_menu_hook', 'symposium_toolbar_add_to_admin_menu');
 
 
 /* ====================================================== HOOKS/FILTERS INTO WORDPRESS ====================================================== */
+} else {
 
-add_action( 'admin_bar_menu', 'symposium_toolbar_update_menus_before_render', 999 );
-add_action( 'admin_bar_menu', 'symposium_toolbar_edit_wp_toolbar', 999 );
-add_action( 'admin_bar_menu', 'symposium_toolbar_wps_notifications', 999 );
-add_action( 'admin_bar_menu', 'symposium_toolbar_edit_wp_profile_info', 999 );
-add_action( 'admin_bar_menu', 'symposium_toolbar_link_to_wps_profile', 999 );
-add_action( 'admin_bar_menu', 'symposium_toolbar_link_to_wps_admin', 999 );
-add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
+	function add_symposium_toolbar_to_admin_menu() {
+		
+		add_options_page(__('WPS Toolbar Options', 'wp-symposium-toolbar'), __('Toolbar', 'wp-symposium-toolbar'), 'manage_options', 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php', 'symposium_toolbar_admin_page');
+	}
+	if (is_admin()) { add_action('admin_menu', 'add_symposium_toolbar_to_admin_menu'); }
+}
+
+// Save options
+if (is_admin()) { add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_update_menus_before_render', 999 ); }
+
+// Toolbar rendition, chronological order
+add_filter( 'show_admin_bar', 'symposium_toolbar_show_admin_bar', 10, 1 );
+add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_edit_wp_toolbar', 999 );
+if ( WPS_TOOLBAR_USES_WPS ) {
+	add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
+	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_link_to_symposium_admin', 999 );
+	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
+}
+add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_add_search_menu', 999 );
+
+// Help tabs
+add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
+
 
 // TODO
-// - When updating the User Menu, check if features are activated
-// - Languages are not loaded
-// - Display a login link when not logged in
-// - Option to add a NavMenu built at Appearance > Menus
-// - Make the above, per-role options (incl. non-connected) without impacting on server load
-// - Add new forum category, new forum topic, new group, to the "Add New" menu  == cancelled as it may look messy to mix frontend and backend links
-// - Add a submenu item to the User Menu: Forum > My Favorites, My topics, My replies, My Forum Activity (topics and replies), All Forum Activity
-// - The above needs a landing page
+// - Hide the WP Profile setting to show/hide the Toolbar, when the role cannot see it ("Show Toolbar when viewing site")
+// - WPMS - Propagate settings to any other site of the network
+
+// Styles
+// - Provide a themed way to have custom icons for notifications...?
+// - Add an extra class for externals links ('meta'   => array( 'class' => 'ab-sub-secondary' )
 /*
 // Description: Custom CSS styles for admin interface.
 function add_custom_admin_styles() {
-	echo '<style>#wp-logo { background-image: url('path/to/my/image.png')!important; }</style>';
+	echo '<style>#wp-header { background-image: url('path/to/my/image.png')!important; }</style>';
 }
 add_action('admin_head', 'add_custom_admin_styles');
 */
 
-/*
-Right side menu - Non-logged-in members
-> Display a login link for members
-*/
+// Low priority:
+// - Add a submenu item to the User Menu: Forum > My Favorites, My Forum Topics, My Forum Activity (topics and replies), My Friends Forum Topics, My Friends Forum Activity, All Forum Topics == needs a landing page
+// - When updating the User Menu, check if features are activated == low priority due to complexity to avoid impact on performances
+// - Add new forum category, new forum topic, new group, to the New Content menu == cancelled as it may look messy to mix frontend and backend links
 
 ?>
