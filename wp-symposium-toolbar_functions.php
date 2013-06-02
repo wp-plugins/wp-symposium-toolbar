@@ -121,7 +121,7 @@ function symposium_toolbar_activate() {
 	if ( !is_array( get_option('wpst_toolbar_wp_toolbar', '') ) ) update_option('wpst_toolbar_wp_toolbar', array_keys($wpst_roles_all));
 	if ( !is_array( get_option('wpst_toolbar_wp_logo', '') ) ) update_option('wpst_toolbar_wp_logo', array_keys($wpst_roles_all_incl_visitor));
 	if ( !is_array( get_option('wpst_toolbar_site_name', '') ) ) update_option('wpst_toolbar_site_name', array_keys($wpst_roles_all));
-	if ( !is_array( get_option('wpst_toolbar_my_sites', '') ) ) update_option('wpst_toolbar_my_sites', $wpst_roles_administrator);
+	if ( !is_array( get_option('wpst_toolbar_my_sites', '') ) ) update_option('wpst_toolbar_my_sites', array_keys($wpst_roles_administrator));
 	if ( !is_array( get_option('wpst_toolbar_updates_icon', '') ) ) update_option('wpst_toolbar_updates_icon', array_keys($wpst_roles_updates));
 	if ( !is_array( get_option('wpst_toolbar_comments_bubble', '') ) ) update_option('wpst_toolbar_comments_bubble', array_keys($wpst_roles_comment));
 	if ( !is_array( get_option('wpst_toolbar_new_content', '') ) ) update_option('wpst_toolbar_new_content', array_keys($wpst_roles_new_content));
