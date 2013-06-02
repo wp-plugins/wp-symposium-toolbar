@@ -81,13 +81,13 @@ function symposium_toolbar_init_globals() {
 				array(__('My Events', WPS_TEXT_DOMAIN), __('More', 'wp-symposium-toolbar'), $profile_url.$profile_query_string.'view=events', __('WPS Profile page, showing member events', 'wp-symposium-toolbar')),
 				array(__('My Gallery', WPS_TEXT_DOMAIN), __('More', 'wp-symposium-toolbar'), $profile_url.$profile_query_string.'view=gallery', __('WPS Profile page, showing member gallery', 'wp-symposium-toolbar'))
 		);
-		$wpst_menus["WPS Main"] = array(
-			array("WP Symposium", "WPS Main", "http://www.wpsymposium.com/", ''),
-				array(__('Welcome', WPS_TEXT_DOMAIN), "WP Symposium", admin_url('admin.php?page=symposium_welcome', '')),
-				array(__('Showcase', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/showcase/", ''),
-				array(__('Support Forum', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/discuss/", ''),
-				array(__('Contact', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/contact/", '')
-		);
+		// $wpst_menus["WPS Main"] = array(
+			// array("WP Symposium", "WPS Main", "http://www.wpsymposium.com/", ''),
+				// array(__('Welcome', WPS_TEXT_DOMAIN), "WP Symposium", admin_url('admin.php?page=symposium_welcome', '')),
+				// array(__('Showcase', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/showcase/", ''),
+				// array(__('Support Forum', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/discuss/", ''),
+				// array(__('Contact', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/contact/", '')
+		// );
 	}
 	$wpst_menus["WPS Login"] = array(
 				array(__('Login'), "WPS Login", wp_login_url(get_permalink()), ''),
