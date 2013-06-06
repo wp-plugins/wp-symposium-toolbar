@@ -3,11 +3,11 @@ Plugin Name: WP Symposium Toolbar
 Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can finally be part of your Social Network site.
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
-Tags: wp-symposium, toolbar, admin, bar
+Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.14
-Version: 0.0.14
+Stable tag: 0.0.15
+Version: 0.0.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,14 +20,14 @@ Customize the WordPress Toolbar the way *you* want...
 This plugin is primarilly targetted for WP Symposium sites. However, if you're not running a Social Network site or simply want to customize the Toolbar, you may use this plugin and benefit from its generic, per-role settings and custom menus.
 
 = Features =
-* Decide which of the WordPress Toolbar default items should be displayed
-* Per-role management for most of the settings, items and menus, adding visitors to the roles of the site
+* Select the default items that should be displayed in the WordPress Toolbar: site-related items, content-related items, user menu
+* Create your custom menus using the WordPress NavMenus page, and add them to the WP Toolbar, including custom icons in the toplevel items of your menus
+* Per-role management for most of the settings, items and menus, adding visitors to all the roles of the site
 * Redesign the WP User Menu ("My Account"), by selecting each of its default items individually
-* Create your custom menus using the WP NavMenus page, and display them in the WP Toolbar, including custom icons in the toplevel items of your menus
 * Add links to WP Symposium to the WP Toolbar, providing single-click access to WP Symposium from anywhere in your WordPress site
 * Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
 * Show the Toolbar to non logged-in members, with links to your Login page along with the welcome message you wish
-* hide WordPress and its dashboard from your users, at least from the Toolbar.
+* Hide WordPress and its dashboard from your users, at least from the Toolbar
 
 My thanks go to Louis, my friend at Central Geek (centralgeek.com), for his help in specifying and testing the plugin.
 
@@ -37,7 +37,7 @@ My thanks go to Louis, my friend at Central Geek (centralgeek.com), for his help
 
 Download the ZIP file from wordpress.org, extract its content and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.
 
-Alternatively, use the WordPress feature to install the plugin from the WP Dashboard.
+Alternatively, use the WordPress feature to install the plugin from the WP Dashboard, Plugins > Add New.
 
 A WP Symposium Toolbar plugin should then be available in the 'Plugins' menu in WordPress: activate the plugin.
 
@@ -49,12 +49,12 @@ Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashb
 
 = Adding the plugin to your site =
 
-A new menu will appear in the WP Dashboard, called "Toolbar", where you will find options for the plugin. The plugin default settings are relatively conservative, hence upon activation you shouldn't notice much difference in the Toolbar: once the plugin is activated, you should visit the options page, and modify these options so they fit your needs. Please refer to the help tabs of the options page for more information.
+A new menu will appear in the WP Dashboard, called "Toolbar", where you will find options for the plugin.  The plugin default settings are relatively conservative, hence upon activation you shouldn't notice much difference in the Toolbar: once the plugin is activated, you should visit the options page, and modify these options so they fit your needs.  Please refer to the help tabs of the options page for more information.
 
 If you're running WP Symposium, the first activation of the plugin will create default items in the WordPress Toolbar:
 
 * For users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
-* It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins. The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
+* It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins.  The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
 Remember to visit the WP Symposium Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated by WP Symposium), that will re-generate the WPS Toolbar admin menu.
 
@@ -66,7 +66,20 @@ You may, of course, modify these settings, create your own custom menus, edit th
 
 I would be really sorry to hear that you are not happy with this plugin, but whatever the reason is, you should know that the uninstall process will not remove NavMenus that were created for the Toolbar, since they could be used somewhere else. After uninstalling the plugin, please visit the NavMenus page at Appearance > Menus, and remove manually the menus you are no longer using.
 
+== Screenshots ==
+
+1. The WP Symposium Profile menu appended to the WordPress User Menu ("My Account"), along with notification icons (and the Search field will no longer push others...)
+
 == Changelog ==
+
+= 0.0.15. =
+
+This release focuses on hardening the plugin: validate the import before saving, ensure the stored options are of the proper type, and warn the admin of any discrepency through the options page...
+
+* Protect all array_intersect() with check if the stored option is actually an array, to avoid PHP warnings
+* Narrow the output for the Export to this plugin options
+* Add checks to the Import: empty field, option name unrecognized, wrong option value, and error messages as appropriate
+* Add error messages to the options page to warn admin of discrepancies in stored options for: arrays of roles, checkboxes, missing menus
 
 = 0.0.14. =
 

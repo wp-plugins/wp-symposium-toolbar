@@ -58,8 +58,8 @@ function symposium_toolbar_init_globals() {
 			
 		// NavMenus
 		// Format: $wpst_menus["Menu Title"] = array of menu items defined with array( title, parent title, URL, description)
-		// slugs are useless as they change along with titles
-		// will be used by symposium_toolbar_create_custom_menus() to creae menus at the NavMenus page
+		// slugs are useless as they change along with titles  :-(
+		// will be used by symposium_toolbar_create_custom_menus() to creae menus at the NavMenus page upon first activation
 		$wpst_menus["WPS Profile"] = array(
 			array(__('My Profile', WPS_TEXT_DOMAIN), "WPS Profile", $profile_url.$profile_query_string.'view=extended', __('WPS Profile page, showing profile info', 'wp-symposium-toolbar')),
 				array(__('Profile Details', WPS_TEXT_DOMAIN), __('My Profile', WPS_TEXT_DOMAIN), $profile_url.$profile_query_string.'view=personal', __('WPS Profile page, showing personal information', 'wp-symposium-toolbar')),
@@ -81,13 +81,6 @@ function symposium_toolbar_init_globals() {
 				array(__('My Events', WPS_TEXT_DOMAIN), __('More', 'wp-symposium-toolbar'), $profile_url.$profile_query_string.'view=events', __('WPS Profile page, showing member events', 'wp-symposium-toolbar')),
 				array(__('My Gallery', WPS_TEXT_DOMAIN), __('More', 'wp-symposium-toolbar'), $profile_url.$profile_query_string.'view=gallery', __('WPS Profile page, showing member gallery', 'wp-symposium-toolbar'))
 		);
-		// $wpst_menus["WPS Main"] = array(
-			// array("WP Symposium", "WPS Main", "http://www.wpsymposium.com/", ''),
-				// array(__('Welcome', WPS_TEXT_DOMAIN), "WP Symposium", admin_url('admin.php?page=symposium_welcome', '')),
-				// array(__('Showcase', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/showcase/", ''),
-				// array(__('Support Forum', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/discuss/", ''),
-				// array(__('Contact', 'wp-symposium-toolbar'), "WP Symposium", "http://www.wpsymposium.com/contact/", '')
-		// );
 	}
 	$wpst_menus["WPS Login"] = array(
 				array(__('Login'), "WPS Login", wp_login_url(get_permalink()), ''),
@@ -99,15 +92,12 @@ function symposium_toolbar_init_globals() {
 	// Format:  $wpst_locations['parent-slug'] = "description"
 	// the parent slug will be used directly to add_node the menu to the Toolbar
 	$wpst_locations = array();
-	$wpst_locations['wp-logo'] = "Append to / Replace the WP Logo menu";
+	$wpst_locations['wp-logo'] = __('Append to / Replace the WP Logo menu', 'wp-symposium-toolbar');
 	if ( is_multisite() )
-		$wpst_locations['my-sites'] = "Append to My Sites";
-	$wpst_locations[''] = "At the right of the New Content menu";
-	$wpst_locations['top-secondary'] = "At the left of the WP User Menu";
-	$wpst_locations['my-account'] = "Append to the WP User Menu";
-	
-	// Hook to modify anything in the plugin globals after their init
-	do_action('symposium_toolbar_globals_init_done');
+		$wpst_locations['my-sites'] = __('Append to My Sites', 'wp-symposium-toolbar');
+	$wpst_locations[''] = __('At the right of the New Content menu', 'wp-symposium-toolbar');
+	$wpst_locations['top-secondary'] = __('At the left of the WP User Menu', 'wp-symposium-toolbar');
+	$wpst_locations['my-account'] = __('Append to the WP User Menu', 'wp-symposium-toolbar');
 }	
 
 function symposium_toolbar_activate() {
@@ -133,6 +123,7 @@ function symposium_toolbar_activate() {
 	// if ( !get_option('wpst_myaccount_howdy') ) update_option('wpst_myaccount_howdy', __('Howdy', 'wp-symposium-toolbar').", %display_name%");
 	// if ( !get_option('wpst_myaccount_howdy_visitor') ) update_option('wpst_myaccount_howdy_visitor', __('Howdy', 'wp-symposium-toolbar').", ".__('Visitor', 'wp-symposium-toolbar'));
 	if ( !get_option('wpst_myaccount_avatar_small') ) update_option('wpst_myaccount_avatar_small', 'on');
+	if ( !get_option('wpst_myaccount_avatar_visitor') ) update_option('wpst_myaccount_avatar_visitor', 'on');
 	if ( !get_option('wpst_myaccount_avatar') ) update_option('wpst_myaccount_avatar', 'on');
 	if ( !get_option('wpst_myaccount_display_name') ) update_option('wpst_myaccount_display_name', 'on');
 	if ( !get_option('wpst_myaccount_logout_link') ) update_option('wpst_myaccount_logout_link', 'on');
@@ -206,9 +197,7 @@ global $wpst_menus;
  */
 function symposium_toolbar_update_menus_before_render() {
 
-	global $wpdb, $blog_id;
-	
-	// Check for activated/deactivated sub-plugins	 
+	// Check for activated/deactivated sub-plugins, the $_POST assumes WPS is activated
 	if (isset($_POST['__wps__installation_update']) && $_POST['__wps__installation_update'] == 'Y') {
 	
 		// Network activations
@@ -250,7 +239,7 @@ function symposium_toolbar_update_menus_before_render() {
 	
 	if ( isset($_POST["symposium_update"]) && $_POST["symposium_update"] == 'symposium_toolbar_menu' ) {
 	
-		// See if the admin has saved settings, update them as well as the user menu
+		// See if the admin has saved settings, update them
 		if ( isset($_POST["Submit"]) && $_POST["Submit"] == __('Save Changes', 'wp-symposium-toolbar') ) {
 		
 			// First set of options - WP Toolbar
@@ -268,74 +257,162 @@ function symposium_toolbar_update_menus_before_render() {
 			update_option('wpst_toolbar_move_search_field', isset($_POST["move_search_field"]) ? $_POST["move_search_field"] : "empty");
 			
 			// Second set of options - WP Symposium
-			update_option('wpst_wps_admin_menu', isset($_POST["display_wps_admin_menu"]) ? $_POST["display_wps_admin_menu"] : '');
-			update_option('wpst_wps_notification_mail', isset($_POST["display_notification_mail_roles"]) ? $_POST["display_notification_mail_roles"] : array());
-			update_option('wpst_wps_notification_friendship', isset($_POST["display_notification_friendship_roles"]) ? $_POST["display_notification_friendship_roles"] : array());
+			update_option('wpst_wps_admin_menu', isset($_POST["display_wps_admin_menu"]) ? 'on' : '');
+			update_option('wpst_wps_notification_mail', ( isset($_POST["display_notification_mail_roles"]) && is_array($_POST["display_notification_mail_roles"]) ) ? $_POST["display_notification_mail_roles"] : array());
+			update_option('wpst_wps_notification_friendship', ( isset($_POST["display_notification_friendship_roles"]) && is_array($_POST["display_notification_friendship_roles"]) ) ? $_POST["display_notification_friendship_roles"] : array());
 			
 			// Third set of options - WP User Menu
-			update_option('wpst_myaccount_howdy', isset($_POST["display_wp_howdy"]) ? $_POST["display_wp_howdy"] : '');
-			update_option('wpst_myaccount_howdy_visitor', isset($_POST["display_wp_howdy_visitor"]) ? $_POST["display_wp_howdy_visitor"] : '');
-			update_option('wpst_myaccount_avatar_small', isset($_POST["display_wp_toolbar_avatar"]) ? $_POST["display_wp_toolbar_avatar"] : '');
-			update_option('wpst_myaccount_avatar_visitor', isset($_POST["display_wp_toolbar_avatar_visitor"]) ? $_POST["display_wp_toolbar_avatar_visitor"] : '');
-			update_option('wpst_myaccount_avatar', isset($_POST["display_wp_avatar"]) ? $_POST["display_wp_avatar"] : '');
-			update_option('wpst_myaccount_display_name', isset($_POST["display_wp_display_name"]) ? $_POST["display_wp_display_name"] : '');
-			update_option('wpst_myaccount_edit_link', isset($_POST["display_wp_edit_link"]) ? $_POST["display_wp_edit_link"] : '');
-			update_option('wpst_myaccount_rewrite_edit_link', isset($_POST["rewrite_edit_link"]) ? $_POST["rewrite_edit_link"] : '');
-			update_option('wpst_myaccount_logout_link', isset($_POST["display_logout_link"]) ? $_POST["display_logout_link"] : '');
+			update_option('wpst_myaccount_howdy', isset($_POST["display_wp_howdy"]) ? stripslashes($_POST["display_wp_howdy"]) : '');
+			update_option('wpst_myaccount_howdy_visitor', isset($_POST["display_wp_howdy_visitor"]) ? stripslashes($_POST["display_wp_howdy_visitor"]) : '');
+			update_option('wpst_myaccount_avatar_small', isset($_POST["display_wp_toolbar_avatar"]) ? 'on' : '');
+			update_option('wpst_myaccount_avatar_visitor', isset($_POST["display_wp_toolbar_avatar_visitor"]) ? 'on' : '');
+			update_option('wpst_myaccount_avatar', isset($_POST["display_wp_avatar"]) ? 'on' : '');
+			update_option('wpst_myaccount_display_name', isset($_POST["display_wp_display_name"]) ? 'on' : '');
+			update_option('wpst_myaccount_username', isset($_POST["display_wp_username"]) ? 'on' : '');
+			update_option('wpst_myaccount_edit_link', isset($_POST["display_wp_edit_link"]) ? 'on' : '');
+			update_option('wpst_myaccount_logout_link', isset($_POST["display_logout_link"]) ? 'on' : '');
+			update_option('wpst_myaccount_rewrite_edit_link', isset($_POST["rewrite_edit_link"]) ? 'on' : '');
+			// update_option('wpst_myaccount_role', isset($_POST["display_wp_role"]) ? 'on' : '');
 			
 			// Fourth set of options - Custom Menus
 			$all_custom_menus = array ();
+			
+			// Updated menus
 			if (isset($_POST['display_custom_menu_slug'])) {
 				$range = array_keys($_POST['display_custom_menu_slug']);
 				if ( $range ) foreach ($range as $key) {
-					if ( $_POST["display_custom_menu_location"][$key] != 'remove' ) {
+					if ( ( $_POST["display_custom_menu_slug"][$key] != 'remove' ) && ( $_POST["display_custom_menu_location"][$key] != 'remove' ) ) {
 						$all_custom_menus[] = array( $_POST['display_custom_menu_slug'][$key], $_POST['display_custom_menu_location'][$key], $_POST['display_custom_menu_roles'][$key], $_POST['display_custom_menu_icon'][$key] );
 					}
 				}
 			}
+			
+			// Created menu, if any
 			if ( isset($_POST["new_custom_menu_slug"]) && ($_POST["new_custom_menu_slug"] != 'empty') && isset($_POST["new_custom_menu_location"]) && ($_POST["new_custom_menu_location"] != 'empty') ) {
 				$all_custom_menus[] = array($_POST["new_custom_menu_slug"], $_POST["new_custom_menu_location"], $_POST["new_custom_menu_roles"], $_POST["new_custom_menu_icon"]);
 			}
+			
+			// Now, save menus
 			update_option('wpst_custom_menus', $all_custom_menus);
+			
+			// Other stuff in this section
 			update_option('wpst_style_highlight_external_links', isset($_POST["highlight_external_links"]) ? $_POST["highlight_external_links"] : '');
 			if ( isset($_POST["generate_symposium_toolbar_menus"]) )
 				symposium_toolbar_create_custom_menus();
 		
 		// Fifth set of options - Technical
 		
-		// See if the admin has imported settings, update everything in block
+		// See if the admin has imported settings, update them one by one
 		} elseif ( isset($_POST["Submit"]) && $_POST["Submit"] == __('Import', 'wp-symposium-toolbar') ) {
 		
-			if ( isset($_POST["toolbar_import_export"]) ) {
-				$all_wpst_options = explode( "\n", $_POST["toolbar_import_export"] );
+			global $wpst_locations, $wpst_failed;
+			
+			// error message that will be propagated via global to the admin page for display
+			$wpst_failed = "";
+			
+			if ( isset($_POST["toolbar_import_export"]) && trim($_POST["toolbar_import_export"] != '') ) {
+				
+				$all_wpst_options = explode( "\n", trim($_POST["toolbar_import_export"]) );
 				if ( $all_wpst_options ) foreach ( $all_wpst_options as $wpst_option ) {
-					if ( $wpst_option ) {
+					
+					if ( strpos($wpst_option, "=>") ) {
 						$wpst_option_arr = explode( "=>", trim(stripslashes($wpst_option)) );
-						if ( strpos(trim($wpst_option_arr[0]), "wpst_") === 0 ) update_option(trim($wpst_option_arr[0]), maybe_unserialize( trim($wpst_option_arr[1]) ) );
-					}
-				}
-			}
-		
-		// See if the admin propagates settings to other sites of the network
-		} elseif ( isset($_POST["Submit"]) && $_POST["Submit"] == __('Propagate', 'wp-symposium-toolbar') ) {
-		
-			if ( isset($_POST["toolbar_list_sites"]) && is_array($_POST["toolbar_list_sites"]) && isset($_POST["toolbar_import_export"]) ) {
-				$all_wpst_options = explode( "\n", $_POST["toolbar_import_export"] );
-				foreach ( array_keys($_POST["toolbar_list_sites"]) as $other_site_id ) {
-					if ( $other_site_id != $blog_id ) {
-						switch_to_blog( $other_site_id );
-						if ( $all_wpst_options ) foreach ( $all_wpst_options as $wpst_option ) {
-							if ( $wpst_option ) {
-								$wpst_option_arr = explode( "=>", trim(stripslashes($wpst_option)) );
-								update_option("symposium_toolbar_".trim($wpst_option_arr[0]), maybe_unserialize( trim($wpst_option_arr[1]) ) );
+						$option_name = trim($wpst_option_arr[0]);
+						$option_value = maybe_unserialize( trim($wpst_option_arr[1]) );
+						
+						// Now that we have a possible pair (option name, option value), check if valid before updating it...
+						switch ($option_name) {
+						
+						// Custom menus - check location and roles
+						case 'wpst_custom_menus' :
+							if ( is_array( $option_value ) ) {
+								(bool)$are_valids = true;
+								foreach ($option_value as $custom_menu) {
+									$are_valids = ( in_array($custom_menu[1], array_keys($wpst_locations)) && symposium_toolbar_valid_roles($custom_menu[2]) );
+									if ( !$are_valids ) break;
+								}
+								if ( $are_valids)
+									update_option($option_name, $option_value );
+								else
+									$wpst_failed .= $option_name.__(': at least one custom menu contained an error', 'wp-symposium-toolbar')."<br />";
 							}
+							break;
+							
+						// Other array-based options - check roles
+						case 'wpst_toolbar_comments_bubble' :
+						case 'wpst_toolbar_edit_page' :
+						case 'wpst_toolbar_get_shortlink' :
+						case 'wpst_toolbar_my_sites' :
+						case 'wpst_toolbar_new_content' :
+						case 'wpst_toolbar_search_field' :
+						case 'wpst_toolbar_site_name' :
+						case 'wpst_toolbar_updates_icon' :
+						case 'wpst_toolbar_user_menu' :
+						case 'wpst_toolbar_wp_logo' :
+						case 'wpst_toolbar_wp_toolbar' :
+						case 'wpst_wps_notification_friendship' :
+						case 'wpst_wps_notification_mail' :
+							if ( is_array($option_value) ) {
+								if ( symposium_toolbar_valid_roles($option_value) )
+									update_option($option_name, $option_value );
+								else
+									$wpst_failed .= $option_name.__(': incorrect roles', 'wp-symposium-toolbar')."<br />";
+							} else
+								$wpst_failed .= $option_name.__(': incorrect format, an array of roles was expected', 'wp-symposium-toolbar')."<br />";
+							break;
+							
+						// String-based options - check if content is in a few possible values
+						case 'wpst_myaccount_avatar' :
+						case 'wpst_myaccount_avatar_small' :
+						case 'wpst_myaccount_avatar_visitor' :
+						case 'wpst_myaccount_display_name' :
+						case 'wpst_myaccount_username' :
+						case 'wpst_myaccount_edit_link' :
+						case 'wpst_myaccount_logout_link' :
+						case 'wpst_myaccount_rewrite_edit_link' :
+						case 'wpst_myaccount_role' :
+						case 'wpst_style_highlight_external_links' :
+						case 'wpst_wps_admin_menu' :
+							if ( is_string($option_value) ) {
+								if ( in_array($option_value, array("", "on")) )
+									update_option($option_name, $option_value );
+								else
+									$wpst_failed .= $option_name.__(': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar')."<br />";
+							} else
+								$wpst_failed .= $option_name.__(': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar')."<br />";
+							break;
+							
+						case 'wpst_toolbar_move_search_field' :
+							if ( is_string($option_value) ) {
+								if ( in_array($option_value, array("", "empty", "top-secondary")) )
+									update_option($option_name, $option_value );
+								else
+									$wpst_failed .= $option_name.__(': incorrect value, expected values are "", "empty" or "top-secondary"', 'wp-symposium-toolbar')."<br />";
+							} else
+								$wpst_failed .= $option_name.__(': incorrect format, a string was expected, either "", "empty" or "top-secondary"', 'wp-symposium-toolbar')."<br />";
+							break;
+							
+						// Howdys - no check else than if it is a string
+						case 'wpst_myaccount_howdy' :
+						case 'wpst_myaccount_howdy_visitor' :
+							if ( is_string($option_value) ) {
+								update_option($option_name, stripslashes($option_value) );
+							} else
+								$wpst_failed .= $option_name.__(': incorrect format, a string was expected', 'wp-symposium-toolbar')."<br />";
+							break;
+						
+						// Option name not recognized
+						default :
+							$wpst_failed .= $wpst_option.__(': option not recognized', 'wp-symposium-toolbar')."<br />";
 						}
-					}
+					} elseif (trim($wpst_option) != '') $wpst_failed .= $wpst_option.__(': option not recognized', 'wp-symposium-toolbar')."<br />";
 				}
-				restore_current_blog();
-			}
+			
+			// Field empty
+			} else $wpst_failed .= __('No option to update!!', 'wp-symposium-toolbar')."<br />";
 		}
-		
+	
+	// Post update cleaning task
 	symposium_toolbar_update_admin_menu();
 	}
 }
@@ -346,15 +423,18 @@ function symposium_toolbar_update_menus_before_render() {
  */
 function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 
-	global $current_user, $wpst_roles_all, $wpst_roles_all_incl_visitor;
+	global $current_user;
 	
 	get_currentuserinfo();
 	$current_role = ( is_user_logged_in() ) ? $current_user->roles : array( "visitor" );
 	
-	if ( array_intersect( $current_role, get_option('wpst_toolbar_wp_toolbar', $wpst_roles_all) ) ) {
-		$ret = ( is_user_logged_in() ) ? $show_admin_bar : true;
+	if ( is_array( get_option('wpst_toolbar_wp_toolbar') ) ) {
+		if ( array_intersect( $current_role, get_option('wpst_toolbar_wp_toolbar') ) ) {
+			$ret = ( is_user_logged_in() ) ? $show_admin_bar : true;
+		} else
+			$ret = false;
 	} else
-		$ret = false;
+		$ret = $show_admin_bar;
 	
 	return $ret;
 }
@@ -384,57 +464,68 @@ function symposium_toolbar_edit_wp_toolbar() {
 	$profile_url = apply_filters( 'symposium_toolbar_profile_url_update', $profile_url );
 	
 	// Show the WP Toolbar only to selected roles incl visitor
-	if ( array_intersect( $current_role, get_option('wpst_toolbar_wp_toolbar', array_keys($wpst_roles_all)) ) ) {
+	if ( is_array( get_option('wpst_toolbar_wp_toolbar', array_keys($wpst_roles_all)) ) ) if ( array_intersect( $current_role, get_option('wpst_toolbar_wp_toolbar', array_keys($wpst_roles_all)) ) ) {
 		
 		// Get data to show in the WP Toolbar
 		$all_custom_menus = get_option( 'wpst_custom_menus', array() );
 		
 		// Site related.
-		// First, check if the WP logo has a custom menu attached to it, depending on result we'll hide the whole item or only its menu items
+		// First, check if the WP logo has a custom menu attached to it, depending on result we'll hide the whole node or only its menu items while keeping the node
 		(bool)$has_custom_menu_on_wp_logo = false;
 		if ( $all_custom_menus ) foreach ($all_custom_menus as $custom_menu ) {
-			if ( ( $custom_menu[1] == 'wp-logo' ) && array_intersect( $current_role, $custom_menu[2] ) ) $has_custom_menu_on_wp_logo = true;
+			if ( is_array( $custom_menu[2] ) )
+				if ( ( $custom_menu[1] == 'wp-logo' ) && array_intersect( $current_role, $custom_menu[2] ) )
+					$has_custom_menu_on_wp_logo = true;
 		}
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_wp_logo', $wpst_roles_all_incl_visitor) ) ) {
-			if ( $has_custom_menu_on_wp_logo ) {
-				$wp_admin_bar->remove_node('about');
-				$wp_admin_bar->remove_node('wp-logo-external');
-			} else
-				$wp_admin_bar->remove_menu('wp-logo');
-		}
+		if ( is_array( get_option('wpst_toolbar_wp_logo', array_keys($wpst_roles_all_incl_visitor)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_wp_logo', array_keys($wpst_roles_all_incl_visitor)) ) ) {
+				if ( $has_custom_menu_on_wp_logo ) {
+					$wp_admin_bar->remove_node('about');
+					$wp_admin_bar->remove_node('wp-logo-external');
+				} else
+					$wp_admin_bar->remove_menu('wp-logo');
+			}
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_site_name', array_keys($wpst_roles_all)) ) )
-			$wp_admin_bar->remove_menu('site-name');
+		if ( is_array( get_option('wpst_toolbar_site_name', array_keys($wpst_roles_all)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_site_name', array_keys($wpst_roles_all)) ) )
+				$wp_admin_bar->remove_menu('site-name');
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_my_sites', array_keys($wpst_roles_administrator)) ) )
-			$wp_admin_bar->remove_menu('my-sites');
+		if ( is_array( get_option('wpst_toolbar_my_sites', array_keys($wpst_roles_administrator)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_my_sites', array_keys($wpst_roles_administrator)) ) )
+				$wp_admin_bar->remove_menu('my-sites');
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_updates_icon', array_keys($wpst_roles_updates)) ) )
-			$wp_admin_bar->remove_node('updates');
+		if ( is_array( get_option('wpst_toolbar_updates_icon', array_keys($wpst_roles_updates)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_updates_icon', array_keys($wpst_roles_updates)) ) )
+				$wp_admin_bar->remove_node('updates');
 		
 		// Content related.
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_comments_bubble', array_keys($wpst_roles_comment)) ) )
-			$wp_admin_bar->remove_node('comments');
+		if ( is_array( get_option('wpst_toolbar_comments_bubble', array_keys($wpst_roles_comment)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_comments_bubble', array_keys($wpst_roles_comment)) ) )
+				$wp_admin_bar->remove_node('comments');
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_new_content', array_keys($wpst_roles_new_content)) ) )
-			$wp_admin_bar->remove_node('new-content');
+		if ( is_array( get_option('wpst_toolbar_new_content', array_keys($wpst_roles_new_content)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_new_content', array_keys($wpst_roles_new_content)) ) )
+				$wp_admin_bar->remove_node('new-content');
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_get_shortlink', array_keys($wpst_roles_author)) ) )
-			$wp_admin_bar->remove_node('get-shortlink');
+		if ( is_array( get_option('wpst_toolbar_get_shortlink', array_keys($wpst_roles_author)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_get_shortlink', array_keys($wpst_roles_author)) ) )
+				$wp_admin_bar->remove_node('get-shortlink');
 		
-		if ( !array_intersect( $current_role, get_option('wpst_toolbar_edit_page', array_keys($wpst_roles_author)) ) )
-			$wp_admin_bar->remove_node('edit');
+		if ( is_array( get_option('wpst_toolbar_edit_page', array_keys($wpst_roles_author)) ) )
+			if ( !array_intersect( $current_role, get_option('wpst_toolbar_edit_page', array_keys($wpst_roles_author)) ) )
+				$wp_admin_bar->remove_node('edit');
 		
 		// User related, aligned right.
-		if ( ( !array_intersect( $current_role, get_option('wpst_toolbar_search_field', array_keys($wpst_roles_all_incl_visitor)) ) )
-			|| ( get_option('wpst_toolbar_move_search_field', 'empty') != "empty") )
-			$wp_admin_bar->remove_node('search');
+		if ( is_array( get_option('wpst_toolbar_search_field', array_keys($wpst_roles_all_incl_visitor)) ) )
+			if ( ( !array_intersect( $current_role, get_option('wpst_toolbar_search_field', array_keys($wpst_roles_all_incl_visitor)) ) )
+				|| ( get_option('wpst_toolbar_move_search_field', 'empty') != "empty") )
+				$wp_admin_bar->remove_node('search');
 		
-		if ( array_intersect( $current_role, get_option('wpst_toolbar_user_menu', array_keys($wpst_roles_all)) ) ) {
+		if ( is_array( get_option('wpst_toolbar_user_menu', array_keys($wpst_roles_all)) ) ) if ( array_intersect( $current_role, get_option('wpst_toolbar_user_menu', array_keys($wpst_roles_all)) ) ) {
 			
 			// Howdy and Avatar in the Toolbar
 			if ( is_user_logged_in() ) {
-				if ( $howdy = get_option('wpst_myaccount_howdy', __('Howdy', 'wp-symposium-toolbar').', %display_name%') ) {
+				if ( $howdy = stripslashes( get_option('wpst_myaccount_howdy', __('Howdy', 'wp-symposium-toolbar').', %display_name%') ) ) {
 					$howdy  = str_replace("%login%", $current_user->user_login, $howdy);
 					$howdy  = str_replace("%name%", $current_user->user_name, $howdy);
 					$howdy  = str_replace("%nice_name%", $current_user->user_nicename, $howdy);
@@ -446,8 +537,8 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$avatar = ( get_option('wpst_myaccount_avatar_small', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';
 				
 			} else {
-				$howdy  = get_option('wpst_myaccount_howdy_visitor', __('Howdy', 'wp-symposium-toolbar').", ".__('Visitor', 'wp-symposium-toolbar'));
-				$avatar = ( get_option('wpst_myaccount_avatar_visitor', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';
+				$howdy  = stripslashes(get_option('wpst_myaccount_howdy_visitor', __('Howdy', 'wp-symposium-toolbar').", ".__('Visitor', 'wp-symposium-toolbar')));
+				$avatar = ( get_option('wpst_myaccount_avatar_visitor', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
 			}
 			
 			// User Info that goes in the menu
@@ -458,26 +549,29 @@ function symposium_toolbar_edit_wp_toolbar() {
 			
 			if ( is_array( $user_info_arr ) ) {
 				foreach ( $user_info_arr as $user_info_element ) {
-					$user_info_element = trim( $user_info_element , "<>" );
+					$user_info_element = '<' . trim( $user_info_element , "<>" ) . '>';
 					
 					if ( ( strstr ($user_info_element, "avatar") ) && (get_option('wpst_myaccount_avatar', 'on') == "on") ) {
-						$user_info_collected .= '<' . $user_info_element . '>';
+						$user_info_collected .= $user_info_element;
 						$has_avatar = true;
 					} elseif ( ( strstr ($user_info_element, "display-name") ) && (get_option('wpst_myaccount_display_name', 'on') == "on") ) {
-						$user_info_collected .= '<' . $user_info_element . '>';
+						$user_info_collected .= $user_info_element;
 						$has_info = true;
-					} elseif ( ( strstr ($user_info_element, "username") ) &&  (get_option('wpst_myaccount_display_name', 'on') == "on") ) {
+					} elseif ( ( strstr ($user_info_element, "username") ) &&  (get_option('wpst_myaccount_username', 'on') == "on") ) {
 						if ( $current_user->display_name !== $current_user->user_nicename )
-							$user_info_collected .= '<' . $user_info_element . '>';
+							$user_info_collected .= $user_info_element;
 					}
 				}
+				// if ( get_option('wpst_myaccount_role', '') == "on" ) {
+					// $user_info_collected .= "<span class='username wpst-role'>".$wpst_roles_all_incl_visitor[$current_role[0]]."</span>";
+					// $has_info = true;
+				// }
+				
+				// Hook to add any HTML item to the user info
+				// NB: I do not recommend to remove anything from here since $has_avatar and $has_info wouldn't be up to date
+				$user_info_collected = apply_filters( 'symposium_toolbar_user_info_update', $user_info_collected );
 			}
 			
-			if ( $has_info && ( (get_option('wpst_myaccount_edit_link') == "on") || (get_option('wpst_myaccount_logout_link', 'on') == "on") ) )
-				$user_info_class = '';
-			else
-				$user_info_class = 'wpst-user-info';
-				
 			if ( $has_avatar && $has_info ) {
 				$my_account_class  = 'with-avatar';
 			} else {
@@ -485,27 +579,30 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$user_info_collected = str_replace("avatar-64", "avatar-64 wpst-avatar", $user_info_collected);
 			}
 			
-			// Update My Account and menu with above data
+			// Update My Account and menu with extra class and above data
 			$wp_admin_bar->add_menu( array(
-				'id'        => 'my-account',
-				'parent'    => 'top-secondary',
-				'title'     => $howdy . $avatar,
-				'href'      => $profile_url,
-				'meta'      => array(
-					'class'     => $my_account_class,
-					'title'     => __('My Account'),
+				'id'     => 'my-account',
+				'parent' => 'top-secondary',
+				'title'  => $howdy . $avatar,
+				'href'   => $profile_url,
+				'meta'   => array(
+					'class'  => $my_account_class,
+					'title'  => __('My Account'),
 				)
 			) );
+			if ( $has_avatar )
+				$wp_admin_bar->add_group( array(
+					'parent' => 'my-account',
+					'id'     => 'user-actions',
+					'meta'   => array(
+						'class'  => 'wpst-user-actions')
+				) );
 			if ( $user_info_collected != "" ) {
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'user-info',
 					'parent' => 'user-actions',
 					'title'  => $user_info_collected,
-					'href'   => esc_url($profile_url),
-					'meta'   => array(
-						'class'     => $user_info_class,
-						'tabindex' => -1,
-					),
+					'href'   => esc_url($profile_url)
 				) );
 			
 			} else
@@ -519,7 +616,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$wp_admin_bar->remove_node('logout');
 			
 		} else {
-			// Remove My Account since the role cannot access to it
+			// Remove My Account since the current user cannot access to it
 			$wp_admin_bar->remove_node('user-actions');
 			$wp_admin_bar->remove_node('my-account');
 		}
@@ -611,14 +708,14 @@ function symposium_toolbar_edit_profile_url($url, $user, $scheme) {
 }
 
 /**
- * Called upon plugin activation and at each visit of the WPS Install page
+ * Called upon plugin activation, saving plugin options, and at each visit of the WPS Install page
  * Create an array of arrays by parsing activated features of WPS
  * [0] - title      - string    - The title of the node.
  * [1] - capability - string    - The capability to be tested against for display
  * [2] - view       - string    - The admin page to display, will be used for the href
  * [3] - ID         - string    - The ID of the item, made of 'symposium_toolbar_'.$slug except for the top level item
  * [4] - parent     - string    - The ID of the parent node.
- * [5] - meta       - string    - Meta data including the following keys: html, class, onclick, target, title, tabindex.
+ * [5] - meta       - string    - Meta data that may include the following keys: html, class, onclick, target, title, tabindex.
  */
 function symposium_toolbar_update_admin_menu() {
 	
@@ -670,7 +767,7 @@ function symposium_toolbar_update_admin_menu() {
 			(bool)$has_toolbar = true;
 	}
 	
-	// During activation the plugin isn't quite yet activated... Falling back. Hell, translation not loaded yet...
+	// During activation the plugin isn't quite yet activated... Falling back. Hell, translation not loaded yet... No fall back.
 	if ( !$has_toolbar )
 		array_push( $args, array ( __('Toolbar', 'wp-symposium-toolbar'), 'edit_themes', admin_url('admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php'), 'symposium_toolbar_toolbar', 'my-symposium-admin', array('class' => 'symposium_toolbar_admin symposium_toolbar_admin_toolbar') ) );
 	
@@ -718,7 +815,7 @@ function symposium_toolbar_symposium_notifications() {
 	if ( is_admin_bar_showing() ) {
 		
 		// Mail
-		if ( (function_exists('__wps__mail')) && (array_intersect( $current_role, get_option('wpst_wps_notification_mail', array_keys($wpst_roles_all)) )) ) {
+		if ( is_array( get_option('wpst_wps_notification_mail', array_keys($wpst_roles_all)) )) if ( (function_exists('__wps__mail')) && (array_intersect( $current_role, get_option('wpst_wps_notification_mail', array_keys($wpst_roles_all)) )) ) {
 			
 			$unread_mail = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM ".$wpdb->base_prefix."symposium_mail WHERE mail_to = %d AND mail_in_deleted != 'on' AND mail_read != 'on'", $current_user->ID));
 			$total_mail = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM ".$wpdb->base_prefix."symposium_mail WHERE mail_to = %d AND mail_in_deleted != 'on'", $current_user->ID));
@@ -742,7 +839,7 @@ function symposium_toolbar_symposium_notifications() {
 		}
 		
 		// Friends
-		if ( (function_exists('__wps__profile')) && (array_intersect( $current_role, get_option('wpst_wps_notification_friendship', array_keys($wpst_roles_all)) )) ) {
+		if ( is_array( get_option('wpst_wps_notification_friendship', array_keys($wpst_roles_all)) )) if ( (function_exists('__wps__profile')) && (array_intersect( $current_role, get_option('wpst_wps_notification_friendship', array_keys($wpst_roles_all)) )) ) {
 			
 			$friend_requests = $wpdb->get_var($wpdb->prepare( "SELECT count(*) FROM ".$wpdb->base_prefix."symposium_friends WHERE friend_to = %d AND friend_accepted != 'on'", $current_user->ID));
 			$current_friends = $wpdb->get_var($wpdb->prepare( "SELECT count(*) FROM ".$wpdb->base_prefix."symposium_friends WHERE friend_to = %d AND friend_accepted = 'on'", $current_user->ID));
@@ -771,31 +868,54 @@ function symposium_toolbar_symposium_notifications() {
 	}
 }
 
+/**
+ * Called on top of each site page
+ * Re-add the Search icon and field at an alternate location
+ */
 function symposium_toolbar_add_search_menu() {
 	
 	if (is_admin())
 		return;
 	
-	if (get_option('wpst_toolbar_move_search_field', 'empty') == "empty")
-		return;
+	if ( in_array( get_option('wpst_toolbar_move_search_field', 'empty'), array("", "top-secondary") ) ) {
 	
-	global $wp_admin_bar;
-	
-	$form  = '<form action="' . esc_url( home_url( '/' ) ) . '" method="get" id="adminbarsearch">';
-	$form .= '<input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" />';
-	$form .= '<input type="submit" class="adminbar-button" value="' . __('Search') . '"/>';
-	$form .= '</form>';
+		global $wp_admin_bar;
+		
+		$form  = '<form action="' . esc_url( home_url( '/' ) ) . '" method="get" id="adminbarsearch">';
+		$form .= '<input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" />';
+		$form .= '<input type="submit" class="adminbar-button" value="' . __('Search') . '"/>';
+		$form .= '</form>';
 
-	$wp_admin_bar->add_menu( array(
-		'parent' => get_option('wpst_toolbar_move_search_field'),
-		'id'     => 'search',
-		'title'  => $form,
-		'meta'   => array(
-			'class'		=> 'admin-bar-search',
-			'title'		=> __('Search the site...', 'wp-symposium-toolbar'),
-			'tabindex'	=> -1,
-		)
-	) );
+		$wp_admin_bar->add_menu( array(
+			'parent' => get_option('wpst_toolbar_move_search_field'),
+			'id'     => 'search',
+			'title'  => $form,
+			'meta'   => array(
+				'class'		=> 'admin-bar-search',
+				'title'		=> __('Search the site...', 'wp-symposium-toolbar'),
+				'tabindex'	=> -1,
+			)
+		) );
+	}
+}
+
+/**
+ * Called by the admin page
+ * check that an array of roles is actually an array of roles of the site
+ */
+function symposium_toolbar_valid_roles( $option_value ) {
+
+	global $wpst_roles_all_incl_visitor;
+	
+	$option_value_arr = array_values( $option_value );
+	(bool)$is_valid = true;
+	
+	if ( $option_value_arr ) foreach ( $option_value_arr as $val ) {
+		(bool)$is_valid = in_array( $val, array_keys($wpst_roles_all_incl_visitor) );
+		if ( !$is_valid ) break;
+	}
+	
+	return $is_valid;
 }
 
 function symposium_toolbar_make_title( $slug ) {

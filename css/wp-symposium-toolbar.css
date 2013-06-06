@@ -70,8 +70,8 @@
 	background-color: #dfdfdf;
 }
 
-#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
-	min-height: 64px;
+#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
+	min-height: 80px;
 }
 
 #wpadminbar #wp-admin-bar-my-account .wpst-avatar {

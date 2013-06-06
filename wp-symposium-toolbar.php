@@ -8,8 +8,8 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar
 Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.14
-Version: 0.0.14
+Stable tag: 0.0.15
+Version: 0.0.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -40,7 +40,6 @@ if ( is_multisite() )
 	(bool)$wps_is_active = is_plugin_active_for_network('wp-symposium/wp-symposium.php');
 else
 	(bool)$wps_is_active = is_plugin_active('wp-symposium/wp-symposium.php');
-// define('WPS_TOOLBAR_USES_WPS', $wps_is_active);
 
 if ( $wps_is_active && !function_exists('__wps__get_url') )
 	include_once(WP_PLUGIN_DIR .'/wp-symposium/functions.php');
@@ -53,9 +52,6 @@ function symposium_toolbar_main() {
 function symposium_toolbar_init() {
 	
 	global $wpst_roles_all;
-	
-	// Constant init
-	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
 	// Load CSS into WordPress the correct way
 	$myStyleUrl = WP_PLUGIN_URL . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar.css';
@@ -76,6 +72,9 @@ function symposium_toolbar_init() {
 	// Look in plugin folder WP_PLUGIN_DIR/wp-symposium-toolbar/lang/
 	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_dir . $mofile ) )
 		if ( function_exists('load_plugin_textdomain') ) { load_plugin_textdomain( 'wp-symposium-toolbar', false, $plugin_dir ); }
+	
+	// Constant init - needs translation
+	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 }
 add_action('init', 'symposium_toolbar_init');
 
@@ -104,21 +103,6 @@ register_activation_hook(__FILE__,'symposium_toolbar_trigger_activate');
 
 function symposium_toolbar_deactivate() {
 
-	// global $wpdb;
-	
-	// Post install - update WPS Admin Menu
-	// if ( is_multisite() && is_main_site() ) {
-		// $query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
-		// $blogs = $wpdb->get_results( $query, ARRAY_A );
-		
-		// foreach ($blogs as $blog) {
-			// switch_to_blog( $blog['blog_id'] );
-			// update_option('wpst_post_install', '');
-		// }
-		// restore_current_blog();
-	// } else
-		// Post install - update WPS Admin Menu
-		// update_option('wpst_post_install', '');
 }
 register_deactivation_hook(__FILE__, 'symposium_toolbar_deactivate');
 
