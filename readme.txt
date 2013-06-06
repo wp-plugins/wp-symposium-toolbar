@@ -69,6 +69,8 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 == Screenshots ==
 
 1. The WP Symposium Profile menu appended to the WordPress User Menu ("My Account"), along with notification icons (and the Search field will no longer push others...)
+2. On top of the first section of the options, extensive help provided by the WP help tabs
+3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
 
 == Changelog ==
 
