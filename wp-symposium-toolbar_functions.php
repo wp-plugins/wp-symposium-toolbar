@@ -272,7 +272,6 @@ function symposium_toolbar_update_menus_before_render() {
 			update_option('wpst_myaccount_edit_link', isset($_POST["display_wp_edit_link"]) ? 'on' : '');
 			update_option('wpst_myaccount_logout_link', isset($_POST["display_logout_link"]) ? 'on' : '');
 			update_option('wpst_myaccount_rewrite_edit_link', isset($_POST["rewrite_edit_link"]) ? 'on' : '');
-			// update_option('wpst_myaccount_role', isset($_POST["display_wp_role"]) ? 'on' : '');
 			
 			// Fourth set of options - Custom Menus
 			$all_custom_menus = array ();
@@ -370,7 +369,6 @@ function symposium_toolbar_update_menus_before_render() {
 						case 'wpst_myaccount_edit_link' :
 						case 'wpst_myaccount_logout_link' :
 						case 'wpst_myaccount_rewrite_edit_link' :
-						case 'wpst_myaccount_role' :
 						case 'wpst_style_highlight_external_links' :
 						case 'wpst_wps_admin_menu' :
 							if ( is_string($option_value) ) {
@@ -534,74 +532,74 @@ function symposium_toolbar_edit_wp_toolbar() {
 					$howdy  = str_replace("%display_name%", $current_user->display_name, $howdy);
 					$howdy  = str_replace("%role%", $wpst_roles_all_incl_visitor[$current_role[0]], $howdy);
 				}
-				$avatar = ( get_option('wpst_myaccount_avatar_small', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';
+				$avatar_s = ( get_option('wpst_myaccount_avatar_small', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';
 				
 			} else {
 				$howdy  = stripslashes(get_option('wpst_myaccount_howdy_visitor', __('Howdy', 'wp-symposium-toolbar').", ".__('Visitor', 'wp-symposium-toolbar')));
-				$avatar = ( get_option('wpst_myaccount_avatar_visitor', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
+				$avatar_s = ( get_option('wpst_myaccount_avatar_visitor', 'on') == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
 			}
 			
 			// User Info that goes in the menu
 			$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
 			$user_info_arr = explode( "><", $user_info);
-			$user_info_collected = "";
-			$has_avatar = $has_info = false;
+			$avatar_b = $user_info_collected = "";
 			
 			if ( is_array( $user_info_arr ) ) {
 				foreach ( $user_info_arr as $user_info_element ) {
 					$user_info_element = '<' . trim( $user_info_element , "<>" ) . '>';
 					
-					if ( ( strstr ($user_info_element, "avatar") ) && (get_option('wpst_myaccount_avatar', 'on') == "on") ) {
-						$user_info_collected .= $user_info_element;
-						$has_avatar = true;
-					} elseif ( ( strstr ($user_info_element, "display-name") ) && (get_option('wpst_myaccount_display_name', 'on') == "on") ) {
-						$user_info_collected .= $user_info_element;
-						$has_info = true;
-					} elseif ( ( strstr ($user_info_element, "username") ) &&  (get_option('wpst_myaccount_username', 'on') == "on") ) {
-						if ( $current_user->display_name !== $current_user->user_nicename )
+					// The Avatar
+					if ( strstr ($user_info_element, "avatar") ) {
+						if (get_option('wpst_myaccount_avatar', 'on') == "on")
+							$avatar_b = $user_info_element;
+					// The Display Name
+					} elseif ( strstr ($user_info_element, "display-name") ) {
+						if (get_option('wpst_myaccount_display_name', 'on') == "on")
 							$user_info_collected .= $user_info_element;
-					}
+					// The User Name
+					} elseif ( strstr ($user_info_element, "username") ) {
+						if (get_option('wpst_myaccount_username', 'on') == "on")
+							$user_info_collected .= $user_info_element;
+					// Anything else, possibly added by other plugins, in doubt we keep it
+					} else 
+						$user_info_collected .= $user_info_element;
 				}
-				// if ( get_option('wpst_myaccount_role', '') == "on" ) {
-					// $user_info_collected .= "<span class='username wpst-role'>".$wpst_roles_all_incl_visitor[$current_role[0]]."</span>";
-					// $has_info = true;
-				// }
-				
-				// Hook to add any HTML item to the user info
-				// NB: I do not recommend to remove anything from here since $has_avatar and $has_info wouldn't be up to date
-				$user_info_collected = apply_filters( 'symposium_toolbar_user_info_update', $user_info_collected );
 			}
 			
-			if ( $has_avatar && $has_info ) {
+			// Hook to add any HTML item to the user info
+			$user_info_collected = apply_filters( 'symposium_toolbar_custom_user_info', $user_id, $current_role, $user_info_collected );
+			
+			// Classes
+			if ( $avatar_b && $user_info_collected ) {
 				$my_account_class  = 'with-avatar';
 			} else {
 				$my_account_class  = '';
-				$user_info_collected = str_replace("avatar-64", "avatar-64 wpst-avatar", $user_info_collected);
+				$avatar_b = str_replace("avatar-64", "avatar-64 wpst-avatar", $avatar_b);
 			}
 			
-			// Update My Account and menu with extra class and above data
+			// Update My Account and menu with above data
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'my-account',
 				'parent' => 'top-secondary',
-				'title'  => $howdy . $avatar,
+				'title'  => $howdy . $avatar_s,
 				'href'   => $profile_url,
 				'meta'   => array(
 					'class'  => $my_account_class,
-					'title'  => __('My Account'),
+					'title'  => __('My Account')
 				)
 			) );
-			if ( $has_avatar )
+			if ( $avatar_b )
 				$wp_admin_bar->add_group( array(
 					'parent' => 'my-account',
 					'id'     => 'user-actions',
 					'meta'   => array(
 						'class'  => 'wpst-user-actions')
 				) );
-			if ( $user_info_collected != "" ) {
+			if ( $avatar_b . $user_info_collected ) {
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'user-info',
 					'parent' => 'user-actions',
-					'title'  => $user_info_collected,
+					'title'  => $avatar_b . $user_info_collected,
 					'href'   => esc_url($profile_url)
 				) );
 			
@@ -643,7 +641,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 						// Replacing the toplevel menu item title with a custom icon, keep the title for mouse hover
 						if ( !empty($custom_menu[3]) && is_string($custom_menu[3]) ) {
 							$meta['title'] = $title;
-							$title = '<img src="'.$custom_menu[3].'" class="wpst-icon" height="16" width="16">';
+							$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
 						}
 						
 						// We are replacing WP Logo

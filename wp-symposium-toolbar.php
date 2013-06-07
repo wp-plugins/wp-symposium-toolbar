@@ -5,11 +5,11 @@ Description: Toolbar plugin for WP Symposium - And the WordPress Toolbar can fin
 Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
-Tags: wp-symposium, toolbar, admin, bar
+Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu
 Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.15
-Version: 0.0.15
+Stable tag: 0.0.16
+Version: 0.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -194,10 +194,13 @@ add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
 
 // TODO
 // - Hide the WP Profile setting to show/hide the Toolbar, when the role cannot see it ("Show Toolbar when viewing site")
+// - Add a menu location at the bottom of "Site Name" admin menu
 // - WPMS - Propagate settings to any other site of the network
 
 // Styles
 // - Provide a themed way to have custom icons for notifications...?
+// - Iconify all the Toolbar items
+// - Toolbar background color, heigth, transparency, font, font color, menu color, hover, focus
 // - Add an extra class for externals links ('meta'   => array( 'class' => 'ab-sub-secondary' )
 /*
 // Description: Custom CSS styles for admin interface.

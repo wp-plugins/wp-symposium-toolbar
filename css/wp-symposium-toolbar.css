@@ -71,7 +71,7 @@
 }
 
 #wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
-	min-height: 80px;
+	min-height: 84px;
 }
 
 #wpadminbar #wp-admin-bar-my-account .wpst-avatar {
@@ -84,10 +84,6 @@
 	width: 16px;
 	height: 16px;
 	margin-top: 6px;"
-}
-
-#wpadminbar .wpst-display-none {
-	display:none;
 }
 
 #wpadminbar #wp-admin-bar-my-account .avatar-16 {

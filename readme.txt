@@ -6,8 +6,8 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.15
-Version: 0.0.15
+Stable tag: 0.0.16
+Version: 0.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,11 +43,11 @@ A WP Symposium Toolbar plugin should then be available in the 'Plugins' menu in 
 
 = Upgrading the plugin =
 
-If you are upgrading manually, make a copy of your current wp-symposium-toolbar plugin folder just in case anything goes wrong. Then follow the above steps: download the zip file, extract its content and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.  Make sure you de-activate and re-activate the plugin.
+To upgrade manually, download the zip file and extract its content locally. Deactivate the previous version to avoid any warning due to changes, and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.  Re-activate the plugin.
 
 Alternatively, use the WordPress feature to upgrade the plugin from the WP Dashboard.  This process will automatically de-activate and re-activate the plugin.
 
-= Adding the plugin to your site =
+= Configuring the plugin for your site =
 
 A new menu will appear in the WP Dashboard, called "Toolbar", where you will find options for the plugin.  The plugin default settings are relatively conservative, hence upon activation you shouldn't notice much difference in the Toolbar: once the plugin is activated, you should visit the options page, and modify these options so they fit your needs.  Please refer to the help tabs of the options page for more information.
 
@@ -56,11 +56,15 @@ If you're running WP Symposium, the first activation of the plugin will create d
 * For users, it'll add menu items under the WP User Menu on the upper right corner of the screen, and notification icons for mails and friend requests close to that WP User Menu.
 * It will also add an Admin Menu with links to WP Symposium settings pages, visible only by site admins.  The content is that of the WP Dashboard sidebar menu for WP Symposium, you cannot edit it, only show or hide the whole menu.
 
-Remember to visit the WP Symposium Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated by WP Symposium), that will re-generate the WPS Toolbar admin menu.
-
 Whether you're running WP Symposium or not, the first activation of the plugin will create one menu, with links to the Login page, as defined on your site.
 
 You may, of course, modify these settings, create your own custom menus, edit the default ones, and eventually remove them from the WP Toolbar.
+
+= Sorting out issues (if any!) =
+
+If you're running WP Symposium, remember to visit the WP Symposium Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated by WP Symposium), that will re-generate the WPS Toolbar admin menu.
+
+In general, if you notice odd things with the plugin, visit the Options page, and save the options (even unchanged), that will trigger a few cleanup tasks.
 
 = Removing the plugin from your site =
 
@@ -68,11 +72,15 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 
 == Screenshots ==
 
-1. The WP Symposium Profile menu appended to the WordPress User Menu ("My Account"), along with notification icons (and the Search field will no longer push others...)
-2. On top of the first section of the options, extensive help provided by the WP help tabs
+1. The WP Symposium Profile menu appended to the WordPress User Menu ("My Account"), along with notification icons for WP Symposium mail and friends (and the Search field will no longer push other items from where it is now)
+2. Under the extensive help provided via the WP help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
 
 == Changelog ==
+
+= 0.0.16. =
+
+* CSS issue in the User Menu
 
 = 0.0.15. =
 
@@ -80,7 +88,7 @@ This release focuses on hardening the plugin: validate the import before saving,
 
 * Protect all array_intersect() with check if the stored option is actually an array, to avoid PHP warnings
 * Narrow the output for the Export to this plugin options
-* Add checks to the Import: empty field, option name unrecognized, wrong option value, and error messages as appropriate
+* Add checks to the Import: empty field, unknown option name, wrong option value, and error messages as appropriate
 * Add error messages to the options page to warn admin of discrepancies in stored options for: arrays of roles, checkboxes, missing menus
 
 = 0.0.14. =

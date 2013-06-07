@@ -349,22 +349,6 @@ function symposium_toolbar_admin_page() {
 				echo '</tr>';
 			}
 			
-			// echo '<tr valign="top">';
-				// echo '<td scope="row" style="width:15%;"><span>'.__('Additional Menu Item', 'wp-symposium-toolbar').'</span></td>';
-				// echo '<td>';
-					// echo '<input type="checkbox" name="display_wp_role" id="display_wp_role"';
-					// if (get_option('wpst_myaccount_role', '') == "on")
-						// echo " CHECKED";
-					// elseif (get_option('wpst_myaccount_role', '') != "") {
-						// $error = true;
-						// echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById(\'display_wp_role\').style.outline = \'none\';"';
-					// }
-					// echo '/><span> ' . __('Add the user role to the WP User Menu, under the display name', 'wp-symposium-toolbar') . '</span><br />';
-				// echo '</td>';
-				// echo '<td>';
-				// echo '</td>';
-			// echo '</tr>';
-			
 			if ( $error ) {
 				echo '<tr valign="top">';
 					echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
