@@ -74,8 +74,18 @@
 	min-height: 84px;
 }
 
+#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
+	min-height: 64px;
+}
+
 #wpadminbar #wp-admin-bar-my-account .wpst-avatar {
 	left: 16px;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
+	border: 1px solid red;
+	padding: 0 0 10px 15px;
+	margin: 10px 0 10px 0;
 }
 
 #wpadminbar .wpst-icon {

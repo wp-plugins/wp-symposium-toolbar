@@ -8,8 +8,8 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu
 Requires at least: WordPress 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.16
-Version: 0.0.16
+Stable tag: 0.0.17
+Version: 0.0.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -175,32 +175,51 @@ if ( $wps_is_active ) {
 	if (is_admin()) { add_action('admin_menu', 'add_symposium_toolbar_to_admin_menu'); }
 }
 
-// Save options
-if (is_admin()) { add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_update_menus_before_render', 999 ); }
 
-// Toolbar rendition, chronological order
+if (is_admin()) {
+	// Save options
+	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_update_menus_before_render', 999 );
+
+	// Remove the option to show the admin bar when viewing the site
+	add_action("admin_head", "symposium_toolbar_remove_profile_option");
+
+	// Help tabs
+	add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
+}
+
+// Add styles to the page header
+add_action("wp_head", "symposium_toolbar_add_styles");
+add_action("admin_head", "symposium_toolbar_add_styles");
+
+// Toolbar rendition, chronological order has importance
 add_filter( 'show_admin_bar', 'symposium_toolbar_show_admin_bar', 10, 1 );
+
+// Main part of the plugin - rework of the Toolbar
 add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_edit_wp_toolbar', 999 );
+
 if ( $wps_is_active ) {
+	// Edit the Profile link to point to the WPS Profile page, settings menu
 	add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
+	
+	// Add the WPS Admin menu
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_link_to_symposium_admin', 999 );
+	
+	// Add the WPS Notification icons
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
 }
-add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_add_search_menu', 999 );
 
-// Help tabs
-add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
+// Re-add the Search icon and field in the inner part of the Toolbar - must be done at the end
+add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_add_search_menu', 999 );
 
 
 // TODO
-// - Hide the WP Profile setting to show/hide the Toolbar, when the role cannot see it ("Show Toolbar when viewing site")
 // - Add a menu location at the bottom of "Site Name" admin menu
 // - WPMS - Propagate settings to any other site of the network
 
 // Styles
 // - Provide a themed way to have custom icons for notifications...?
 // - Iconify all the Toolbar items
-// - Toolbar background color, heigth, transparency, font, font color, menu color, hover, focus
+// - Toolbar background color, height, transparency, font, font color, menu color, hover, focus
 // - Add an extra class for externals links ('meta'   => array( 'class' => 'ab-sub-secondary' )
 /*
 // Description: Custom CSS styles for admin interface.

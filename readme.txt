@@ -6,28 +6,37 @@ Contributors: AlphaGolf_fr
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.0.16
-Version: 0.0.16
+Stable tag: 0.0.17
+Version: 0.0.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
 **Attention, this plugin is currently in a beta phase, aiming at tests and feedback.**
-  
+
 Customize the WordPress Toolbar the way *you* want...
 
-This plugin is primarilly targetted for WP Symposium sites. However, if you're not running a Social Network site or simply want to customize the Toolbar, you may use this plugin and benefit from its generic, per-role settings and custom menus.
+= In a nutshell =
+When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  However, I needed to ensure WP Symposium is actually running, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Now that I look back, the scope of generic options of this plugin by far exceeds the options offered to WP Symposium sites only.  Whether you're running a Social Network site or simply want to customize the Toolbar, give this plugin a try, and let me know what you think...
+
+Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.
+
+Flexibility in determining which roles will have access to which information from the Toolbar, in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have that control over who can access which parts of your site, welcome your non-logged-in members with a custom Howdy message and login menu, etc....
+
+Multisite compatible: each site of your network can have individual navigation, or your network can function as though it is one big site. Export and share your Toolbar settings regardless of the theme each subsite uses.
+
+Use your imagination. You are no longer bound to using just a theme navbar for navigating your site, or network of sites. You are no longer bound to displaying that dark bar to members who would access to information you just don't want them to see. You are no longer forced to use several plugins to make the Toolbar at your wishes.
 
 = Features =
-* Select the default items that should be displayed in the WordPress Toolbar: site-related items, content-related items, user menu
+* Select those of the default items that should be displayed in the WordPress Toolbar: site-related items, content-related items, user menu
 * Create your custom menus using the WordPress NavMenus page, and add them to the WP Toolbar, including custom icons in the toplevel items of your menus
 * Per-role management for most of the settings, items and menus, adding visitors to all the roles of the site
 * Redesign the WP User Menu ("My Account"), by selecting each of its default items individually
-* Add links to WP Symposium to the WP Toolbar, providing single-click access to WP Symposium from anywhere in your WordPress site
-* Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
+* WP Symposium sites - Add links to WP Symposium to the WP Toolbar, providing single-click access to WP Symposium from anywhere in your WordPress site
+* WP Symposium sites - Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
 * Show the Toolbar to non logged-in members, with links to your Login page along with the welcome message you wish
-* Hide WordPress and its dashboard from your users, at least from the Toolbar
+* Import / export the plugin settings, ideal for backups or exchanging those settings accross your sites
 
 My thanks go to Louis, my friend at Central Geek (centralgeek.com), for his help in specifying and testing the plugin.
 
@@ -77,6 +86,14 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
 
 == Changelog ==
+
+= 0.0.17. =
+
+* CSS issue in the User Menu - hopefully all cases are covered this time...
+* Hide the WP Profile setting to show/hide the Toolbar ("Show Toolbar when viewing site"), when the role cannot see the Toolbar
+* Make the option "add the username to the display name, if different" do what it's supposed to do
+* Option to add the role under the display name, in the User Menu
+* First draft of the file developpers.txt, describing the hooks available so far.
 
 = 0.0.16. =
 

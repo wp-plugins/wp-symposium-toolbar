@@ -26,7 +26,7 @@ function symposium_toolbar_admin_page() {
 	// Get data to show
 	$all_navmenus = wp_get_nav_menus();
 	$all_custom_menus = get_option('wpst_custom_menus', array()) ;
-	$sql = "SELECT option_name,option_value FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_custom_menus' OR option_name LIKE 'wpst_myaccount_%' OR option_name LIKE 'wpst_style_%' OR option_name LIKE 'wpst_toolbar_%' OR option_name LIKE 'wpst_wps_%' ORDER BY option_name";
+	$sql = "SELECT option_name,option_value FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_custom_menus' OR option_name LIKE 'wpst_myaccount_%' OR option_name LIKE 'wpst_style_highlight_external_links' OR option_name LIKE 'wpst_tb_style_%' OR option_name LIKE 'wpst_toolbar_%' OR option_name LIKE 'wpst_wps_%' ORDER BY option_name";
 	$all_wpst_options = $wpdb->get_results( $sql );
 	
 	if ( isset($_POST["symposium_update"]) && $_POST["symposium_update"] == 'symposium_toolbar_menu' ) {
@@ -349,6 +349,20 @@ function symposium_toolbar_admin_page() {
 				echo '</tr>';
 			}
 			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>' . __('Additional Menu Items', 'wp-symposium-toolbar') . '</span></td>';
+				echo '<td>';
+					echo '<input type="checkbox" name="display_wp_role" id="display_wp_role"';
+					if (get_option('wpst_myaccount_role', '') == "on")
+						echo " CHECKED";
+					elseif (get_option('wpst_myaccount_role', '') != "") {
+						$error = true;
+						echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById(\'display_wp_role\').style.outline = \'none\';"';
+					}
+					echo '/><span> ' . __('Show the user\'s role, under the display name', 'wp-symposium-toolbar') . '</span><br />';
+				echo '</td>';
+			echo '</tr>';
+			
 			if ( $error ) {
 				echo '<tr valign="top">';
 					echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
@@ -364,7 +378,7 @@ function symposium_toolbar_admin_page() {
 			// Fourth set of options - Custom Menus
 			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
 			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
-			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'custom_menu_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('WP Toolbar Custom Menus', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'custom_menu_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('Custom Menus', 'wp-symposium-toolbar').'</span></h3>';
 			echo '<div class="inside" id="custom_menu_inside">';
 			
 			echo '<table class="form-table">';
@@ -481,7 +495,122 @@ function symposium_toolbar_admin_page() {
 			echo '</table>';
 			echo '</div></div>';
 			
-			// Fifth set of options - Plugin Settings
+			// Fifth set of options - Styles
+			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
+			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
+			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'plugin_style_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('Styles', 'wp-symposium-toolbar').'</span></h3>';
+			echo '<div class="inside" id="plugin_style_inside">';
+			
+			$wpst_tb_style_current = get_option('wpst_tb_style_current', array());
+			// $tb_height = ( isset( $wpst_tb_style_current['tb_height'] ) ) ? $wpst_tb_style_current['tb_height'] : '';
+			$tb_background_colour = ( isset( $wpst_tb_style_current['tb_background_colour'] ) ) ? $wpst_tb_style_current['tb_background_colour'] : '';
+			$tb_bottom_colour = ( isset( $wpst_tb_style_current['tb_bottom_colour'] ) ) ? $wpst_tb_style_current['tb_bottom_colour'] : '';
+			$tb_gradient_height = ( isset( $wpst_tb_style_current['tb_gradient_height'] ) ) ? $wpst_tb_style_current['tb_gradient_height'] : '';
+			$tb_transparency = ( isset( $wpst_tb_style_current['tb_transparency'] ) ) ? $wpst_tb_style_current['tb_transparency'] : '';
+			$tb_shadow = ( isset( $wpst_tb_style_current['tb_shadow'] ) ) ? $wpst_tb_style_current['tb_shadow'] : '';
+			$tb_shadow_blur = ( isset( $wpst_tb_style_current['tb_shadow_blur'] ) ) ? $wpst_tb_style_current['tb_shadow_blur'] : '';
+			$tb_shadow_spread = ( isset( $wpst_tb_style_current['tb_shadow_spread'] ) ) ? $wpst_tb_style_current['tb_shadow_spread'] : '';
+			$tb_shadow_colour = ( isset( $wpst_tb_style_current['tb_shadow_colour'] ) ) ? $wpst_tb_style_current['tb_shadow_colour'] : '';
+			$tb_hover_background_colour = ( isset( $wpst_tb_style_current['tb_hover_background_colour'] ) ) ? $wpst_tb_style_current['tb_hover_background_colour'] : '';
+			$tb_hover_bottom_colour = ( isset( $wpst_tb_style_current['tb_hover_bottom_colour'] ) ) ? $wpst_tb_style_current['tb_hover_bottom_colour'] : '';
+			$tb_hover_gradient_height = ( isset( $wpst_tb_style_current['tb_hover_gradient_height'] ) ) ? $wpst_tb_style_current['tb_hover_gradient_height'] : '';
+			$tb_hover_transparency = ( isset( $wpst_tb_style_current['tb_hover_transparency'] ) ) ? $wpst_tb_style_current['tb_hover_transparency'] : '';
+			$menu_background_colour = ( isset( $wpst_tb_style_current['menu_background_colour'] ) ) ? $wpst_tb_style_current['menu_background_colour'] : '';
+			
+			echo '<table class="form-table">';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Toolbar', 'wp-symposium-toolbar').'</span></td>';
+				// echo '<td>';
+					// echo '<span>' . __('Height', 'wp-symposium-toolbar') . '</span><br />';
+					// echo '<input type="text" style="width:50px;" name="tb_height" id="tb_height"  value="'.$tb_height.'" />px';
+				// echo '</td>';
+				// echo '<td></td>';
+				// echo '<td></td>';
+				// echo '<td></td>';
+			// echo '</tr>';
+			
+			// echo '<tr valign="top">';
+				// echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Background Colour', 'wp-symposium-toolbar') . '</span><br />';
+					echo '#<input type="text" style="width:120px;" name="tb_background_colour" id="tb_background_colour"  value="'.$tb_background_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Gradient Bottom Colour', 'wp-symposium-toolbar') . '</span><br />';
+					echo '#<input type="text" style="width:120px;" name="tb_bottom_colour" id="tb_bottom_colour"  value="'.$tb_bottom_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Gradient Height', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_gradient_height" id="tb_gradient_height"  value="'.$tb_gradient_height.'" />px';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Transparency', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_transparency" id="tb_transparency"  value="'.$tb_transparency.'" />%';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Vertical Shadow', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_shadow" id="tb_shadow"  value="'.$tb_shadow.'" />px';
+					echo '<a href="#" title="Hi, Im a tooltip thingy'.plugin_dir_url( __FILE__ ).'../wp-symposium/images/logo_admin_icon.png'.'">link</a>';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Blur', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_shadow_blur" id="tb_shadow_blur"  value="'.$tb_shadow_blur.'" />px';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Spread', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_shadow_spread" id="tb_shadow_spread"  value="'.$tb_shadow_spread.'" />px';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Shadow Colour', 'wp-symposium-toolbar') . '</span><br />';
+					echo '#<input type="text" style="width:120px;" name="tb_shadow_colour" id="tb_shadow_colour"  value="'.$tb_shadow_colour.'" />';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Hover Colour', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:120px;" name="tb_hover_background_colour" id="tb_hover_background_colour"  value="'.$tb_hover_background_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Hover Gradient Bottom Colour', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:120px;" name="tb_hover_bottom_colour" id="tb_hover_bottom_colour"  value="'.$tb_hover_bottom_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Hover Gradient Height', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_hover_gradient_height" id="tb_hover_gradient_height"  value="'.$tb_hover_gradient_height.'" />';
+				echo '</td>';
+				echo '<td>';
+					echo '<span>' . __('Hover Transparency', 'wp-symposium-toolbar') . '</span><br />';
+					echo '<input type="text" style="width:50px;" name="tb_hover_transparency" id="tb_hover_transparency"  value="'.$tb_hover_transparency.'" />%';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__('Menus', 'wp-symposium-toolbar').'</span></td>';
+				echo '<td>';
+					echo '<span>' . __('Background Colour', 'wp-symposium-toolbar') . '</span><br />'; // color
+					echo '<input type="text" style="width:120px;" name="menu_background_colour" id="menu_background_colour"  value="'.$menu_background_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					// echo '<span>' . __('Gradient bottom color', 'wp-symposium-toolbar') . '</span><br />';
+					// echo '<input type="text" style="width:120px;" name="menu_background_colour" id="menu_background_colour"  value="'.$menu_background_colour.'" />';
+				echo '</td>';
+				echo '<td>';
+					// echo '<span>' . __('Background color', 'wp-symposium-toolbar') . '</span><br />';
+					// echo '<input type="text" style="width:120px;" name="menu_background_colour" id="menu_background_colour"  value="'.$menu_background_colour.'" />';
+				echo '</td>';
+			echo '</tr>';
+			
+			echo '</table> 	';
+			echo '</div></div>';
+			
+			// Sixth set of options - Plugin Settings
 			echo '<div id="wp-symposium-toolbar-postbox" class="postbox" >';
 			echo '<div class="handlediv" title="Cliquer pour inverser."><br /></div>';
 			echo '<h3 class="hndle" onclick="var div = document.getElementById(\'plugin_settings_inside\'); if (div.style.display !== \'none\') { div.style.display = \'none\'; } else { div.style.display = \'block\'; }"><span>'.__('Plugin Settings', 'wp-symposium-toolbar').'</span></h3>';
