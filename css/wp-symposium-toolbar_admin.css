@@ -63,8 +63,22 @@
 /**
  * User Menu
  */
- 
- /* Styling the User Menu for a correct partial display */
+
+/* Style the avatar for visitors */
+#wpadminbar a img.avatar-16, #wpadminbar a img.avatar-16:hover {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #999;
+	padding: 0;
+	background: #eee;
+	line-height: 24px;
+	vertical-align: middle;
+	margin: -3px 0 0 6px;
+	float: none;
+	display: inline;
+}
+
+/* Style the User Menu for a correct partial display */
 #wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
 	min-height: 84px;
 }
@@ -77,11 +91,28 @@
 	left: 16px;
 }
 
+/* Add the hoverbox to the User Info */
+#wpadminbar #wp-admin-bar-user-info:hover {
+	background-color: #EAF2FA;
+}
+
+/* Increase size of User Info container, spans look too small on hover */
+#wpadminbar #wp-admin-bar-user-info {
+	margin-bottom: 0px;
+}
+
+#wpadminbar #wp-admin-bar-user-info a {
+	padding-bottom: 10px;
+}
+
 /* Add Admin Role to User Menu */
+#wpadminbar #wp-admin-bar-my-account .wpst-role {
+	padding: 0 0 10px 15px;
+	margin: 10px 0 0 0;
+}
+
 #wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
 	border: 1px solid red;
-	padding: 0 0 10px 15px;
-	margin: 10px 0 10px 0;
 }
 
 /**

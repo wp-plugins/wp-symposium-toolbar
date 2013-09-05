@@ -7,8 +7,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.18.0_RC9
-Version: 0.18.0_RC9
+Stable tag: 0.19.0
+Version: 0.19.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ This plugin is targetted for WP Symposium sites.  However, if you're not running
 = In a nutshell =
 When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  I needed to ensure WP Symposium is actually activated, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Looking at the result, I'd like to stress that the scope of the generic options of this plugin by far exceeds those dedicated to WP Symposium sites solely...
 
-Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu, etc.  Multisite compatible: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice preview mode for you to play with the styling before actually saving...
+Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu.  Multisite compatible: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice preview mode for you to play with the styling before actually saving...
 
 You are no longer bound to showing to your members information you don't want them to see.  You are no longer bound to using just a theme navbar for navigating your site, or network of sites.  You are no longer bound to displaying that dark bar that doesn't fit with the overall look of your site.  You are no longer bound to configuring several plugins to make the Toolbar at your wishes.
 
@@ -84,19 +84,19 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 
 == Frequently Asked Questions ==
 
-* When do I need this plugin?
+= When do I need this plugin? =
 
 You need this plugin when you'd like to take advantage from its main features: per-role settings and custom menus, as well as its styling settings ; when you'd like to hide some of the WP Toolbar default items, like the WP logo, the Comments icon (e.g. if comments are totally deactivated on your site, or replaced with a forum), the authors' icons, Edit Page and others (e.g. if your theme provides these links lower in the page) ; when you'd like to add or remove items from the User Menu ; when you'd like to add a corporate menu in the upper left corner with your own icon ; when you'd like to add navigation functionality to the Toolbar ; when you'd like the Toolbar to show different information and links based on membership level... Etc. 
 
-* When don't I need this plugin?
+= When don't I need this plugin? =
 
 You don't need this plugin if your sole aim is to hide the WP Toolbar. There are other, smaller plugins that are targetted for that, or eventually you could achieve this with a few lines in your theme's functions.php file - google it.
 
-* With such a level of functionalities, this plugin must be a resources hog?
+= With such a level of functionalities, this plugin must be a resources hog? =
 
 Performances have been addressed as best as possible. Most of the job of the plugin is performed off-line upon saving options from the options page. The remaining, dynamic part of the job is performed at page load: all it has to do is take the information or menu, and send it for display if the user can access it.
 
-* I have activated your plugin, set the option to show the Toolbar to my role, however I can't see the Toolbar in the frontend !
+= I have activated your plugin, set the option to show the Toolbar to my role, however I can't see the Toolbar in the frontend ! =
 
 In WPS Toolbar settings, make sure the Toolbar should actually show for the role you are using.  Even if you already did this, check again.
 
@@ -104,22 +104,31 @@ There's a personal setting in the WP profile page for each user to show or hide 
 
 Some themes will interfere with the WP Toolbar, some will even stop it from showing at all.  Likewise for plugins, but you should be a little more aware of what the plugins you installed do.  If unsure, switch to the WordPress default theme, deactivate all plugins but WPS Toolbar, and check if the Toolbar now shows in the frontend.
 
-* According to my settings, the admin role should see the Search icon, however I can't see it !
+= According to my settings, the admin role should see the Search icon, however I can't see it ! =
 
-It will show only on the frontend and not in the backend, have you checked in the frontend, really ?
+It will show only in the frontend and not in the backend, have you checked in the frontend, really ?
 
 == Screenshots ==
 
 1. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
-2. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparent, as well.
+2. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well.
 3. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
 
 == Changelog ==
 
-= 0.0.18. =
+= 0.19.0. =
 
-**Important !! This release changes the way settings are stored for site visitors. After the upgrade, please check your settings for visitors. Sorry for the inconvenience and thanks for your understanding**
+* Bugfix: Styles, CSS issue in the User Menu, User Info now displays colors and fonts as well as reacts to hover event
+* Bugfix: Styles, preview mode, menu font shadow, the normal and hover shadows were erroneously linked so that it was needed to define both to show them
+* Bugfix: Styles, preview mode, toplevel menu items now keep the focus, both in the Toolbar and the dropdown menus
+* Bugfix: Styles, make the font shadows settings save
+* Change: Remove the Error messages from the options tab upon click, with a JQuery 'slide up' effect rather than JS 'hide'
+* Bugfix: CSS issue with visitor's Howdy and blank avatar
+* Bugfix: Sort out flat menus as replacement to WP Logo, by using the first parentless item as parent to any further parentless item
+* Change: WP Symposium, add the option to show notification icons only when a new event occurs (new mail, new friend)
+
+= 0.18.0. =
 
 * Options page reworked with tabs rather than closing boxes
 * Styles added, along with a preview mode at this tab.
