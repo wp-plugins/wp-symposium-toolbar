@@ -17,7 +17,7 @@
 
 function symposium_toolbar_init_globals() {
 
-	global $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_menus, $wpst_locations, $wps_is_active;
+	global $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_menus, $wpst_locations, $wps_is_active;
 	
 	// Roles
 	$wpst_roles_all = array();
@@ -46,7 +46,9 @@ function symposium_toolbar_init_globals() {
 		if ( isset( $role['capabilities']['update_core'] ) ) $wpst_roles_updates[$key] = $role['name'];
 		if ( isset( $role['capabilities']['manage_options'] ) ) $wpst_roles_administrator[$key] = $role['name'];
 	}
-	$wpst_roles_all_incl_visitor = $wpst_roles_all;
+	$wpst_roles_all_incl_user = $wpst_roles_all;
+	if ( is_multisite() ) $wpst_roles_all_incl_user['wpst_user'] = __('User', 'wp-symposium-toolbar');
+	$wpst_roles_all_incl_visitor = $wpst_roles_all_incl_user;
 	$wpst_roles_all_incl_visitor['wpst_visitor'] = __('Visitor', 'wp-symposium-toolbar');
 	
 	// Menus
@@ -123,8 +125,6 @@ function symposium_toolbar_activate() {
 	if ( !is_array( get_option( 'wpst_toolbar_user_menu', '' ) ) ) update_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all_incl_visitor ) );
 	if ( !is_array( get_option( 'wpst_toolbar_search_field', '' ) ) ) update_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) );
 	if ( !get_option( 'wpst_toolbar_move_search_field' ) ) update_option( 'wpst_toolbar_move_search_field', 'empty' );
-	// if ( !get_option( 'wpst_myaccount_howdy' ) ) update_option( 'wpst_myaccount_howdy', __( 'Howdy', 'wp-symposium-toolbar' ).", %display_name%" );
-	// if ( !get_option( 'wpst_myaccount_howdy_visitor' ) ) update_option( 'wpst_myaccount_howdy_visitor', __( 'Howdy', 'wp-symposium-toolbar' ).", ".__( 'Visitor', 'wp-symposium-toolbar' ) );
 	if ( !get_option( 'wpst_myaccount_avatar_small' ) ) update_option( 'wpst_myaccount_avatar_small', 'on' );
 	if ( !get_option( 'wpst_myaccount_avatar_visitor' ) ) update_option( 'wpst_myaccount_avatar_visitor', 'on' );
 	if ( !get_option( 'wpst_myaccount_avatar' ) ) update_option( 'wpst_myaccount_avatar', 'on' );
@@ -165,8 +165,12 @@ function symposium_toolbar_activate() {
 		update_option( 'wpst_tech_create_custom_menus', 'yes' );
 	}
 
-	// Last, remove options in the old format and naming convention
+	// Remove options in the old format and naming convention
 	$wpdb->query( "DELETE FROM ".$wpdb->prefix."options WHERE option_name LIKE 'symposium_toolbar_%'" );
+	
+	// Update CSS based on stored styles
+	$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+	symposium_toolbar_update_styles( $wpst_style_tb_current );
 }
 
 function symposium_toolbar_create_custom_menus() {
@@ -327,6 +331,7 @@ function symposium_toolbar_save_before_render() {
 			update_option( 'wpst_wps_notification_mail', ( isset( $_POST["display_notification_mail_roles"] ) && is_array( $_POST["display_notification_mail_roles"] ) ) ? $_POST["display_notification_mail_roles"] : array() );
 			update_option( 'wpst_wps_notification_friendship', ( isset( $_POST["display_notification_friendship_roles"] ) && is_array( $_POST["display_notification_friendship_roles"] ) ) ? $_POST["display_notification_friendship_roles"] : array() );
 			update_option( 'wpst_wps_notification_alert_mode', isset( $_POST["display_notification_alert_mode"] ) ? 'on' : '' );
+			update_option( 'wpst_wps_network_url', isset( $_POST["display_wps_network_url"] ) ? 'on' : '' );
 			
 			
 			// Hidden Tab - CSS
@@ -785,9 +790,9 @@ function symposium_toolbar_save_before_render() {
 						case 'wpst_myaccount_logout_link' :
 						case 'wpst_myaccount_rewrite_edit_link' :
 						case 'wpst_myaccount_role' :
-						// case 'wpst_style_highlight_external_links' :
 						case 'wpst_wps_admin_menu' :
 						case 'wpst_wps_notification_alert_mode' :
+						case 'wpst_wps_network_url' :
 							if ( is_string( $option_value ) ) {
 								if ( in_array( $option_value, array( "", "on" ) ) )
 									update_option( $option_name, $option_value );
@@ -867,25 +872,12 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 
 		$height = $wpst_style_tb_current['height'];
 		$padding_top = ( $height > 28 ) ? round( ( $height - 28 )/2 ) : 0;
-		// var_dump( $height );
-		// var_dump( $wpst_style_tb_current['font_size'] );
-		// if ( isset( $wpst_style_tb_current['font_size'] ) ) if ( $wpst_style_tb_current['font_size'] != '' ) $adminbarsearch_height = ( $wpst_style_tb_current['font_size'] * 2 ) - 2;
-		// var_dump( $adminbarsearch_height );
-		// if ( $adminbarsearch_height > $height ) {
-			// $adminbarsearch_height = $height;
-			// $adminbarsearch_padding_top = ( $wpst_style_tb_current['font_size'] * 2 ) - 2;
-		// } else {
-			// $adminbarsearch_height = 24;
-			// $adminbarsearch_padding_top = 2;
-		// }
 		$style_chunk = 'height:'.$height.'px; ';
 		$style_saved .= '#wpadminbar .quicklinks > ul > li { '.$style_chunk.'} ';
 		$style_saved .= '#wpbody, body { margin-top: '.round( $height - 28 ).'px; } ';			// Move page body
 		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper { top:'.$height.'px; } ';			// Move the dropdown menus according to new Toolbar height
 		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper .ab-sub-wrapper { top:26px; } ';	// Force back submenus to their original location
 		$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item { height: '.( $height - $padding_top ).'px; padding-top: '.$padding_top.'px; } '; 
-		// $style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item { '.$style_chunk.'} '; 
-		// $style_saved .= '#wpadminbar #adminbarsearch .adminbar-input { height: '.$adminbarsearch_height . 'px; } ';
 		$style_saved .= '#wpadminbar #adminbarsearch { padding-top: '.$padding_top.'px; } '; 
 	
 	} else
@@ -970,40 +962,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	}
 	
 	// Toolbar - Font
-/*	$font_shorthand = 'font: ';
-	if ( isset( $wpst_style_tb_current['font_style'] ) )
-		if ( $wpst_style_tb_current['font_style'] != '' )
-			$font_shorthand .= $wpst_style_tb_current['font_style'].' ';
-	
-	if ( isset( $wpst_style_tb_current['font_case'] ) ) if ( $wpst_style_tb_current['font_case'] != '' ) {
-		if ( ( $wpst_style_tb_current['font_case'] == 'uppercase' ) || ( $wpst_style_tb_current['font_case'] == 'lowercase' ) )
-			$font_shorthand .= $wpst_style_tb_current['font_case'].' ';
-		if ( $wpst_style_tb_current['font_case'] == 'small-caps' )
-			$font_shorthand .= 'small-caps ';
-	}
-	
-	if ( isset( $wpst_style_tb_current['font_weight'] ) )
-		if ( $wpst_style_tb_current['font_weight'] != '' )
-			$font_shorthand .= $wpst_style_tb_current['font_weight'].' ';
-	
-	if ( isset( $wpst_style_tb_current['font_size'] ) )
-		if ( $wpst_style_tb_current['font_size'] != '' )
-			$font_shorthand .= $wpst_style_tb_current['font_size'].'px/'.$height.'px ';
-	
-	if ( isset( $wpst_style_tb_current['font'] ) ) if ( $wpst_style_tb_current['font'] != '' ) {
-		$wpst_font = explode( ",", $wpst_style_tb_current['font'] );
-		$wpst_font_clean = "";
-		if ( $wpst_font ) foreach ( $wpst_font as $font ) {
-			$wpst_font_clean .= ( str_word_count( $font ) > 1 ) ? '\"'.$font.'\",' : $font.',';
-		}
-		$font_shorthand .= trim( $wpst_font_clean, ',' ) . ' ';
-	}
-	if ( $font_shorthand != 'font: ' ) $style_chunk = $font_shorthand . '; ';
-	
-	if ( isset( $wpst_style_tb_current['font_line'] ) )
-		if ( $wpst_style_tb_current['font_line'] != '' )
-			$style_chunk .= 'text-decoration: '.$wpst_style_tb_current['font_line'].'; ';
-*/	
 	if ( isset( $wpst_style_tb_current['font'] ) ) if ( $wpst_style_tb_current['font'] != '' ) {
 		$wpst_font = explode( ",", $wpst_style_tb_current['font'] );
 		$wpst_font_clean = "";
@@ -1207,7 +1165,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	
 	// If no color was defined for secondary items but one color was defined for ul li a, force back secondary to WP default color
 	elseif ( ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) && ( $wpst_style_tb_current['menu_font_colour'] != '' ) )
-		$style_chunk_ext = 'color: #21759B; ';  // TODO put this value on top of function
+		$style_chunk_ext = 'color: #21759B; ';
 	
 	// Menu Font color
 	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) )
@@ -1229,11 +1187,12 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	
 	// Add the font to the menus
 	if ( $style_chunk !== "" ) {
-		$style_saved .= '#wpadminbar .quicklinks .menupop ul li a, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li a, #wpadminbar.nojs .quicklinks .menupop:hover ul li a, #wpadminbar #wp-admin-bar-user-info .ab-item span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong { ' . $style_chunk . '} ';
+		$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item, #wpadminbar #wp-admin-bar-user-info .ab-item span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong { ' . $style_chunk . '} ';
 		
 		// Smaller font for username in User Info
 		if ( isset( $wpst_style_tb_current['menu_font_size'] ) ) if ( $wpst_style_tb_current['menu_font_size'] != '' )
 			$style_saved .= '#wpadminbar #wp-admin-bar-user-info .ab-item .username { font-size: '.($wpst_style_tb_current['menu_font_size'] - 2).'px; } ';
+			// "text-transform", "none" and "font-variant", "normal"
 
 		// Force bold font back to strong
 		if ( isset( $wpst_style_tb_current['menu_font_weight'] ) ) if ( $wpst_style_tb_current['menu_font_weight'] == 'normal' )
@@ -1250,14 +1209,16 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	// Menus Hover
 	if ( ( isset( $wpst_style_tb_current['menu_hover_background_colour'] ) && $wpst_style_tb_current['menu_hover_background_colour'] != '' ) )
 		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover, #wpadminbar #wp-admin-bar-user-info .ab-item:hover span { background-color: '.$wpst_style_tb_current['menu_hover_background_colour'].'; } ';
-		// #wpadminbar .ab-sub-wrapper > ul > li:hover, #wpadminbar .ab-sub-wrapper > ul > li.hover, 
 	
 	if ( ( isset( $wpst_style_tb_current['menu_hover_ext_background_colour'] ) && $wpst_style_tb_current['menu_hover_ext_background_colour'] != '' ) )
 		$style_chunk_ext = $wpst_style_tb_current['menu_hover_ext_background_colour'];
-	else
-		$style_chunk_ext = '#dfdfdf';
-	$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover { background-color: ' . $style_chunk_ext . '; } ';
-	$style_chunk_ext = "";
+	// else
+		// $style_chunk_ext = '#dfdfdf';
+
+	if ( $style_chunk_ext !== "" ) {
+		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover { background-color: ' . $style_chunk_ext . '; } ';
+		$style_chunk_ext = "";
+	}
 	
 	// Menus Hover - Font
 	if ( isset( $wpst_style_tb_current['menu_hover_font_style'] ) )
@@ -1305,8 +1266,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	
 	if ( $style_chunk !== "" ) {
 	
-		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover { ' . $style_chunk . '} ';
-		// #wpadminbar .ab-sub-wrapper > ul.ab-submenu > li .ab-sub-wrapper li:hover > .ab-item, #wpadminbar .ab-sub-wrapper > ul.ab-submenu > li .ab-sub-wrapper li.hover > .ab-item, #wpadminbar #wp-admin-bar-user-info .ab-item:hover span
+		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover, #wpadminbar #wp-admin-bar-user-info .ab-item:hover span { ' . $style_chunk . '} ';
 		$style_chunk = "";
 	}
 	
@@ -1366,8 +1326,12 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 	global $current_user;
 	
 	get_currentuserinfo();
-	// WPMS: caps and roles are empty in the WP_User object of a network member on a site he's not a user of, so is_user_logged_in() is not appropriate here.
-	$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_visitor" );
+	
+	if ( is_user_logged_in() )
+		// WPMS: caps and roles are empty in the WP_User object of a network member on a site he's not a user of
+		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_user" );
+	else
+		$current_role = array( "wpst_visitor" );
 	
 	if ( is_array( get_option( 'wpst_toolbar_wp_toolbar' ) ) ) {
 		if ( array_intersect( $current_role, get_option( 'wpst_toolbar_wp_toolbar' ) ) ) {
@@ -1391,7 +1355,8 @@ function symposium_toolbar_edit_wp_toolbar() {
 	
 	get_currentuserinfo();
 	if ( is_user_logged_in() ) {
-		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_visitor" );
+		// WPMS: caps and roles are empty in the WP_User object of a network member on a site he's not a user of
+		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_user" );
 		$user_id = $current_user->data->ID;
 		$profile_url = get_edit_profile_url( $user_id );
 	} else {
@@ -1675,19 +1640,22 @@ function symposium_toolbar_edit_wp_toolbar() {
 /**
  * Called through the hook 'edit_profile_url' located at the end of get_edit_profile_url()
  * Affects the Edit Profile link located in the WP Toolbar ( amongst other locations )
- * This was copied from get_edit_profile_url() in wp-includes/link-template.php... Except the last bit  :- )
+ * This was copied from get_edit_profile_url() in wp-includes/link-template.php... Except the last bit  :-)
  */
 function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 
-	if ( get_option('wpst_myaccount_rewrite_edit_link', '') == 'on' ) {
+	if ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == 'on' ) {
 	
 		if ( is_user_admin() )
 			$url = user_admin_url( 'profile.php', $scheme );
 		elseif ( is_network_admin() )
 			$url = network_admin_url( 'profile.php', $scheme );
 		else {
-			$profile_url = __wps__get_url('profile');
-			$url = $profile_url . __wps__string_query($profile_url) . "view=personal";
+			$profile_url_arr = symposium_toolbar_wps_url_for( 'profile', $user );
+			if ( !empty( $profile_url_arr ) ) {
+				$profile_url = array_shift( $profile_url_arr );
+				$url = $profile_url . __wps__string_query( $profile_url ) . "view=personal";
+			}
 		}
 	}
 	return $url;
@@ -1794,16 +1762,22 @@ function symposium_toolbar_link_to_symposium_admin() {
  */
 function symposium_toolbar_symposium_notifications() {
 
-	global $wpdb, $current_user, $wp_admin_bar, $wpst_roles_all;
+	global $wpdb, $current_user, $wp_admin_bar, $wpst_roles_all_incl_user;
 	
 	if ( !is_admin_bar_showing() || !is_user_logged_in() )
 		return;
 	
+	get_currentuserinfo();
+	
+	// WPMS: caps and roles are empty in the WP_User object of a network member on a site he's not a user of
+	$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_user" );
+	
 	// Mail
-	if ( is_array( get_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all ) ) ) ) if ( ( function_exists( '__wps__mail' ) ) && ( array_intersect( $current_user->roles, get_option( 'wpst_wps_notification_mail',  array_keys( $wpst_roles_all ) ) ) ) ) {
+	if ( is_array( get_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all_incl_user ) ) ) ) if ( array_intersect( $current_role, get_option( 'wpst_wps_notification_mail',  array_keys( $wpst_roles_all_incl_user ) ) ) ) {
 		
 		$unread_mail = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_mail WHERE mail_to = %d AND mail_in_deleted != 'on' AND mail_read != 'on'", $current_user->ID ) );
 		$total_mail = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_mail WHERE mail_to = %d AND mail_in_deleted != 'on'", $current_user->ID ) );
+		
 		if ( $unread_mail > 0 ) {
 			$inbox = '<span class="ab-icon ab-icon-new-mail"></span><span class="ab-label ab-label-new-mail">'.$unread_mail.'</span>';
 			$title = __( "Go to your Inbox", 'wp-symposium-toolbar' ).': '.$unread_mail.' '.__( "unread mail", 'wp-symposium-toolbar' );
@@ -1811,25 +1785,26 @@ function symposium_toolbar_symposium_notifications() {
 			$inbox = '<span class="ab-icon ab-icon-mail"></span><span class="ab-label ab-label-mail">'.$total_mail.'</span>';
 			$title = __( "Your Inbox", 'wp-symposium-toolbar' ).': '.$total_mail.' '.__( "archived", 'wp-symposium-toolbar' );
 		}
-		$mail_url = __wps__get_url( 'mail' );
+		$mail_url_arr = symposium_toolbar_wps_url_for( 'mail', $current_user->ID );
 		
-		if ( $inbox ) {
-			$args = array( 
+		if ( $inbox && !empty( $mail_url_arr ) ) {
+			$args = apply_filters( 'symposium_toolbar_wps_item_for_mail', array(
 				'id' => 'symposium-toolbar-notifications-mail',
 				'parent' => 'top-secondary',
 				'title' => $inbox,
-				'href' => $mail_url,
+				'href' => array_shift( $mail_url_arr ),
 				'meta' => array( 'title' => $title, 'class' => 'symposium-toolbar-notifications symposium-toolbar-notifications-mail' )
-			 );
+			) );
 			$wp_admin_bar->add_node( $args );
 		}
 	}
 	
 	// Friends
-	if ( is_array( get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all ) ) ) ) if ( ( function_exists( '__wps__profile' ) ) && ( array_intersect( $current_user->roles, get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all ) ) ) ) ) {
+	if ( is_array( get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all_incl_user ) ) ) ) if ( array_intersect( $current_role, get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all_incl_user ) ) ) ) {
 		
 		$friend_requests = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_friends WHERE friend_to = %d AND friend_accepted != 'on'", $current_user->ID ) );
 		$current_friends = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_friends WHERE friend_to = %d AND friend_accepted = 'on'", $current_user->ID ) );
+		
 		if ( $friend_requests > 0 ) {
 			$friends = '<span class="ab-icon ab-icon-new-friendship"></span><span class="ab-label ab-label-new-friendship">'.$friend_requests.'</span>';
 			$title = __( "Go to your Friends list", 'wp-symposium-toolbar' ).': '.$friend_requests.' '.__( "new friend requests", 'wp-symposium-toolbar' );
@@ -1837,23 +1812,21 @@ function symposium_toolbar_symposium_notifications() {
 			$friends = '<span class="ab-icon ab-icon-friendship"></span><span class="ab-label ab-label-friendship">'.$current_friends.'</span>';
 			$title = __( "Your Friends list", 'wp-symposium-toolbar' ).': '.$current_friends.' '.__( "friends", 'wp-symposium-toolbar' );
 		}
-		$friends_url = __wps__get_url( 'profile' );
-		$friends_url .= ( strpos( $friends_url, '?' ) !== FALSE ) ? "&view=friends" : "?view=friends";
+		$friends_url_arr = symposium_toolbar_wps_url_for( 'profile', $current_user->ID );
 		
-		if ( $friends ) {
-			$args = array( 
+		if ( $friends && !empty( $friends_url_arr ) ) {
+			$friends_url = array_shift( $friends_url_arr );
+			$friends_url .= ( strpos( $friends_url, '?' ) !== FALSE ) ? "&view=friends" : "?view=friends";
+			$args = apply_filters( 'symposium_toolbar_wps_item_for_friends', array(
 				'id' => 'symposium-toolbar-notifications-friendship',
 				'parent' => 'top-secondary',
 				'title' => $friends,
 				'href' => $friends_url,
 				'meta' => array( 'title' => $title, 'class' => 'symposium-toolbar-notifications symposium-toolbar-notifications-friendship' )
-			 );
+			) );
 			$wp_admin_bar->add_node( $args );
 		}
 	}
-	
-	// Alerts
-	
 }
 
 /**
@@ -1865,7 +1838,7 @@ function symposium_toolbar_add_search_menu() {
 	global $current_user, $wpst_roles_all_incl_visitor;
 	
 	if ( is_user_logged_in() )
-		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_visitor" );
+		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_user" );
 	else
 		$current_role = array( "wpst_visitor" );
 	
@@ -1933,18 +1906,17 @@ function symposium_toolbar_valid_roles( $option_value ) {
 }
 
 /**
- * UNUSED - left for future use
  * Check if a given WPS feature is activated on the site / anywhere on the network
  * And if its WP page is correctly defined at the WPS Install page
  * param: feature like 'mail', 'profile', etc
  * optional param: user ID
  * returns:
- * - WPMS, if user_id provided, an array of URLs on the network where that feature is active and user is member,
- * if no user_id provided, an array of all URLs on the network where the feature is active
- * in both cases, current site comes first, then main site, then other subsites
+ * - WPMS, if user_id provided, an array of URLs on the network of sites where that feature is active and user is member,
+ * if no user_id provided, an array of all URLs on the network of sites where the feature is active
+ * in both cases, current site comes first, then main site, then subsites
  * - single site, an array of one URL if that feature is active
  */
-function symposium_toolbar_wps_url_for( $feature = '', $user_id = 0 ) {
+function symposium_toolbar_wps_url_for( $feature, $user_id = 0 ) {
 	
 	global $wpdb, $blog_id;
 	
@@ -1960,7 +1932,12 @@ function symposium_toolbar_wps_url_for( $feature = '', $user_id = 0 ) {
 	if ( is_multisite() ) {
 		(bool)$feature_network_activated = get_option( WPS_OPTIONS_PREFIX.'__wps__'.$feature.'_network_activated', false);
 		
-		$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = '0' AND deleted = '0' AND archived = '0' ORDER BY blog_id", ARRAY_A );
+		// Will search results accross the network if instructed to do so, otherwise limited to the current site
+		if ( get_option( 'wpst_wps_network_url', '' ) == "on" )
+			$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = '0' AND deleted = '0' AND archived = '0' ORDER BY blog_id", ARRAY_A );
+		else
+			$blogs = array( array( "blog_id" => $blog_id ) );
+		
 		if ( $blogs ) foreach ( $blogs as $blog ) {
 			
 			// Check if a user_id was provided, and if so if user_id is member of this blog
@@ -1980,7 +1957,7 @@ function symposium_toolbar_wps_url_for( $feature = '', $user_id = 0 ) {
 					$site_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", 'siteurl' ), ARRAY_A );
 					$page_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", WPS_OPTIONS_PREFIX.'_'.$feature.'_url' ), ARRAY_A );
 					
-					// If the feature is active on this site and the page can be found, create the page URL and store it in the array
+					// If the feature is active on this site and the page can be found, store the page URL in the array
 					if ( $page_url["option_value"] != "" ) {
 						// If this is the current blog ID, unshift it to the beginning of the array, otherwise put it at the end
 						// We want to ensure the current site is used preferably
@@ -1990,7 +1967,6 @@ function symposium_toolbar_wps_url_for( $feature = '', $user_id = 0 ) {
 							$feature_url[$blog['blog_id']] = trim( $site_url["option_value"], "/" ) . "/" . trim( $page_url["option_value"], "/" );
 					}
 				}
-				// echo $blog['blog_id'].' '.$feature_activated.' '.$page_url["option_value"].'<br />';
 			}
 		}
 	

@@ -1,3 +1,19 @@
+/*  Copyright 2013  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+ *	
+ *	This program is free software; you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License, version 2, as 
+ *	published by the Free Software Foundation.
+ *	
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *	
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program; if not, write to the Free Software
+ *	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
 jQuery(document).ready(function($){
 
 	// HELPERS
@@ -94,10 +110,6 @@ jQuery(document).ready(function($){
 	
 	// ADMIN CHECKERS
 	
-	// Hide all tabs by default, and show only active
-	// $(".wpst-nav-div").hide();
-	// $(".wpst-nav-div-active").show();
-	
 	// Close all Style boxes by default
 	$(".wpst-style-widefat").hide();
 	
@@ -112,7 +124,7 @@ jQuery(document).ready(function($){
 		$("a#"+this.id).addClass("nav-tab-active wpst-nav-tab-active");
 		$("div#"+this.id).addClass("wpst-nav-div-active");
 		
-		// Send it to $_POST, to come back to the same tab after saving
+		// Send it to $_POST, to reload the same tab after saving
 		document.getElementById("symposium_toolbar_view").value = this.id;
 	});
 	
@@ -128,7 +140,7 @@ jQuery(document).ready(function($){
 		needToConfirm = false;
 	});
 	
-	// Remove the Error message associated to the checkbox
+	// Remove the Error message associated to checkboxes
 	$(".wpst-check-role").click(function() {
 		
 		var name = this.name.replace("[]","");
@@ -477,10 +489,12 @@ jQuery(document).ready(function($){
 		},function(){
 			$(this).css( "background-color", main_color );
 		});
-		$("#wpadminbar").find("#wp-admin-bar-user-info").hover(function(){
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
 			$(this).css( "background-color", hover_color );
+			$(this).find("span").css( "background-color", "transparent" );
 		},function(){
 			$(this).css( "background-color", main_color );
+			$(this).find("span").css( "background-color", main_color );
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").hover(function(){
 			$(this).css( "background-color", hover_color_ext );
@@ -690,7 +704,7 @@ jQuery(document).ready(function($){
 		
 		$("#wpadminbar").find("*").css( "font-size", wpst_font_size );
 		$("#wpadminbar").find(".ab-submenu *").css( "font-size", wpst_menu_font_size );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", wpst_menu_font_size_small );
+		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", wpst_menu_font_size_small );
 	});
 	
 	$('.wpst_font_colour').wpColorPicker({
@@ -710,7 +724,7 @@ jQuery(document).ready(function($){
 	});
 	
 	$('.wpst_font_style').change(function() {
-
+	
 		// Propagate values from Toolbar to Dropdown Menus and from Normal style to Hover
 		var wpst_font_style = ( $('#wpst_font_style').val() != '' ) ? $('#wpst_font_style').val() : wpstFontNormal;
 		var wpst_hover_font_style = ( $('#wpst_hover_font_style').val() != '' ) ? $('#wpst_hover_font_style').val() : wpst_font_style;
@@ -934,6 +948,8 @@ jQuery(document).ready(function($){
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-variant", wpst_menu_font_variant );
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-transform", wpst_menu_text_transform );
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-variant", wpst_menu_font_variant );
+		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "text-transform", "none" );
+		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-variant", "normal" );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
@@ -966,9 +982,13 @@ jQuery(document).ready(function($){
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
 			$(this).find("span").css( "text-transform", wpst_menu_hover_text_transform );
 			$(this).find("span").css( "font-variant", wpst_menu_hover_font_variant );
+			// $(this).find(".username").css( "text-transform", "none" );
+			// $(this).find(".username").css( "font-variant", "normal" );
 		},function(){ if ( !$(this).is("focus") ) {
 			$(this).find("span").css( "text-transform", wpst_menu_text_transform );
 			$(this).find("span").css( "font-variant", wpst_menu_font_variant );
+			// $(this).find(".username").css( "text-transform", "none" );
+			// $(this).find(".username").css( "font-variant", "normal" );
 		} });
 	});
 	

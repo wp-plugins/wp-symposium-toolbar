@@ -60,11 +60,12 @@ function symposium_toolbar_admin_page() {
 		}
 	}
 	
-	// Page Content
+	// Which tab should have the focus ?
 	if ( !isset( $_POST["symposium_toolbar_view"] ) ) $wpst_admintab = 'welcome';
 	if ( isset( $_GET["tab"] ) ) $wpst_admintab = $_GET["tab"];
 	if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_admintab = $_POST["symposium_toolbar_view"];
 	
+	// Page Content
 	echo '<form method="post" action="">';
 		wp_nonce_field( 'wpst_save_options','wpst_save_options_nonce_field' );
 		
@@ -74,7 +75,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="welcome" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="welcome" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('welcome');
+				symposium_toolbar_draw_admintabs( 'welcome' );
 				symposium_toolbar_admintab_welcome();
 			echo '</div>';
 		
@@ -84,7 +85,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="toolbar" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="toolbar" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('toolbar');
+				symposium_toolbar_draw_admintabs( 'toolbar' );
 				symposium_toolbar_admintab_toolbar();
 			echo '</div>';
 		
@@ -94,7 +95,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="usermenu" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="usermenu" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('usermenu');
+				symposium_toolbar_draw_admintabs( 'usermenu' );
 				symposium_toolbar_admintab_usermenu();
 			echo '</div>';
 		
@@ -104,7 +105,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="menus" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="menus" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('menus');
+				symposium_toolbar_draw_admintabs( 'menus' );
 				symposium_toolbar_admintab_menus();
 			echo '</div>';
 		
@@ -114,7 +115,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="wps" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="wps" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('wps');
+				symposium_toolbar_draw_admintabs( 'wps' );
 				symposium_toolbar_admintab_wps();
 			echo '</div>';
 		
@@ -124,7 +125,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="style" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="style" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('style');
+				symposium_toolbar_draw_admintabs( 'style' );
 				symposium_toolbar_admintab_styles();
 			echo '</div>';
 		
@@ -134,7 +135,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="css" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="css" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('css');
+				symposium_toolbar_draw_admintabs( 'css' );
 				symposium_toolbar_admintab_css();
 			echo '</div>';
 		
@@ -144,7 +145,7 @@ function symposium_toolbar_admin_page() {
 			echo '<div id="themes" class="wpst-nav-div wpst-nav-div-active">';
 		} else
 			echo '<div id="themes" class="wpst-nav-div">';
-				symposium_toolbar_draw_admintabs('themes');
+				symposium_toolbar_draw_admintabs( 'themes' );
 				symposium_toolbar_admintab_themes();
 			echo '</div>';
 	
@@ -206,7 +207,7 @@ function symposium_toolbar_admintab_welcome() {
 		if ( $wps_is_active ) echo '  ' . __( 'Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items.', 'wp-symposium-toolbar' ) . '</p>';
 		
 		echo '<p>'. sprintf( __( 'You should probably also take a look at this %s, that will give a few hints in a little less formal way. And should you plan to take advantage of the hooks and the CSS classes that the plugin contains, you might also be interrested in this %s.', 'wp-symposium-toolbar' ), '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/users.htm">'.__( 'User Guide', 'wp-symposium-toolbar' ).'</a>', '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/developers.htm">'. __( 'Developers Guide', 'wp-symposium-toolbar' ) .'</a>' ) . '</p>';
-		echo '<p>'. sprintf( __( 'You may also visit %s, where a comprehensive introduction to the plugin can be found, along with a thorough review of its features, through helpful videos on YouTube.', 'wp-symposium-toolbar' ), '<a href="http://www.centralgeek.com">Central Geek</a>' ) . '  ' . __( 'Future developments will be discussed there, as well:  if after becoming familiar with this plugin, you see potential for improvement or have an idea that the toolbar would be more useful for, feel free to join its community, and share your ideas.', 'wp-symposium-toolbar' ) . '</p>';
+		echo '<p>'. sprintf( __( 'You may also visit %s, where a comprehensive introduction to the plugin can be found, along with a thorough review of its features, through a video on YouTube.', 'wp-symposium-toolbar' ), '<a href="http://www.centralgeek.com">Central Geek</a>' ) . '  ' . __( 'Future developments will be discussed there, as well:  if after becoming familiar with this plugin, you see potential for improvement or have an idea that the toolbar would be more useful for, feel free to join its community, and share your ideas.', 'wp-symposium-toolbar' ) . '</p>';
 		echo '<p>&nbsp;</p>';
 		echo '<p class="hide-if-js"><strong>'. __( 'You need Javascript to navigate through the options tabs.', 'wp-symposium-toolbar' ) . '</strong></p>';
 		echo '<p>&nbsp;</p>';
@@ -257,8 +258,8 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '<td scope="row" style="width:15%;"><span>'.__( 'My Sites', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td>';
 					echo '<span>' . __( 'The list of all sites of the network', 'wp-symposium-toolbar' ) . '</span>';
-					echo '<br /><span class="description"> ' . __( 'Note: This item will show only when the user is administrator of at least one site of the network, or is a super admin', 'wp-symposium-toolbar' ) . '</span>';
-				echo symposium_toolbar_add_roles_to_item( 'display_my_sites_roles', 'display_my_sites', get_option( 'wpst_toolbar_my_sites', $wpst_roles_administrator ), $wpst_roles_administrator );
+					// echo '<br /><span class="description"> ' . __( 'Note: This item will show only when the user is administrator of at least one site of the network, or is a super admin', 'wp-symposium-toolbar' ) . '</span>';
+					echo symposium_toolbar_add_roles_to_item( 'display_my_sites_roles', 'display_my_sites', get_option( 'wpst_toolbar_my_sites', $wpst_roles_administrator ), $wpst_roles_administrator );
 				echo '</td>';
 			echo '</tr>';
 		}
@@ -636,7 +637,7 @@ function symposium_toolbar_admintab_menus() {
 
 function symposium_toolbar_admintab_wps() {
 
-	global $wpst_roles_all;
+	global $wpst_roles_all_incl_user;
 	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table">';
@@ -661,10 +662,10 @@ function symposium_toolbar_admintab_wps() {
 				echo '<td scope="row"><span>'.__( 'Notifications', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Display the WP Symposium Mail notification icon', 'wp-symposium-toolbar' ) . '</span>';
-					echo symposium_toolbar_add_roles_to_item( 'display_notification_mail_roles', 'display_notification_mail', get_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all ) ), $wpst_roles_all );
+					echo symposium_toolbar_add_roles_to_item( 'display_notification_mail_roles', 'display_notification_mail', get_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all_incl_user ) ), $wpst_roles_all_incl_user );
 					
 					echo '<br /><span>' . __( 'Display the WP Symposium Friendship notification icon', 'wp-symposium-toolbar' ) . '</span>';
-					echo symposium_toolbar_add_roles_to_item( 'display_notification_friendship_roles', 'display_notification_friendship', get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all ) ), $wpst_roles_all );
+					echo symposium_toolbar_add_roles_to_item( 'display_notification_friendship_roles', 'display_notification_friendship', get_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all_incl_user ) ), $wpst_roles_all_incl_user );
 				echo '</td>';
 			echo '</tr>';
 			
@@ -683,6 +684,24 @@ function symposium_toolbar_admintab_wps() {
 					if ( $error ) echo '<div id="display_notification_alert_mode_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;">'.__( 'Important! There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 				echo '</td>';
 			echo '</tr>';
+			
+			if ( is_multisite() ) {
+				echo '<tr valign="top">';
+					echo '<td scope="row" style="width:15%;"><span>'.__( 'URLs', 'wp-symposium-toolbar' ).'</span></td>';
+					echo '<td colspan="2">';
+						echo '<input type="checkbox" name="display_wps_network_url" id="display_wps_network_url" class="wpst-admin"';
+						(bool)$error = false;
+						if ( get_option( 'wpst_wps_network_url', 'on' ) == "on" )
+							echo " CHECKED";
+						elseif ( get_option( 'wpst_wps_network_url', 'on' ) != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById( \'display_wps_network_url\' ).style.outline = \'none\';"';
+						}
+						echo '/><span> ' . __( 'The WP Symposium features (profile and mail) should be searched accross the whole network (if unchecked, only this site\'s features will be used, when they are activated and set up from the WPS Install page)', 'wp-symposium-toolbar' ) . '</span><br />';
+						if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;">'.__( 'Important! There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+					echo '</td>';
+				echo '</tr>';
+			}
 			
 			echo '<tr valign="top">';
 				echo '<td scope="row"><span>'.__( 'NavMenus', 'wp-symposium-toolbar' ).'</span></td>';

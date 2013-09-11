@@ -5,10 +5,10 @@ Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding
-Requires at least: 3.3
+Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 0.19.0
-Version: 0.19.0
+Stable tag: 0.20.0
+Version: 0.20.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,11 +23,11 @@ This plugin is targetted for WP Symposium sites.  However, if you're not running
 = In a nutshell =
 When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  I needed to ensure WP Symposium is actually activated, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Looking at the result, I'd like to stress that the scope of the generic options of this plugin by far exceeds those dedicated to WP Symposium sites solely...
 
-Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu.  Multisite compatible: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice preview mode for you to play with the styling before actually saving...
+Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu.  Multisite wise: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
 
 You are no longer bound to showing to your members information you don't want them to see.  You are no longer bound to using just a theme navbar for navigating your site, or network of sites.  You are no longer bound to displaying that dark bar that doesn't fit with the overall look of your site.  You are no longer bound to configuring several plugins to make the Toolbar at your wishes.
 
-My warm thanks go to Louis, my friend at Central Geek (centralgeek.com), for his help in specifying and testing the plugin.  He's always been available with wise advices whenever I was needing them, so that WPS Toolbar is as much his plugin as it is mine.
+My warm thanks go to Louis, my friend at [Central Geek](http://centralgeek.com), for his help in specifying and testing the plugin.  He's always been available with wise advices whenever I was needing them, so that WPS Toolbar is as much his plugin as it is mine.
 
 Now the usual bulleted list of features...
 
@@ -40,7 +40,7 @@ Now the usual bulleted list of features...
 * WP Symposium sites - Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
 * Show the Toolbar to non logged-in members, with links to your Login page along with the welcome message you wish
 * Style the Toolbar your way: custom colours, gradient, transparency, shadow, fonts, for the Toolbar and its menus
-* Preview mode at the styling page  :-)
+* Real-time preview mode at the styling page  :-)
 * Import / export the plugin settings, ideal for backups or exchanging those settings accross your sites
 
 == Installation ==
@@ -86,7 +86,7 @@ I would be really sorry to hear that you are not happy with this plugin, but wha
 
 = When do I need this plugin? =
 
-You need this plugin when you'd like to take advantage from its main features: per-role settings and custom menus, as well as its styling settings ; when you'd like to hide some of the WP Toolbar default items, like the WP logo, the Comments icon (e.g. if comments are totally deactivated on your site, or replaced with a forum), the authors' icons, Edit Page and others (e.g. if your theme provides these links lower in the page) ; when you'd like to add or remove items from the User Menu ; when you'd like to add a corporate menu in the upper left corner with your own icon ; when you'd like to add navigation functionality to the Toolbar ; when you'd like the Toolbar to show different information and links based on membership level... Etc. 
+You need this plugin when you'd like to take advantage from its main features: per-role settings and custom menus, as well as its styling settings. When you'd like to hide some of the WP Toolbar default items: the WP logo, the Comments icon (e.g. if comments are totally deactivated on your site, or replaced with a forum), the authors' icons  (e.g. if your theme provides these links lower in the page). When you'd like to add or remove items from the User Menu. When you'd like to add a corporate menu in the upper left corner with your own icon. When you'd like to add navigation functionality to the Toolbar. When you'd like the Toolbar to show different information and links based on membership level. Etc...
 
 = When don't I need this plugin? =
 
@@ -110,12 +110,19 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Screenshots ==
 
-1. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
-2. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well.
-3. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
-4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
+1. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
+2. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
+3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
+4. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well.
 
 == Changelog ==
+
+= 0.20.0. =
+
+* Bugfix: Styles, preview mode, CSS issue in the User Menu, User Info not picking up changes in font color / attributes / shadow
+* Bugfix: Styles, saved mode, sort out rendering issues with font styles and shadow settings in the dropdown menus
+* Change: WPMS, autodetect URLs for WP Symposium profile / friends / mail accross the network, and option to deactivate this behaviour
+* Change: WPMS, add the pseudo-role "User" for network users not member of the current site, to add specific navigation items for such users
 
 = 0.19.0. =
 
@@ -123,12 +130,14 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: Styles, preview mode, menu font shadow, the normal and hover shadows were erroneously linked so that it was needed to define both to show them
 * Bugfix: Styles, preview mode, toplevel menu items now keep the focus, both in the Toolbar and the dropdown menus
 * Bugfix: Styles, make the font shadows settings save
-* Change: Remove the Error messages from the options tab upon click, with a JQuery 'slide up' effect rather than JS 'hide'
+* Change: Remove the Error messages from the options tab upon click, with a JQuery 'slide up' effect rather than a JS 'hide'
 * Bugfix: CSS issue with visitor's Howdy and blank avatar
 * Bugfix: Sort out flat menus as replacement to WP Logo, by using the first parentless item as parent to any further parentless item
 * Change: WP Symposium, add the option to show notification icons only when a new event occurs (new mail, new friend)
 
 = 0.18.0. =
+
+**Important !! This release changes the way settings are stored for site visitors. After the upgrade, please check your settings for visitors. Sorry for the inconvenience and thanks for your understanding**
 
 * Options page reworked with tabs rather than closing boxes
 * Styles added, along with a preview mode at this tab.
@@ -138,7 +147,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: WPMS, export in subsites now dumps the settings of the current site, not the main
 * Change: further to the bugfix above, WPMS subsites now have a button to import main site's settings
 * Bugfix: missing custom menus no longer mess up the Toolbar menus, and display an error message at the plugin options page
-* Bugfix: search icon can now be moved and removed
+* Bugfix: the search icon can now be moved and removed
 * Change: the hook 'symposium_toolbar_add_user_action' now allows to add several items to user actions - developers, make sure you are returning an array of arrays!
 
 PS: I am jumping from 0.0.17 to 0.18.0 to free up the third digit and use it for project internal communication.

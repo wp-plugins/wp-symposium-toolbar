@@ -7,10 +7,10 @@ Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding
-Requires at least: WordPress 3.3
+Requires at least: WordPress 3.5
 Tested up to: 3.6
-Stable tag: 0.19.0
-Version: 0.19.0
+Stable tag: 0.20.0
+Version: 0.20.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -85,7 +85,7 @@ function symposium_toolbar_init() {
 }
 add_action( 'init', 'symposium_toolbar_init' );
 
-// Load Javascript file at plugin options page only, since it'll be used only there...
+// Load Javascript file at plugin options page only...
 function symposium_toolbar_js_init() {
 	
 	// Javascript
@@ -193,7 +193,7 @@ if ( $wps_is_active ) {
 			'symposium_toolbar_admin_page'
 		);
 	}
-	if (is_admin()) { add_action( 'admin_menu', 'add_symposium_toolbar_to_admin_menu' ); }
+	if ( is_admin() ) { add_action( 'admin_menu', 'add_symposium_toolbar_to_admin_menu' ); }
 }
 
 // Save options
@@ -232,7 +232,6 @@ add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_add_search_menu', 9
 add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
 
 // Remove the option to show the admin bar when viewing the site
-// add_action( 'admin_head', 'symposium_toolbar_remove_profile_option' );
 add_action( 'show_user_profile', 'symposium_toolbar_remove_profile_option', 10, 1 );
 add_action( 'edit_user_profile', 'symposium_toolbar_remove_profile_option', 10, 1 );
 
