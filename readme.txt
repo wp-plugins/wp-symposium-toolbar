@@ -130,6 +130,8 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 = 0.18.0. =
 
+**Important !! This release changes the way settings are stored for site visitors. After the upgrade, please check your settings for visitors. Sorry for the inconvenience and thanks for your understanding**
+
 * Options page reworked with tabs rather than closing boxes
 * Styles added, along with a preview mode at this tab.
 * Change: renamed pseudo-role 'visitor' into 'wpst_visitor' to avoid clashes with a home-made role or any other plugin or theme
