@@ -92,7 +92,7 @@
 }
 
 /* Add the hoverbox to the User Info */
-#wpadminbar #wp-admin-bar-user-info:hover {
+#wpadminbar #wp-admin-bar-user-info:hover .ab-item {
 	background-color: #EAF2FA;
 }
 
@@ -113,6 +113,25 @@
 
 #wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
 	border: 1px solid red;
+}
+
+/**
+ * Site Name Menu
+ */
+
+/* Fix the Site Name frontend menu */
+#wpadminbar #wp-admin-bar-site-name-default {
+	margin-top: 0px;
+	padding-bottom: 0px;
+}
+
+#wpadminbar #wp-admin-bar-site-name-default:last-child {
+	padding-bottom: 6px;
+}
+
+#wpadminbar #wp-admin-bar-appearance {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
 }
 
 /**

@@ -6,11 +6,11 @@ Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
-Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding
+Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
 Tested up to: 3.6
-Stable tag: 0.20.0
-Version: 0.20.0
+Stable tag: 0.20.11
+Version: 0.20.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -19,6 +19,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 if ( !defined( 'ABSPATH' ) ) exit;
 
 // Stop this plugin if WP < 3.3
+// Note, the 'Requires WP 3.5' above stands for the colorpicker,
+// which has no fallback, but is not as hard a constraint anyway.
 global $wp_version;
 if( version_compare( $wp_version, '3.3', '<' ) )
 	return false;

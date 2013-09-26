@@ -4,11 +4,11 @@ Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
-Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding
+Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 0.20.0
-Version: 0.20.0
+Stable tag: 0.20.11
+Version: 0.20.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Customize the WordPress Toolbar the way *you* want...
 
-This plugin is targetted for WP Symposium sites.  However, if you're not running a Social Network site but you're willing to customize the Toolbar, you may use this plugin and benefit from its generic, per-role settings, its custom menus, as well as its styling settings.  Give this plugin a try, and let me know what you think.
+This plugin is targetted for WP Symposium sites.  However, if you're not running a Social Network site but you're willing to customize the Toolbar, you may use this plugin and benefit from its generic per-role settings, its custom menus, as well as its styling settings.  Give this plugin a try, and let me know what you think.
 
 = In a nutshell =
 When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  I needed to ensure WP Symposium is actually activated, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Looking at the result, I'd like to stress that the scope of the generic options of this plugin by far exceeds those dedicated to WP Symposium sites solely...
@@ -113,9 +113,20 @@ It will show only in the frontend and not in the backend, have you checked in th
 1. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 2. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
 3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
-4. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well.
+4. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well. (theme Matala, by Nicolo Volpato)
 
 == Changelog ==
+
+= 0.21.0. =
+
+* Bugfix: Styles, default height of the first row in the Site Name frontend dropdown menu
+* Bugfix: Styles, issue with hover overlapping some of the borders, but not all
+* Change: Toolbar tab, option to force the display of the WP Toolbar for logged-in users, and hide the checkbox "Show Toolbar while viewing site" at the WP Profile page
+* Change: Custom Menus, add an error message when the same menu is being displayed for a given role on different locations
+* Change: make translatable the error string displayed when the admin leaves the page without saving
+* Bugfix: Styles, dropdown menus highlighted items inheriting from others for colour when no specific colour set
+* Bugfix: Styles, preview mode, font shadow not removed whenever H or V are unset, both for Toolbar and Dropdown menus
+* Bugfix: Styles, preview mode, borders "default" not working
 
 = 0.20.0. =
 
@@ -130,9 +141,9 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: Styles, preview mode, menu font shadow, the normal and hover shadows were erroneously linked so that it was needed to define both to show them
 * Bugfix: Styles, preview mode, toplevel menu items now keep the focus, both in the Toolbar and the dropdown menus
 * Bugfix: Styles, make the font shadows settings save
-* Change: Remove the Error messages from the options tab upon click, with a JQuery 'slide up' effect rather than a JS 'hide'
+* Change: remove the Error messages from the options tab upon click, with a JQuery 'slide up' effect rather than a JS 'hide'
 * Bugfix: CSS issue with visitor's Howdy and blank avatar
-* Bugfix: Sort out flat menus as replacement to WP Logo, by using the first parentless item as parent to any further parentless item
+* Bugfix: sort out flat menus as replacement to WP Logo, by using the first parentless item as parent to any further parentless item
 * Change: WP Symposium, add the option to show notification icons only when a new event occurs (new mail, new friend)
 
 = 0.18.0. =
@@ -154,15 +165,15 @@ PS: I am jumping from 0.0.17 to 0.18.0 to free up the third digit and use it for
 
 = 0.0.17. =
 
-* CSS issue in the User Menu - hopefully all cases are covered this time...
-* Hide the WP Profile setting to show/hide the Toolbar ("Show Toolbar when viewing site"), when the role cannot see the Toolbar
-* Make the option "add the username to the display name, if different" do what it's supposed to do
-* Option to add the role under the display name, in the User Menu
+* Bugfix: CSS issue in the User Menu - hopefully all cases are covered this time...
+* Bugfix: hide the WP Profile setting to show/hide the Toolbar ("Show Toolbar when viewing site"), when the role cannot see the Toolbar
+* Bugfix: make the option "add the username to the display name, if different" do what it's supposed to do
+* Change: Option to add the role under the display name, in the User Menu
 * First draft of the file developpers.txt, describing the hooks available so far.
 
 = 0.0.16. =
 
-* CSS issue in the User Menu
+* Bugfix: CSS issue in the User Menu
 
 = 0.0.15. =
 

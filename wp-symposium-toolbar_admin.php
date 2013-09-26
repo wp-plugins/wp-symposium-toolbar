@@ -150,6 +150,8 @@ function symposium_toolbar_admin_page() {
 			echo '</div>';
 	
 	echo '</form>';
+	
+	echo '<input type="hidden" id="need_to_confirm" value="'.__('You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?', 'wp-symposium-toolbar').'">';
 }
 
 function symposium_toolbar_draw_admintabs( $tab ) {
@@ -207,7 +209,7 @@ function symposium_toolbar_admintab_welcome() {
 		if ( $wps_is_active ) echo '  ' . __( 'Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items.', 'wp-symposium-toolbar' ) . '</p>';
 		
 		echo '<p>'. sprintf( __( 'You should probably also take a look at this %s, that will give a few hints in a little less formal way. And should you plan to take advantage of the hooks and the CSS classes that the plugin contains, you might also be interrested in this %s.', 'wp-symposium-toolbar' ), '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/users.htm">'.__( 'User Guide', 'wp-symposium-toolbar' ).'</a>', '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/developers.htm">'. __( 'Developers Guide', 'wp-symposium-toolbar' ) .'</a>' ) . '</p>';
-		echo '<p>'. sprintf( __( 'You may also visit %s, where a comprehensive introduction to the plugin can be found, along with a thorough review of its features, through a video on YouTube.', 'wp-symposium-toolbar' ), '<a href="http://www.centralgeek.com">Central Geek</a>' ) . '  ' . __( 'Future developments will be discussed there, as well:  if after becoming familiar with this plugin, you see potential for improvement or have an idea that the toolbar would be more useful for, feel free to join its community, and share your ideas.', 'wp-symposium-toolbar' ) . '</p>';
+		echo '<p>'. sprintf( __( 'You may also visit %s, where a comprehensive introduction to the plugin can be found, along with a thorough review of its features.', 'wp-symposium-toolbar' ), '<a href="http://www.centralgeek.com">Central Geek</a>' ) . '  ' . __( 'If after becoming familiar with this plugin, you see potential for improvement or have an idea that the toolbar would be more useful for, feel free to join its community, and share your ideas.', 'wp-symposium-toolbar' ) . '</p>';
 		echo '<p>&nbsp;</p>';
 		echo '<p class="hide-if-js"><strong>'. __( 'You need Javascript to navigate through the options tabs.', 'wp-symposium-toolbar' ) . '</strong></p>';
 		echo '<p>&nbsp;</p>';
@@ -234,6 +236,22 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '<span> ' . __( 'The WordPress Toolbar itself, in the frontend of the site solely, and depending on a user setting ; the WP Toolbar will always be visible in the backend.', 'wp-symposium-toolbar' ) . '</span>';
 				echo '<br /><span class="description"> ' . __( 'Note: This is the main container for all the items defined with this plugin, it must obviously be activated for those items to show.', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_wp_toolbar_roles', 'display_wp_toolbar', get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ), $wpst_roles_all_incl_visitor );
+			echo '</td>';
+		echo '</tr>';
+		
+		echo '<tr valign="top">';
+			echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+			echo '<td colspan="2">';
+				echo '<input type="checkbox" name="display_wp_toolbar_force" id="display_wp_toolbar_force" class="wpst-admin"';
+				(bool)$error = false;
+				if ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) == "on" )
+					echo " CHECKED";
+				elseif ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) != "" ) {
+					$error = true;
+					echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById( \'display_wp_toolbar_force\' ).style.outline = \'none\';"';
+				}
+				echo '/><span> ' . __( 'And force the display of the WP Toolbar for logged-in users, who will no longer be able to hide it from their WP Profile page', 'wp-symposium-toolbar' ) . '</span><br />';
+				if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 			echo '</td>';
 		echo '</tr>';
 		
@@ -481,7 +499,7 @@ function symposium_toolbar_admintab_usermenu() {
 			echo '<tr valign="top">';
 				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
-				echo '<div id="display_user_menu_error" style="margin-top: 12px; background-color:#FFEBE8; border:1px solid #CC0000; vertical-align:bottom; text-align:center;">'.__( 'Important! There is an issue with the options stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+				echo '<div id="display_user_menu_error" style="margin-top: 12px; background-color:#FFEBE8; border:1px solid #CC0000; vertical-align:bottom; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the options stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 				echo '</td>';
 			echo '</tr>';
 		}
@@ -533,6 +551,7 @@ function symposium_toolbar_admintab_menus() {
 				if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
 					echo '<tr style="background-color: '.$color.';">';
 					
+					// Draw the list of menus and select it
 					echo '<td style="border-bottom-color: '.$color.';">';
 						if ( $all_navmenus ) {
 							$found_menu = false;
@@ -555,6 +574,7 @@ function symposium_toolbar_admintab_menus() {
 							echo '<div style="text-align:center;">'.__( 'No available NavMenu !', 'wp-symposium-toolbar' ) . '</div><span class="description"> ' . __( 'Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar' ) . '</span>';
 					echo '</td>';
 					
+					// Draw the list of locations and select it
 					echo '<td style="border-bottom-color: '.$color.';">';
 						if ( $wpst_locations ) {
 							echo '<select class="wpst-admin" id="display_custom_menu_location_'.$count.'" name="display_custom_menu_location['.$count.']">';
@@ -568,6 +588,7 @@ function symposium_toolbar_admintab_menus() {
 						}
 					echo '</td>';
 					
+					// List the roles and pick the ones that can see this menu at this location
 					echo '<td style="border-bottom-color: '.$color.';">';
 						echo '<input type="text" style="min-width:170px; width:95%;" name="display_custom_menu_icon['.$count.']" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']"';
 						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo ' value="'.$custom_menu[3].'"';// site_url().'/url/to/my/icon.png"';
@@ -575,10 +596,10 @@ function symposium_toolbar_admintab_menus() {
 					echo '</td>';
 					echo '</tr><tr style="background-color: '.$color.';">';
 					echo '<td colspan="3" style="border-top-color: '.$color.';">';
-						echo symposium_toolbar_add_roles_to_item( 'display_custom_menu_roles['.$count.']', $custom_menu[0], $custom_menu[2], $wpst_roles_all_incl_visitor );
+						echo symposium_toolbar_add_roles_to_item( 'display_custom_menu_roles_'.$count, $custom_menu[0], $custom_menu[2], $wpst_roles_all_incl_visitor );
 						if ( ! $found_menu ) {
-							echo '<div id="display_custom_menu_slug_'.$count.'_error" style="margin-top: 12px; background-color: #FFEBE8; border: 1px solid #CC0000; text-align:center;">';
-							printf( __( 'Important! The WP NavMenu "%s" could not be found: please select an existing NavMenu and save, or go to the Appearance > Menus page to create this menu!', 'wp-symposium-toolbar' ), $custom_menu[0] );
+							echo '<div id="display_custom_menu_slug_'.$count.'_error" style="margin-top: 12px; background-color: #FFEBE8; border: 1px solid #CC0000; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
+							printf( __( 'The WP NavMenu "%s" could not be found: please select an existing NavMenu and save, or go to the Appearance > Menus page to create this menu!', 'wp-symposium-toolbar' ), $custom_menu[0] );
 							echo '</div>';
 						} else
 							echo '<div id="display_custom_menu_slug_'.$count.'_error" style="display:hidden"></div>';
@@ -623,6 +644,36 @@ function symposium_toolbar_admintab_menus() {
 				
 				echo '</tbody></table>';
 				
+				// Build the array of error messages when the same menu being displayed for each role on different locations
+				$role_can_see = array();
+				$role_cannot_see = "";
+				if ( ( $all_navmenus ) && ( count( ( $all_custom_menus )) > 1 ) ) {
+					foreach ( $all_custom_menus as $custom_menu ) {
+						foreach ( $custom_menu[2] as $check_role ) {
+							if ( isset( $role_can_see[ $custom_menu[0] ][ $check_role ] ) ) {
+								foreach ( $wpst_roles_all_incl_visitor as $key => $role ) {
+									if ( $check_role == $key ) $role_title = $role;
+								}
+								foreach ( $all_navmenus as $navmenu ) {
+									if ( $custom_menu[0] == $navmenu->slug ) $menu_name = $navmenu->name;
+								}
+								if ( $wpst_locations ) foreach ( $wpst_locations as $slug => $description ) {
+									if ( $role_can_see[ $custom_menu[0] ][ $check_role ] == $slug ) $menu_location = $description;
+									if ( $custom_menu[1] == $slug ) $menu_new_location = $description;
+								}
+								$role_cannot_see .= "<br />" . sprintf( __( 'The role %s cannot see the menu %s defined at the location "%s", since it is also defined at the location "%s" which takes precedence.', 'wp-symposium-toolbar' ), $role_title, $menu_name, $menu_location, $menu_new_location);
+							}
+							$role_can_see[ $custom_menu[0] ][ $check_role ] = $custom_menu[1];
+						}
+					}
+				}
+				if ( $role_cannot_see ) {
+					echo '<div id="custom_menus_error" style="margin-top: 12px; padding: 12px; background-color: #FFEBE8; border: 1px solid #CC0000; ">';
+					echo '<b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
+					echo __( 'There are issues with the menus defined on your Toolbar: please check your settings!', 'wp-symposium-toolbar' );
+					echo "<br />" . $role_cannot_see . '</div>';
+				}
+				
 			echo '</td>';
 		echo '</tr>';
 		
@@ -654,7 +705,7 @@ function symposium_toolbar_admintab_wps() {
 						echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById( \'display_wps_admin_menu\' ).style.outline = \'none\';"';
 					}
 					echo '/><span> ' . __( 'Display the WP Symposium Admin Menu', 'wp-symposium-toolbar' ) . '</span><br />';
-					if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;">'.__( 'Important! There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+					if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 				echo '</td>';
 			echo '</tr>';
 			
@@ -681,7 +732,7 @@ function symposium_toolbar_admintab_wps() {
 						echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById( \'display_wps_admin_menu\' ).style.outline = \'none\';"';
 					}
 					echo '/><span> ' . __( 'Display the notification icons only when an event occurs: new mail, new friend request', 'wp-symposium-toolbar' ) . ' (' . __( 'Alert Mode, like the WordPress Updates icon', 'wp-symposium-toolbar' ) . ')</span>';
-					if ( $error ) echo '<div id="display_notification_alert_mode_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;">'.__( 'Important! There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+					if ( $error ) echo '<div id="display_notification_alert_mode_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 				echo '</td>';
 			echo '</tr>';
 			
@@ -698,7 +749,7 @@ function symposium_toolbar_admintab_wps() {
 							echo ' style="outline:1px solid #CC0000;" onclick="document.getElementById( \'display_wps_network_url\' ).style.outline = \'none\';"';
 						}
 						echo '/><span> ' . __( 'The WP Symposium features (profile and mail) should be searched accross the whole network (if unchecked, only this site\'s features will be used, when they are activated and set up from the WPS Install page)', 'wp-symposium-toolbar' ) . '</span><br />';
-						if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;">'.__( 'Important! There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+						if ( $error ) echo '<div id="display_wps_admin_menu_error" style="margin-top: 12px; background-color: #FFEBE8; border-color: #CC0000; text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 					echo '</td>';
 				echo '</tr>';
 			}
@@ -817,7 +868,7 @@ function symposium_toolbar_admintab_styles() {
 		
 		// WP Toolbar Normal Style
 		echo '<div id="wpst-toolbar-postbox" class="postbox" >';
-		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_normal_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Toolbar Normal Style', 'wp-symposium-toolbar' ).'</span></h3>';
+		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_normal_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Toolbar', 'wp-symposium-toolbar' ).'</span></h3>';
 		
 		echo '<table id="wp_toolbar_normal_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
@@ -1026,7 +1077,7 @@ function symposium_toolbar_admintab_styles() {
 		
 		// Toolbar Hover & Focus
 		echo '<div id="wpst-toolbar-hover-postbox" class="postbox" >';
-		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_hover_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Toolbar Hover & Focus Style', 'wp-symposium-toolbar' ).'</span></h3>';
+		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_hover_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).'</span></h3>';
 		
 		echo '<table id="wp_toolbar_hover_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
@@ -1179,7 +1230,7 @@ function symposium_toolbar_admintab_styles() {
 		
 		// Dropdown Menus Style
 		echo '<div id="wpst-menus-postbox" class="postbox" >';
-		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_menus_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Dropdown Menus Normal Style', 'wp-symposium-toolbar' ).'</span></h3>';
+		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_menus_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Dropdown Menus', 'wp-symposium-toolbar' ).'</span></h3>';
 		
 		echo '<table id="wp_toolbar_menus_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
@@ -1338,7 +1389,7 @@ function symposium_toolbar_admintab_styles() {
 		
 		// Dropdown Menus Hover & Focus
 		echo '<div id="wpst-menus-hover-postbox" class="postbox" >';
-		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_menus_hover_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Dropdown Menus Hover & Focus Style', 'wp-symposium-toolbar' ).'</span></h3>';
+		echo '<h3 class="hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'" onclick="var div = document.getElementById( \'wp_toolbar_menus_hover_inside\' ); if ( div.style.display !== \'none\' ) { div.style.display = \'none\'; } else { div.style.display = \'table\'; }"><span>'.__( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).'</span></h3>';
 		
 		echo '<table id="wp_toolbar_menus_hover_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
@@ -1620,29 +1671,27 @@ function symposium_toolbar_add_roles_to_item( $name, $slug, $option, $roles ) {
 			// Check if $option is an array of roles known from the site and eventually display an error message
 			$ret_roles = symposium_toolbar_valid_roles( $option );
 			$class = '';
-			if ( $ret_roles != $option ) $class = 'error'; // 'updated';
+			if ( $ret_roles != $option ) $class = 'error';
 			if ( !is_array( $ret_roles ) ) $class = 'error';
 			
 			// list roles available for this item
 			foreach ( $roles as $key => $role ) {
 				$html .= '<input type="checkbox" id="'.$name.'[]" name="'.$name.'[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
 				if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
-				// if ( $class == 'updated' ) $html .= ' style="outline:2px solid #E6DB55;"';
 				if ( $class == 'error' ) $html .= ' style="outline:1px solid #CC0000;"';
 				$html .= ' onclick="var items=document.getElementById( \''.$name.'\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
 				$html .= '><span class="description"> '.__( $role ).'</span>&nbsp;&nbsp;&nbsp;';
 			}
 			
 			// Add a toggle link
-			$html .= '<div id="all_none" style="float:right;"><a id="all_none_'.$slug.'"';
-			$html .= ' onclick="var items=document.getElementById( \''.$name.'\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;  for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';} document.getElementById( \''.$name.'_error\' ).style.display=\'none\';"';
+			$html .= '<div id="'.$name.'_all_none" class="wpst-admin wpst-check-role" style="float:right;"><a id="'.$slug.'_all_none"';
+			$html .= ' onclick="var items=document.getElementById( \''.$name.'\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;  for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
 			$html .= '>'.__( 'toggle all / none', 'wp-symposium-toolbar' ).'</a></div>';
 			
 			if ( $class ) {
-				$html .= '<div id="'.$name.'_error" style="margin-top: 12px;';
-				// if ( $class == 'updated' ) $html .= 'background-color: #FFFFE0; border: 1px solid #E6DB55; ';
+				$html .= '<div id="'.$name.'_error" style="margin-top: 12px; padding: 6px; ';
 				if ( $class == 'error' ) $html .= 'background-color: #FFEBE8; border: 1px solid #CC0000; ';
-				$html .= 'text-align:center;">'.__( 'Important! There is an issue with the roles stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
+				$html .= 'text-align:center;"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the roles stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 			} else
 				$html .= '<div id="'.$name.'_error" style="display:hidden"></div>';
 		}

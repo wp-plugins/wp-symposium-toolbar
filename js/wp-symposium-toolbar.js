@@ -52,7 +52,7 @@ jQuery(document).ready(function($){
 	window.onbeforeunload = confirmExit;
 	function confirmExit() {
 		if (needToConfirm)
-			return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+			return $('input#need_to_confirm').val();
 	}
 	
 	
@@ -76,7 +76,7 @@ jQuery(document).ready(function($){
 	// var wpstHoverEmptyColor = "#333333";
 	// var wpstHoverEmptyColorRgb = "rgb( 51, 51, 51)";
 	var wpstHoverEmptyColor = "#FFFFFF";
-	var wpstHoverEmptyColorRgb = "rgb( 255, 255, 255)";
+	var wpstHoverEmptyColorRgb = "rgb( 255, 255, 255 )";
 
 	var wpstFontEmpty = "sans-serif";
 	var wpstFontSizeEmpty = "13px";
@@ -84,20 +84,20 @@ jQuery(document).ready(function($){
 	var wpstFontNormal = "normal";
 	var wpstFontNone = "none";
 	var wpstFontEmptyColor = "#CCCCCC";
-	var wpstFontEmptyColorRgb = "rgb( 204, 204, 204)";
+	var wpstFontEmptyColorRgb = "rgb( 204, 204, 204 )";
 	var wpstFontHoverEmptyColor = "#CCCCCC";
-	var wpstFontHoverEmptyColorRgb = "rgb( 204, 204, 204)";
+	var wpstFontHoverEmptyColorRgb = "rgb( 204, 204, 204 )";
 	
 	var wpstMenuEmptyColor = "#FFFFFF";
 	var wpstMenuEmptyColorRgb = "rgb( 255, 255, 255 )";
 	var wpstMenuExtEmptyColor = "#EEEEEE";
 	var wpstMenuExtEmptyColorRgb = "rgb( 238, 238, 238 )";
 	var wpstMenuHoverEmptyColor = "#EAF2FA";
-	var wpstMenuHoverEmptyColorRgb = "rgb( 234, 242, 250)";
+	var wpstMenuHoverEmptyColorRgb = "rgb( 234, 242, 250 )";
 	var wpstMenuExtHoverEmptyColor = "#DFDFDF";
-	var wpstMenuExtHoverEmptyColorRgb = "rgb( 223, 223, 223)";
+	var wpstMenuExtHoverEmptyColorRgb = "rgb( 223, 223, 223 )";
 	var wpstMenuFontEmptyColor = "#21759B";
-	var wpstMenuFontEmptyColorRgb = "rgb( 33, 117, 155)";
+	var wpstMenuFontEmptyColorRgb = "rgb( 33, 117, 155 )";
 	
 	// Determine gradient string from browser type
 	var gradient = "linear-gradient(";
@@ -143,8 +143,9 @@ jQuery(document).ready(function($){
 	// Remove the Error message associated to checkboxes
 	$(".wpst-check-role").click(function() {
 		
-		var name = this.name.replace("[]","");
-		$("#"+name+"_error").slideUp();
+		var this_id = this.id.replace("[]","");
+		this_id = this_id.replace("_all_none","");
+		$("#"+this_id+"_error").slideUp();
 	});
 	
  	// Remove the Error message associated to User Menu
@@ -345,40 +346,66 @@ jQuery(document).ready(function($){
 	
 	function update_tb_borders() {
 		
-		// Width / Style / Colours
-		var border_width =  ( ( parseInt($('#wpst_border_width').val()) == '' ) || ( parseInt($('#wpst_border_width').val()) < 0 ) || ( parseInt($('#wpst_border_width').val()) != $('#wpst_border_width').val() ) ) ? '1px ' : $('#wpst_border_width').val() + 'px ';
+		if ( $('#wpst_border_style').val() != '' ) {
+			
+			// Width / Style / Colours
+			var border_width =  ( ( parseInt($('#wpst_border_width').val()) == '' ) || ( parseInt($('#wpst_border_width').val()) < 0 ) || ( parseInt($('#wpst_border_width').val()) != $('#wpst_border_width').val() ) ) ? '1px ' : $('#wpst_border_width').val() + 'px ';
+			
+			var border_style = $('#wpst_border_style').val();
+			
+			if ( $('#wpst_border_left_colour').val() != '' )
+				var border_left_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_left_colour').val() )+", "+hexToG($('#wpst_border_left_colour').val())+", "+hexToB($('#wpst_border_left_colour').val())+")" : $('#wpst_border_left_colour').val();
+			else
+				var border_left_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
+				// var border_left_colour = wpstRgbColors ? wpstBorderLeftColorRgb : wpstBorderLeftColor;
+			
+			if ( $('#wpst_border_right_colour').val() != '' )
+				var border_right_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_right_colour').val() )+", "+hexToG($('#wpst_border_right_colour').val())+", "+hexToB($('#wpst_border_right_colour').val())+")" : $('#wpst_border_right_colour').val();
+			else
+				var border_right_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
+				// var border_right_colour = wpstRgbColors ? wpstBorderRightColorRgb : wpstBorderRightColor;
+			
+			// Gather all values together
+			if ( $('#wpst_border_right_colour').val() != '' ) {
+				var border_left = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_left_colour;
+				var border_right = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_right_colour;
+				var divider = "none";
+			} else {
+				var border_left = "none";
+				var border_right = "none";
+				var divider = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_left_colour;
+			}
 		
-		var border_style = $('#wpst_border_style').val();
-		
-		if ( $('#wpst_border_left_colour').val() != '' )
-			var border_left_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_left_colour').val() )+", "+hexToG($('#wpst_border_left_colour').val())+", "+hexToB($('#wpst_border_left_colour').val())+")" : $('#wpst_border_left_colour').val();
-		else 
-			var border_left_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
-			// var border_left_colour = wpstRgbColors ? wpstBorderLeftColorRgb : wpstBorderLeftColor;
-		
-		if ( $('#wpst_border_right_colour').val() != '' )
-			var border_right_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_right_colour').val() )+", "+hexToG($('#wpst_border_right_colour').val())+", "+hexToB($('#wpst_border_right_colour').val())+")" : $('#wpst_border_right_colour').val();
-		else 
-			var border_right_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
-			// var border_right_colour = wpstRgbColors ? wpstBorderRightColorRgb : wpstBorderRightColor;
-		
-		// Gather all values together
-		var border_left =  ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_left_colour;
-		var border_right =  ( ( $('#wpst_border_style').val() == 'none' ) || ( $('#wpst_border_right_colour').val() == '' ) ) ? 'none' : border_width + border_style + ' ' + border_right_colour;
+		} else {
+			var border_left = "";
+			var border_right = "";
+			var divider = "";
+		}
 		
 		// Put it where it should go
-		$("#wpadminbar").find(".quicklinks > ul > li").css("border-left", "none");
-		$("#wpadminbar").find(".quicklinks > ul > li").css("border-right", "none");
+		// Two-colour Borders
 		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-left", border_left);
 		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-left", border_left);
 		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-left", border_left);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-left", border_left);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-left", border_left);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-left", border_left);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-right", border_right);
+		
+		// Monochrom dividers
+		$("#wpadminbar").find(".quicklinks > ul > li").css("border-left", divider);
+		$("#wpadminbar").find(".quicklinks > ul > li").css("border-right", "none");
 		
 		// In case only one color was selected, each end should have a nicely bordered item  :)
 		if ( $('#wpst_border_right_colour').val() == '' ) {
-			$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-right", border_left);
-			$("#wpadminbar").find(".quicklinks .ab-top-secondary > li:last-child > a").css("border-right", "none");
-			$("#wpadminbar").find(".quicklinks .ab-top-secondary > li:first-child > a").css("border-right", border_left);
+			$("#wpadminbar").find(".quicklinks > ul > li:last-child").css("border-right", divider);
+			$("#wpadminbar").find(".quicklinks .ab-top-secondary > li:last-child").css("border-right", "none");
+			$("#wpadminbar").find(".quicklinks .ab-top-secondary > li:first-child").css("border-right", divider);
 		}
 	}
 	
@@ -420,7 +447,7 @@ jQuery(document).ready(function($){
 			var normal_shadow = $('#wpst_font_h_shadow').val() + "px " + $('#wpst_font_v_shadow').val() + "px " + wpst_font_shadow_blur + wpst_font_shadow_colour;
 		
 		} else
-			var normal_shadow = "";
+			var normal_shadow = "none";
 		
 		// Hover font shadow
 		if ( ( $('#wpst_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_h_shadow').val()) == $('#wpst_hover_font_h_shadow').val() )
@@ -431,7 +458,7 @@ jQuery(document).ready(function($){
 			var hover_shadow = $('#wpst_hover_font_h_shadow').val() + "px " + $('#wpst_hover_font_v_shadow').val() + "px " + wpst_hover_font_shadow_blur + wpst_hover_font_shadow_colour;
 		
 		} else
-			var hover_shadow = "";
+			var hover_shadow = "none";
 		
 		// Put it where it should go
 		// Normal
@@ -570,7 +597,7 @@ jQuery(document).ready(function($){
 			var normal_shadow = $('#wpst_menu_font_h_shadow').val() + "px " + $('#wpst_menu_font_v_shadow').val() + "px " + wpst_menu_font_shadow_blur + wpst_menu_font_shadow_colour;
 		
 		} else
-			var normal_shadow = ""; // TODO need to force back to the default shadow
+			var normal_shadow = "none"; // TODO need to force back to the default shadow
 		
 		// Hover font shadow
 		if ( ( $('#wpst_menu_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_h_shadow').val()) == $('#wpst_menu_hover_font_h_shadow').val() )
@@ -581,7 +608,7 @@ jQuery(document).ready(function($){
 			var hover_shadow = $('#wpst_menu_hover_font_h_shadow').val() + "px " + $('#wpst_menu_hover_font_v_shadow').val() + "px " + wpst_menu_hover_font_shadow_blur + wpst_menu_hover_font_shadow_colour;
 		
 		} else
-			var hover_shadow = ""; // TODO need to force back to the default shadow
+			var hover_shadow = "none"; // TODO need to force back to the default shadow
 		
 		// Put it where it should go
 		// Normal
@@ -704,7 +731,7 @@ jQuery(document).ready(function($){
 		
 		$("#wpadminbar").find("*").css( "font-size", wpst_font_size );
 		$("#wpadminbar").find(".ab-submenu *").css( "font-size", wpst_menu_font_size );
-		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", wpst_menu_font_size_small );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", wpst_menu_font_size_small );
 	});
 	
 	$('.wpst_font_colour').wpColorPicker({
@@ -1081,16 +1108,10 @@ jQuery(document).ready(function($){
 	$('#wpst_transparency').change(function() {
 		
 		if ( ( $('#wpst_transparency').val() == "" ) || ( parseInt($('#wpst_transparency').val()) < 0 ) || ( parseInt($('#wpst_transparency').val()) > 100 ) || ( parseInt($('#wpst_transparency').val()) != $('#wpst_transparency').val() ) ) {
-			var new_percent = "100";
 			var new_opacity = "1";
 		} else {
-			var new_percent = $('#wpst_transparency').val();
 			var new_opacity = $('#wpst_transparency').val()/100;
 		}
-		
-		$("#wpadminbar").css("filter", new_percent+"%");
-		$("#wpadminbar .quicklinks").css("filter", new_percent+"%");
-		$("#wpadminbar .ab-top-secondary").css("filter", new_percent+"%");
 		
 		$("#wpadminbar").css("opacity", new_opacity);
 		$("#wpadminbar .quicklinks").css("opacity", new_opacity);

@@ -1,6 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Customize your WordPress Toolbar with</title></head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Customize your WordPress Toolbar with</title>
+
+</head>
 <body>
 <div class="Section1">
 <h2 style="text-align: center; font-size: 12pt; font-family: Arial;" align="center">Customize your WordPress Toolbar
@@ -17,24 +19,30 @@ don’t’s...
 <p style="font-family: Arial; font-size: 11pt;">As a
 foreword, I would like to point out a few ideas behind the roles when
 using WPS Toolbar. Some of the settings of the plugin are defined on a
-per-role basis, hence roles are listed there. In addition to the roles
+per-role basis. In addition to the roles
 that are defined on your site, you will find within these settings,
-roles that don't correspond to anything but are, instead,&nbsp;used
-internally by this plugin.</p>
+roles that don't correspond to anything. They are, really, only that :
+pseudo-roles, used
+internally by the plugin, but not formally registrered as roles within
+your WordPress site.</p>
 <p style="font-family: Arial; font-size: 11pt;">The first
 pseudo-role is called "Visitor". As its name states, this role is used
 by the plugin
 to qualify non-users of your site or network of sites. Use this role to
 show the Toolbar and
-some of its items to your site's visitors and non logged-in users, along with custom menus.</p>
+some of its items, as well as your custom menus, to your
+site's visitors and non logged-in users.</p>
 <p style="font-family: Arial; font-size: 11pt;">In
 addition to "Visitor", Multisites Admins will find checkboxes called
-"User". These are used to qualify users of the network that may not be member
+"User". These are used to qualify users of the network that may not be
+member
 of the browsed site, hence have no role / no capability on this site.
-You may use this role to display specific navigation items, like a link
-to the Register page so they can subscribe to the&nbsp;site, as well as links to WP Symposium pages somewhere
+In addition to the WP User Menu, you may display specific navigation
+items via custom menus, like a link
+to the Register page so they can subscribe to the&nbsp;site, or
+links to WP Symposium that might be activated somewhere
 else in the network. Of course if you haven't activated Multisites, you
-will not see this pseudo-role.</p>
+will not see this pseudo-role. </p>
 <p style="font-size: 11pt; font-family: Arial;">We'll now
 browse&nbsp;the tabs at the
 plugin options page, one after the other..</p>
@@ -47,18 +55,26 @@ tab, like at some other tabs of this plugin options page, you have to
 select which roles will see
 which item. An important thing to stress, is that the plugin
 will not enforce the rules used by WordPress to let users access to
-information, and this is reflected by the rows of roles under each item
+information, but only allow to restrict it further, and this is
+reflected by the rows of roles under each item
 at this tab. Most of these items will not be accessible to
-everybody, but to some of the roles only. We
+everybody, but to some of the roles only : either way, you will be able
+to hide what you don't want your users to see, but not to show what
+WordPress doesn't want them to see. We
 will now browse some of the
 options available here...</p>
 <h3 style="font-size: 13pt;">2.1. WP Toolbar</h3>
-<p style="font-family: Arial; font-size: 11pt;">The key
+<p style="font-family: Arial; font-size: 11pt;">The main
 option is the very first one of the tab. If your aim is to
 completely hide the WP Toolbar, regardless of members roles, you should
 probably look for another option: WPS Toolbar can do that, indeed, and
 will do what you ask it to do, but there are other, easier and lighter
 ways to hide the Toolbar without putting this whole plugin into action.</p>
+<p style="font-family: Arial; font-size: 11pt;">In
+addition to the roles to select, you can force the display of
+the Toolbar for these roles. This could be needed if you put navigation
+menus that are nowhere else on your site, and that you don't want your
+users to hide.</p>
 <h3 style="font-size: 12pt;">2.2. WP Logo</h3>
 <p style="font-size: 11pt; font-family: Arial;">The
 WP Logo can be used as a menu location : for
@@ -89,32 +105,45 @@ to avoid duplication, you could hide them from here.</p>
 <h3 style="font-size: 13pt;">2.5. WP User Menu</h3>
 <p style="font-size: 11pt; font-family: Arial;">This
 menu is also called "My Account" in WordPress litterature and
-code. It contains information related to the member account.</p>
+code, it contains information related to the member account. The
+toplevel item (made of both the avatar and
+the Howdy) makes
+this menu special, so that the plugin offers different alternatives to
+customize it,
+depending on whether you want to show its toplevel item or not.</p>
+<p style="font-size: 11pt; font-family: Arial;">If you
+wish to hide the&nbsp;menu as well as its toplevel item, you
+may hide it from the "Toolbar" tab. If you
+wish to replace it with your custom menu, you should then use the
+location "Left of
+User Menu" for your custom menu, that will give the desired result.</p>
 <p style="font-size: 11pt; font-family: Arial;">If
-you wish to replace the default User Menu with your own, you should
-uncheck all items of the
-WP User Menu from the ad hoc tab, instead of hiding the menu from this
-first section. If you hide the WP User Menu here but attach a custom
-menu to it, none of the menus will be displayed. Neither will
-be
-displayed the Howdy message and the avatar in the Toolbar.</p>
+you wish to replace the default User Menu with your custom menu over
+the Howdy and / or the small avatar, you should
+uncheck all items from the "WP User Menu" tab. You may then append your
+custom menu to the User Menu and it'll show under the Howdy.</p>
+<p style="font-size: 11pt; font-family: Arial;">The key
+idea I want to stress here, is that if you hide the WP User
+Menu but attach a custom menu to it, none of the menus will be
+displayed, neither will
+be displayed the Howdy message and the avatar in the Toolbar.</p>
 <h3 style="font-size: 13pt;">2.6. Search Field</h3>
 <p style="font-size: 11pt; font-family: Arial;">Only
 visible on the frontend, a search icon will unfold when clicked, to
 reveal the search field. While unfolding, you'll notice that this
-pushes the WP User Menu. If you're concerned with menus and other items
+pushes the WP User Menu. If, like me, you're concerned with menus and
+other items
 being pushed by this icon, rather than removing it you may move it to
 the inner of your Toolbar.</p>
 <h2 style="font-family: Arial; font-size: 16pt;">3. WP
 User Menu</h2>
-<p style="font-size: 11pt; font-family: Arial;">Not
-much to add
-to the help tab, as its options are relatively straightforward. The
-first set of options deal with the menu toplevel item in the
-Toolbar, while the second set of options describes how this menu should
-look like.
-The last option allows you to add extra information to this
-menu.</p>
+<p style="font-size: 11pt; font-family: Arial;">We'll now
+switch to the second tab of the plugin options page. From this tab,
+customize the menu shown to the roles selected from the first tab.
+These options should be relatively straightforward : the first set of
+options deal with the menu toplevel item in the Toolbar, while the
+second set of options describes how this menu should look like. The
+last option allows you to add extra information to this menu.</p>
 <p style="font-size: 11pt; font-family: Arial;">If
 interrested in populating this menu with
 custom information, advanced users may refer to the
@@ -141,8 +170,13 @@ roles. Your choice.</p>
 <p style="font-size: 11pt; font-family: Arial;">You may
 use
 the same menu several times, however, for a given role it will be
-displayed only once, even if this page indicates it should be displayed
+displayed only once, so this page will list the roles that
+cannot see menus that should&nbsp;be displayed
 more than once.</p>
+<p style="font-size: 11pt; font-family: Arial;">You may
+choose to display your custom icon to the toplevel of this menu. Upload
+it somewhere on your server, either via FTP or using the WP Media
+Manager, and enter its URL into the corresponding field.</p>
 <p style="font-size: 11pt; font-family: Arial;">When using
 custom
 icons with your menus, it is recommended to use only one toplevel item,
@@ -170,7 +204,8 @@ Profile isn't activated and a page isn't properly defined on the
 subsite, the Friends icon will not show, and the Howdy and User Info
 will not link to the WPS Profile page. Likewise,
 if the WPS Mail isn't activated locally the mail icon will not show.
-When checked, features will be searched&nbsp;on any other site the
+When this checkbox is checked, features will be searched&nbsp;on
+any other site the
 user is member of, and if found the icons and links will point to this
 site. The search order is: current site, main site, subsite in
 ascending ID order.</p>
@@ -272,13 +307,12 @@ of your site, like a Contact Form, About Us, Terms &amp;
 Conditions,
 etc.</li>
 <li>Back to the plugin options page, add it to your Toolbar as
-a custom menu, to the location
-"append / replace WP Logo"</li>
+a custom menu, to the location "append / replace WP Logo", and select the roles you want to see this menu</li>
 <li>You will very likely want to add your custom icon to this
 menu.</li>
 <li>From the first tab, uncheck all roles for "WP Logo" meaning
 your custom
-menu will replace it.</li>
+menu will actually replace it.</li>
 </ul>
 <p style="font-size: 11pt; font-family: Arial;">And
 finally, you should consider different style settings for
@@ -292,6 +326,8 @@ name given by WordPress so it's not mine, nor it is any toolbar, it's
 WordPress Toolbar.</p>
 <p style="font-size: 9pt; font-family: Arial;"><br>
 G.Assire<br>
-alphagolf@rocketmail.com<br><br></p>
+alphagolf@rocketmail.com<br>
+<br>
+</p>
 </div>
 </body></html>
