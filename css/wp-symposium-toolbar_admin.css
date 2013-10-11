@@ -96,11 +96,12 @@
 	background-color: #EAF2FA;
 }
 
-/* Increase size of User Info container, spans look too small on hover */
+/* Resize User Info container */
 #wpadminbar #wp-admin-bar-user-info {
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 }
 
+/* Spans look too small on hover */
 #wpadminbar #wp-admin-bar-user-info a {
 	padding-bottom: 10px;
 }

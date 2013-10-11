@@ -8,9 +8,9 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
-Tested up to: 3.6
-Stable tag: 0.20.11
-Version: 0.20.11
+Tested up to: 3.6.1
+Stable tag: 0.22.0
+Version: 0.22.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -49,7 +49,7 @@ if ( $wps_is_active ) {
 // OK, we're all set now...
 
 
-/* ====================================================================== MAIN =========================================================================== */
+/* ==================================================================== MAIN / ADMIN ======================================================================= */
 
 function symposium_toolbar_main() {
 	// Ties in with add_toolbar_installation_row() function below.
@@ -82,7 +82,7 @@ function symposium_toolbar_init() {
 	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_dir . $mofile ) )
 		if ( function_exists( 'load_plugin_textdomain' ) ) { load_plugin_textdomain( 'wp-symposium-toolbar', false, $plugin_dir ); }
 	
-	// Constant init - must be performed after translation was loaded, above
+	// Must be performed after translation was loaded, above
 	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 }
 add_action( 'init', 'symposium_toolbar_init' );
@@ -96,9 +96,6 @@ function symposium_toolbar_js_init() {
 add_action( 'admin_head-wp-symposium_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_js_init' );
 add_action( 'admin_head-settings_page_admin?page=wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_js_init' );
 
-
-/* ===================================================================== ADMIN =========================================================================== */
-
 function symposium_toolbar_trigger_activate() {
 	
 	global $wpdb;
@@ -107,7 +104,6 @@ function symposium_toolbar_trigger_activate() {
 		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
 		$blogs = $wpdb->get_results( $query, ARRAY_A );
 		
-		// TODO check for network/upgrade.php
 		foreach ($blogs as $blog) {
 			switch_to_blog( $blog['blog_id'] );
 			symposium_toolbar_activate();
@@ -118,10 +114,41 @@ function symposium_toolbar_trigger_activate() {
 }
 register_activation_hook(__FILE__,'symposium_toolbar_trigger_activate' );
 
-function symposium_toolbar_deactivate() {
+// Triggers updates at plugins post-install/update page only...
+function symposium_toolbar_trigger_update() {
 
+	global $wpdb;
+	
+	$wpst_buildnr = "2201"; // Increases at each version
+	
+	// Upgrade db with new options etc.
+	if ( get_option( 'wpst_tech_buildnr', '0' ) < "2101" ) {
+		
+		if ( is_multisite() && is_main_site() ) {
+			$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
+			$blogs = $wpdb->get_results( $query, ARRAY_A );
+			
+			// TODO check for network/upgrade.php
+			foreach ($blogs as $blog) {
+				switch_to_blog( $blog['blog_id'] );
+				symposium_toolbar_update();
+			}
+			restore_current_blog();
+		} else
+			symposium_toolbar_update();
+	}
+	
+	// Update CSS based on stored styles
+	$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+	symposium_toolbar_update_styles( $wpst_style_tb_current );
+	
+	// Store build nr
+	update_option( 'wpst_tech_buildnr', $wpst_buildnr );
 }
-register_deactivation_hook(__FILE__, 'symposium_toolbar_deactivate' );
+// add_action( 'admin_head-wp-symposium_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_trigger_update' );
+// add_action( 'admin_head-settings_page_admin?page=wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_trigger_update' );
+add_action( 'admin_head-update', 'symposium_toolbar_trigger_update' );
+add_action( 'admin_head-update-network', 'symposium_toolbar_trigger_update' );
 
 function symposium_toolbar_uninstall() {
 	
@@ -145,7 +172,8 @@ function symposium_toolbar_uninstall() {
 register_uninstall_hook(__FILE__, 'symposium_toolbar_uninstall' );
 
 
-/* ====================================================== HOOKS/FILTERS INTO WP SYMPOSIUM ====================================================== */
+/* =========================================================== HOOKS & FILTERS INTO WP SYMPOSIUM =========================================================== */
+
 if ( $wps_is_active ) {
 	
 	// Add row to WPS installation page showing status of the plugin through hook provided
@@ -182,7 +210,7 @@ if ( $wps_is_active ) {
 	add_action( '__wps__admin_menu_hook', 'symposium_toolbar_add_to_admin_menu' );
 
 
-/* ====================================================== HOOKS/FILTERS INTO WORDPRESS ====================================================== */
+/* =========================================================== HOOKS & FILTERS INTO WORDPRESS ============================================================== */
 } else {
 
 	function add_symposium_toolbar_to_admin_menu() {
@@ -216,7 +244,9 @@ add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_edit_wp_toolbar', 9
 
 if ( $wps_is_active ) {
 	// Edit the Profile link to point to the WPS Profile page, settings menu
-	add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
+	if ( ( strstr( $_POST["_wp_http_referer"], "/wp-admin/profile.php" ) == "" ) && ( strstr( $_POST["_wp_http_referer"], "wp-admin/network/profile.php" ) == "" ) &&
+		 ( strstr( $_POST["_wp_http_referer"], "/wp-admin/user-edit.php" ) == "" ) && ( strstr( $_POST["_wp_http_referer"], "wp-admin/network/user-edit.php" ) == "" ) )
+		add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 	
 	// Add the WPS Admin menu
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_link_to_symposium_admin', 999 );
@@ -225,8 +255,8 @@ if ( $wps_is_active ) {
 	add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
 }
 
-// Re-add the Search icon and field to the inner part of the Toolbar - must be done after everything else
-add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_add_search_menu', 999 );
+// Remove and eventually re-add the Search icon and field to the inner part of the Toolbar - must be done after everything else
+add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_modify_search_menu', 999 );
 
 // End of Toolbar rendition
 

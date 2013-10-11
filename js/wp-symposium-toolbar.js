@@ -60,7 +60,7 @@ jQuery(document).ready(function($){
 	
 	var wpstRgbColors = ( $("#wpadminbar").css("background-color").search("rgb") >= 0 );
 	var wpstDefaultHeight = "28";
-	var subwrapper_top = "26px";
+	var wpstSubwrapperTop = "26px";
 	
 	var wpstBorderLeftColor = "#555555";
 	var wpstBorderLeftColorRgb = "rgb( 85, 85, 85)";
@@ -205,69 +205,69 @@ jQuery(document).ready(function($){
 	
 	// ENABLERS
 	
-	function tb_background_image(main_color) {
+	function tb_background_image(tbMainColor) {
 	
 		// Determine colours and lengths of the gradient
-		var tb_height = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
+		var tbHeight = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
 		
-		if ( main_color !== "" ) {
+		if ( tbMainColor !== "" ) {
 			if ( ( $('#wpst_top_colour').val() !== "" ) && ( $('#wpst_top_gradient').val() !== "" ) ) {
-				var top_color = wpstRgbColors ? "rgb("+hexToR( $('#wpst_top_colour').val() )+", "+hexToG( $('#wpst_top_colour').val() )+", "+hexToB( $('#wpst_top_colour').val() )+")" : $('#wpst_top_colour').val() ;
-				var top_length = $('#wpst_top_gradient').val();
+				var tbTopColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_top_colour').val() )+", "+hexToG( $('#wpst_top_colour').val() )+", "+hexToB( $('#wpst_top_colour').val() )+")" : $('#wpst_top_colour').val() ;
+				var tbTopLength = $('#wpst_top_gradient').val();
 			} else {
-				var top_color = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
-				var top_length = "0";
+				var tbTopColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+				var tbTopLength = "0";
 			}
 			if ( ( $('#wpst_bottom_colour').val() !== "" ) && ( $('#wpst_bottom_gradient').val() !== "" ) ) {
-				var bottom_color = wpstRgbColors ? "rgb("+hexToR( $('#wpst_bottom_colour').val() )+", "+hexToG( $('#wpst_bottom_colour').val() )+", "+hexToB( $('#wpst_bottom_colour').val() )+")" : $('#wpst_bottom_colour').val() ;
-				var bottom_length = $('#wpst_bottom_gradient').val();
+				var tbBottomColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_bottom_colour').val() )+", "+hexToG( $('#wpst_bottom_colour').val() )+", "+hexToB( $('#wpst_bottom_colour').val() )+")" : $('#wpst_bottom_colour').val() ;
+				var tbBottomLength = $('#wpst_bottom_gradient').val();
 			} else {
-				var bottom_color = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
-				var bottom_length = "0";
+				var tbBottomColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+				var tbBottomLength = "0";
 			}
 		
 		} else {
-			var main_color = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
-			var top_color = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
-			var top_length = "0";
-			var bottom_color = wpstRgbColors ? wpstBottomEmptyColorRgb : wpstBottomEmptyColor;
-			var bottom_length = wpstBottomEmptyHeight;
+			var tbMainColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+			var tbTopColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+			var tbTopLength = "0";
+			var tbBottomColor = wpstRgbColors ? wpstBottomEmptyColorRgb : wpstBottomEmptyColor;
+			var tbBottomLength = wpstBottomEmptyHeight;
 		}
 		
 		// Determine the new "background-image" string from the values above
-		return gradient + top_color + " 0px, " + main_color + " " + top_length + "px, " + main_color + " " + (parseInt(tb_height) - parseInt(bottom_length))  + "px, " + bottom_color + " " + tb_height + "px)";
+		return gradient + tbTopColor + " 0px, " + tbMainColor + " " + tbTopLength + "px, " + tbMainColor + " " + (parseInt(tbHeight) - parseInt(tbBottomLength))  + "px, " + tbBottomColor + " " + tbHeight + "px)";
 	}
 	
-	function tb_hover_background_image(hover_color) {
+	function tb_hover_background_image(tbHoverColor) {
 	
 		// Determine colours and lengths of the gradient
-		var tb_height = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
-		if ( hover_color !== "" ) {
+		var tbHeight = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
+		if ( tbHoverColor !== "" ) {
 			if ( ( $('#wpst_hover_top_colour').val() !== "" ) && ( $('#wpst_hover_top_gradient').val() !== "" ) ) {
-				var top_color = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_top_colour').val() )+", "+hexToG( $('#wpst_hover_top_colour').val() )+", "+hexToB( $('#wpst_hover_top_colour').val() )+")" : $('#wpst_hover_top_colour').val() ;
-				var top_length = $('#wpst_hover_top_gradient').val();
+				var tbTopColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_top_colour').val() )+", "+hexToG( $('#wpst_hover_top_colour').val() )+", "+hexToB( $('#wpst_hover_top_colour').val() )+")" : $('#wpst_hover_top_colour').val() ;
+				var tbTopLength = $('#wpst_hover_top_gradient').val();
 			} else {
-				var top_color = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
-				var top_length = "0";
+				var tbTopColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+				var tbTopLength = "0";
 			}
 			if ( ( $('#wpst_hover_bottom_colour').val() !== "" ) && ( $('#wpst_hover_bottom_gradient').val() !== "" ) ) {
-				var bottom_color = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_bottom_colour').val() )+", "+hexToG( $('#wpst_hover_bottom_colour').val() )+", "+hexToB( $('#wpst_hover_bottom_colour').val() )+")" : $('#wpst_hover_bottom_colour').val() ;
-				var bottom_length = $('#wpst_hover_bottom_gradient').val();
+				var tbBottomColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_bottom_colour').val() )+", "+hexToG( $('#wpst_hover_bottom_colour').val() )+", "+hexToB( $('#wpst_hover_bottom_colour').val() )+")" : $('#wpst_hover_bottom_colour').val() ;
+				var tbBottomLength = $('#wpst_hover_bottom_gradient').val();
 			} else {
-				var bottom_color = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
-				var bottom_length = "0";
+				var tbBottomColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+				var tbBottomLength = "0";
 			}
 			
 		} else {
-			var hover_color = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
-			var top_color = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
-			var top_length = "0";
-			var bottom_color = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
-			var bottom_length = "0";
+			var tbHoverColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+			var tbTopColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+			var tbTopLength = "0";
+			var tbBottomColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+			var tbBottomLength = "0";
 		}
 		
 		// Determine the new "background-image" string from the values above
-		return gradient + top_color + " 0px, " + hover_color + " " + top_length + "px, " + hover_color + " " + (parseInt(tb_height) - parseInt(bottom_length))  + "px, " + bottom_color + " " + tb_height + "px)";
+		return gradient + tbTopColor + " 0px, " + tbHoverColor + " " + tbTopLength + "px, " + tbHoverColor + " " + (parseInt(tbHeight) - parseInt(tbBottomLength))  + "px, " + tbBottomColor + " " + tbHeight + "px)";
 	}
 	
 	
@@ -275,72 +275,78 @@ jQuery(document).ready(function($){
 	
 	function update_tb_height() {
 		
-		var tb_height = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
-		var padding_top = Math.round( ( tb_height - 28 )/2 );
-		if ( padding_top < 0 ) padding_top = 0;
+		var tbHeight = ( $('#wpst_height').val() != "" ) ? $('#wpst_height').val() : wpstDefaultHeight;
+		var tbPaddingTop = Math.round( ( tbHeight - wpstDefaultHeight )/2 );
+		if ( tbPaddingTop < 0 ) tbPaddingTop = 0;
+		var tbMarginTop = tbHeight - wpstDefaultHeight;
+		if ( tbMarginTop < 0 ) tbMarginTop = 0;
 		
-		$("#wpadminbar").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".quicklinks").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".ab-top-secondary").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".quicklinks > ul > li").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "height", ( tb_height - padding_top ) + "px" );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "padding-top", padding_top  + "px" );
-		$("#wpadminbar").find(".quicklinks > ul > li:visited").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item:visited").css( "height", tb_height + "px" );
-		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper").css( "top", tb_height + "px" );
-		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper .ab-sub-wrapper").css( "top", subwrapper_top );
-		$("#wpadminbar").find(".quicklinks > ul > li > a").css( "height", ( tb_height - padding_top ) + "px" );
-		$("#wpadminbar").find(".quicklinks > ul > li > a").css( "padding-top", padding_top  + "px" );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "padding-top", padding_top );
-		$("#wpbody").css( "margin-top", Math.round($("#tb_height").val() - 28) + "px" );
+		$("#wpadminbar").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".quicklinks").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".ab-top-secondary").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".quicklinks > ul > li").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "height", ( tbHeight - tbPaddingTop ) + "px" );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "padding-top", tbPaddingTop  + "px" );
+		$("#wpadminbar").find(".quicklinks > ul > li:visited").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item:visited").css( "height", tbHeight + "px" );
+		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper").css( "top", tbHeight + "px" );
+		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper .ab-sub-wrapper").css( "top", wpstSubwrapperTop );
+		$("#wpadminbar").find(".quicklinks > ul > li > a").css( "height", ( tbHeight - tbPaddingTop ) + "px" );
+		$("#wpadminbar").find(".quicklinks > ul > li > a").css( "padding-top", tbPaddingTop  + "px" );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "padding-top", tbPaddingTop  + "px" );
+		$("#wpbody").css( "margin-top", tbMarginTop + "px" );
+		
+		// JetPack Notes
+		var divs = document.getElementById("wp-admin-bar-notes").getElementsByTagName("div");
+		for (var i in divs) { if ( typeof divs[i].style !== "undefined" ) divs[i].style.cssText = divs[i].style.cssText + "padding-top: " + tbPaddingTop  + "px !important;"; }
 	}
 	
 	function update_tb_background() {
 		
 		// Background
 		if ( $('#wpst_background_colour').val() !== "" )
-			var main_color = wpstRgbColors ? "rgb("+hexToR($('#wpst_background_colour').val())+", "+hexToG($('#wpst_background_colour').val())+", "+hexToB($('#wpst_background_colour').val())+")" : $('#wpst_background_colour').val();
+			var tbMainColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_background_colour').val())+", "+hexToG($('#wpst_background_colour').val())+", "+hexToB($('#wpst_background_colour').val())+")" : $('#wpst_background_colour').val();
 		else
-			var main_color = "";
+			var tbMainColor = "";
 		
 		if ( $('#wpst_hover_background_colour').val() !== "" )
-			var hover_color = wpstRgbColors ? "rgb("+hexToR($("#wpst_hover_background_colour").val())+", "+hexToG($("#wpst_hover_background_colour").val())+", "+hexToB($("#wpst_hover_background_colour").val())+")" : $("#wpst_hover_background_colour").val();
+			var tbHoverColor = wpstRgbColors ? "rgb("+hexToR($("#wpst_hover_background_colour").val())+", "+hexToG($("#wpst_hover_background_colour").val())+", "+hexToB($("#wpst_hover_background_colour").val())+")" : $("#wpst_hover_background_colour").val();
 		else
-			var hover_color = "";
+			var tbHoverColor = "";
 		
 		// Gradient
 		if ( gradient !== "" ) {
-			var normal_image = tb_background_image(main_color);
-			var hover_image = tb_hover_background_image(hover_color);
+			var tbNormalImage = tb_background_image(tbMainColor);
+			var tbHoverImage = tb_hover_background_image(tbHoverColor);
 		
 		} else {
-			var normal_image = "";
-			var hover_image = "";
+			var tbNormalImage = "";
+			var tbHoverImage = "";
 		}
 		
 		// Put it where it should go
 		// Normal
-		$("#wpadminbar").css( "background-image", normal_image );
-		$("#wpadminbar .quicklinks").css( "background-image", normal_image );
-		$("#wpadminbar .ab-top-secondary").css( "background-image", normal_image );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "background-image", normal_image );
-		$("#wpadminbar").css( "background-color", main_color );
-		$("#wpadminbar .quicklinks").css( "background-color", main_color );
-		$("#wpadminbar .ab-top-secondary").css( "background-color", main_color );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "background-color", main_color );
+		$("#wpadminbar").css( "background-image", tbNormalImage );
+		$("#wpadminbar .quicklinks").css( "background-image", tbNormalImage );
+		$("#wpadminbar .ab-top-secondary").css( "background-image", tbNormalImage );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "background-image", tbNormalImage );
+		$("#wpadminbar").css( "background-color", tbMainColor );
+		$("#wpadminbar .quicklinks").css( "background-color", tbMainColor );
+		$("#wpadminbar .ab-top-secondary").css( "background-color", tbMainColor );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "background-color", tbMainColor );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "background-color", hover_color );
-			$(this).find("> a").css( "background-image", hover_image );
-			$(this).find("> .ab-item").css( "background-color", hover_color );
-			$(this).find("> .ab-item").css( "background-image", hover_image );
+			$(this).find("> a").css( "background-color", tbHoverColor );
+			$(this).find("> a").css( "background-image", tbHoverImage );
+			$(this).find("> .ab-item").css( "background-color", tbHoverColor );
+			$(this).find("> .ab-item").css( "background-image", tbHoverImage );
 			$(this).find("> .ab-item > .ab-label").css( "background", "transparent" );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "background-color", main_color );
-			$(this).find("> a").css( "background-image", normal_image );
-			$(this).find("> .ab-item").css( "background-color", main_color );
-			$(this).find("> .ab-item").css( "background-image", normal_image );
+			$(this).find("> a").css( "background-color", tbMainColor );
+			$(this).find("> a").css( "background-image", tbNormalImage );
+			$(this).find("> .ab-item").css( "background-color", tbMainColor );
+			$(this).find("> .ab-item").css( "background-image", tbNormalImage );
 		} });
 	}
 	
@@ -349,53 +355,53 @@ jQuery(document).ready(function($){
 		if ( $('#wpst_border_style').val() != '' ) {
 			
 			// Width / Style / Colours
-			var border_width =  ( ( parseInt($('#wpst_border_width').val()) == '' ) || ( parseInt($('#wpst_border_width').val()) < 0 ) || ( parseInt($('#wpst_border_width').val()) != $('#wpst_border_width').val() ) ) ? '1px ' : $('#wpst_border_width').val() + 'px ';
+			var tbBorderWidth =  ( ( parseInt($('#wpst_border_width').val()) == '' ) || ( parseInt($('#wpst_border_width').val()) < 0 ) || ( parseInt($('#wpst_border_width').val()) != $('#wpst_border_width').val() ) ) ? '1px ' : $('#wpst_border_width').val() + 'px ';
 			
-			var border_style = $('#wpst_border_style').val();
+			var tbBorderStyle = $('#wpst_border_style').val();
 			
 			if ( $('#wpst_border_left_colour').val() != '' )
-				var border_left_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_left_colour').val() )+", "+hexToG($('#wpst_border_left_colour').val())+", "+hexToB($('#wpst_border_left_colour').val())+")" : $('#wpst_border_left_colour').val();
+				var tbBorderLeftColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_left_colour').val() )+", "+hexToG($('#wpst_border_left_colour').val())+", "+hexToB($('#wpst_border_left_colour').val())+")" : $('#wpst_border_left_colour').val();
 			else
-				var border_left_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
-				// var border_left_colour = wpstRgbColors ? wpstBorderLeftColorRgb : wpstBorderLeftColor;
+				var tbBorderLeftColor = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
+				// var tbBorderLeftColor = wpstRgbColors ? wpstBorderLeftColorRgb : wpstBorderLeftColor;
 			
 			if ( $('#wpst_border_right_colour').val() != '' )
-				var border_right_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_right_colour').val() )+", "+hexToG($('#wpst_border_right_colour').val())+", "+hexToB($('#wpst_border_right_colour').val())+")" : $('#wpst_border_right_colour').val();
+				var tbBorderRightColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_border_right_colour').val() )+", "+hexToG($('#wpst_border_right_colour').val())+", "+hexToB($('#wpst_border_right_colour').val())+")" : $('#wpst_border_right_colour').val();
 			else
-				var border_right_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
-				// var border_right_colour = wpstRgbColors ? wpstBorderRightColorRgb : wpstBorderRightColor;
+				var tbBorderRightColor = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
+				// var tbBorderRightColor = wpstRgbColors ? wpstBorderRightColorRgb : wpstBorderRightColor;
 			
 			// Gather all values together
 			if ( $('#wpst_border_right_colour').val() != '' ) {
-				var border_left = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_left_colour;
-				var border_right = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_right_colour;
+				var tbBorderLeft = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : tbBorderWidth + tbBorderStyle + ' ' + tbBorderLeftColor;
+				var tbBorderRight = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : tbBorderWidth + tbBorderStyle + ' ' + tbBorderRightColor;
 				var divider = "none";
 			} else {
-				var border_left = "none";
-				var border_right = "none";
-				var divider = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : border_width + border_style + ' ' + border_left_colour;
+				var tbBorderLeft = "none";
+				var tbBorderRight = "none";
+				var divider = ( $('#wpst_border_style').val() == 'none' ) ? 'none' : tbBorderWidth + tbBorderStyle + ' ' + tbBorderLeftColor;
 			}
 		
 		} else {
-			var border_left = "";
-			var border_right = "";
+			var tbBorderLeft = "";
+			var tbBorderRight = "";
 			var divider = "";
 		}
 		
 		// Put it where it should go
 		// Two-colour Borders
-		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-right", border_right);
-		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-right", border_right);
-		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-right", border_right);
-		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-right", border_right);
-		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-right", border_right);
-		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-left", border_left);
-		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-right", border_right);
+		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > ul > li > a").css("border-right", tbBorderRight);
+		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > ul > li > .ab-empty-item").css("border-right", tbBorderRight);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > a").css("border-right", tbBorderRight);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > .ab-top-secondary > li > .ab-empty-item").css("border-right", tbBorderRight);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > a").css("border-right", tbBorderRight);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-left", tbBorderLeft);
+		$("#wpadminbar").find(".quicklinks > ul > li:last-child > .ab-empty-item").css("border-right", tbBorderRight);
 		
 		// Monochrom dividers
 		$("#wpadminbar").find(".quicklinks > ul > li").css("border-left", divider);
@@ -412,27 +418,27 @@ jQuery(document).ready(function($){
 	function update_tb_font_colour() {
 	
 		if ( $('#wpst_font_colour').val() !== "" )
-			var wpst_font_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_font_colour').val() )+", "+hexToG( $('#wpst_font_colour').val() )+", "+hexToB( $('#wpst_font_colour').val() )+")" : $('#wpst_font_colour').val() ;
+			var tbFontColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_font_colour').val() )+", "+hexToG( $('#wpst_font_colour').val() )+", "+hexToB( $('#wpst_font_colour').val() )+")" : $('#wpst_font_colour').val() ;
 		else
-			var wpst_font_colour = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
+			var tbFontColor = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
 		
 		if ( $('#wpst_hover_font_colour').val() !== "" )
-			var wpst_hover_font_colour = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_font_colour').val() )+", "+hexToG( $('#wpst_hover_font_colour').val() )+", "+hexToB( $('#wpst_hover_font_colour').val() )+")" : $('#wpst_hover_font_colour').val() ;
+			var tbHoverFontColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_font_colour').val() )+", "+hexToG( $('#wpst_hover_font_colour').val() )+", "+hexToB( $('#wpst_hover_font_colour').val() )+")" : $('#wpst_hover_font_colour').val() ;
 		else
-			var wpst_hover_font_colour = wpstRgbColors ? wpstFontHoverEmptyColorRgb : wpstFontHoverEmptyColor;
+			var tbHoverFontColor = wpstRgbColors ? wpstFontHoverEmptyColorRgb : wpstFontHoverEmptyColor;
 		
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "color", wpst_font_colour );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "color", wpst_font_colour );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "color", wpst_font_colour );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "color", tbFontColor );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "color", tbFontColor );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "color", tbFontColor );
 		
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "color", wpst_hover_font_colour );
-			$(this).find("> .ab-item").css( "color", wpst_hover_font_colour );
-			$(this).find("> .ab-item .ab-label").css( "color", wpst_hover_font_colour );
+			$(this).find("> a").css( "color", tbHoverFontColor );
+			$(this).find("> .ab-item").css( "color", tbHoverFontColor );
+			$(this).find("> .ab-item .ab-label").css( "color", tbHoverFontColor );
 		},function(){
-			$(this).find("> a").css( "color", wpst_font_colour );
-			$(this).find("> .ab-item").css( "color", wpst_font_colour );
-			$(this).find("> .ab-item .ab-label").css( "color", wpst_font_colour );
+			$(this).find("> a").css( "color", tbFontColor );
+			$(this).find("> .ab-item").css( "color", tbFontColor );
+			$(this).find("> .ab-item .ab-label").css( "color", tbFontColor );
 		});
 	}
 	
@@ -442,39 +448,39 @@ jQuery(document).ready(function($){
 		if ( ( $('#wpst_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_font_h_shadow').val()) == $('#wpst_font_h_shadow').val() )
 			&& ( $('#wpst_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_font_v_shadow').val()) == $('#wpst_font_v_shadow').val() ) ) {
 			
-			var wpst_font_shadow_blur = ( $('#wpst_font_shadow_blur').val() !== "" ) ? $('#wpst_font_shadow_blur').val()+"px " : "";
-			var wpst_font_shadow_colour = wpstRgbColors ? "rgb("+hexToR($('#wpst_font_shadow_colour').val())+", "+hexToG($('#wpst_font_shadow_colour').val())+", "+hexToB($('#wpst_font_shadow_colour').val())+")" : $('#wpst_font_shadow_colour').val();
-			var normal_shadow = $('#wpst_font_h_shadow').val() + "px " + $('#wpst_font_v_shadow').val() + "px " + wpst_font_shadow_blur + wpst_font_shadow_colour;
+			var tbFontShadowBlur = ( $('#wpst_font_shadow_blur').val() !== "" ) ? $('#wpst_font_shadow_blur').val()+"px " : "";
+			var tbFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_font_shadow_colour').val())+", "+hexToG($('#wpst_font_shadow_colour').val())+", "+hexToB($('#wpst_font_shadow_colour').val())+")" : $('#wpst_font_shadow_colour').val();
+			var tbNormalFontShadow = $('#wpst_font_h_shadow').val() + "px " + $('#wpst_font_v_shadow').val() + "px " + tbFontShadowBlur + tbFontShadowColor;
 		
 		} else
-			var normal_shadow = "none";
+			var tbNormalFontShadow = "none";
 		
 		// Hover font shadow
 		if ( ( $('#wpst_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_h_shadow').val()) == $('#wpst_hover_font_h_shadow').val() )
 			&& ( $('#wpst_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_v_shadow').val()) == $('#wpst_hover_font_v_shadow').val() ) ) {
 			
-			var wpst_hover_font_shadow_blur = ( $('#wpst_hover_font_shadow_blur').val() !== "" ) ? $('#wpst_hover_font_shadow_blur').val()+"px " : "";
-			var wpst_hover_font_shadow_colour = wpstRgbColors ? "rgb("+hexToR($('#wpst_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_hover_font_shadow_colour').val())+")" : $('#wpst_hover_font_shadow_colour').val();
-			var hover_shadow = $('#wpst_hover_font_h_shadow').val() + "px " + $('#wpst_hover_font_v_shadow').val() + "px " + wpst_hover_font_shadow_blur + wpst_hover_font_shadow_colour;
+			var tbHoverFontShadowBlur = ( $('#wpst_hover_font_shadow_blur').val() !== "" ) ? $('#wpst_hover_font_shadow_blur').val()+"px " : "";
+			var tbHoverFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_hover_font_shadow_colour').val())+")" : $('#wpst_hover_font_shadow_colour').val();
+			var tbHoverFontShadow = $('#wpst_hover_font_h_shadow').val() + "px " + $('#wpst_hover_font_v_shadow').val() + "px " + tbHoverFontShadowBlur + tbHoverFontShadowColor;
 		
 		} else
-			var hover_shadow = "none";
+			var tbHoverFontShadow = "none";
 		
 		// Put it where it should go
 		// Normal
-		$("#wpadminbar").find(".ab-top-menu > li > a").css("text-shadow", normal_shadow);
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css("text-shadow", normal_shadow);
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css("text-shadow", normal_shadow);
+		$("#wpadminbar").find(".ab-top-menu > li > a").css("text-shadow", tbNormalFontShadow);
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css("text-shadow", tbNormalFontShadow);
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css("text-shadow", tbNormalFontShadow);
 	
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "text-shadow", hover_shadow );
-			$(this).find("> .ab-item").css( "text-shadow", hover_shadow );
-			$(this).find("> .ab-item > .ab-label").css( "text-shadow", hover_shadow );
+			$(this).find("> a").css( "text-shadow", tbHoverFontShadow );
+			$(this).find("> .ab-item").css( "text-shadow", tbHoverFontShadow );
+			$(this).find("> .ab-item > .ab-label").css( "text-shadow", tbHoverFontShadow );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "text-shadow", normal_shadow );
-			$(this).find("> .ab-item").css( "text-shadow", normal_shadow );
-			$(this).find("> .ab-item > .ab-label").css( "text-shadow", normal_shadow );
+			$(this).find("> a").css( "text-shadow", tbNormalFontShadow );
+			$(this).find("> .ab-item").css( "text-shadow", tbNormalFontShadow );
+			$(this).find("> .ab-item > .ab-label").css( "text-shadow", tbNormalFontShadow );
 		} });
 	}
 	
@@ -482,107 +488,107 @@ jQuery(document).ready(function($){
 		
 		// Background
 		if ( $('#wpst_menu_background_colour').val() !== "" )
-			var main_color = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_background_colour').val())+", "+hexToG($('#wpst_menu_background_colour').val())+", "+hexToB($('#wpst_menu_background_colour').val())+")" : $('#wpst_menu_background_colour').val();
+			var menuMainColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_background_colour').val())+", "+hexToG($('#wpst_menu_background_colour').val())+", "+hexToB($('#wpst_menu_background_colour').val())+")" : $('#wpst_menu_background_colour').val();
 		else
-			var main_color = wpstRgbColors ? wpstMenuEmptyColorRgb : wpstMenuEmptyColor;
+			var menuMainColor = wpstRgbColors ? wpstMenuEmptyColorRgb : wpstMenuEmptyColor;
 		
 		if ( $('#wpst_menu_hover_background_colour').val() !== "" )
-			var hover_color = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_background_colour").val())+", "+hexToG($("#wpst_menu_hover_background_colour").val())+", "+hexToB($("#wpst_menu_hover_background_colour").val())+")" : $("#wpst_menu_hover_background_colour").val();
+			var menuHoverColor = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_background_colour").val())+", "+hexToG($("#wpst_menu_hover_background_colour").val())+", "+hexToB($("#wpst_menu_hover_background_colour").val())+")" : $("#wpst_menu_hover_background_colour").val();
 		else
-			var hover_color = wpstRgbColors ? wpstMenuHoverEmptyColorRgb : wpstMenuHoverEmptyColor;
+			var menuHoverColor = wpstRgbColors ? wpstMenuHoverEmptyColorRgb : wpstMenuHoverEmptyColor;
 		
 		if ( $('#wpst_menu_ext_background_colour').val() !== "" )
-			var main_color_ext = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_background_colour').val())+", "+hexToG($('#wpst_menu_ext_background_colour').val())+", "+hexToB($('#wpst_menu_ext_background_colour').val())+")" : $('#wpst_menu_ext_background_colour').val();
+			var menuMainColorExt = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_background_colour').val())+", "+hexToG($('#wpst_menu_ext_background_colour').val())+", "+hexToB($('#wpst_menu_ext_background_colour').val())+")" : $('#wpst_menu_ext_background_colour').val();
 		else
-			var main_color_ext = wpstRgbColors ? wpstMenuExtEmptyColorRgb : wpstMenuExtEmptyColor;
+			var menuMainColorExt = wpstRgbColors ? wpstMenuExtEmptyColorRgb : wpstMenuExtEmptyColor;
 		
 		if ( $('#wpst_menu_hover_ext_background_colour').val() !== "" )
-			var hover_color_ext = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_background_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_background_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_background_colour").val())+")" : $("#wpst_menu_hover_ext_background_colour").val();
+			var menuHoverColorExt = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_background_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_background_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_background_colour").val())+")" : $("#wpst_menu_hover_ext_background_colour").val();
 		else
-			var hover_color_ext = wpstRgbColors ? wpstMenuExtHoverEmptyColorRgb : wpstMenuExtHoverEmptyColor;
+			var menuHoverColorExt = wpstRgbColors ? wpstMenuExtHoverEmptyColorRgb : wpstMenuExtHoverEmptyColor;
 		
 		// Put it where it should go
 		// Normal
-		$("#wpadminbar").find(".ab-sub-wrapper > ul").css( "background-color", main_color );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").css( "background-color", main_color );
-		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary").css( "background-color", main_color_ext );
-		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").css( "background-color", main_color_ext );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper ul").css( "background-color", main_color_ext );
-		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").css( "background-color", main_color_ext );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul").css( "background-color", menuMainColor );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").css( "background-color", menuMainColor );
+		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary").css( "background-color", menuMainColorExt );
+		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").css( "background-color", menuMainColorExt );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper ul").css( "background-color", menuMainColorExt );
+		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").css( "background-color", menuMainColorExt );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).css( "background-color", hover_color );
+			$(this).css( "background-color", menuHoverColor );
 		},function(){
-			$(this).css( "background-color", main_color );
+			$(this).css( "background-color", menuMainColor );
 		});
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).css( "background-color", hover_color );
+			$(this).css( "background-color", menuHoverColor );
 			$(this).find("span").css( "background-color", "transparent" );
 		},function(){
-			$(this).css( "background-color", main_color );
-			$(this).find("span").css( "background-color", main_color );
+			$(this).css( "background-color", menuMainColor );
+			$(this).find("span").css( "background-color", menuMainColor );
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").hover(function(){
-			$(this).css( "background-color", hover_color_ext );
+			$(this).css( "background-color", menuHoverColorExt );
 		},function(){
-			$(this).css( "background-color", main_color_ext );
+			$(this).css( "background-color", menuMainColorExt );
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").hover(function(){
-			$(this).css( "background-color", hover_color_ext );
+			$(this).css( "background-color", menuHoverColorExt );
 		},function(){
-			$(this).css( "background-color", main_color_ext );
+			$(this).css( "background-color", menuMainColorExt );
 		});
 	}
 	
 	function update_menu_font_colour() {
 	
 		if ( $('#wpst_menu_font_colour').val() !== "" )
-			var main_color = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_font_colour').val())+", "+hexToG($('#wpst_menu_font_colour').val())+", "+hexToB($('#wpst_menu_font_colour').val())+")" : $('#wpst_menu_font_colour').val();
+			var menuMainColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_font_colour').val())+", "+hexToG($('#wpst_menu_font_colour').val())+", "+hexToB($('#wpst_menu_font_colour').val())+")" : $('#wpst_menu_font_colour').val();
 		else
-			var main_color = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuMainColor = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
 			
 		if ( $('#wpst_menu_hover_font_colour').val() !== "" )
-			var hover_color = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_font_colour").val())+", "+hexToG($("#wpst_menu_hover_font_colour").val())+", "+hexToB($("#wpst_menu_hover_font_colour").val())+")" : $("#wpst_menu_hover_font_colour").val();
+			var menuHoverColor = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_font_colour").val())+", "+hexToG($("#wpst_menu_hover_font_colour").val())+", "+hexToB($("#wpst_menu_hover_font_colour").val())+")" : $("#wpst_menu_hover_font_colour").val();
 		else
-			var hover_color = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuHoverColor = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
 		
 		if ( $('#wpst_menu_ext_font_colour').val() !== "" )
-			var main_color_ext = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_font_colour').val())+", "+hexToG($('#wpst_menu_ext_font_colour').val())+", "+hexToB($('#wpst_menu_ext_font_colour').val())+")" : $('#wpst_menu_ext_font_colour').val();
+			var menuMainColorExt = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_font_colour').val())+", "+hexToG($('#wpst_menu_ext_font_colour').val())+", "+hexToB($('#wpst_menu_ext_font_colour').val())+")" : $('#wpst_menu_ext_font_colour').val();
 		else
-			var main_color_ext = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuMainColorExt = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
 			
 		if ( $('#wpst_menu_hover_ext_font_colour').val() !== "" )
-			var hover_color_ext = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_font_colour").val())+")" : $("#wpst_menu_hover_ext_font_colour").val();
+			var menuHoverColorExt = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_font_colour").val())+")" : $("#wpst_menu_hover_ext_font_colour").val();
 		else
-			var hover_color_ext = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuHoverColorExt = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
 		
 		// Put it where it should go
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "color", main_color );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "color", main_color );
-		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li > .ab-item").css( "color", main_color_ext );
-		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li > .ab-item").css( "color", main_color_ext );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "color", menuMainColor );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "color", menuMainColor );
+		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li > .ab-item").css( "color", menuMainColorExt );
+		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li > .ab-item").css( "color", menuMainColorExt );
 		
 		// Hover / Focus
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> .ab-item").css( "color", hover_color );
+			$(this).find("> .ab-item").css( "color", menuHoverColor );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", main_color );
+			$(this).find("> .ab-item").css( "color", menuMainColor );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "color", hover_color );
+			$(this).find("span").css( "color", menuHoverColor );
 		},function(){
-			$(this).find("span").css( "color", main_color );
+			$(this).find("span").css( "color", menuMainColor );
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").hover(function(){
-			$(this).find("> .ab-item").css( "color", hover_color_ext );
+			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", main_color_ext );
+			$(this).find("> .ab-item").css( "color", menuMainColorExt );
 		} });
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").hover(function(){
-			$(this).find("> .ab-item").css( "color", hover_color_ext );
+			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", main_color_ext );
+			$(this).find("> .ab-item").css( "color", menuMainColorExt );
 		} });
 	}
 	
@@ -592,41 +598,41 @@ jQuery(document).ready(function($){
 		if ( ( $('#wpst_menu_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_h_shadow').val()) == $('#wpst_menu_font_h_shadow').val() )
 			&& ( $('#wpst_menu_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_v_shadow').val()) == $('#wpst_menu_font_v_shadow').val() ) ) {
 			
-			var wpst_menu_font_shadow_blur = ( $('#wpst_menu_font_shadow_blur').val() !== "" ) ? $('#wpst_menu_font_shadow_blur').val()+"px " : "";
-			var wpst_menu_font_shadow_colour = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_font_shadow_colour').val())+")" : $('#wpst_menu_font_shadow_colour').val();
-			var normal_shadow = $('#wpst_menu_font_h_shadow').val() + "px " + $('#wpst_menu_font_v_shadow').val() + "px " + wpst_menu_font_shadow_blur + wpst_menu_font_shadow_colour;
+			var menuFontShadowBlur = ( $('#wpst_menu_font_shadow_blur').val() !== "" ) ? $('#wpst_menu_font_shadow_blur').val()+"px " : "";
+			var menuFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_font_shadow_colour').val())+")" : $('#wpst_menu_font_shadow_colour').val();
+			var menuNormalFontShadow = $('#wpst_menu_font_h_shadow').val() + "px " + $('#wpst_menu_font_v_shadow').val() + "px " + menuFontShadowBlur + menuFontShadowColor;
 		
 		} else
-			var normal_shadow = "none"; // TODO need to force back to the default shadow
+			var menuNormalFontShadow = "none"; // TODO need to force back to the default shadow
 		
 		// Hover font shadow
 		if ( ( $('#wpst_menu_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_h_shadow').val()) == $('#wpst_menu_hover_font_h_shadow').val() )
 			&& ( $('#wpst_menu_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_v_shadow').val()) == $('#wpst_menu_hover_font_v_shadow').val() ) ) {
 			
-			var wpst_menu_hover_font_shadow_blur = ( $('#wpst_menu_hover_font_shadow_blur').val() !== "" ) ? $('#wpst_menu_hover_font_shadow_blur').val()+"px " : "";
-			var wpst_menu_hover_font_shadow_colour = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_hover_font_shadow_colour').val())+")" : $('#wpst_menu_hover_font_shadow_colour').val();
-			var hover_shadow = $('#wpst_menu_hover_font_h_shadow').val() + "px " + $('#wpst_menu_hover_font_v_shadow').val() + "px " + wpst_menu_hover_font_shadow_blur + wpst_menu_hover_font_shadow_colour;
+			var menuHoverFontShadowBlur = ( $('#wpst_menu_hover_font_shadow_blur').val() !== "" ) ? $('#wpst_menu_hover_font_shadow_blur').val()+"px " : "";
+			var menuHoverFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_hover_font_shadow_colour').val())+")" : $('#wpst_menu_hover_font_shadow_colour').val();
+			var menuHoverFontShadow = $('#wpst_menu_hover_font_h_shadow').val() + "px " + $('#wpst_menu_hover_font_v_shadow').val() + "px " + menuHoverFontShadowBlur + menuHoverFontShadowColor;
 		
 		} else
-			var hover_shadow = "none"; // TODO need to force back to the default shadow
+			var menuHoverFontShadow = "none"; // TODO need to force back to the default shadow
 		
 		// Put it where it should go
 		// Normal
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-shadow", normal_shadow );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-shadow", normal_shadow );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li > .ab-item").css( "text-shadow", normal_shadow );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li > .ab-item").css( "text-shadow", normal_shadow );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-shadow", menuNormalFontShadow );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-shadow", menuNormalFontShadow );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li > .ab-item").css( "text-shadow", menuNormalFontShadow );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li > .ab-item").css( "text-shadow", menuNormalFontShadow );
 	
 		// Hover
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> .ab-item").css( "text-shadow", hover_shadow );
+			$(this).find("> .ab-item").css( "text-shadow", menuHoverFontShadow );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "text-shadow", normal_shadow );
+			$(this).find("> .ab-item").css( "text-shadow", menuNormalFontShadow );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "text-shadow", hover_shadow );
+			$(this).find("span").css( "text-shadow", menuHoverFontShadow );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("span").css( "text-shadow", normal_shadow );
+			$(this).find("span").css( "text-shadow", menuNormalFontShadow );
 		} });
 	}
 	
@@ -634,19 +640,19 @@ jQuery(document).ready(function($){
 		
 		var shadow = ($("#wpadminbar").css("box-shadow")) ? "box-shadow" : "-webkit-box-shadow";
 		
-		var wpst_h_shadow = $('#wpst_h_shadow').val() + "px ";
-		var wpst_v_shadow = $('#wpst_v_shadow').val() + "px ";
-		var wpst_shadow_blur = ( $('#wpst_shadow_blur').val() !== "" ) ? $('#wpst_shadow_blur').val() + "px " : "0px ";
-		var wpst_shadow_spread = ( $('#wpst_shadow_spread').val() !== "" ) ? $('#wpst_shadow_spread').val() + "px " : "0px ";
+		var tbHorizontalShadow = $('#wpst_h_shadow').val() + "px ";
+		var tbVerticalShadow = $('#wpst_v_shadow').val() + "px ";
+		var tbShadowBlur = ( $('#wpst_shadow_blur').val() !== "" ) ? $('#wpst_shadow_blur').val() + "px " : "0px ";
+		var tbShadowSpread = ( $('#wpst_shadow_spread').val() !== "" ) ? $('#wpst_shadow_spread').val() + "px " : "0px ";
 		if ( $('#wpst_shadow_colour').val() !== '' )
-			var wpst_shadow_color = wpstRgbColors ? "rgb("+hexToR($('#wpst_shadow_colour').val())+", "+hexToG($('#wpst_shadow_colour').val())+", "+hexToB($('#wpst_shadow_colour').val())+")" : $('#wpst_shadow_colour').val();
+			var tbShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_shadow_colour').val())+", "+hexToG($('#wpst_shadow_colour').val())+", "+hexToB($('#wpst_shadow_colour').val())+")" : $('#wpst_shadow_colour').val();
 		else
-			var wpst_shadow_color = "";
+			var tbShadowColor = "";
 		
 		if ( ( $('#wpst_h_shadow').val() !== '' ) && ( $('#wpst_v_shadow').val() !== '' ) ) {
-			$("#wpadminbar").css(shadow, wpst_h_shadow + wpst_v_shadow + wpst_shadow_blur + wpst_shadow_spread + wpst_shadow_color);
-			$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper").css(shadow, wpst_h_shadow + wpst_v_shadow + wpst_shadow_blur + wpst_shadow_spread + wpst_shadow_color);
-			$("#wpadminbar .menupop .ab-sub-wrapper").css(shadow, wpst_h_shadow + wpst_v_shadow + wpst_shadow_blur + wpst_shadow_spread + wpst_shadow_color);
+			$("#wpadminbar").css(shadow, tbHorizontalShadow + tbVerticalShadow + tbShadowBlur + tbShadowSpread + tbShadowColor);
+			$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper").css(shadow, tbHorizontalShadow + tbVerticalShadow + tbShadowBlur + tbShadowSpread + tbShadowColor);
+			$("#wpadminbar .menupop .ab-sub-wrapper").css(shadow, tbHorizontalShadow + tbVerticalShadow + tbShadowBlur + tbShadowSpread + tbShadowColor);
 		
 		} else {
 			$("#wpadminbar").css(shadow, "");
@@ -715,23 +721,23 @@ jQuery(document).ready(function($){
 	// Toolbar Font Attributes
 	$('.wpst_font').change(function() {
 		
-		var wpst_font = ( $('#wpst_font').val() !== "" ) ? $('#wpst_font').val() : wpstFontEmpty;
-		var wpst_menu_font = ( $('#wpst_menu_font').val() !== "" ) ? $('#wpst_menu_font').val() : wpst_font;
+		var tbFontFamily = ( $('#wpst_font').val() !== "" ) ? $('#wpst_font').val() : wpstFontEmpty;
+		var menuFontFamily = ( $('#wpst_menu_font').val() !== "" ) ? $('#wpst_menu_font').val() : tbFontFamily;
 		
-		$("#wpadminbar").find("*").css( "font-family", wpst_font );
-		$("#wpadminbar").find(".ab-submenu *").css( "font-family", wpst_menu_font );
+		$("#wpadminbar").find("*").css( "font-family", tbFontFamily );
+		$("#wpadminbar").find(".ab-submenu *").css( "font-family", menuFontFamily );
 	});
 	
 	$('.wpst_font_size').change(function() {
 		
-		var wpst_font_size = ( $('#wpst_font_size').val() !== "" ) ? $('#wpst_font_size').val() + "px" : wpstFontSizeEmpty;
-		var wpst_font_size_small = ( $('#wpst_font_size').val() !== "" ) ? ( $('#wpst_font_size').val() - 2 ) + "px" : wpstFontSizeSmallEmpty;
-		var wpst_menu_font_size = ( $('#wpst_menu_font_size').val() !== "" ) ? $('#wpst_menu_font_size').val() + "px" : wpst_font_size;
-		var wpst_menu_font_size_small = ( $('#wpst_menu_font_size').val() !== "" ) ? ( $('#wpst_menu_font_size').val() - 2 ) + "px" : wpst_font_size_small;
+		var tbFontSize = ( $('#wpst_font_size').val() !== "" ) ? $('#wpst_font_size').val() + "px" : wpstFontSizeEmpty;
+		var tbFontSizeSmall = ( $('#wpst_font_size').val() !== "" ) ? ( $('#wpst_font_size').val() - 2 ) + "px" : wpstFontSizeSmallEmpty;
+		var menuFontSize = ( $('#wpst_menu_font_size').val() !== "" ) ? $('#wpst_menu_font_size').val() + "px" : tbFontSize;
+		var menuFontSizeSmall = ( $('#wpst_menu_font_size').val() !== "" ) ? ( $('#wpst_menu_font_size').val() - 2 ) + "px" : tbFontSizeSmall;
 		
-		$("#wpadminbar").find("*").css( "font-size", wpst_font_size );
-		$("#wpadminbar").find(".ab-submenu *").css( "font-size", wpst_menu_font_size );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", wpst_menu_font_size_small );
+		$("#wpadminbar").find("*").css( "font-size", tbFontSize );
+		$("#wpadminbar").find(".ab-submenu *").css( "font-size", menuFontSize );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-size", menuFontSizeSmall );
 	});
 	
 	$('.wpst_font_colour').wpColorPicker({
@@ -753,127 +759,127 @@ jQuery(document).ready(function($){
 	$('.wpst_font_style').change(function() {
 	
 		// Propagate values from Toolbar to Dropdown Menus and from Normal style to Hover
-		var wpst_font_style = ( $('#wpst_font_style').val() != '' ) ? $('#wpst_font_style').val() : wpstFontNormal;
-		var wpst_hover_font_style = ( $('#wpst_hover_font_style').val() != '' ) ? $('#wpst_hover_font_style').val() : wpst_font_style;
-		var wpst_menu_font_style = ( $('#wpst_menu_font_style').val() != '' ) ? $('#wpst_menu_font_style').val() : wpst_font_style;
-		var wpst_menu_hover_font_style = ( $('#wpst_menu_hover_font_style').val() != '' ) ? $('#wpst_menu_hover_font_style').val() : wpst_menu_font_style;
+		var tbFontStyle = ( $('#wpst_font_style').val() != '' ) ? $('#wpst_font_style').val() : wpstFontNormal;
+		var tbHoverFontStyle = ( $('#wpst_hover_font_style').val() != '' ) ? $('#wpst_hover_font_style').val() : tbFontStyle;
+		var menuFontStyle = ( $('#wpst_menu_font_style').val() != '' ) ? $('#wpst_menu_font_style').val() : tbFontStyle;
+		var menuHoverFontStyle = ( $('#wpst_menu_hover_font_style').val() != '' ) ? $('#wpst_menu_hover_font_style').val() : menuFontStyle;
 		
 		// Normal
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-style", wpst_font_style );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-style", wpst_font_style );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-style", wpst_font_style );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-style", tbFontStyle );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-style", tbFontStyle );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-style", tbFontStyle );
 		
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-style", wpst_menu_font_style );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-style", wpst_menu_font_style );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-style", wpst_menu_font_style );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-style", menuFontStyle );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-style", menuFontStyle );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-style", menuFontStyle );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "font-style", wpst_hover_font_style );
-			$(this).find( "> .ab-item" ).css( "font-style", wpst_hover_font_style );
-			$(this).find( "> .ab-item > .ab-label" ).css( "font-style", wpst_hover_font_style );
+			$(this).find("> a").css( "font-style", tbHoverFontStyle );
+			$(this).find( "> .ab-item" ).css( "font-style", tbHoverFontStyle );
+			$(this).find( "> .ab-item > .ab-label" ).css( "font-style", tbHoverFontStyle );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "font-style", wpst_font_style );
-			$(this).find( "> .ab-item" ).css( "font-style", wpst_font_style );
-			$(this).find( "> .ab-item > ab-label" ).css( "font-style", wpst_font_style );
+			$(this).find("> a").css( "font-style", tbFontStyle );
+			$(this).find( "> .ab-item" ).css( "font-style", tbFontStyle );
+			$(this).find( "> .ab-item > ab-label" ).css( "font-style", tbFontStyle );
 		} });
 		
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> a").css( "font-style", wpst_menu_hover_font_style );
-			$(this).find("> .ab-item").css( "font-style", wpst_menu_hover_font_style );
+			$(this).find("> a").css( "font-style", menuHoverFontStyle );
+			$(this).find("> .ab-item").css( "font-style", menuHoverFontStyle );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "font-style", wpst_menu_font_style );
-			$(this).find("> .ab-item").css( "font-style", wpst_menu_font_style );
+			$(this).find("> a").css( "font-style", menuFontStyle );
+			$(this).find("> .ab-item").css( "font-style", menuFontStyle );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "font-style", wpst_menu_hover_font_style );
+			$(this).find("span").css( "font-style", menuHoverFontStyle );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("span").css( "font-style", wpst_menu_font_style );
+			$(this).find("span").css( "font-style", menuFontStyle );
 		} });
 	});
 	
 	$('.wpst_font_weight').change(function() {
 		
 		// Propagate values from Toolbar to Dropdown Menus and from Normal style to Hover
-		var wpst_font_weight = ( $('#wpst_font_weight').val() != '' ) ? $('#wpst_font_weight').val() : wpstFontNormal;
-		var wpst_hover_font_weight = ( $('#wpst_hover_font_weight').val() != '' ) ? $('#wpst_hover_font_weight').val() : wpst_font_weight;
-		var wpst_menu_font_weight = ( $('#wpst_menu_font_weight').val() != '' ) ? $('#wpst_menu_font_weight').val() : wpst_font_weight;
-		var wpst_menu_hover_font_weight = ( $('#wpst_menu_hover_font_weight').val() != '' ) ? $('#wpst_menu_hover_font_weight').val() : wpst_menu_font_weight;
+		var tbFontWeight = ( $('#wpst_font_weight').val() != '' ) ? $('#wpst_font_weight').val() : wpstFontNormal;
+		var tbHoverFontWeight = ( $('#wpst_hover_font_weight').val() != '' ) ? $('#wpst_hover_font_weight').val() : tbFontWeight;
+		var menuFontWeight = ( $('#wpst_menu_font_weight').val() != '' ) ? $('#wpst_menu_font_weight').val() : tbFontWeight;
+		var menuHoverFontWeight = ( $('#wpst_menu_hover_font_weight').val() != '' ) ? $('#wpst_menu_hover_font_weight').val() : menuFontWeight;
 		
 		// Normal
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-weight", wpst_font_weight );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-weight", wpst_font_weight );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-weight", wpst_font_weight );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-weight", tbFontWeight );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-weight", tbFontWeight );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-weight", tbFontWeight );
 		$("#wpadminbar").find(".quicklinks .menupop ul li a strong").css( "font-weight", "bold" );
 		
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-weight", wpst_menu_font_weight );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-weight", wpst_menu_font_weight );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-weight", wpst_menu_font_weight );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-weight", menuFontWeight );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-weight", menuFontWeight );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-weight", menuFontWeight );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "font-weight", wpst_hover_font_weight );
-			$(this).find("> .ab-item").css( "font-weight", wpst_hover_font_weight );
-			$(this).find("> .ab-item > .ab-label").css( "font-weight", wpst_hover_font_weight );
+			$(this).find("> a").css( "font-weight", tbHoverFontWeight );
+			$(this).find("> .ab-item").css( "font-weight", tbHoverFontWeight );
+			$(this).find("> .ab-item > .ab-label").css( "font-weight", tbHoverFontWeight );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css("font-weight", wpst_font_weight );
-			$(this).find("> .ab-item").css( "font-weight", wpst_font_weight );
-			$(this).find("> .ab-item > .ab-label").css( "font-weight", wpst_font_weight );
+			$(this).find("> a").css("font-weight", tbFontWeight );
+			$(this).find("> .ab-item").css( "font-weight", tbFontWeight );
+			$(this).find("> .ab-item > .ab-label").css( "font-weight", tbFontWeight );
 		} });
 		
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> a").css( "font-weight", wpst_menu_hover_font_weight );
-			$(this).find("> .ab-item").css( "font-weight", wpst_menu_hover_font_weight );
+			$(this).find("> a").css( "font-weight", menuHoverFontWeight );
+			$(this).find("> .ab-item").css( "font-weight", menuHoverFontWeight );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "font-weight", wpst_menu_font_weight );
-			$(this).find("> .ab-item").css( "font-weight", wpst_menu_font_weight );
+			$(this).find("> a").css( "font-weight", menuFontWeight );
+			$(this).find("> .ab-item").css( "font-weight", menuFontWeight );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "font-weight", wpst_menu_hover_font_weight );
+			$(this).find("span").css( "font-weight", menuHoverFontWeight );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("span").css( "font-weight", wpst_menu_font_weight );
+			$(this).find("span").css( "font-weight", menuFontWeight );
 		} });
 	});
 	
 	$('.wpst_font_line').change(function() {
 		
 		// Propagate values from Toolbar to Dropdown Menus and from Normal style to Hover
-		var wpst_font_line = ( $('#wpst_font_line').val() != '' ) ? $('#wpst_font_line').val() : wpstFontNone;
-		var wpst_hover_font_line = ( $('#wpst_hover_font_line').val() != '' ) ? $('#wpst_hover_font_line').val() : wpst_font_line;
-		var wpst_menu_font_line = ( $('#wpst_menu_font_line').val() != '' ) ? $('#wpst_menu_font_line').val() : wpst_font_line;
-		var wpst_menu_hover_font_line = ( $('#wpst_menu_hover_font_line').val() != '' ) ? $('#wpst_menu_hover_font_line').val() : wpst_menu_font_line;
+		var tbFontLine = ( $('#wpst_font_line').val() != '' ) ? $('#wpst_font_line').val() : wpstFontNone;
+		var tbHoverFontLine = ( $('#wpst_hover_font_line').val() != '' ) ? $('#wpst_hover_font_line').val() : tbFontLine;
+		var menuFontLine = ( $('#wpst_menu_font_line').val() != '' ) ? $('#wpst_menu_font_line').val() : tbFontLine;
+		var menuHoverFontLine = ( $('#wpst_menu_hover_font_line').val() != '' ) ? $('#wpst_menu_hover_font_line').val() : menuFontLine;
 		
 		// Normal
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "text-decoration", wpst_font_line );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "text-decoration", wpst_font_line );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "text-decoration", wpst_font_line );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "text-decoration", tbFontLine );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "text-decoration", tbFontLine );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "text-decoration", tbFontLine );
 		
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "text-decoration", wpst_menu_font_line );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-decoration", wpst_menu_font_line );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-decoration", wpst_menu_font_line );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "text-decoration", menuFontLine );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-decoration", menuFontLine );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-decoration", menuFontLine );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "text-decoration", wpst_hover_font_line );
-			$(this).find("> .ab-item").css( "text-decoration", wpst_hover_font_line );
-			$(this).find("> .ab-item > .ab-label").css( "text-decoration", wpst_hover_font_line );
+			$(this).find("> a").css( "text-decoration", tbHoverFontLine );
+			$(this).find("> .ab-item").css( "text-decoration", tbHoverFontLine );
+			$(this).find("> .ab-item > .ab-label").css( "text-decoration", tbHoverFontLine );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "text-decoration", wpst_font_line );
-			$(this).find("> .ab-item").css( "text-decoration", wpst_font_line );
-			$(this).find("> .ab-item > .ab-label").css( "text-decoration", wpst_font_line );
+			$(this).find("> a").css( "text-decoration", tbFontLine );
+			$(this).find("> .ab-item").css( "text-decoration", tbFontLine );
+			$(this).find("> .ab-item > .ab-label").css( "text-decoration", tbFontLine );
 		} });
 		
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> a").css( "text-decoration", wpst_menu_hover_font_line );
-			$(this).find("> .ab-item").css( "text-decoration", wpst_menu_hover_font_line );
+			$(this).find("> a").css( "text-decoration", menuHoverFontLine );
+			$(this).find("> .ab-item").css( "text-decoration", menuHoverFontLine );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "text-decoration", wpst_menu_font_line );
-			$(this).find("> .ab-item").css( "text-decoration", wpst_menu_font_line );
+			$(this).find("> a").css( "text-decoration", menuFontLine );
+			$(this).find("> .ab-item").css( "text-decoration", menuFontLine );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "text-decoration", wpst_menu_hover_font_line );
+			$(this).find("span").css( "text-decoration", menuHoverFontLine );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("span").css( "text-decoration", wpst_menu_font_line );
+			$(this).find("span").css( "text-decoration", menuFontLine );
 		} });
 	});
 	
@@ -884,17 +890,17 @@ jQuery(document).ready(function($){
 		{
 			case "uppercase":
 			case "lowercase":
-				var wpst_text_transform = $('#wpst_font_case').val();
-				var wpst_font_variant = wpstFontNormal;
+				var tbTextTransform = $('#wpst_font_case').val();
+				var tbFontVariant = wpstFontNormal;
 				break;
 			case "small-caps":
-				var wpst_text_transform = wpstFontNone;
-				var wpst_font_variant = "small-caps";
+				var tbTextTransform = wpstFontNone;
+				var tbFontVariant = "small-caps";
 				break;
 			case "normal":
 			default:
-				var wpst_text_transform = wpstFontNone;
-				var wpst_font_variant = wpstFontNormal;
+				var tbTextTransform = wpstFontNone;
+				var tbFontVariant = wpstFontNormal;
 		}
 		
 		// Toolbar hover styling
@@ -902,20 +908,20 @@ jQuery(document).ready(function($){
 		{
 			case "uppercase":
 			case "lowercase":
-				var wpst_hover_text_transform = $('#wpst_hover_font_case').val();
-				var wpst_hover_font_variant = wpstFontNormal;
+				var tbHoverTextTransform = $('#wpst_hover_font_case').val();
+				var tbHoverFontVariant = wpstFontNormal;
 				break;
 			case "small-caps":
-				var wpst_hover_text_transform = wpstFontNone;
-				var wpst_hover_font_variant = "small-caps";
+				var tbHoverTextTransform = wpstFontNone;
+				var tbHoverFontVariant = "small-caps";
 				break;
 			case "normal":
-				var wpst_hover_text_transform = wpstFontNone;
-				var wpst_hover_font_variant = wpstFontNormal;
+				var tbHoverTextTransform = wpstFontNone;
+				var tbHoverFontVariant = wpstFontNormal;
 				break;
 			default:
-				var wpst_hover_text_transform = wpst_text_transform;
-				var wpst_hover_font_variant = wpst_font_variant;
+				var tbHoverTextTransform = tbTextTransform;
+				var tbHoverFontVariant = tbFontVariant;
 		}
 		
 		// Dropdown menu styling
@@ -923,20 +929,20 @@ jQuery(document).ready(function($){
 		{
 			case "uppercase":
 			case "lowercase":
-				var wpst_menu_text_transform = $('#wpst_menu_font_case').val();
-				var wpst_menu_font_variant = wpstFontNormal;
+				var menuTextTransform = $('#wpst_menu_font_case').val();
+				var menuFontVariant = wpstFontNormal;
 				break;
 			case "small-caps":
-				var wpst_menu_text_transform = wpstFontNone;
-				var wpst_menu_font_variant = "small-caps";
+				var menuTextTransform = wpstFontNone;
+				var menuFontVariant = "small-caps";
 				break;
 			case "normal":
-				var wpst_menu_text_transform = wpstFontNone;
-				var wpst_menu_font_variant = wpstFontNormal;
+				var menuTextTransform = wpstFontNone;
+				var menuFontVariant = wpstFontNormal;
 				break;
 			default:
-				var wpst_menu_text_transform = wpst_text_transform;
-				var wpst_menu_font_variant = wpst_font_variant;
+				var menuTextTransform = tbTextTransform;
+				var menuFontVariant = tbFontVariant;
 		}
 		
 		// Dropdown menu hover styling
@@ -944,76 +950,76 @@ jQuery(document).ready(function($){
 		{
 			case "uppercase":
 			case "lowercase":
-				var wpst_menu_hover_text_transform = $('#wpst_menu_hover_font_case').val();
-				var wpst_menu_hover_font_variant = wpstFontNormal;
+				var menuHoverTextTransform = $('#wpst_menu_hover_font_case').val();
+				var menuHoverFontVariant = wpstFontNormal;
 				break;
 			case "small-caps":
-				var wpst_menu_hover_text_transform = wpstFontNone;
-				var wpst_menu_hover_font_variant = "small-caps";
+				var menuHoverTextTransform = wpstFontNone;
+				var menuHoverFontVariant = "small-caps";
 				break;
 			case "normal":
-				var wpst_menu_hover_text_transform = wpstFontNone;
-				var wpst_menu_hover_font_variant = wpstFontNormal;
+				var menuHoverTextTransform = wpstFontNone;
+				var menuHoverFontVariant = wpstFontNormal;
 				break;
 			default:
-				var wpst_menu_hover_text_transform = wpst_menu_text_transform;
-				var wpst_menu_hover_font_variant = wpst_menu_font_variant;
+				var menuHoverTextTransform = menuTextTransform;
+				var menuHoverFontVariant = menuFontVariant;
 		}
 		
 		// Put it where it should go
 		// Normal
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "text-transform", wpst_text_transform );
-		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-variant", wpst_font_variant );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "text-transform", wpst_text_transform );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-variant", wpst_font_variant );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "text-transform", wpst_text_transform );
-		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-variant", wpst_font_variant );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "text-transform", tbTextTransform );
+		$("#wpadminbar").find(".ab-top-menu > li > a").css( "font-variant", tbFontVariant );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "text-transform", tbTextTransform );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item").css( "font-variant", tbFontVariant );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "text-transform", tbTextTransform );
+		$("#wpadminbar").find(".ab-top-menu > li > .ab-item > .ab-label").css( "font-variant", tbFontVariant );
 		
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "text-transform", wpst_menu_text_transform );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-variant", wpst_menu_font_variant );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-transform", wpst_menu_text_transform );
-		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-variant", wpst_menu_font_variant );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-transform", wpst_menu_text_transform );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-variant", wpst_menu_font_variant );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "text-transform", menuTextTransform );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > a").css( "font-variant", menuFontVariant );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "text-transform", menuTextTransform );
+		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "font-variant", menuFontVariant );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "text-transform", menuTextTransform );
+		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-variant", menuFontVariant );
 		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "text-transform", "none" );
 		// $("#wpadminbar").find("#wp-admin-bar-user-info .ab-item .username").css( "font-variant", "normal" );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
-			$(this).find("> a").css( "text-transform", wpst_hover_text_transform );
-			$(this).find("> .ab-item").css( "text-transform", wpst_hover_text_transform );
-			$(this).find("> .ab-item > .ab-label").css( "text-transform", wpst_hover_text_transform );
-			$(this).find("> a").css( "font-variant", wpst_hover_font_variant );
-			$(this).find("> .ab-item").css( "font-variant", wpst_hover_font_variant );
-			$(this).find("> .ab-item > .ab-label").css( "font-variant", wpst_hover_font_variant );
+			$(this).find("> a").css( "text-transform", tbHoverTextTransform );
+			$(this).find("> .ab-item").css( "text-transform", tbHoverTextTransform );
+			$(this).find("> .ab-item > .ab-label").css( "text-transform", tbHoverTextTransform );
+			$(this).find("> a").css( "font-variant", tbHoverFontVariant );
+			$(this).find("> .ab-item").css( "font-variant", tbHoverFontVariant );
+			$(this).find("> .ab-item > .ab-label").css( "font-variant", tbHoverFontVariant );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "text-transform", wpst_text_transform );
-			$(this).find("> .ab-item").css( "text-transform", wpst_text_transform );
-			$(this).find("> .ab-item > .ab-label").css( "text-transform", wpst_text_transform );
-			$(this).find("> a").css( "font-variant", wpst_font_variant );
-			$(this).find("> .ab-item").css( "font-variant", wpst_font_variant );
-			$(this).find("> .ab-item > .ab-label").css( "font-variant", wpst_font_variant );
+			$(this).find("> a").css( "text-transform", tbTextTransform );
+			$(this).find("> .ab-item").css( "text-transform", tbTextTransform );
+			$(this).find("> .ab-item > .ab-label").css( "text-transform", tbTextTransform );
+			$(this).find("> a").css( "font-variant", tbFontVariant );
+			$(this).find("> .ab-item").css( "font-variant", tbFontVariant );
+			$(this).find("> .ab-item > .ab-label").css( "font-variant", tbFontVariant );
 		} });
 		
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
-			$(this).find("> a").css( "text-transform", wpst_menu_hover_text_transform );
-			$(this).find("> .ab-item").css( "text-transform", wpst_menu_hover_text_transform );
-			$(this).find("> a").css( "font-variant", wpst_menu_hover_font_variant );
-			$(this).find("> .ab-item").css( "font-variant", wpst_menu_hover_font_variant );
+			$(this).find("> a").css( "text-transform", menuHoverTextTransform );
+			$(this).find("> .ab-item").css( "text-transform", menuHoverTextTransform );
+			$(this).find("> a").css( "font-variant", menuHoverFontVariant );
+			$(this).find("> .ab-item").css( "font-variant", menuHoverFontVariant );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> a").css( "text-transform", wpst_menu_text_transform );
-			$(this).find("> .ab-item").css( "text-transform", wpst_menu_text_transform );
-			$(this).find("> a").css( "font-variant", wpst_menu_font_variant );
-			$(this).find("> .ab-item").css( "font-variant", wpst_menu_font_variant );
+			$(this).find("> a").css( "text-transform", menuTextTransform );
+			$(this).find("> .ab-item").css( "text-transform", menuTextTransform );
+			$(this).find("> a").css( "font-variant", menuFontVariant );
+			$(this).find("> .ab-item").css( "font-variant", menuFontVariant );
 		} });
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
-			$(this).find("span").css( "text-transform", wpst_menu_hover_text_transform );
-			$(this).find("span").css( "font-variant", wpst_menu_hover_font_variant );
+			$(this).find("span").css( "text-transform", menuHoverTextTransform );
+			$(this).find("span").css( "font-variant", menuHoverFontVariant );
 			// $(this).find(".username").css( "text-transform", "none" );
 			// $(this).find(".username").css( "font-variant", "normal" );
 		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("span").css( "text-transform", wpst_menu_text_transform );
-			$(this).find("span").css( "font-variant", wpst_menu_font_variant );
+			$(this).find("span").css( "text-transform", menuTextTransform );
+			$(this).find("span").css( "font-variant", menuFontVariant );
 			// $(this).find(".username").css( "text-transform", "none" );
 			// $(this).find(".username").css( "font-variant", "normal" );
 		} });
@@ -1108,14 +1114,14 @@ jQuery(document).ready(function($){
 	$('#wpst_transparency').change(function() {
 		
 		if ( ( $('#wpst_transparency').val() == "" ) || ( parseInt($('#wpst_transparency').val()) < 0 ) || ( parseInt($('#wpst_transparency').val()) > 100 ) || ( parseInt($('#wpst_transparency').val()) != $('#wpst_transparency').val() ) ) {
-			var new_opacity = "1";
+			var tbNewOpacity = "1";
 		} else {
-			var new_opacity = $('#wpst_transparency').val()/100;
+			var tbNewOpacity = $('#wpst_transparency').val()/100;
 		}
 		
-		$("#wpadminbar").css("opacity", new_opacity);
-		$("#wpadminbar .quicklinks").css("opacity", new_opacity);
-		$("#wpadminbar .ab-top-secondary").css("opacity", new_opacity);
+		$("#wpadminbar").css("opacity", tbNewOpacity);
+		$("#wpadminbar .quicklinks").css("opacity", tbNewOpacity);
+		$("#wpadminbar .ab-top-secondary").css("opacity", tbNewOpacity);
 	});
 	
 	$('.wpst_shadow').change(function() {

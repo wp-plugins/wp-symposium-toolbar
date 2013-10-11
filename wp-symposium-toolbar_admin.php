@@ -209,7 +209,7 @@ function symposium_toolbar_admintab_welcome() {
 		if ( $wps_is_active ) echo '  ' . __( 'Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items.', 'wp-symposium-toolbar' ) . '</p>';
 		
 		echo '<p>'. sprintf( __( 'You should probably also take a look at this %s, that will give a few hints in a little less formal way. And should you plan to take advantage of the hooks and the CSS classes that the plugin contains, you might also be interrested in this %s.', 'wp-symposium-toolbar' ), '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/users.htm">'.__( 'User Guide', 'wp-symposium-toolbar' ).'</a>', '<a href="'.WP_PLUGIN_URL.'/'.dirname( plugin_basename( __FILE__ ) ).'/help/developers.htm">'. __( 'Developers Guide', 'wp-symposium-toolbar' ) .'</a>' ) . '</p>';
-		echo '<p>'. sprintf( __( 'You may also visit %s, where a comprehensive introduction to the plugin can be found, along with a thorough review of its features.', 'wp-symposium-toolbar' ), '<a href="http://www.centralgeek.com">Central Geek</a>' ) . '  ' . __( 'If after becoming familiar with this plugin, you see potential for improvement or have an idea that the toolbar would be more useful for, feel free to join its community, and share your ideas.', 'wp-symposium-toolbar' ) . '</p>';
+		echo '<p>'. sprintf( __( 'Bugs and issues should be reported in %s forum, where support is ensured.', 'wp-symposium-toolbar' ), '<a href="http://wordpress.org/support/plugin/wp-symposium-toolbar">WordPress</a>' ) . '</p>';
 		echo '<p>&nbsp;</p>';
 		echo '<p class="hide-if-js"><strong>'. __( 'You need Javascript to navigate through the options tabs.', 'wp-symposium-toolbar' ) . '</strong></p>';
 		echo '<p>&nbsp;</p>';
@@ -661,7 +661,7 @@ function symposium_toolbar_admintab_menus() {
 									if ( $role_can_see[ $custom_menu[0] ][ $check_role ] == $slug ) $menu_location = $description;
 									if ( $custom_menu[1] == $slug ) $menu_new_location = $description;
 								}
-								$role_cannot_see .= "<br />" . sprintf( __( 'The role %s cannot see the menu %s defined at the location "%s", since it is also defined at the location "%s" which takes precedence.', 'wp-symposium-toolbar' ), $role_title, $menu_name, $menu_location, $menu_new_location);
+								$role_cannot_see .= "<br />" . sprintf( __( 'The role %s cannot see the menu %s defined at the location "%s", since it is also defined for this role at the location "%s" which takes precedence.', 'wp-symposium-toolbar' ), $role_title, $menu_name, $menu_location, $menu_new_location);
 							}
 							$role_can_see[ $custom_menu[0] ][ $check_role ] = $custom_menu[1];
 						}
@@ -1684,7 +1684,7 @@ function symposium_toolbar_add_roles_to_item( $name, $slug, $option, $roles ) {
 			}
 			
 			// Add a toggle link
-			$html .= '<div id="'.$name.'_all_none" class="wpst-admin wpst-check-role" style="float:right;"><a id="'.$slug.'_all_none"';
+			$html .= '<div id="'.$name.'_all_none" class="wpst-admin wpst-check-role" style="float:right; cursor:default;"><a id="'.$slug.'_all_none"';
 			$html .= ' onclick="var items=document.getElementById( \''.$name.'\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;  for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
 			$html .= '>'.__( 'toggle all / none', 'wp-symposium-toolbar' ).'</a></div>';
 			

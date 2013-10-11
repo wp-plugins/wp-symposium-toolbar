@@ -105,14 +105,57 @@ function symposium_toolbar_init_globals() {
 	do_action ( 'symposium_toolbar_init_globals_done' );
 }	
 
+/**
+ * Creates menus and sets several settings to default values
+ *
+ * @since 0.0.12
+ *
+ * @param  none
+ * @return none
+ */
 function symposium_toolbar_activate() {
+
+	global $wpst_roles_all, $wps_is_active;
 	
-	global $wpdb, $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wps_is_active;
+	// Menus init
+	if ( get_option( 'wpst_tech_create_custom_menus', '' ) == "" ) {
+		symposium_toolbar_create_custom_menus();
+		
+		if ( $wps_is_active ) {
+			if ( !get_option( 'wpst_wps_admin_menu' ) ) update_option( 'wpst_wps_admin_menu', 'on' );
+			if ( !is_array( get_option( 'wpst_wps_notification_mail', '' ) ) ) update_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all ) );
+			if ( !is_array( get_option( 'wpst_wps_notification_friendship', '' ) ) ) update_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all ) );
+			if ( !get_option( 'wpst_myaccount_rewrite_edit_link', '' ) ) update_option( 'wpst_myaccount_rewrite_edit_link', 'on' );
+			
+			if ( !is_array( get_option( 'wpst_custom_menus', '' ) ) ) update_option( 'wpst_custom_menus', array(
+				array( "wps-profile", "my-account", array_keys( $wpst_roles_all ) ),
+				array( "wps-login", "my-account", array( "wpst_visitor" ) )
+			 ) );
+			
+			// For WPS users, replace this link with a link to the WPS settings pages
+			if ( !get_option( 'wpst_myaccount_edit_link' ) ) update_option( 'wpst_myaccount_edit_link', '' );
+			
+			// For WPS admins, add the admin menu in Toolbar
+			symposium_toolbar_update_admin_menu();
+			
+		} else {
+			if ( !is_array( get_option( 'wpst_custom_menus', '' ) ) ) update_option( 'wpst_custom_menus', array(
+				array( "wps-login", "my-account", array( "wpst_visitor" ) )
+			 ) );
+			
+			if ( !get_option( 'wpst_myaccount_edit_link' ) ) update_option( 'wpst_myaccount_edit_link', 'on' );
+		}
+		
+		// Menus created
+		update_option( 'wpst_tech_create_custom_menus', 'yes' );
+	}
+}
+
+function symposium_toolbar_update() {
 	
-	// Plugin globals init
-	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
+	global $wpdb, $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	
-	// Plugin settings init
+	// Plugin settings
 	if ( !is_array( get_option( 'wpst_toolbar_wp_toolbar', '' ) ) ) update_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) );
 	if ( !is_array( get_option( 'wpst_toolbar_wp_logo', '' ) ) ) update_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) );
 	if ( !is_array( get_option( 'wpst_toolbar_site_name', '' ) ) ) update_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) );
@@ -131,46 +174,8 @@ function symposium_toolbar_activate() {
 	if ( !get_option( 'wpst_myaccount_display_name' ) ) update_option( 'wpst_myaccount_display_name', 'on' );
 	if ( !get_option( 'wpst_myaccount_logout_link' ) ) update_option( 'wpst_myaccount_logout_link', 'on' );
 	
-	
-	// Menus init
-	if ( get_option( 'wpst_tech_create_custom_menus', '' ) == "" ) {
-		symposium_toolbar_create_custom_menus();
-		
-		if ( $wps_is_active ) {
-			if ( !get_option( 'wpst_wps_admin_menu' ) ) update_option( 'wpst_wps_admin_menu', 'on' );
-			if ( !is_array( get_option( 'wpst_wps_notification_mail', '' ) ) ) update_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all ) );
-			if ( !is_array( get_option( 'wpst_wps_notification_friendship', '' ) ) ) update_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all ) );
-			if ( !get_option( 'wpst_myaccount_rewrite_edit_link', '' ) ) update_option( 'wpst_myaccount_rewrite_edit_link', 'on' );
-			
-			if ( !is_array( get_option( 'wpst_custom_menus', '' ) ) ) update_option( 'wpst_custom_menus', array( 
-				array( "wps-profile", "my-account", array_keys( $wpst_roles_all ) ),
-				array( "wps-login", "my-account", array( "wpst_visitor" ) )
-			 ) );
-			
-			// For WPS users, replace this link with a link to the WPS settings pages
-			if ( !get_option( 'wpst_myaccount_edit_link' ) ) update_option( 'wpst_myaccount_edit_link', '' );
-			
-			// For WPS admins, add the admin menu in Toolbar
-			symposium_toolbar_update_admin_menu();
-			
-		} else {
-			if ( !is_array( get_option( 'wpst_custom_menus', '' ) ) ) update_option( 'wpst_custom_menus', array( 
-				array( "wps-login", "my-account", array( "wpst_visitor" ) )
-			 ) );
-			
-			if ( !get_option( 'wpst_myaccount_edit_link' ) ) update_option( 'wpst_myaccount_edit_link', 'on' );
-		}
-		
-		// Menus created
-		update_option( 'wpst_tech_create_custom_menus', 'yes' );
-	}
-
 	// Remove options in the old format and naming convention
 	$wpdb->query( "DELETE FROM ".$wpdb->prefix."options WHERE option_name LIKE 'symposium_toolbar_%'" );
-	
-	// Update CSS based on stored styles
-	$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
-	symposium_toolbar_update_styles( $wpst_style_tb_current );
 }
 
 function symposium_toolbar_create_custom_menus() {
@@ -865,6 +870,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	$style_chunk = "";
 	$style_chunk_ext = "";
 	
+	$wpst_toolbar_height = 28;
+	$wpst_toolbar_search_height = 24;
+	$wpst_toolbar_font_size = 13;
 	$wpst_menu_ext_empty_color = "#EEEEEE";
 	$wpst_menu_ext_empty_color_rgb = "238, 238, 238";
 	$wpst_menu_ext_hover_empty_color = "#DFDFDF";
@@ -873,20 +881,21 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 	$wpst_menu_font_empty_color_rgb = "rgb( 33, 117, 155 )";
 	
 	// Toolbar - Height
-	if ( ( isset( $wpst_style_tb_current['height'] ) ) && ( $wpst_style_tb_current['height'] != '' ) && ( $wpst_style_tb_current['height'] != '28' ) ) {
+	if ( ( isset( $wpst_style_tb_current['height'] ) ) && ( $wpst_style_tb_current['height'] != '' ) && ( $wpst_style_tb_current['height'] != $wpst_toolbar_height ) ) {
 
 		$height = $wpst_style_tb_current['height'];
-		$padding_top = ( $height > 28 ) ? round( ( $height - 28 )/2 ) : 0;
+		$padding_top = ( $height > $wpst_toolbar_height ) ? round( ( $height - $wpst_toolbar_height )/2 ) : 0;
 		$style_chunk = 'height:'.$height.'px; ';
 		$style_saved .= '#wpadminbar .quicklinks > ul > li { '.$style_chunk.'} ';
-		$style_saved .= '#wpbody, body { margin-top: '.round( $height - 28 ).'px; } ';			// Move page body
-		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper { top:'.$height.'px; } ';			// Move the dropdown menus according to new Toolbar height
-		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper .ab-sub-wrapper { top:26px; } ';	// Force back submenus to their original location relatively to parent menu
+		$style_saved .= '#wpbody, body { margin-top: '.( $height - $wpst_toolbar_height ).'px; } ';	// Move page body
+		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper { top:'.$height.'px; } ';						// Move the dropdown menus according to new Toolbar height
+		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper .ab-sub-wrapper { top:26px; } ';				// Force back submenus to their original location relatively to parent menu
 		$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item { height: '.( $height - $padding_top ).'px; padding-top: '.$padding_top.'px; } '; 
-		$style_saved .= '#wpadminbar #adminbarsearch { padding-top: '.$padding_top.'px; } '; 
 	
-	} else
-		$height = '28';
+	} else {
+		$height = $wpst_toolbar_height;
+		$padding_top = 0;
+	}
 	
 	if ( isset( $wpst_style_tb_current['background_colour'] ) ) if ( $wpst_style_tb_current['background_colour'] != '' ) {
 		
@@ -975,7 +984,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 		}
 	}
 	
-	// Toolbar - Font
+	// Toolbar Font
 	if ( isset( $wpst_style_tb_current['font'] ) ) if ( $wpst_style_tb_current['font'] != '' ) {
 		$wpst_font = explode( ",", $wpst_style_tb_current['font'] );
 		$wpst_font_clean = "";
@@ -1011,11 +1020,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 			$style_chunk .= 'font-variant: normal; ';
 	}
 	
-	// Add the font to the Search field
-	if ( $style_chunk )
-		$style_saved .= '#wpadminbar #adminbarsearch .adminbar-input { ' . $style_chunk . '} ';
-	
-	// Continue with Toolbar font colour and shadow...
+	// Toolbar font colour and shadow
 	if ( isset( $wpst_style_tb_current['font_colour'] ) )
 		if ( $wpst_style_tb_current['font_colour'] != '' )
 			$style_chunk .= 'color: '.$wpst_style_tb_current['font_colour'].'; ';
@@ -1039,9 +1044,45 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 		$style_chunk = "";
 	}
 	
+	// Search field
+ 	// Determine Search field height and padding-top
+	$search_height = ( $wpst_toolbar_search_height > $height - 4 ) ? ( $height - 4 ) : $wpst_toolbar_search_height;	// Ensure the search field fits in the Toolbar
+	$font_size = round( ( $search_height * $wpst_toolbar_font_size ) / $wpst_toolbar_search_height );				// Apply ratio so that font fits in search field
+	$search_padding_top = round( ( $height  - $search_height ) / 2 ) - 2;											// Center the search field in the Toolbar
+	
+	// Determine font size, search field height, padding-top, and finally the position of the google
+	$font_size = ( isset( $wpst_style_tb_current['font_size'] ) ) ? $wpst_style_tb_current['font_size'] : $wpst_toolbar_font_size;
+	$search_height = round( ( $font_size * $wpst_toolbar_search_height ) / $wpst_toolbar_font_size );	// Apply ratio so that search field has same aspect as WP default
+	if ( $search_height > $height - 4 ) $search_height = $height - 4;									// Ensure the search field fits in the Toolbar
+	$search_padding_top = round( ( $height  - $search_height ) / 2 );									// Center the search field in the Toolbar
+	// if ( $font_size > $search_height ) $font_size = $search_height;									// Ensure the font size fits in the search field
+	$google_padding_top = round( ( $search_height - $wpst_toolbar_search_height) / 2 );					// Center the google in the search field
+	// if ( $search_height > $wpst_toolbar_search_height ) $google_padding_top = $wpst_toolbar_search_height - $search_height;
+	// Hide the small bit of another icon, showing bottom of google icon
+	if ( $search_height > 30 ) $google_padding_top = $search_height - 28;
+	
+	// Put these where they should go
+	if ( $search_height != $wpst_toolbar_search_height) $style_saved .= '#wpadminbar #adminbarsearch { height: '. $search_height . 'px; } ';
+	if ( $search_padding_top > 2 ) $style_saved .= '#wpadminbar #wp-admin-bar-search .ab-item { padding-top: ' . $search_padding_top . 'px; } ';
+	$style_saved .= '#wpadminbar #adminbarsearch .adminbar-input, #wpadminbar #adminbarsearch input { height: ' . $search_height . 'px; font-size: ' . $font_size . 'px; ';
+	if ( $google_padding_top > 2 ) $style_saved .= 'background-position: 3px ' . $google_padding_top . 'px; ';
+	$style_saved .= '} ';
+	
 	// Add the font shadow to the Search icon and field as a box-shadow
 	if ( $font_shadow )
 		$style_saved .= '#wpadminbar #adminbarsearch .adminbar-input:focus { box-shadow: ' . $font_shadow . '} ';
+	
+	// JetPack
+	// Correct some paddings for its Toolbar items
+	if ( is_multisite() )
+		(bool)$jetpack_is_active = ( is_plugin_active_for_network( 'jetpack/jetpack.php' ) || is_plugin_active( 'jetpack/jetpack.php' ) );
+	else
+		(bool)$jetpack_is_active = is_plugin_active( 'jetpack/jetpack.php' );
+	
+	if ( $jetpack_is_active ) {
+		if ( $padding_top > 0 ) $style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-stats a, #wpadminbar .quicklinks li#wp-admin-bar-notes .ab-item { padding-top: '.$padding_top.'px !Important; } '; 
+		$style_saved .= '#wpadminbar li#wp-admin-bar-notes { padding-right: 0px !Important; } '; 
+	}
 	
 	
 	// Toolbar Hover
@@ -1247,7 +1288,13 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current ) {
 		// $style_chunk = 'background: rgb(' . symposium_toolbar_hex_to_rgb( $wpst_style_tb_current['menu_hover_background_colour'] ) . '); ';
 		// $style_chunk_ext = 'background: rgb(' . $wpst_menu_ext_hover_empty_color_rgb . '); ';
 		
-		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover { '.$style_chunk.'} ';
+		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus';
+	}
+	if ( ( get_option( 'wpst_myaccount_display_name', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_username', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_role', '' ) == "" ) ) {
+		$style_saved .= ' { '.$style_chunk.'} ';
+		$style_saved .= '#wpadminbar #wp-admin-bar-user-info:hover .ab-item { background: transparent; } ';
+	} else {
+		$style_saved .= ', #wpadminbar #wp-admin-bar-user-info .ab-item:hover { '.$style_chunk.'} ';
 	}
 	
 	// Background colour for Highlighted Items
@@ -1423,7 +1470,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 		}
 		// Lower below, we'll check if the NavMenu the custom menu points to, actually exists
 		// Depending on result we'll hide the whole node, or only its menu items while keeping the node for the custom menu
-		// Re-adding the removed node would put it at the inner end of the quicklinks and this is not what we want  :)
+		// Re-adding a removed node would put it at the inner end of the quicklinks and this is not what we want  :)
 		
 		if ( is_array( get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
 			if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
@@ -1455,11 +1502,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$wp_admin_bar->remove_node( 'edit' );
 		
 		// User related, aligned right.
-		// Search - remove if user cannot see it, or it has to be moved somewhere else
-		if ( is_array( get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-			if ( ( !array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-				|| ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) != "empty" ) )
-					$wp_admin_bar->remove_node( 'search' );
+		// Search - see symposium_toolbar_modify_search_menu() below, hooked later in the process
 		
 		// My Account - Either edit or remove completely
 		if ( is_array( get_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all ) ) ) ) if ( array_intersect( $current_role, get_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all ) ) ) ) {
@@ -1598,7 +1641,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 			// This menu is made of:
 			//  $custom_menu[0] = menu slug
 			//  $custom_menu[1] = location slug
-			//  $custom_menu[2] = selected roles for this menu
+			//  $custom_menu[2] = array of selected roles for this menu
 			//  $custom_menu[3] = URL to a custom icon that will replace the toplevel menu item title
 			if ( is_array( $custom_menu[2] ) ) if ( array_intersect( $current_role, $custom_menu[2] ) ) {
 				$items = $menu_items = false;
@@ -1874,46 +1917,39 @@ function symposium_toolbar_symposium_notifications() {
 
 /**
  * Called on top of each site page
- * Re-add the Search icon and field at an alternate location
+ * Remove and eventually re-add the Search icon and field to an alternate location
  */
-function symposium_toolbar_add_search_menu() {
+function symposium_toolbar_modify_search_menu() {
 	
-	global $current_user, $wpst_roles_all_incl_visitor;
+	global $wp_admin_bar, $current_user, $wpst_roles_all_incl_visitor;
+	
+	if ( !is_array( get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
+		return;
 	
 	if ( is_user_logged_in() )
 		$current_role = ( !empty($current_user->roles) ) ? $current_user->roles : array( "wpst_user" );
 	else
 		$current_role = array( "wpst_visitor" );
 	
+	// Store for future use
+	$search = $wp_admin_bar->get_node( 'search' );
 	
-	if ( is_admin() )
-		return;
+	// Remove search if user cannot see it, or it has to be moved somewhere else
+	if ( ( !array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
+		|| ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) != "empty" ) )
+			$wp_admin_bar->remove_node( 'search' );
 	
-	if ( is_array( get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-			return;
-	
-	
-	if ( in_array( get_option( 'wpst_toolbar_move_search_field', 'empty' ), array( "", "top-secondary" ) ) ) {
-	
-		global $wp_admin_bar;
-		
-		$form  = '<form action="' . esc_url( home_url( '/' ) ) . '" method="get" id="adminbarsearch">';
-		$form .= '<input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" />';
-		$form .= '<input type="submit" class="adminbar-button" value="' . __( 'Search' ) . '"/>';
-		$form .= '</form>';
-
-		$wp_admin_bar->add_menu( array( 
-			'parent' => get_option( 'wpst_toolbar_move_search_field' ),
-			'id'     => 'search',
-			'title'  => $form,
-			'meta'   => array( 
-				'class'		=> 'admin-bar-search',
-				'title'		=> __( 'Search the site...', 'wp-symposium-toolbar' ),
-				'tabindex'	=> -1,
-			 )
-		 ) );
-	}
+	// Re-add search if it has to be moved to an alternate location
+	if ( ( array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
+		&& ( in_array( get_option( 'wpst_toolbar_move_search_field', 'empty' ), array( "", "top-secondary" ) ) )
+		&& ( !empty( $search ) ) ) {
+			$wp_admin_bar->add_menu( array( 
+				'parent' => get_option( 'wpst_toolbar_move_search_field' ),
+				'id'     => $search->id,
+				'title'  => $search->title,
+				'meta'   => $search->meta
+			) );
+		}
 }
 
 /**
@@ -2082,7 +2118,8 @@ function symposium_toolbar_rgb_to_hex( $rgb ) {
 
 	$color = trim( $rgb, "()" );
 	if( !is_array( $color ) ) $color = explode( ",", $color );
-
+	$hex_RGB = '';
+	
 	foreach( $color as $value ) {
 		$hex_value = dechex( $value ); 
 		if( strlen( $hex_value ) < 2 ) $hex_value = "0" . $hex_value;

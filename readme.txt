@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 0.21.0
-Version: 0.21.0
+Tested up to: 3.6.1
+Stable tag: 0.22.0
+Version: 0.22.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,8 +26,6 @@ When I began this project, I was aiming at primarily providing WP Symposium site
 Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu.  Multisite wise: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
 
 You are no longer bound to showing to your members information you don't want them to see.  You are no longer bound to using just a theme navbar for navigating your site, or network of sites.  You are no longer bound to displaying that dark bar that doesn't fit with the overall look of your site.  You are no longer bound to configuring several plugins to make the Toolbar at your wishes.
-
-My warm thanks go to Louis, my friend at [Central Geek](http://centralgeek.com), for his help in specifying and testing the plugin.  He's always been available with wise advices whenever I was needing them, so that WPS Toolbar is as much his plugin as it is mine.
 
 Now the usual bulleted list of features...
 
@@ -55,7 +53,7 @@ A WP Symposium Toolbar plugin should then be available in the 'Plugins' menu in 
 
 = Upgrading the plugin =
 
-Use the WordPress feature to upgrade the plugin from the WP Dashboard.  This process will automatically de-activate and re-activate the plugin.
+Use the WordPress feature to upgrade the plugin from the WP Dashboard.
 
 Alternatively, download the zip file and extract its content locally. Deactivate the previous version to avoid any warning due to changes, and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.  Re-activate the plugin.
 
@@ -117,6 +115,13 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Changelog ==
 
+= 0.22.0. =
+
+* Bugfix: do not rely on register_activation_hook for upgrades to ensure options are updated
+* Bugfix: WP Symposium, avoid redirecting to WPS profile page upon saving from WP profile page
+* Bugfix: make the plugin work with alternate Search fields like the one proposed by JetPack, and ensure the best possible compatibility with styling its Toolbar items
+* Code cleanup in the JS file, and rename variables to comply with WordPress naming convention
+
 = 0.21.0. =
 
 * Bugfix: Styles, default height of the first row in the Site Name frontend dropdown menu
@@ -124,9 +129,9 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Change: Toolbar tab, option to force the display of the WP Toolbar for logged-in users, and hide the checkbox "Show Toolbar while viewing site" at the WP Profile page
 * Change: Custom Menus, add an error message when the same menu is being displayed for a given role on different locations
 * Change: make translatable the error string displayed when the admin leaves the page without saving
-* Bugfix: Styles, dropdown menus highlighted items inheriting from others for colour when no specific colour set
+* Bugfix: Styles, dropdown menus highlighted items inheriting colour from normal ones when no specific colour set
 * Bugfix: Styles, preview mode, font shadow not removed whenever H or V are unset, both for Toolbar and Dropdown menus
-* Bugfix: Styles, preview mode, borders "default" not working
+* Bugfix: Styles, preview mode, Toolbar borders "default" not working when coming from another, saved value
 
 = 0.20.0. =
 
