@@ -15,72 +15,101 @@
 */
 
 /**
+ * WPS Icon
+ */
+ 
+#wpadminbar .ab-icon-wps {
+	display: none;
+}
+
+/**
  * Notification Icons
  */
-
-#wp-admin-bar-top-secondary .ab-item > .ab-label-mail,
-#wp-admin-bar-top-secondary .ab-item > .ab-label-friendship {
-	filter: alpha(opacity=50);
-	opacity: 0.5;
+ 
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-icon-mail {
+	background-image: url('../images/mail-open.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
 }
 
-#wp-admin-bar-top-secondary .ab-item .ab-icon-mail {
-	margin-top: -2px;
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-icon-new-mail {
+	background-image: url('../images/mail-closed.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
 }
 
-@media screen and (max-width: 782px) {
-	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-item span {
-		font: 40px/1.2 dashicons!important;
-	}
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-icon-friendship {
+	background-image: url('../images/friends.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
 }
 
-/* Force the display of these icons, whenever screen width permits */
-@media screen and (max-width: 782px) {
-	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
-	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
-		display: block;
-	}
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-icon-new-friendship {
+	background-image: url('../images/new-friend.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
 }
-@media screen and (max-width: 600px) {
-	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
-	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
-		display: none;
-	}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-item-new-mail,
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-item-new-friendship {
+	font-weight:bold;
+	color: #70b859;
 }
 
 /**
  * User Menu
  */
 
+/* Style the avatar for visitors */
+#wpadminbar a img.avatar-16, #wpadminbar a img.avatar-16:hover {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #999;
+	padding: 0;
+	background: #eee;
+	line-height: 24px;
+	vertical-align: middle;
+	margin: -3px 0 0 6px;
+	float: none;
+	display: inline;
+}
+
 /* Style the User Menu for a correct partial display */
-@media screen and (min-width: 783px) {
-	#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
-		min-height: 80px;
-	}
+#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
+	min-height: 84px;
+}
 
-	#wpadminbar #wp-admin-bar-my-account .wpst-with-avatar {
-		min-height: 64px;
-	}
-
-	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li.wpst-with-avatar {
-		height: 64px;
-	}
-
-	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li {
-		margin-left: 16px !Important;
-	}
+#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
+	min-height: 64px;
 }
 
 #wpadminbar #wp-admin-bar-my-account .wpst-avatar {
-	left: 8px;
+	left: 16px;
 }
 
-/* Ensure a small gap under the avatar when it's alone */
+/* Add the hoverbox to the User Info */
+#wpadminbar #wp-admin-bar-user-info:hover .ab-item {
+	background-color: #EAF2FA;
+}
+
+/* Resize User Info container */
 #wpadminbar #wp-admin-bar-user-info {
 	margin-bottom: 10px;
 }
 
-/* Those spans look too small with a box on hover */
+/* Spans look too small on hover */
 #wpadminbar #wp-admin-bar-user-info a {
 	padding-bottom: 10px;
 }
@@ -93,24 +122,6 @@
 
 #wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
 	border: 1px solid red;
-}
-
-/* Fix User Menu submenus */
-#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
-	right: 100% !Important;
-}
-
-@media screen and (max-width: 594px) {
-	#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
-		right: 0% !Important;
-	}
-}
-
-/* Leave room for the submenu arrows */
-@media screen and (max-width: 782px) {
-	#wpadminbar .ab-top-secondary .menupop .ab-submenu > li .ab-item {
-		margin-left: 10px;
-	}
 }
 
 /**
@@ -205,25 +216,17 @@
 	background-color: #F9F9F9;
 }
 
+.wpst-nav-div {
+	display: none;
+}
+
 .wpst-nav-div-active {
 	display: inline;
 }
 
-/* Responsive */
-@media screen and (max-width: 782px) {
-	.wpst-nav-tab {
-		padding-top: 10px;
-		height: 21px;
-	}
-	.wpst-nav-tabs-arrow {
-		width: 24px;
-		height: 36px;
-	}
-}
-
 /* Roles */
 .wpst_roles_checkboxes span {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 /* Styles tables */

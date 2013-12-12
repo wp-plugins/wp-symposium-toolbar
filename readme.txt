@@ -6,26 +6,26 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
-Tested up to: 3.6.1
-Stable tag: 0.22.0
-Version: 0.22.1
+Tested up to: 3.8
+Stable tag: 0.23.0
+Version: 0.23.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-**Attention, this plugin is currently in a beta phase, aiming at tests and feedback.**
-
 Customize the WordPress Toolbar the way *you* want...
 
-This plugin is targetted for WP Symposium sites.  However, if you're not running a Social Network site but you're willing to customize the Toolbar, you may use this plugin and benefit from its generic per-role settings, its custom menus, as well as its styling settings.  Give this plugin a try, and let me know what you think.
+This plugin is targetted for WP Symposium sites.  However, if you're not running a Social Network site but you're willing to customize the Toolbar, you may use this plugin and benefit from its generic per-role settings, its custom menus, as well as its styling settings.  Give this plugin a try!
 
 = In a nutshell =
 When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  I needed to ensure WP Symposium is actually activated, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Looking at the result, I'd like to stress that the scope of the generic options of this plugin by far exceeds those dedicated to WP Symposium sites solely...
 
-Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Flexibility in providing navigation from the Toolbar via per role access to custom menus: great for membership sites where you want to have control over who can access which parts of your site, or to welcome your non-logged-in members with a custom Howdy message and login menu.  Multisite wise: each site of your network can have individual navigation, or your network can function as though it is one big site, sharing the same links.  And on top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
+Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Provide navigation from the Toolbar via per role access to custom menus: control which roles can access which parts of your site, welcome your non-logged-in members with a custom Howdy message and login menu, etc.  Multisite wise: each site of your network can have individual links and styles, or your network can function as though it is one big site.  On top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
 
 You are no longer bound to showing to your members information you don't want them to see.  You are no longer bound to using just a theme navbar for navigating your site, or network of sites.  You are no longer bound to displaying that dark bar that doesn't fit with the overall look of your site.  You are no longer bound to configuring several plugins to make the Toolbar at your wishes.
+
+My warm thanks go to Louis, my friend at [Central Geek](http://centralgeek.com), for his help in specifying and testing the plugin.  He's always been available with wise advices whenever I was needing them, so that WPS Toolbar is as much his plugin as it is mine.
 
 Now the usual bulleted list of features...
 
@@ -108,12 +108,40 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Screenshots ==
 
-1. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
-2. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
-3. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...
-4. The WP Symposium admin menu opens below a colourful Toolbar. It can have less colours, too. Transparency, as well. (theme Matala, by Nicolo Volpato)
+1. Share your thoughts with the World in either format, under your custom Toolbar: gradients, transparency, colorfull
+2. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
+3. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
+4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
 
 == Changelog ==
+
+= 0.23.0. =
+
+Important! The plugin is now WP 3.8 compliant, as well as backwards compatible. Whether you are running WP 3.7.1 or WP 3.8, update this plugin now!
+Multisites installations will benefit from the significant addition of the following functionalities:
+1. Force the display of the Toolbar network wide, for selected users, from one place
+2. Home Site feature, users can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network
+3. Select the subsites you want to be synchronized with the Main Site, by propagating selected settings to these sites automatically rather than visiting subsites one by one
+4. Create Network Custom Menus that will be displayed on all sites without Site Admins being able to remove them
+5. Share WP Symposium features from the sites where WP Symposium is activated, with all sites of the network
+
+Now the detailed changelog entry...
+* Change: WPMS, when plugin is network activated, add tabs to the Main Site admin page, holding Network settings
+* Change: WPMS, from Main Site 'Custom Menus' tab, option to make a custom menu network-wide
+* Change: WPMS, from 'WP Symposium' tab, the option to *search* for WPS features network wide is replaced with the option to *share* them, so that subsites that are not running WPS and might actually need these features, can benefit from these even though WPS tab is hidden on plugin options page at these sites
+* Bugfix: WPMS, propagate options accross the network upon both activation and updates
+* Change: User Menu, option to edit the link to the Edit Profile page, defaulting to the WPS Profile page on WP Symposium sites
+* Change: on non WP Symposium sites, move the WPS Toolbar settings into the Appearance menu
+* Bugfix: ensure a role's name is set before using it for display on the plugin options page
+* Bugfix: removed redundant tabs in the HTML of the plugin options page
+* Bugfix: when forcing the display of the Toolbar from a subsite, remove the WP Profile option for all users
+* Bugfix: display custom rows with symposium_toolbar_add_user_action even when all the default items are removed
+* Change: added a carrousel of tabs, so that they display on one row regardless of the screen size while ensuring the active tab is always displayed
+* Change: User Guide and Dev Guide are now integrated in the admin page, and their content is set dynamically as per selected tabs (in Multisite)
+* Change: non-Javascript friendly admin page
+* Change: WP 3.8 compliance, preview now only active on the Styles tab, responsive mode for smaller screens, etc.
+* BugFix: ensure a full RTL display of the options page
+* Added Spanish translation, thanks to Maria Ramos at [WebHostingHub](http://www.webhostinghub.com)
 
 = 0.22.0. =
 
