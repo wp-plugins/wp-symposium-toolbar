@@ -9,15 +9,15 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
 Tested up to: 3.8
-Stable tag: 0.23.0
-Version: 0.23.0
+Stable tag: 0.23.1
+Version: 0.23.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2300;
+$wpst_buildnr = 2301;
 
 
 // Exit if accessed directly

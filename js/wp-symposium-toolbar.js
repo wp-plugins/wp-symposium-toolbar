@@ -14,11 +14,6 @@
  *	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// References:
-// http://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
-// http://melchoyce.github.io/dashicons/
-// http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
-	
 jQuery(document).ready(function($){
 
 	// SAFERS

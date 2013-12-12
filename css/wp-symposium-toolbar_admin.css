@@ -209,7 +209,7 @@
 	display: inline;
 }
 
-/* Responsive */
+/* Responsive tabs */
 @media screen and (max-width: 782px) {
 	.wpst-nav-tab {
 		padding-top: 10px;

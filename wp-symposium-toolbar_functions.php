@@ -148,6 +148,8 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 	
 	get_currentuserinfo();
 	
+	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
+	
 	if ( is_user_logged_in() )
 		// WPMS:
 		// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
