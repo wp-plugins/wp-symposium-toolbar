@@ -119,6 +119,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 Important! The plugin is now WP 3.8 compliant, as well as backwards compatible. Whether you are running WP 3.7.1 or WP 3.8, update this plugin now!
 Multisites installations will benefit from the significant addition of the following functionalities:
+
 1. Force the display of the Toolbar network wide, for selected users, from one place
 2. Home Site feature, users can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network
 3. Select the subsites you want to be synchronized with the Main Site, by propagating selected settings to these sites automatically rather than visiting subsites one by one
@@ -126,6 +127,7 @@ Multisites installations will benefit from the significant addition of the follo
 5. Share WP Symposium features from the sites where WP Symposium is activated, with all sites of the network
 
 Now the detailed changelog entry...
+
 * Change: WPMS, when plugin is network activated, add tabs to the Main Site admin page, holding Network settings
 * Change: WPMS, from Main Site 'Custom Menus' tab, option to make a custom menu network-wide
 * Change: WPMS, from 'WP Symposium' tab, the option to *search* for WPS features network wide is replaced with the option to *share* them, so that subsites that are not running WPS and might actually need these features, can benefit from these even though WPS tab is hidden on plugin options page at these sites
