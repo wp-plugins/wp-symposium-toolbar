@@ -119,6 +119,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 Important! The plugin is now WP 3.8 compliant, as well as backwards compatible. Whether you are running WP 3.7.1 or WP 3.8, update this plugin now!
 Multisites installations will benefit from the significant addition of the following functionalities:
+
 1. Force the display of the Toolbar network wide, for selected users, from one place
 2. Home Site feature, users can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network
 3. Select the subsites you want to be synchronized with the Main Site, by propagating selected settings to these sites automatically rather than visiting subsites one by one
