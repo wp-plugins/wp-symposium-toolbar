@@ -1,0 +1,276 @@
+/*  Copyright 2013  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as 
+	published by the Free Software Foundation.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/**
+ * Notification Icons
+ */
+
+#wp-admin-bar-top-secondary .ab-item > .ab-label-mail,
+#wp-admin-bar-top-secondary .ab-item > .ab-label-friendship {
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+#wp-admin-bar-top-secondary .ab-item .ab-icon-mail {
+	margin-top: -2px;
+}
+
+@media screen and (max-width: 782px) {
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship .ab-item span {
+		font: 40px/1.2 dashicons!important;
+	}
+}
+
+/* Force the display of these icons, whenever screen width permits */
+@media screen and (max-width: 782px) {
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
+		display: block;
+	}
+}
+@media screen and (max-width: 600px) {
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
+		display: none;
+	}
+}
+
+/**
+ * User Menu
+ */
+
+/* Style the User Menu for a correct partial display */
+@media screen and (min-width: 783px) {
+	#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
+		min-height: 80px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account .wpst-with-avatar {
+		min-height: 64px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li.wpst-with-avatar {
+		height: 64px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li {
+		margin-left: 16px !Important;
+	}
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-avatar {
+	left: 8px;
+}
+
+/* Ensure a small gap under the avatar when it's alone */
+#wpadminbar #wp-admin-bar-user-info {
+	margin-bottom: 10px;
+}
+
+/* Those spans look too small with a box on hover */
+#wpadminbar #wp-admin-bar-user-info a {
+	padding-bottom: 10px;
+}
+
+/* Add Admin Role to User Menu */
+#wpadminbar #wp-admin-bar-my-account .wpst-role {
+	padding: 0 0 10px 15px;
+	margin: 10px 0 0 0;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
+	border: 1px solid red;
+}
+
+/* Fix User Menu submenus */
+#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
+	right: 100% !Important;
+}
+
+@media screen and (max-width: 594px) {
+	#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
+		right: 0% !Important;
+	}
+}
+
+/* Leave room for the submenu arrows */
+@media screen and (max-width: 782px) {
+	#wpadminbar .ab-top-secondary .menupop .ab-submenu > li .ab-item {
+		margin-left: 10px;
+	}
+}
+
+/* Fix arrows height for User Menu submenus */
+#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
+	top: 1px;
+}
+
+/**
+ * Site Name Menu
+ */
+
+/* Fix the Site Name frontend menu */
+#wpadminbar #wp-admin-bar-site-name-default {
+	margin-top: 0px;
+	padding-bottom: 0px;
+}
+
+#wpadminbar #wp-admin-bar-site-name-default:last-child {
+	padding-bottom: 6px;
+}
+
+#wpadminbar #wp-admin-bar-appearance {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/**
+ * Custom menu icons
+ */
+ 
+#wpadminbar .wpst-icon {
+	position: relative;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 6px;"
+}
+
+/**
+ * Admin Dashboard Options Page Items
+ */
+
+/* Tabs carrousel */
+#wpst-nav-management {
+	position: relative;
+	float: right;
+	width: 100%;
+}
+
+#wpst-nav-tabs-wrapper {
+	width: 10000px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+#wpst-nav-tabs {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#wpst-nav-div-wrapper {
+	clear: both;
+}
+
+/* Arrows */
+.wpst-nav-tabs-arrow {
+	width: 10px;
+	padding: 0 5px 4px;
+	cursor: pointer;
+	position: absolute;
+	line-height: 22px;
+	font-size: 18px;
+	background-color: white;
+	text-shadow: 0 1px 0 #fff;
+	display: none;
+}
+
+#wpst-nav-tabs-arrow-left {
+	left: 0;
+}
+
+#wpst-nav-tabs-arrow-right {
+	top: 0;
+	right: 0;
+	text-align: right;
+}
+
+/* Individual tabs */
+.wpst-nav-tab {
+	margin-top: 0;
+	cursor: pointer;
+}
+
+.wpst-nav-tab-active {
+	background-color: #F9F9F9;
+}
+
+.wpst-nav-div-active {
+	display: inline;
+}
+
+/* Responsive tabs */
+@media screen and (max-width: 782px) {
+	.wpst-nav-tab {
+		padding-top: 10px;
+		height: 21px;
+	}
+	.wpst-nav-tabs-arrow {
+		width: 24px;
+		height: 36px;
+	}
+}
+
+/* Roles */
+.wpst_roles_checkboxes span {
+    padding-right: 20px;
+}
+
+/* Styles tables */
+.wpst-widefat {
+	border: none;
+	line-height: 1.4em;
+}
+
+.wpst-widefat td {
+	padding: 9px;
+	width:14%;
+}
+
+.wpst-positive-int, .wpst-int, .wpst-percent {
+	width: 50px;
+}
+
+/* Refines WP colorpicker */
+.wp-color-picker-field {
+	width: 67px;
+}
+
+/* Styling the two Guides */
+.wpst-devguide-function {
+	font-family: Courier New;
+	font-size: 9pt;
+	background: rgb(251, 251, 251);
+	border: lightgrey 1px solid;
+	padding: 10px 35px;
+}
+
+.wpst-devguide-code {
+	font-family: Courier New;
+	font-size: 9pt;
+	background: rgb(251, 251, 251);
+}
+
+.wpst-inside-guide {
+	padding: 20px;
+}
+
+.wpst-inside-guide h5 {
+	font-size: 0.9em;
+	font-style: italic;
+}

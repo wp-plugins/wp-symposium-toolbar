@@ -1,0 +1,2975 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Symposium Toolbar v0.22.49\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-12-11 13:19:54+0000\n"
+"Last-Translator: admin <alphagolf@rocketmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: wp-symposium-toolbar.php:194
+#: wp-symposium-toolbar.php:213
+#: wp-symposium-toolbar.php:214
+#: wp-symposium-toolbar.php:240
+#: wp-symposium-toolbar_admin.php:1107
+#: wp-symposium-toolbar_admin_functions.php:1924
+#: wp-symposium-toolbar_admin_functions.php:1930
+#@ wp-symposium-toolbar
+msgid "Toolbar"
+msgstr "Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:21
+#@ default
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:648
+#@ wp-symposium-toolbar
+msgid "The Edit Profile link"
+msgstr "Le lien Editer Mon Profil"
+
+#: wp-symposium-toolbar_admin.php:300
+#: wp-symposium-toolbar_admin.php:399
+#: wp-symposium-toolbar_admin.php:551
+#: wp-symposium-toolbar_admin.php:714
+#: wp-symposium-toolbar_admin.php:913
+#: wp-symposium-toolbar_admin.php:1006
+#: wp-symposium-toolbar_admin.php:1811
+#: wp-symposium-toolbar_admin.php:1841
+#: wp-symposium-toolbar_admin_functions.php:363
+#@ wp-symposium-toolbar
+msgid "Save Changes"
+msgstr "Enregistrer les Modifications"
+
+#: wp-symposium-toolbar_admin.php:928
+#@ wp-symposium-toolbar
+msgid "Admin Menu"
+msgstr "Menu Admin"
+
+#: wp-symposium-toolbar_admin_functions.php:1898
+#@ wp-symposium-toolbar
+msgid "Options"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1899
+#@ wp-symposium-toolbar
+msgid "Profile"
+msgstr "Profil"
+
+#: wp-symposium-toolbar_admin_functions.php:1900
+#@ wp-symposium-toolbar
+msgid "Plus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1901
+#@ wp-symposium-toolbar
+msgid "Forum"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1902
+#@ wp-symposium-toolbar
+msgid "Directory"
+msgstr "Répertoire"
+
+#: wp-symposium-toolbar_admin_functions.php:1903
+#: wp-symposium-toolbar_functions.php:93
+#@ wp-symposium-toolbar
+msgid "Mail"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1904
+#@ wp-symposium-toolbar
+msgid "Groups"
+msgstr "Groupes"
+
+#: wp-symposium-toolbar_admin_functions.php:1905
+#@ wp-symposium-toolbar
+msgid "Gallery"
+msgstr "Galerie"
+
+#: wp-symposium-toolbar_admin_functions.php:1906
+#@ wp-symposium-toolbar
+msgid "Alerts"
+msgstr "Alertes"
+
+#: wp-symposium-toolbar_admin_functions.php:1907
+#@ wp-symposium-toolbar
+msgid "Panel"
+msgstr "Panneau"
+
+#: wp-symposium-toolbar_admin_functions.php:1908
+#@ wp-symposium-toolbar
+msgid "Events"
+msgstr "Évènements"
+
+#: wp-symposium-toolbar_admin_functions.php:1909
+#@ wp-symposium-toolbar
+msgid "Facebook"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1910
+#@ wp-symposium-toolbar
+msgid "Mobile"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1911
+#@ wp-symposium-toolbar
+msgid "Reply"
+msgstr "Réponse"
+
+#: wp-symposium-toolbar_admin_functions.php:1912
+#@ wp-symposium-toolbar
+msgid "Lounge"
+msgstr "Salon"
+
+#: wp-symposium-toolbar_admin_functions.php:1914
+#@ wp-symposium-toolbar
+msgid "Manage"
+msgstr "Gérer"
+
+#: wp-symposium-toolbar_admin_functions.php:1915
+#@ wp-symposium-toolbar
+msgid "Settings"
+msgstr "Paramètres"
+
+#: wp-symposium-toolbar_admin_functions.php:1917
+#@ wp-symposium-toolbar
+msgid "Thesaurus"
+msgstr "Dictionnaire"
+
+#: wp-symposium-toolbar_admin_functions.php:1918
+#@ wp-symposium-toolbar
+msgid "Categories"
+msgstr "Catégories"
+
+#: wp-symposium-toolbar_admin_functions.php:1919
+#@ wp-symposium-toolbar
+msgid "Forum Posts"
+msgstr "Publications Forum"
+
+#: wp-symposium-toolbar_admin_functions.php:1920
+#@ wp-symposium-toolbar
+msgid "Mail Messages"
+msgstr "Messages Privés"
+
+#: wp-symposium-toolbar_admin_functions.php:1921
+#@ wp-symposium-toolbar
+msgid "Templates"
+msgstr "Modèles"
+
+#: wp-symposium-toolbar_admin_functions.php:1922
+#@ wp-symposium-toolbar
+msgid "Audit"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:576
+#: wp-symposium-toolbar_admin.php:581
+#: wp-symposium-toolbar_functions.php:323
+#: wp-symposium-toolbar_functions.php:372
+#@ wp-symposium-toolbar
+msgid "Howdy"
+msgstr "Salutations"
+
+#: wp-symposium-toolbar.php:239
+#@ wp-symposium-toolbar
+msgid "WPS Toolbar Options"
+msgstr "Options de WPS Toolbar"
+
+#: wp-symposium-toolbar_admin.php:420
+#: wp-symposium-toolbar_admin.php:1929
+#: wp-symposium-toolbar_admin.php:1931
+#: wp-symposium-toolbar_admin_functions.php:45
+#: wp-symposium-toolbar_help.php:63
+#@ wp-symposium-toolbar
+msgid "WP Toolbar"
+msgstr "Barre d'Outils WP"
+
+#: wp-symposium-toolbar_admin.php:414
+#@ wp-symposium-toolbar
+msgid "Select the roles for which the WP Toolbar itself and its default toplevel items (as well as their menu, if any) should be displayed, both for logged-in members with the appropriate rights, and visitors whenever they could access this item."
+msgstr "Sélectionnez les rôles pour lesquels la Barre d'Outils doit s'afficher, ainsi que chacun de ses éléments de haut niveau (et leur menu, s'il y en a), tant pour les membres possédant les droits ad hoc, que pour les visiteurs du site lorsqu'ils peuvent accéder à ces éléments."
+
+#: wp-symposium-toolbar_admin.php:422
+#@ wp-symposium-toolbar
+msgid "The WordPress Toolbar itself, in the frontend of the site solely, and depending on a user setting ; the WP Toolbar will always be visible in the backend."
+msgstr "La Barre d'Outils WordPress elle-même, uniquement pour la partie publique du site, et selon  le réglage utilisateur ; la Barre d'Outils sera toujours visible dans la partie administration."
+
+#: wp-symposium-toolbar_admin.php:451
+#: wp-symposium-toolbar_admin.php:1935
+#@ wp-symposium-toolbar
+msgid "WP Logo"
+msgstr "Logo WordPress"
+
+#: wp-symposium-toolbar_admin.php:453
+#@ wp-symposium-toolbar
+msgid "The WordPress logo and its menu, links to WordPress help and support"
+msgstr "Le logo WordPress et son menu, contient des liens vers le support WordPress et l'aide en ligne"
+
+#: wp-symposium-toolbar_admin.php:324
+#: wp-symposium-toolbar_admin.php:459
+#@ wp-symposium-toolbar
+msgid "Site Name"
+msgstr "Nom du Site"
+
+#: wp-symposium-toolbar_admin.php:461
+#@ wp-symposium-toolbar
+msgid "The site name and its menu, gives access to the site from the backend, and various dashboard pages from the frontend"
+msgstr "Le nom du site et son menu, donne accès au site depuis la partie administration, ainsi qu'à différentes pages d'administration depuis la partie publique"
+
+#: wp-symposium-toolbar_admin.php:468
+#@ wp-symposium-toolbar
+msgid "My Sites"
+msgstr "Mes Sites"
+
+#: wp-symposium-toolbar_admin.php:470
+#@ wp-symposium-toolbar
+msgid "The list of all sites of the network"
+msgstr "La liste de tous les sites du réseau multisites"
+
+#: wp-symposium-toolbar_admin.php:478
+#@ wp-symposium-toolbar
+msgid "Updates Icon"
+msgstr "Icône Mises à Jour"
+
+#: wp-symposium-toolbar_admin.php:480
+#@ wp-symposium-toolbar
+msgid "The Updates icon, links to the Updates page of the dashboard"
+msgstr "L'icône d'avertissement de mises à jour, lien vers la page des mises à jour du tableau de bord"
+
+#: wp-symposium-toolbar_admin.php:486
+#: wp-symposium-toolbar_admin.php:1938
+#@ wp-symposium-toolbar
+msgid "Comments Bubble"
+msgstr "Bulle Commentaires"
+
+#: wp-symposium-toolbar_admin.php:488
+#@ wp-symposium-toolbar
+msgid "The Comments bubble, links to the Comments moderation page"
+msgstr "La bulle d'avertissement des commentaires, lien vers la page de modération des commentaires"
+
+#: wp-symposium-toolbar_admin.php:494
+#@ wp-symposium-toolbar
+msgid "Add New"
+msgstr "Créer"
+
+#: wp-symposium-toolbar_admin.php:496
+#@ wp-symposium-toolbar
+msgid "The Add New menu, allows adding new content to the site"
+msgstr "Le menu Créer, permet d'ajouter du contenu au site"
+
+#: wp-symposium-toolbar_admin.php:510
+#@ wp-symposium-toolbar
+msgid "Edit Link"
+msgstr "Modifier l'Article"
+
+#: wp-symposium-toolbar_admin.php:512
+#@ wp-symposium-toolbar
+msgid "The Edit link to the Edit page for the page / post being viewed"
+msgstr "Afficher le lien \"Modifier\" vers la page d'édition du contenu affiché"
+
+#: wp-symposium-toolbar_admin.php:518
+#: wp-symposium-toolbar_admin.php:1942
+#: wp-symposium-toolbar_admin.php:1954
+#: wp-symposium-toolbar_admin.php:2046
+#: wp-symposium-toolbar_admin.php:2154
+#: wp-symposium-toolbar_admin_functions.php:46
+#: wp-symposium-toolbar_help.php:71
+#@ wp-symposium-toolbar
+msgid "WP User Menu"
+msgstr "Menu Utilisateur"
+
+#: wp-symposium-toolbar_admin.php:526
+#@ wp-symposium-toolbar
+msgid "Search Icon"
+msgstr "Icône Recherche"
+
+#: wp-symposium-toolbar_admin.php:528
+#@ wp-symposium-toolbar
+msgid "The Search icon and field, allows searching the site from the frontend"
+msgstr "L'icône de recherche dans le site, et son champ de recherche, affichés dans la partie publique"
+
+#: wp-symposium-toolbar_admin.php:1972
+#: wp-symposium-toolbar_admin_functions.php:48
+#: wp-symposium-toolbar_help.php:97
+#@ wp-symposium-toolbar
+msgid "WP Symposium"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:937
+#@ wp-symposium-toolbar
+msgid "Display the WP Symposium Admin Menu"
+msgstr "Afficher le Menu Admin de WP Symposium"
+
+#: wp-symposium-toolbar_admin.php:942
+#@ wp-symposium-toolbar
+msgid "Notifications"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:944
+#@ wp-symposium-toolbar
+msgid "Display the WP Symposium Mail notification icon"
+msgstr "Afficher l'icône de notification des emails WP Symposium"
+
+#: wp-symposium-toolbar_admin.php:947
+#@ wp-symposium-toolbar
+msgid "Display the WP Symposium Friendship notification icon"
+msgstr "Afficher l'icône de notification des Amis WP Symposium"
+
+#: wp-symposium-toolbar_admin.php:568
+#@ wp-symposium-toolbar
+msgid "The WP User Menu, also called \"My Account\", is located at the right end of the WP Toolbar. Define what should be displayed in the Toolbar (toplevel menu item) and in the menu, underneath."
+msgstr "Le Menu Utilisateur WP, également appelé \"Mon Compte\", est situé à l'extrémité droite de la Barre d'Outils. Définissez ce qui doit être affiché dans la barre (son élément de haut niveau) ainsi que dans le menu qui s'ouvre dessous."
+
+#: wp-symposium-toolbar_admin.php:575
+#@ wp-symposium-toolbar
+msgid "Customize the \"Howdy\" message displayed in the WP Toolbar for members, leave empty for no message"
+msgstr "Modifiez le message de bienvenue affiché dans la Barre d'Outils pour les membres, laissez vide pour ne pas afficher de message"
+
+#: wp-symposium-toolbar_admin.php:580
+#@ wp-symposium-toolbar
+msgid "\"Howdy\" message for visitors"
+msgstr "Message de bienvenue pour les visiteurs"
+
+#: wp-symposium-toolbar_admin.php:612
+#@ wp-symposium-toolbar
+msgid "Which of the WP User Menu default items should be displayed?"
+msgstr "Sélectionnez les éléments par défaut du Menu Utilisateur WP qui doivent être affichés"
+
+#: wp-symposium-toolbar_admin.php:621
+#@ wp-symposium-toolbar
+msgid "The big size avatar of the user, in the menu"
+msgstr "Le grand avatar de l'utilisateur, dans le menu"
+
+#: wp-symposium-toolbar_admin.php:630
+#@ wp-symposium-toolbar
+msgid "The user display name"
+msgstr "Le nom d'affichage choisi par l'utilisateur"
+
+#: wp-symposium-toolbar_admin.php:657
+#@ wp-symposium-toolbar
+msgid "The Log Out link?"
+msgstr "le lien Déconnexion"
+
+#: wp-symposium-toolbar_admin.php:734
+#: wp-symposium-toolbar_admin.php:988
+#@ default
+msgid "Appearance"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:734
+#: wp-symposium-toolbar_admin.php:988
+#@ default
+msgid "Menus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:746
+#@ wp-symposium-toolbar
+msgid "Menu Name"
+msgstr "Nom du Menu"
+
+#: wp-symposium-toolbar_admin.php:747
+#@ wp-symposium-toolbar
+msgid "Location"
+msgstr "Emplacement"
+
+#: wp-symposium-toolbar_admin.php:748
+#@ wp-symposium-toolbar
+msgid "Custom Icon"
+msgstr "Icône Personnalisée"
+
+#: wp-symposium-toolbar_functions.php:401
+#@ default
+msgid "My Account"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:669
+#@ wp-symposium-toolbar
+msgid "Go to your Inbox"
+msgstr "Allez à votre Boite de Réception"
+
+#: wp-symposium-toolbar_functions.php:669
+#@ wp-symposium-toolbar
+msgid "unread mail"
+msgstr "e-mails non lus"
+
+#: wp-symposium-toolbar_functions.php:672
+#@ wp-symposium-toolbar
+msgid "Your Inbox"
+msgstr "Votre Boite de Réception"
+
+#: wp-symposium-toolbar_functions.php:672
+#@ wp-symposium-toolbar
+msgid "archived"
+msgstr "archivés"
+
+#: wp-symposium-toolbar_functions.php:698
+#@ wp-symposium-toolbar
+msgid "Go to your Friends list"
+msgstr "Allez à la liste d'Amis"
+
+#: wp-symposium-toolbar_functions.php:698
+#@ wp-symposium-toolbar
+msgid "new friend requests"
+msgstr "nouvelles demandes d'amis"
+
+#: wp-symposium-toolbar_functions.php:701
+#@ wp-symposium-toolbar
+msgid "Your Friends list"
+msgstr "Votre liste d'Amis"
+
+#: wp-symposium-toolbar_functions.php:701
+#@ wp-symposium-toolbar
+msgid "friends"
+msgstr "amis"
+
+#: wp-symposium-toolbar_admin.php:581
+#: wp-symposium-toolbar_functions.php:63
+#: wp-symposium-toolbar_functions.php:372
+#@ wp-symposium-toolbar
+msgid "Visitor"
+msgstr "Visiteur"
+
+#: wp-symposium-toolbar_functions.php:77
+#: wp-symposium-toolbar_functions.php:78
+#: wp-symposium-toolbar_functions.php:79
+#: wp-symposium-toolbar_functions.php:80
+#@ wp-symposium-toolbar
+msgid "My Profile"
+msgstr "Mon Profil"
+
+#: wp-symposium-toolbar_functions.php:77
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing profile info"
+msgstr "Page Profil WPS, affichant les informations de profil"
+
+#: wp-symposium-toolbar_functions.php:78
+#@ wp-symposium-toolbar
+msgid "Profile Details"
+msgstr "Détails du Profil"
+
+#: wp-symposium-toolbar_functions.php:78
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing personal information"
+msgstr "Page Profil WPS, affichant les informations personnelles"
+
+#: wp-symposium-toolbar_functions.php:79
+#@ wp-symposium-toolbar
+msgid "Community Settings"
+msgstr "Réglages Communautaires"
+
+#: wp-symposium-toolbar_functions.php:79
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing community settings"
+msgstr "Page Profil WPS, affichant les réglages communautaires"
+
+#: wp-symposium-toolbar_functions.php:80
+#@ wp-symposium-toolbar
+msgid "Profile Photo"
+msgstr "Photo du Profil"
+
+#: wp-symposium-toolbar_functions.php:80
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing avatar upload"
+msgstr "Page Profil WPS, permettant le téléchargement de l'avatar"
+
+#: wp-symposium-toolbar_functions.php:81
+#: wp-symposium-toolbar_functions.php:82
+#: wp-symposium-toolbar_functions.php:83
+#: wp-symposium-toolbar_functions.php:84
+#@ wp-symposium-toolbar
+msgid "Activity"
+msgstr "Activité"
+
+#: wp-symposium-toolbar_functions.php:84
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing member activity"
+msgstr "Page Profil WPS, affichant l'activité du membre"
+
+#: wp-symposium-toolbar_functions.php:82
+#@ wp-symposium-toolbar
+msgid "My Activity"
+msgstr "Mon Activité"
+
+#: wp-symposium-toolbar_functions.php:82
+#: wp-symposium-toolbar_functions.php:86
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing friends activity"
+msgstr "Page Profil WPS, affichant l'Activité des Amis"
+
+#: wp-symposium-toolbar_functions.php:83
+#@ wp-symposium-toolbar
+msgid "Friends Activity"
+msgstr "Activité des Amis"
+
+#: wp-symposium-toolbar_functions.php:83
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing all activity"
+msgstr "Page Profil WPS, affichant toute l'Activité"
+
+#: wp-symposium-toolbar_functions.php:85
+#: wp-symposium-toolbar_functions.php:86
+#: wp-symposium-toolbar_functions.php:87
+#: wp-symposium-toolbar_functions.php:88
+#: wp-symposium-toolbar_functions.php:89
+#: wp-symposium-toolbar_functions.php:90
+#: wp-symposium-toolbar_functions.php:91
+#@ wp-symposium-toolbar
+msgid "Social"
+msgstr "Social"
+
+#: wp-symposium-toolbar_functions.php:86
+#@ wp-symposium-toolbar
+msgid "My Friends"
+msgstr "Mes Amis"
+
+#: wp-symposium-toolbar_functions.php:87
+#@ wp-symposium-toolbar
+msgid "My Groups"
+msgstr "Mes Groupes"
+
+#: wp-symposium-toolbar_functions.php:87
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing the groups the member belongs to"
+msgstr "Page Profil WPS, affichant les groupes auxquels le membre appartient"
+
+#: wp-symposium-toolbar_functions.php:88
+#@ wp-symposium-toolbar
+msgid "Forum @mentions"
+msgstr "@Mentions Forum"
+
+#: wp-symposium-toolbar_functions.php:88
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing where the member is @mentionned"
+msgstr "Page Profil WPS, affichant les sujets du forum où le membre est @mentionné"
+
+#: wp-symposium-toolbar_functions.php:89
+#@ wp-symposium-toolbar
+msgid "I am Following"
+msgstr "Ceux que je suis"
+
+#: wp-symposium-toolbar_functions.php:89
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing who the member is following"
+msgstr "Page Profil WPS, affichant ceux que le membre suit"
+
+#: wp-symposium-toolbar_functions.php:90
+#@ wp-symposium-toolbar
+msgid "My Followers"
+msgstr "Ceux qui me suivent"
+
+#: wp-symposium-toolbar_functions.php:90
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing who the member is followed by"
+msgstr "Page Profil WPS, affichant ceux qui suivent le membre"
+
+#: wp-symposium-toolbar_functions.php:91
+#@ wp-symposium-toolbar
+msgid "The Lounge"
+msgstr "Le Salon"
+
+#: wp-symposium-toolbar_functions.php:91
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing the Lounge"
+msgstr "Page Profil WPS, affichant le Salon"
+
+#: wp-symposium-toolbar_functions.php:92
+#: wp-symposium-toolbar_functions.php:93
+#: wp-symposium-toolbar_functions.php:94
+#: wp-symposium-toolbar_functions.php:95
+#@ wp-symposium-toolbar
+msgid "More"
+msgstr "Plus"
+
+#: wp-symposium-toolbar_functions.php:93
+#@ wp-symposium-toolbar
+msgid "WPS Mailbox of the member"
+msgstr "Boite aux Lettres WPS du membre"
+
+#: wp-symposium-toolbar_functions.php:94
+#@ wp-symposium-toolbar
+msgid "My Events"
+msgstr "Mes Évènements"
+
+#: wp-symposium-toolbar_functions.php:94
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing member events"
+msgstr "Page Profil WPS, affichant les évènements du membre"
+
+#: wp-symposium-toolbar_functions.php:95
+#@ wp-symposium-toolbar
+msgid "My Gallery"
+msgstr "Ma Galerie"
+
+#: wp-symposium-toolbar_functions.php:95
+#@ wp-symposium-toolbar
+msgid "WPS Profile page, showing member gallery"
+msgstr "Page Profil WPS, affichant la galerie du membre"
+
+#: wp-symposium-toolbar_functions.php:99
+#@ default
+msgid "Login"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:100
+#@ default
+msgid "Lost Password"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:101
+#@ default
+msgid "Register"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:236
+#@ wp-symposium-toolbar
+msgid "Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items."
+msgstr "Veuillez également vous reporter à l'onglet d'aide ajouté à la page des Menus de Navigation, lorsque vous créez vos menus avec des éléments WP Symposium."
+
+#: wp-symposium-toolbar_help.php:47
+#@ default
+msgid "Overview"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:66
+#@ wp-symposium-toolbar
+msgid "You may choose to hide the whole WP Toolbar, on a per-role basis. Please note however that the display of the WP Toolbar is also triggered by an option at the WP user profile page"
+msgstr "Vous pouvez choisir de masquer la Barre d'Outils elle-même, pour certains rôles. Veuillez noter en revanche que l'affichage de la Barre d'Outils est également conditionné par une option à la page de profil de l'utilisateur"
+
+#: wp-symposium-toolbar_help.php:66
+#@ default
+msgid "Show Toolbar when viewing site"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:66
+#@ wp-symposium-toolbar
+msgid "This personal choice is not overridden by the admin setting: if you choose to hide the Toolbar for particular roles, these members will not see it at all, however if you choose to display the Toolbar for these members, they may still hide it from their WP profile settings."
+msgstr "Ce choix personnel n'est pas forcé par le réglage admin : si vous choisissez de masquer la Barre d'Outils à certains rôles, ces membres ne la verront pas du tout, en revanche si vous choisissez de l'afficher à ces membres, ceux-ci pourront toujours la masquer depuis leur page profil utilisateur."
+
+#: wp-symposium-toolbar_help.php:89
+#@ wp-symposium-toolbar
+msgid "For admins, you may choose to add the WPS Admin Menu, for a one-click access to WP Symposium settings pages in the backend of your site."
+msgstr "Pour les admins, vous pouvez choisir d'ajouter le Menu Admin WPS, permettant un accès en un clic aux différentes pages d'administration de WP Symposium dans le tableau de bord de votre site."
+
+#: wp-symposium-toolbar_admin.php:741
+#: wp-symposium-toolbar_admin.php:1962
+#: wp-symposium-toolbar_admin_functions.php:47
+#: wp-symposium-toolbar_help.php:85
+#@ wp-symposium-toolbar
+msgid "Custom Menus"
+msgstr "Menus Personnalisés"
+
+#: wp-symposium-toolbar_help.php:121
+#@ wp-symposium-toolbar
+msgid "Menu Item Title"
+msgstr "Titre de l’Élément de Menu"
+
+#: wp-symposium-toolbar_help.php:122
+#@ wp-symposium-toolbar
+msgid "URL"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:123
+#@ wp-symposium-toolbar
+msgid "Description"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:141
+#@ wp-symposium-toolbar
+msgid "WP Symposium Pages"
+msgstr "Pages WP Symposium"
+
+#: wp-symposium-toolbar_admin.php:577
+#@ wp-symposium-toolbar
+msgid "Available aliases:"
+msgstr "Alias disponibles :"
+
+#: wp-symposium-toolbar_help.php:118
+#@ wp-symposium-toolbar
+msgid "Use the information in the table hereafter to create your custom links to WP Symposium pages..."
+msgstr "Utilisez l'information de cette table pour créer vos liens personnalisés vers les pages WP Symposium..."
+
+#: wp-symposium-toolbar_help.php:90
+#@ wp-symposium-toolbar
+msgid "You may also add WP Symposium notifications to the Toolbar for your members. These will warn the member of any incoming friend request or mail. When there are no new friend requests or mails, the number of friends and stored mails is displayed."
+msgstr "Vous pouvez également ajouter pour vos membres des notifications WP Symposium dans la Barre d'Outils. Celles-ci préviendront le membre de l'arrivée de  tout courriel ou demande d'amis. Lorsqu'il n'y a pas de nouveau courriel ou demande d'amis, le nombre d'amis et de courriels archivés s'affiche."
+
+#: wp-symposium-toolbar_help.php:73
+#@ wp-symposium-toolbar
+msgid "This section allows you to modify the content of the WP User Menu, and pick the items you want to display to all users, when they are registrered and logged-in."
+msgstr "Cette section vous permet de modifier le contenu du Menu Utilisateur WP, en sélectionnant les éléments que vous voulez afficher à tous les utilisateurs, dûment enregistrés et connectés."
+
+#: wp-symposium-toolbar_help.php:74
+#@ wp-symposium-toolbar
+msgid "You may remove all of the items of the WP User Menu, one by one. There is currently no role management for the menu items, it is assumed that your members will share the same User Menu. However, should you need different items for your members, you may add different custom menus depending on role, see next tab."
+msgstr "Vous pouvez retirer tous les éléments du Menu Utilisateur WP, un par un. Il n'y pas de gestion des rôles pour ceux-ci, il est supposé que vos membres partageront le même Menu Utilisateur. Cependant, si vous deviez avoir besoin d'afficher des éléments spécifiques pour certains rôles, vous pouvez utiliser les menus personnalisés, voir l'onglet suivant."
+
+#: wp-symposium-toolbar_help.php:75
+#@ wp-symposium-toolbar
+msgid "The menu itself is not shown by WordPress to site visitors, so if you don't hide it to visitors from the first set of options, they will see a blank avatar, that you could use to hold a login menu for instance, along with a kind welcome message to your non logged-in members."
+msgstr "WordPress n'affiche pas le menu lui-même aux visiteurs du site, donc si vous ne le masquez pas aux visiteurs depuis la première section d'options, ils verront un avatar vide, que vous pouvez utiliser pour y attacher un menu Connexion par exemple, ainsi qu'un gentil message de bienvenue à destination de vos membres non connectés."
+
+#: wp-symposium-toolbar_functions.php:84
+#@ wp-symposium-toolbar
+msgid "All Activity"
+msgstr "Toute l'Activité"
+
+#: wp-symposium-toolbar_admin.php:778
+#: wp-symposium-toolbar_admin.php:842
+#@ wp-symposium-toolbar
+msgid "Please go to the NavMenus page, and create some..."
+msgstr "Veuillez vous rendre à la page des Menus de Navigation WordPress, et en créer..."
+
+#: wp-symposium-toolbar_admin.php:502
+#@ wp-symposium-toolbar
+msgid "Shortlink"
+msgstr "Lien Court"
+
+#: wp-symposium-toolbar_admin.php:504
+#@ wp-symposium-toolbar
+msgid "The Shortlink to the page / post being edited"
+msgstr "Le Lien Court vers la page ou l'article en cours d'édition"
+
+#: wp-symposium-toolbar_admin.php:984
+#@ wp-symposium-toolbar
+msgid "NavMenus"
+msgstr "Menus de Navigation"
+
+#: wp-symposium-toolbar_admin.php:987
+#@ wp-symposium-toolbar
+msgid "To re-generate the NavMenus created by WPS Toolbar for WP Symposium, delete the menu in question from the NavMenus page at "
+msgstr "Pour générer à nouveau les Menus de Navigation crées par WPS Toolbar pour WP Symposium, effacez le menu en question depuis la page des Menus à "
+
+#: wp-symposium-toolbar_admin.php:989
+#@ wp-symposium-toolbar
+msgid ", check this box, and save..."
+msgstr ", cochez cette case et sauvegardez..."
+
+#: wp-symposium-toolbar_help.php:93
+#@ wp-symposium-toolbar
+msgid "The NavMenus generated by the plugin at the Appearance > Menus page are made of \"custom links\", so if you remove them you need to recreate them as such. If you ever totally messed up one of these menus, delete it from the NavMenus page, select the option above the menu table at this page and save, that will regenerate any missing menu and save you the process of recreate menu items by hand..."
+msgstr "Les Menus de Navigation générés par l'extension à la page Apparence > Menus sont faits de liens personnalisés, donc si vous les effacez vous devrez les recréer comme tels. Si jamais vous ratez complètement l'un de ces menus, effacez-le depuis la page des Menus de Navigation, puis cochez l'option au-dessus de la table des menus à cette page et sauvegardez, ceci générera les menus manquants et vous épargnera le processus de création manuelle des éléments de menu..."
+
+#: wp-symposium-toolbar_admin.php:531
+#@ wp-symposium-toolbar
+msgid "But move it to a location where it won't push other items when unfolding..."
+msgstr "Mais la déplacer à un endroit où elle ne poussera pas les autres éléments lorsqu'elle se déplie..."
+
+#: wp-symposium-toolbar_admin.php:536
+#@ wp-symposium-toolbar
+msgid "Select a location"
+msgstr "Choisir un emplacement"
+
+#: wp-symposium-toolbar_admin.php:539
+#@ wp-symposium-toolbar
+msgid "Left of the User Menu"
+msgstr "A gauche du Menu Utilisateur"
+
+#: wp-symposium-toolbar_admin.php:542
+#@ wp-symposium-toolbar
+msgid "Right of the New Content menu"
+msgstr "A droite du menu Nouveau"
+
+#: wp-symposium-toolbar_admin.php:1877
+#@ wp-symposium-toolbar
+msgid "Import / Export"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:605
+#@ wp-symposium-toolbar
+msgid "The Toolbar shows a blank avatar for visitors"
+msgstr "La Barre d'Outils affiche un avatar vide pour les visiteurs"
+
+#: wp-symposium-toolbar_help.php:73
+#@ wp-symposium-toolbar
+msgid "You may also modify the toplevel item of this menu, the Howdy message and the small avatar, both for members and visitors (non-logged-in members)."
+msgstr "Vous pouvez également modifier l'élément de haut niveau de ce menu, le message de bienvenue et le petit avatar, aussi bien pour les membres que pour les visiteurs (membres non connectés)."
+
+#: wp-symposium-toolbar_admin.php:778
+#: wp-symposium-toolbar_admin.php:842
+#@ wp-symposium-toolbar
+msgid "No available NavMenu !"
+msgstr "Aucun Menu de Navigation n'est disponible !"
+
+#: wp-symposium-toolbar_admin_functions.php:1013
+#: wp-symposium-toolbar_admin_functions.php:1104
+#@ wp-symposium-toolbar
+msgid ": incorrect format, an array of roles was expected"
+msgstr " : format incorrect, un ensemble de rôles était attendu"
+
+#: wp-symposium-toolbar_admin_functions.php:987
+#: wp-symposium-toolbar_admin_functions.php:1035
+#: wp-symposium-toolbar_admin_functions.php:1112
+#@ wp-symposium-toolbar
+msgid ": incorrect value, expected values are \"\" or \"on\""
+msgstr " : valeur incorrecte, les valeurs attendues sont \"\" ou \"on\""
+
+#: wp-symposium-toolbar_admin_functions.php:989
+#: wp-symposium-toolbar_admin_functions.php:1037
+#: wp-symposium-toolbar_admin_functions.php:1114
+#@ wp-symposium-toolbar
+msgid ": incorrect format, a string was expected, either \"\" or \"on\""
+msgstr " : format incorrect, une chaine de caractères était attendue,  \"\" ou \"on\""
+
+#: wp-symposium-toolbar_admin_functions.php:997
+#@ wp-symposium-toolbar
+msgid ": incorrect value, expected values are \"\", \"empty\" or \"top-secondary\""
+msgstr " : valeur incorrecte, les valeurs attendues étaient  \"\",  \"empty\" ou \"top-secondary\""
+
+#: wp-symposium-toolbar_admin_functions.php:999
+#@ wp-symposium-toolbar
+msgid ": incorrect format, a string was expected, either \"\", \"empty\" or \"top-secondary\""
+msgstr " : format incorrect, une chaine de caractères était attendue,  \"\", \"empty\" ou \"top-secondary\""
+
+#: wp-symposium-toolbar_admin_functions.php:1027
+#@ wp-symposium-toolbar
+msgid ": incorrect format, a string was expected"
+msgstr " : format incorrect, une chaine de caractères était attendue"
+
+#: wp-symposium-toolbar_admin_functions.php:1133
+#: wp-symposium-toolbar_admin_functions.php:1138
+#@ wp-symposium-toolbar
+msgid ": option not recognized"
+msgstr " : option non reconnue"
+
+#: wp-symposium-toolbar_functions.php:108
+#@ wp-symposium-toolbar
+msgid "Append to / Replace the WP Logo menu"
+msgstr "Ajouter / Remplacer le menu WP Logo"
+
+#: wp-symposium-toolbar_functions.php:110
+#@ wp-symposium-toolbar
+msgid "Append to My Sites"
+msgstr "Ajouter à Mes Sites"
+
+#: wp-symposium-toolbar_functions.php:111
+#@ wp-symposium-toolbar
+msgid "At the right of the New Content menu"
+msgstr "A droite du menu Nouveau"
+
+#: wp-symposium-toolbar_functions.php:112
+#@ wp-symposium-toolbar
+msgid "At the left of the WP User Menu"
+msgstr "A gauche du Menu Utilisateur"
+
+#: wp-symposium-toolbar_functions.php:113
+#@ wp-symposium-toolbar
+msgid "Append to the WP User Menu"
+msgstr "Ajouter au Menu Utilisateur"
+
+#: wp-symposium-toolbar_admin.php:774
+#: wp-symposium-toolbar_admin.php:785
+#@ wp-symposium-toolbar
+msgid "Remove from Toolbar"
+msgstr "Retirer de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:836
+#@ wp-symposium-toolbar
+msgid "Add this menu"
+msgstr "Ajouter ce menu"
+
+#: wp-symposium-toolbar_admin.php:847
+#@ wp-symposium-toolbar
+msgid "To this location"
+msgstr "A cet emplacement"
+
+#: wp-symposium-toolbar_admin.php:360
+#: wp-symposium-toolbar_admin.php:387
+#: wp-symposium-toolbar_admin.php:2194
+#@ wp-symposium-toolbar
+msgid "toggle all / none"
+msgstr "tout / rien"
+
+#: wp-symposium-toolbar_admin.php:573
+#@ wp-symposium-toolbar
+msgid "Top Level Item"
+msgstr "Élément de Haut Niveau"
+
+#: wp-symposium-toolbar_admin.php:595
+#@ wp-symposium-toolbar
+msgid "Show the small size avatar of the user in the Toolbar"
+msgstr "Afficher le petit avatar de l'utilisateur dans la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:610
+#@ wp-symposium-toolbar
+msgid "Default Menu Items"
+msgstr "Éléments de Menu par Défaut"
+
+#: wp-symposium-toolbar_admin.php:679
+#@ wp-symposium-toolbar
+msgid "Additional Menu Items"
+msgstr "Éléments de Menu Supplémentaires"
+
+#: wp-symposium-toolbar_admin.php:688
+#@ wp-symposium-toolbar
+msgid "Show the user's role, under the display name"
+msgstr "Afficher le rôle de l'utilisateur, sous le nom d'affichage"
+
+#: wp-symposium-toolbar_admin.php:1982
+#: wp-symposium-toolbar_admin.php:2095
+#: wp-symposium-toolbar_admin_functions.php:49
+#: wp-symposium-toolbar_help.php:103
+#@ wp-symposium-toolbar
+msgid "Styles"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1129
+#: wp-symposium-toolbar_admin.php:1324
+#: wp-symposium-toolbar_admin.php:1477
+#: wp-symposium-toolbar_admin.php:1636
+#@ wp-symposium-toolbar
+msgid "Background Colour"
+msgstr "Couleur de Fond"
+
+#: wp-symposium-toolbar_admin.php:1770
+#: wp-symposium-toolbar_admin.php:1772
+#: wp-symposium-toolbar_admin_functions.php:883
+#@ wp-symposium-toolbar
+msgid "Transparency"
+msgstr "Transparence"
+
+#: wp-symposium-toolbar_admin.php:1300
+#: wp-symposium-toolbar_admin.php:1454
+#: wp-symposium-toolbar_admin.php:1613
+#: wp-symposium-toolbar_admin.php:1749
+#: wp-symposium-toolbar_admin.php:1794
+#@ wp-symposium-toolbar
+msgid "Blur"
+msgstr "Flou"
+
+#: wp-symposium-toolbar_admin.php:1798
+#@ wp-symposium-toolbar
+msgid "Spread"
+msgstr "Portée"
+
+#: wp-symposium-toolbar_admin.php:1802
+#@ wp-symposium-toolbar
+msgid "Shadow Colour"
+msgstr "Couleur de l'Ombre"
+
+#: wp-symposium-toolbar_admin.php:1191
+#: wp-symposium-toolbar_admin.php:1492
+#@ wp-symposium-toolbar
+msgid "Font Family"
+msgstr "Nom de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1202
+#: wp-symposium-toolbar_admin.php:1503
+#@ wp-symposium-toolbar
+msgid "Font Size"
+msgstr "Taille de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1206
+#: wp-symposium-toolbar_admin.php:1358
+#: wp-symposium-toolbar_admin.php:1514
+#: wp-symposium-toolbar_admin.php:1651
+#@ wp-symposium-toolbar
+msgid "Font Colour"
+msgstr "Couleur de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1222
+#: wp-symposium-toolbar_admin.php:1377
+#: wp-symposium-toolbar_admin.php:1535
+#: wp-symposium-toolbar_admin.php:1672
+#@ wp-symposium-toolbar
+msgid "Italic"
+msgstr "Italique"
+
+#: wp-symposium-toolbar_admin.php:1235
+#: wp-symposium-toolbar_admin.php:1390
+#: wp-symposium-toolbar_admin.php:1548
+#: wp-symposium-toolbar_admin.php:1685
+#@ wp-symposium-toolbar
+msgid "Bold"
+msgstr "Gras"
+
+#: wp-symposium-toolbar_admin.php:1248
+#: wp-symposium-toolbar_admin.php:1403
+#: wp-symposium-toolbar_admin.php:1561
+#: wp-symposium-toolbar_admin.php:1698
+#@ wp-symposium-toolbar
+msgid "Underlined"
+msgstr "Souligné"
+
+#: wp-symposium-toolbar_admin.php:1264
+#: wp-symposium-toolbar_admin.php:1419
+#: wp-symposium-toolbar_admin.php:1577
+#: wp-symposium-toolbar_admin.php:1714
+#@ wp-symposium-toolbar
+msgid "Uppercase"
+msgstr "Majuscules"
+
+#: wp-symposium-toolbar_admin.php:1267
+#: wp-symposium-toolbar_admin.php:1422
+#: wp-symposium-toolbar_admin.php:1580
+#: wp-symposium-toolbar_admin.php:1717
+#@ wp-symposium-toolbar
+msgid "Lowercase"
+msgstr "Minuscules"
+
+#: wp-symposium-toolbar_admin.php:1270
+#: wp-symposium-toolbar_admin.php:1425
+#: wp-symposium-toolbar_admin.php:1583
+#: wp-symposium-toolbar_admin.php:1720
+#@ wp-symposium-toolbar
+msgid "Small Caps"
+msgstr "Petites Majuscules"
+
+#: wp-symposium-toolbar_admin_functions.php:1129
+#@ wp-symposium-toolbar
+msgid ": incorrect format, an array was expected"
+msgstr " : format incorrect, un tableau était attendu"
+
+#: wp-symposium-toolbar_admin.php:35
+#@ wp-symposium-toolbar
+msgid "WP Symposium Toolbar Settings"
+msgstr "Réglages de WP Symposium Toolbar"
+
+#: wp-symposium-toolbar_admin.php:37
+#@ wp-symposium-toolbar
+msgid "WPS Toolbar Settings"
+msgstr "Réglages de WPS Toolbar"
+
+#: wp-symposium-toolbar_admin.php:57
+#: wp-symposium-toolbar_admin.php:1898
+#: wp-symposium-toolbar_admin_functions.php:941
+#@ wp-symposium-toolbar
+msgid "Import"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:58
+#@ wp-symposium-toolbar
+msgid "Imported Sucessfully"
+msgstr "Importé avec Succès"
+
+#: wp-symposium-toolbar_admin.php:61
+#@ wp-symposium-toolbar
+msgid "WPS Menus Generated"
+msgstr "Menus WPS Générés"
+
+#: wp-symposium-toolbar_admin.php:63
+#@ wp-symposium-toolbar
+msgid "Settings Saved"
+msgstr "Réglages Sauvegardés"
+
+#: wp-symposium-toolbar_admin_functions.php:40
+#@ wp-symposium-toolbar
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: wp-symposium-toolbar_admin_functions.php:51
+#@ wp-symposium-toolbar
+msgid "Advanced"
+msgstr "Avancé"
+
+#: wp-symposium-toolbar_admin.php:233
+#@ wp-symposium-toolbar
+msgid "Thank you for installing WPS Toolbar. This plugin allows you to change the default behaviour of the WP Toolbar and customize its display, beyond anything that was made until now."
+msgstr "Merci d'avoir installé WPS Toolbar. Cette extension vous permet de modifier le comportement par défaut de la Barre d'Outils WordPress et d'en personnaliser l'affichage, au-delà de tout ce qui a été proposé jusqu'à présent."
+
+#: wp-symposium-toolbar_admin.php:238
+#: wp-symposium-toolbar_admin_functions.php:52
+#@ wp-symposium-toolbar
+msgid "User Guide"
+msgstr "Guide Utilisateur"
+
+#: wp-symposium-toolbar_admin.php:520
+#@ wp-symposium-toolbar
+msgid "The WP User Menu, as well as the \"Howdy\" message and the small avatar, located in the upper right corner of the screen - customize them from the other tab, or hide them completely from here"
+msgstr "Le Menu Utilisateur WP, ainsi que le message de bienvenue et le petit avatar, localisés dans le coin supérieur droite de l'écran - personnalisez-les depuis l'onglet suivant, ou masquez-les complètement ici."
+
+#: wp-symposium-toolbar_admin.php:639
+#@ wp-symposium-toolbar
+msgid "Add the user login to the display name, if they're different"
+msgstr "Ajouter l'identifiant de connexion au nom d'affichage, s'ils sont différents"
+
+#: wp-symposium-toolbar_admin.php:1096
+#@ wp-symposium-toolbar
+msgid "Define how the Toolbar, its items and its dropdown menus should look like, both without and with the mouse hover/focus."
+msgstr "Définissez l'apparence de la Barre d'Outils, de ses éléments et ses menus déroulants, aussi bien lorsque la souris passe dessus que sans la souris."
+
+#: wp-symposium-toolbar_admin.php:1096
+#@ wp-symposium-toolbar
+msgid "Specify a value, or force to \"No\" / \"None\" to get rid of a style inherited from a CSS parent. Leave a field empty to use that value."
+msgstr "Spécifiez une valeur, ou forcez à \"Non\" / \"Aucun\" pour vous débarrasser d'un style hérité d'un parent CSS. Laissez un champ vide pour utiliser cette valeur."
+
+#: wp-symposium-toolbar_admin.php:1097
+#@ wp-symposium-toolbar
+msgid "Use the preview mode to set your style, and save from the button at the bottom of the page to make your settings permanent!"
+msgstr "Utilisez la prévisualisation pour régler votre style, et sauvegardez avec le bouton en bas de page pour rendre ces réglages permanents !"
+
+#: wp-symposium-toolbar_admin.php:1107
+#: wp-symposium-toolbar_admin.php:1316
+#: wp-symposium-toolbar_admin.php:1469
+#: wp-symposium-toolbar_admin.php:1628
+#: wp-symposium-toolbar_admin.php:1764
+#@ default
+msgid "Click to toggle"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1113
+#@ wp-symposium-toolbar
+msgid "Height"
+msgstr "Hauteur"
+
+#: wp-symposium-toolbar_admin.php:1115
+#: wp-symposium-toolbar_admin_functions.php:602
+#@ wp-symposium-toolbar
+msgid "Toolbar Height"
+msgstr "Hauteur de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:1127
+#: wp-symposium-toolbar_admin.php:1322
+#: wp-symposium-toolbar_admin.php:1475
+#: wp-symposium-toolbar_admin.php:1634
+#@ wp-symposium-toolbar
+msgid "Background"
+msgstr "Fond"
+
+#: wp-symposium-toolbar_admin.php:1142
+#: wp-symposium-toolbar_admin.php:1337
+#@ wp-symposium-toolbar
+msgid "Top Gradient Length"
+msgstr "Longueur du Dégradé Supérieur"
+
+#: wp-symposium-toolbar_admin.php:1146
+#: wp-symposium-toolbar_admin.php:1341
+#@ wp-symposium-toolbar
+msgid "Top Gradient Colour"
+msgstr "Couleur du Dégradé Supérieur"
+
+#: wp-symposium-toolbar_admin.php:1150
+#: wp-symposium-toolbar_admin.php:1345
+#@ wp-symposium-toolbar
+msgid "Bottom Gradient Length"
+msgstr "Longueur du Dégradé Inférieur"
+
+#: wp-symposium-toolbar_admin.php:1154
+#: wp-symposium-toolbar_admin.php:1349
+#@ wp-symposium-toolbar
+msgid "Bottom Gradient Colour"
+msgstr "Couleur du Dégradé Inférieur"
+
+#: wp-symposium-toolbar_admin.php:1161
+#@ wp-symposium-toolbar
+msgid "Item Borders"
+msgstr "Bordures des Éléments"
+
+#: wp-symposium-toolbar_admin.php:1163
+#@ wp-symposium-toolbar
+msgid "Border Width"
+msgstr "Largeur de Bordure"
+
+#: wp-symposium-toolbar_admin.php:1167
+#@ wp-symposium-toolbar
+msgid "Border Style"
+msgstr "Style de Bordure"
+
+#: wp-symposium-toolbar_admin.php:1169
+#: wp-symposium-toolbar_admin.php:1193
+#: wp-symposium-toolbar_admin.php:1219
+#: wp-symposium-toolbar_admin.php:1232
+#: wp-symposium-toolbar_admin.php:1245
+#: wp-symposium-toolbar_admin.php:1261
+#: wp-symposium-toolbar_admin.php:1374
+#: wp-symposium-toolbar_admin.php:1387
+#: wp-symposium-toolbar_admin.php:1400
+#: wp-symposium-toolbar_admin.php:1416
+#: wp-symposium-toolbar_admin.php:1494
+#: wp-symposium-toolbar_admin.php:1532
+#: wp-symposium-toolbar_admin.php:1545
+#: wp-symposium-toolbar_admin.php:1558
+#: wp-symposium-toolbar_admin.php:1574
+#: wp-symposium-toolbar_admin.php:1669
+#: wp-symposium-toolbar_admin.php:1682
+#: wp-symposium-toolbar_admin.php:1695
+#: wp-symposium-toolbar_admin.php:1711
+#@ wp-symposium-toolbar
+msgid "Default"
+msgstr "Défaut"
+
+#: wp-symposium-toolbar_admin.php:1178
+#@ wp-symposium-toolbar
+msgid "Border Left Colour"
+msgstr "Couleur de Bordure Gauche"
+
+#: wp-symposium-toolbar_admin.php:1182
+#@ wp-symposium-toolbar
+msgid "Border Right Colour"
+msgstr "Couleur de Bordure Droite"
+
+#: wp-symposium-toolbar_admin.php:1189
+#: wp-symposium-toolbar_admin.php:1356
+#: wp-symposium-toolbar_admin.php:1490
+#: wp-symposium-toolbar_admin.php:1649
+#@ wp-symposium-toolbar
+msgid "Font"
+msgstr "Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1217
+#: wp-symposium-toolbar_admin.php:1372
+#: wp-symposium-toolbar_admin.php:1530
+#: wp-symposium-toolbar_admin.php:1667
+#@ wp-symposium-toolbar
+msgid "Font Style"
+msgstr "Style"
+
+#: wp-symposium-toolbar_admin.php:1225
+#: wp-symposium-toolbar_admin.php:1380
+#: wp-symposium-toolbar_admin.php:1538
+#: wp-symposium-toolbar_admin.php:1675
+#@ wp-symposium-toolbar
+msgid "No Italic"
+msgstr "Pas d'Italique"
+
+#: wp-symposium-toolbar_admin.php:1230
+#: wp-symposium-toolbar_admin.php:1385
+#: wp-symposium-toolbar_admin.php:1543
+#: wp-symposium-toolbar_admin.php:1680
+#@ wp-symposium-toolbar
+msgid "Font Weight"
+msgstr "Poids"
+
+#: wp-symposium-toolbar_admin.php:1238
+#: wp-symposium-toolbar_admin.php:1393
+#: wp-symposium-toolbar_admin.php:1551
+#: wp-symposium-toolbar_admin.php:1688
+#@ wp-symposium-toolbar
+msgid "No Bold"
+msgstr "Pas de Gras"
+
+#: wp-symposium-toolbar_admin.php:1243
+#: wp-symposium-toolbar_admin.php:1398
+#: wp-symposium-toolbar_admin.php:1556
+#: wp-symposium-toolbar_admin.php:1693
+#@ wp-symposium-toolbar
+msgid "Font Line"
+msgstr "Lignes"
+
+#: wp-symposium-toolbar_admin.php:1251
+#: wp-symposium-toolbar_admin.php:1406
+#: wp-symposium-toolbar_admin.php:1564
+#: wp-symposium-toolbar_admin.php:1701
+#@ wp-symposium-toolbar
+msgid "Overlined"
+msgstr "Surligné"
+
+#: wp-symposium-toolbar_admin.php:1254
+#: wp-symposium-toolbar_admin.php:1409
+#: wp-symposium-toolbar_admin.php:1567
+#: wp-symposium-toolbar_admin.php:1704
+#@ wp-symposium-toolbar
+msgid "None"
+msgstr "Aucun"
+
+#: wp-symposium-toolbar_admin.php:1259
+#: wp-symposium-toolbar_admin.php:1414
+#: wp-symposium-toolbar_admin.php:1572
+#: wp-symposium-toolbar_admin.php:1709
+#@ wp-symposium-toolbar
+msgid "Font Case"
+msgstr "Casse"
+
+#: wp-symposium-toolbar_admin.php:1273
+#: wp-symposium-toolbar_admin.php:1428
+#: wp-symposium-toolbar_admin.php:1586
+#: wp-symposium-toolbar_admin.php:1723
+#@ wp-symposium-toolbar
+msgid "Normal"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1285
+#: wp-symposium-toolbar_admin.php:1439
+#: wp-symposium-toolbar_admin.php:1598
+#: wp-symposium-toolbar_admin.php:1734
+#@ wp-symposium-toolbar
+msgid "Font Shadow"
+msgstr "Ombre de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1292
+#: wp-symposium-toolbar_admin.php:1446
+#: wp-symposium-toolbar_admin.php:1605
+#: wp-symposium-toolbar_admin.php:1741
+#: wp-symposium-toolbar_admin.php:1786
+#@ wp-symposium-toolbar
+msgid "Horizontal"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1296
+#: wp-symposium-toolbar_admin.php:1450
+#: wp-symposium-toolbar_admin.php:1609
+#: wp-symposium-toolbar_admin.php:1745
+#: wp-symposium-toolbar_admin.php:1790
+#@ wp-symposium-toolbar
+msgid "Vertical"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1304
+#: wp-symposium-toolbar_admin.php:1458
+#: wp-symposium-toolbar_admin.php:1617
+#: wp-symposium-toolbar_admin.php:1753
+#@ wp-symposium-toolbar
+msgid "Font Shadow Colour"
+msgstr "Couleur de l'Ombre de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:1483
+#: wp-symposium-toolbar_admin.php:1642
+#@ wp-symposium-toolbar
+msgid "Background Colour for Highlighted Items"
+msgstr "Couleur de Fond pour les Éléments Surlignés"
+
+#: wp-symposium-toolbar_admin.php:1520
+#: wp-symposium-toolbar_admin.php:1657
+#@ wp-symposium-toolbar
+msgid "Font Colour for Highlighted Items"
+msgstr "Couleur de la Police de Caractères pour les Éléments Surlignés"
+
+#: wp-symposium-toolbar_admin.php:1764
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Shared Style"
+msgstr "Style Commun Barre d'Outils et Menus Déroulants"
+
+#: wp-symposium-toolbar_admin.php:1784
+#@ wp-symposium-toolbar
+msgid "Shadow"
+msgstr "Ombre"
+
+#: wp-symposium-toolbar_admin.php:1879
+#@ wp-symposium-toolbar
+msgid "If you would like to backup the plugin settings or export them to another site, copy the following into your favorite text editor and save as a text file.  Reciprocally, if you would like to update those settings with a previously saved set, paste into this field and click on \"Import\" below.  Note that this process will discard any changes you may have done at the other tabs.  Do not edit this information directly !"
+msgstr "Si vous souhaitez sauvegarder les réglages de cette extension ou les exporter vers un autre site, copiez ce qui suit dans votre éditeur de texte favori et sauvegardez au format texte.  Réciproquement, si vous souhaitez mettre à jour ces réglages à partir d'un jeu préalablement sauvegardé, collez-le dans ce champ et cliquez sur \"Import\".  Notez que ce processus annulera tout changement effectué sur l'un des autres onglets.  Ne pas éditer cette information directement !"
+
+#: wp-symposium-toolbar_admin.php:1903
+#: wp-symposium-toolbar_admin_functions.php:946
+#@ wp-symposium-toolbar
+msgid "Import from Main Site"
+msgstr "Importer depuis le site principal"
+
+#: wp-symposium-toolbar_admin_functions.php:602
+#: wp-symposium-toolbar_admin_functions.php:615
+#: wp-symposium-toolbar_admin_functions.php:626
+#: wp-symposium-toolbar_admin_functions.php:650
+#: wp-symposium-toolbar_admin_functions.php:659
+#: wp-symposium-toolbar_admin_functions.php:677
+#: wp-symposium-toolbar_admin_functions.php:683
+#: wp-symposium-toolbar_admin_functions.php:689
+#: wp-symposium-toolbar_admin_functions.php:709
+#: wp-symposium-toolbar_admin_functions.php:720
+#: wp-symposium-toolbar_admin_functions.php:744
+#: wp-symposium-toolbar_admin_functions.php:750
+#: wp-symposium-toolbar_admin_functions.php:756
+#: wp-symposium-toolbar_admin_functions.php:793
+#: wp-symposium-toolbar_admin_functions.php:806
+#: wp-symposium-toolbar_admin_functions.php:812
+#: wp-symposium-toolbar_admin_functions.php:818
+#: wp-symposium-toolbar_admin_functions.php:859
+#: wp-symposium-toolbar_admin_functions.php:865
+#: wp-symposium-toolbar_admin_functions.php:871
+#: wp-symposium-toolbar_admin_functions.php:883
+#: wp-symposium-toolbar_admin_functions.php:890
+#: wp-symposium-toolbar_admin_functions.php:896
+#: wp-symposium-toolbar_admin_functions.php:902
+#: wp-symposium-toolbar_admin_functions.php:908
+#@ wp-symposium-toolbar
+msgid "Integer value expected"
+msgstr "valeur entière attendue"
+
+#: wp-symposium-toolbar_admin_functions.php:883
+#@ wp-symposium-toolbar
+msgid "ranging from 0 to 100"
+msgstr "comprise entre 0 et 100"
+
+#: wp-symposium-toolbar_admin_functions.php:608
+#@ wp-symposium-toolbar
+msgid "Toolbar Background Colour"
+msgstr "Couleur de Fond de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:608
+#: wp-symposium-toolbar_admin_functions.php:620
+#: wp-symposium-toolbar_admin_functions.php:631
+#: wp-symposium-toolbar_admin_functions.php:639
+#: wp-symposium-toolbar_admin_functions.php:644
+#: wp-symposium-toolbar_admin_functions.php:664
+#: wp-symposium-toolbar_admin_functions.php:694
+#: wp-symposium-toolbar_admin_functions.php:702
+#: wp-symposium-toolbar_admin_functions.php:714
+#: wp-symposium-toolbar_admin_functions.php:725
+#: wp-symposium-toolbar_admin_functions.php:731
+#: wp-symposium-toolbar_admin_functions.php:761
+#: wp-symposium-toolbar_admin_functions.php:768
+#: wp-symposium-toolbar_admin_functions.php:773
+#: wp-symposium-toolbar_admin_functions.php:779
+#: wp-symposium-toolbar_admin_functions.php:784
+#: wp-symposium-toolbar_admin_functions.php:823
+#: wp-symposium-toolbar_admin_functions.php:830
+#: wp-symposium-toolbar_admin_functions.php:835
+#: wp-symposium-toolbar_admin_functions.php:841
+#: wp-symposium-toolbar_admin_functions.php:846
+#: wp-symposium-toolbar_admin_functions.php:876
+#: wp-symposium-toolbar_admin_functions.php:913
+#@ wp-symposium-toolbar
+msgid "Hexadecimal value expected"
+msgstr "valeur hexadécimale attendue"
+
+#: wp-symposium-toolbar_admin_functions.php:615
+#@ wp-symposium-toolbar
+msgid "Toolbar Gradient Top Height"
+msgstr "Hauteur du Dégradé Supérieur de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:620
+#@ wp-symposium-toolbar
+msgid "Toolbar Gradient Top Colour"
+msgstr "Couleur du Dégradé Supérieur de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:626
+#@ wp-symposium-toolbar
+msgid "Toolbar Gradient Bottom Height"
+msgstr "Hauteur du dégradé inférieur de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:631
+#@ wp-symposium-toolbar
+msgid "Toolbar Gradient Bottom Colour"
+msgstr "Couleur du dégradé inférieur de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:639
+#@ wp-symposium-toolbar
+msgid "Toolbar Border Left Colour"
+msgstr "Couleur de la bordure gauche de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:644
+#@ wp-symposium-toolbar
+msgid "Toolbar Border Right Colour"
+msgstr "Couleur de la bordure droite de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:650
+#@ wp-symposium-toolbar
+msgid "Toolbar Border Width"
+msgstr "Largeur des bordures de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:659
+#: wp-symposium-toolbar_admin_functions.php:793
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Size"
+msgstr "Taille de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:659
+#: wp-symposium-toolbar_admin_functions.php:689
+#: wp-symposium-toolbar_admin_functions.php:756
+#: wp-symposium-toolbar_admin_functions.php:793
+#: wp-symposium-toolbar_admin_functions.php:818
+#: wp-symposium-toolbar_admin_functions.php:871
+#: wp-symposium-toolbar_admin_functions.php:902
+#@ wp-symposium-toolbar
+msgid "greater than 0"
+msgstr "supérieur à zéro"
+
+#: wp-symposium-toolbar_admin_functions.php:664
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Colour"
+msgstr "Couleur de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:677
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Horizontal Shadow"
+msgstr "Composante Horizontale de l'Ombre de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:683
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Vertical Shadow"
+msgstr "Composante Verticale de l'Ombre de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:689
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Blur"
+msgstr "Flou de l'Ombre de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:694
+#@ wp-symposium-toolbar
+msgid "Toolbar Font Shadow Colour"
+msgstr "Couleur de l'Ombre de la Police de Caractères de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin_functions.php:702
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Background Colour"
+msgstr "Couleur de Fond de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:709
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Gradient Top Height"
+msgstr "Hauteur du Dégradé Supérieur de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:714
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Gradient Top Colour"
+msgstr "Couleur du Dégradé Supérieur de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:720
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Gradient Bottom Height"
+msgstr "Hauteur du dégradé inférieur de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:725
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Gradient Bottom Colour"
+msgstr "Couleur du dégradé inférieur de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:731
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Font Colour"
+msgstr "Couleur de la Police de Caractères de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:744
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Font Horizontal Shadow"
+msgstr "Composante Horizontale de l'Ombre de la Police de Caractères de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:750
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Font Vertical Shadow"
+msgstr "Composante Verticale de l'Ombre de la Police de Caractères de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:756
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Font Blur"
+msgstr "Flou de la Police de Caractères de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:761
+#@ wp-symposium-toolbar
+msgid "Toolbar Hover Font Shadow Colour"
+msgstr "Couleur de l'Ombre de la Police de Caractères de la Barre d'Outils au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:768
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Background Colour"
+msgstr "Couleur de Fond des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:779
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Colour"
+msgstr "Couleur de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:784
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Colour for Highlighted Items"
+msgstr "Couleur de la Police de Caractères des Menus Déroulants pour les Éléments Surlignés"
+
+#: wp-symposium-toolbar_admin_functions.php:806
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Horizontal Shadow"
+msgstr "Composante Horizontale de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:812
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Vertical Shadow"
+msgstr "Composante Verticale de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:818
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Blur"
+msgstr "Flou de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:823
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Font Shadow Colour"
+msgstr "Couleur de l'Ombre de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:830
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Background Colour"
+msgstr "Couleur de Fond des Menus Déroulants au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:841
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Colour"
+msgstr "Couleur de la Police de Caractères des Menus Déroulants au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:846
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Colour for Highlighted Items"
+msgstr "Couleur de la Police de Caractères des Menus Déroulants pour les Éléments Surlignés au Survol de la Souris"
+
+#: wp-symposium-toolbar_admin_functions.php:859
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Horizontal Shadow"
+msgstr "Composante horizontale de l'Ombre de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:865
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Vertical Shadow"
+msgstr "Composante verticale de l'Ombre de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:871
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Blur"
+msgstr "Flou de l'Ombre de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:876
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Font Shadow Colour"
+msgstr "Couleur de l'Ombre de la Police de Caractères des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:890
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Horizontal Shadow"
+msgstr "Composante horizontale de l'ombre de la Barre d'Outils et des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:896
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Vertical Shadow"
+msgstr "Composante verticale de l'ombre de la Barre d'Outils et des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:902
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Shadow Blur"
+msgstr "Flou de l'ombre de la Barre d'Outils et des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:908
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Shadow Spread"
+msgstr "Portée de l'ombre de la Barre d'Outils et des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:913
+#@ wp-symposium-toolbar
+msgid "Toolbar and Dropdown Menus Shadow Colour"
+msgstr "Couleur de l'ombre de la Barre d'Outils et des Menus Déroulants"
+
+#: wp-symposium-toolbar_help.php:36
+#@ wp-symposium-toolbar
+msgid "The WP Toolbar is the area of the screen just above a WordPress site that contains useful links to the administration part of the site, the content management, as well as the user account.  It is displayed both in the backend (this dashboard) and the frontend (public part) of the site.  Whenever the user scrolls down the page, the Toolbar remains visible, providing a quick access to these links."
+msgstr "La Barre d'Outils WordPress et la zone située en haut de l'écran, juste au-dessus d'un site WordPress et contenant des liens utiles vers la partie administration du site, la gestion de contenu, ainsi que le compte personnel.  Elle est affichée aussi bien dans la partie arrière (ce tableau de bord) que la partie publique du site.  Lorsque l'utilisateur fait défiler la page vers le bas, la Barre d'Outils reste visible, fournissant un accès rapide à ces liens."
+
+#: wp-symposium-toolbar_help.php:36
+#@ wp-symposium-toolbar
+msgid "This plugin allows you to change the default behaviour of the WP Toolbar, and customize its display."
+msgstr "Cette extension vous permet de modifier le comportement par défaut de la Barre d'Outils WordPress, et de personnaliser son affichage."
+
+#: wp-symposium-toolbar_help.php:79
+#@ wp-symposium-toolbar
+msgid "Select your menu title, the location where you want it to show, and select the roles for which it should be displayed. Optionally, you may specify a custom icon for the toplevel menu item (full URL)."
+msgstr "Sélectionnez le titre de votre menu, l'emplacement où vous voulez qu'il s'affiche, et les rôles pour lesquels il doit s'afficher.  Optionnellement, vous pouvez préciser une icône personnalisée pour l'élément de haut niveau du menu (URL complète)."
+
+#: wp-symposium-toolbar_help.php:106
+#@ wp-symposium-toolbar
+msgid "The Toolbar Hover/Focus Style is used when a Toolbar item gets the mouse over it, and keeps this style when a dropdown menu opens underneath that the mouse follows. Likewise, dropdown menu items will get Hover/Focus Style along with the mouse, and when a submenu opens."
+msgstr "Le Style Survol / Focus de la Barre d'Outils est utilisé lorsqu'un élément de la Barre d'Outils reçoit la souris, et conserve ce style lorsqu'un menu déroulant s'ouvre, tant que la souris le suit.  De façon similaire, ce style est utilisé par les éléments des menus déroulants lorsqu'ils reçoivent la souris et tant qu'un sous-menu est ouvert."
+
+#: wp-symposium-toolbar_help.php:107
+#@ wp-symposium-toolbar
+msgid "This plugin uses the native inheritance mechanism of CSS (Cascading Style Sheets), so if you don't define a given attribute it'll be inherited from either WordPress Toolbar default attributes, your theme or any other plugin or custom modification."
+msgstr "Cette extension utilise le mécanisme d'héritage du CSS (Cascading Style Sheets), si bien que lorsque vous ne donnez aucune valeur à un attribut, celle-ci sera héritée de la Barre d'Outils WordPress, de votre thème, ou de tout autre extension ou modification que vous pourriez avoir ajoutée."
+
+#: wp-symposium-toolbar_help.php:107
+#@ wp-symposium-toolbar
+msgid "The other settings of this plugin will also play their role."
+msgstr "Les autres réglages de cette extension jouent également leur rôle."
+
+#: wp-symposium-toolbar_help.php:107
+#@ wp-symposium-toolbar
+msgid "The general rule for the plugin is that background colours will use WP default colours if they are left empty, whereas font family / size / attributes set by the plugin will be propagated accross the Toolbar and dropdown menus."
+msgstr "En règle générale pour cette extension, les couleurs utiliseront les couleurs par défaut de WordPress si elles sont laissées vides, tandis que les attributs de police de caractères définis par l'extension seront propagés dans la Barre d'Outils et ses Menus Déroulants."
+
+#: wp-symposium-toolbar_help.php:107
+#@ wp-symposium-toolbar
+msgid "Unless you're unhappy with a given value, it is preferable to let CSS cascading styles by using \"default\" or leave a field empty."
+msgstr "Sauf si vous n'êtes pas satisfait d'une valeur donnée, il est préférable de laisser les styles en cascade en sélectionnant \"défaut\" ou en laissant un champ vide."
+
+#: wp-symposium-toolbar_help.php:108
+#@ wp-symposium-toolbar
+msgid "Please be aware of dependancies accross the settings: a gradient needs a background colour, a border colour requires the other border settings, etc...."
+msgstr "Méfiez-vous des dépendances entre réglages de style : un dégradé nécessite une couleur principale, une couleur de bordure nécessite que les autres paramètres de bordure soient positionnés également, etc...."
+
+#: wp-symposium-toolbar_help.php:108
+#@ wp-symposium-toolbar
+msgid "Use the preview to create your custom style, and save from the button at the bottom of this tab."
+msgstr "Utilisez la prévisualisation pour créer votre style personnalisé, et sauvegardez depuis le bouton en bas de la page."
+
+#: wp-symposium-toolbar_help.php:105
+#@ wp-symposium-toolbar
+msgid "The Styles are split into several boxes that will allow you to customize the Toolbar and the Dropdown Menus, both their normal and hover/focus styles, while the last box deals with a few shared attributes."
+msgstr "Les Styles sont scindés en plusieurs boites vous permettant de personnaliser la Barre d'Outils et ses Menus Déroulants, aussi bien en mode normal qu'en mode survol. La dernière boite d'options regroupe des réglages communs à la Barre d'Outils et ses Menus Déroulants."
+
+#: wp-symposium-toolbar_admin.php:229
+#@ wp-symposium-toolbar
+msgid "The Ultimate WordPress Toolbar Plugin"
+msgstr "L'Extension Ultime pour la Barre d'Outils WordPress"
+
+#: wp-symposium-toolbar_admin_functions.php:934
+#@ wp-symposium-toolbar
+msgid "The following settings could not be saved:"
+msgstr "Les options suivantes n'ont pu être sauvegardées :"
+
+#: wp-symposium-toolbar_admin_functions.php:969
+#@ wp-symposium-toolbar
+msgid "please check the menu settings from the Custom Menu tab, and save"
+msgstr "veuillez vérifier les réglages du menu à l'onglet des Menus Personnalisés, et sauvegarder"
+
+#: wp-symposium-toolbar_admin_functions.php:970
+#@ wp-symposium-toolbar
+msgid "please check plugin settings, and save"
+msgstr "veuillez vérifier les réglages de l'extension, et sauvegarder"
+
+#: wp-symposium-toolbar_admin_functions.php:1059
+#@ wp-symposium-toolbar
+msgid "unknown menu"
+msgstr "menu inconnu"
+
+#: wp-symposium-toolbar_admin_functions.php:1064
+#@ wp-symposium-toolbar
+msgid "unknown location"
+msgstr "emplacement inconnu"
+
+#: wp-symposium-toolbar_admin_functions.php:1006
+#: wp-symposium-toolbar_admin_functions.php:1074
+#: wp-symposium-toolbar_admin_functions.php:1097
+#@ wp-symposium-toolbar
+msgid "unknown role"
+msgstr "rôle inconnu"
+
+#: wp-symposium-toolbar_admin_functions.php:1150
+#@ wp-symposium-toolbar
+msgid "No option to import!!"
+msgstr "Aucune option à importer !!"
+
+#: wp-symposium-toolbar_admin.php:44
+#@ wp-symposium-toolbar
+msgid "Warning"
+msgstr "Attention"
+
+#: wp-symposium-toolbar_admin.php:51
+#@ wp-symposium-toolbar
+msgid "Important"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1144
+#@ wp-symposium-toolbar
+msgid "The following errors occured during import and the corresponding options couldn't be taken into account"
+msgstr "Les erreurs suivantes se sont produites durant l'import et les options correspondantes n'ont pu être prises en compte"
+
+#: wp-symposium-toolbar_admin_functions.php:1146
+#@ wp-symposium-toolbar
+msgid "The following error occured during import and the corresponding option couldn't be taken into account"
+msgstr "L'erreur suivante s'est produite durant l'import et l'option correspondante n'a pu être prise en compte"
+
+#: wp-symposium-toolbar_admin_functions.php:50
+#@ wp-symposium-toolbar
+msgid "CSS"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:962
+#@ wp-symposium-toolbar
+msgid "Display the notification icons only when an event occurs: new mail, new friend request"
+msgstr "Afficher les icônes de notification uniquement lorsqu'un nouvel évènement survient : nouvel email, nouvelle amitié"
+
+#: wp-symposium-toolbar_admin.php:1824
+#@ wp-symposium-toolbar
+msgid "This hidden tab allows you to edit the CSS as it is sent for display in page headers.  Bear in mind that saving from any other tab will update the CSS from the Styles at the other tab, hence erasing any change performed here. Use this only for tests !!"
+msgstr "Cet onglet caché vous permet d'éditer le CSS qui est injecté dans les en-têtes de pages. Conservez en tête qu'une sauvegarde depuis tout autre onglet mettra à jour le CSS à partir du contenu de l'autre onglet Styles, si bien que toute modification effectuée ici sera perdue. N'utilisez ceci que pour tests !!"
+
+#: wp-symposium-toolbar_admin.php:962
+#@ wp-symposium-toolbar
+msgid "Alert Mode, like the WordPress Updates icon"
+msgstr "Mode Alerte, comme l'icône de Mises à Jour WordPress"
+
+#: wp-symposium-toolbar_help.php:90
+#@ wp-symposium-toolbar
+msgid "You may decide to show them only when a new event occurs, like a new mail or a new friendship. The behaviour will then be that of the WordPress Updates icon as opposed to the Comments icon which is always displayed by default."
+msgstr "Vous pouvez décider de ne les afficher que lorsqu'un nouvel évènement survient, nouvel email ou nouvelle amitié. Le comportement est alors celui de l'icône des Mises à Jour Wordpress, par opposition à celle des Commentaires qui reste toujours affichée."
+
+#: wp-symposium-toolbar_functions.php:61
+#@ wp-symposium-toolbar
+msgid "User"
+msgstr "Utilisateur"
+
+#: wp-symposium-toolbar_admin.php:445
+#: wp-symposium-toolbar_admin.php:696
+#: wp-symposium-toolbar_admin.php:705
+#: wp-symposium-toolbar_admin.php:808
+#: wp-symposium-toolbar_admin.php:902
+#: wp-symposium-toolbar_admin.php:997
+#: wp-symposium-toolbar_admin.php:2200
+#@ wp-symposium-toolbar
+msgid "Important!"
+msgstr "Important !"
+
+#: wp-symposium-toolbar_admin.php:445
+#@ wp-symposium-toolbar
+msgid "There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!"
+msgstr "Il y a un problème avec l'option enregistrée dans votre base de données pour cet élément : veuillez vérifier vos réglages, et enregistrer pour essayer de résoudre le problème !"
+
+#: wp-symposium-toolbar_admin.php:697
+#: wp-symposium-toolbar_admin.php:998
+#@ wp-symposium-toolbar
+msgid "There is an issue with the options stored in your database for this item: please check your settings, and try saving to fix the issue!"
+msgstr "Il y a un problème avec les options enregistrées dans votre base de données pour cet élément : veuillez vérifier vos réglages, et enregistrer pour essayer de résoudre le problème !"
+
+#: wp-symposium-toolbar_admin.php:809
+#, php-format
+#@ wp-symposium-toolbar
+msgid "The WP NavMenu \"%s\" could not be found: please select an existing NavMenu and save, or go to the Appearance > Menus page to create this menu!"
+msgstr "Le Menu de Navigation \"%s\" n'a pu être trouvé : veuillez sélectionner un Menu existant et enregistrer le changement, ou aller à la page Apparence > Menus pour recréer ce menu !"
+
+#: wp-symposium-toolbar_admin.php:903
+#@ wp-symposium-toolbar
+msgid "There are issues with the menus defined on your Toolbar: please check your settings!"
+msgstr "Il y a des problèmes dans la définition des menus pour votre Barre d'Outils : veuillez vérifier vos réglages !"
+
+#: wp-symposium-toolbar_admin.php:2200
+#@ wp-symposium-toolbar
+msgid "There is an issue with the roles stored in your database for this item: please check your settings, and try saving to fix the issue!"
+msgstr "Il y a un problème avec les rôles enregistrés dans votre base de données pour cet élément : veuillez vérifier vos réglages, et enregistrer pour essayer de résoudre le problème !"
+
+#: wp-symposium-toolbar_admin_functions.php:773
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Background Colour for Highlighted Items"
+msgstr "Couleur du Fond pour les Éléments Surlignés des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin_functions.php:835
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Hover Background Colour for Highlighted Items"
+msgstr "Couleur du Fond en Survol des Éléments Surlignés des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin.php:1316
+#@ wp-symposium-toolbar
+msgid "Toolbar Items Hover & Focus"
+msgstr "Survol & Focus des Éléments de la Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:1469
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus"
+msgstr "Menus Déroulants"
+
+#: wp-symposium-toolbar_admin.php:1628
+#@ wp-symposium-toolbar
+msgid "Dropdown Menus Items Hover & Focus"
+msgstr "Survol & Focus des Éléments des Menus Déroulants"
+
+#: wp-symposium-toolbar_admin.php:894
+#, php-format
+#@ wp-symposium-toolbar
+msgid "The role %s cannot see the menu %s defined at the location \"%s\", since it is also defined for this role at the location \"%s\" which takes precedence."
+msgstr "Le rôle %s ne peut voir le menu %s défini à l'emplacement  \"%s\", car il est également défini pour ce rôle à l'emplacement  \"%s\" qui a la priorité."
+
+#: wp-symposium-toolbar_admin.php:665
+#@ wp-symposium-toolbar
+msgid "Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection"
+msgstr "Réécrire l'URL Éditer Mon Profil, pour le rediriger vers la page suivante, laisser vide pour pas de redirection"
+
+#: wp-symposium-toolbar_admin.php:672
+#@ wp-symposium-toolbar
+msgid "Autodetect the full path to the WPS Profile page with"
+msgstr "Auto-détection du chemin complet vers la page Profil WPS avec"
+
+#: wp-symposium-toolbar_admin_functions.php:521
+#: wp-symposium-toolbar_admin_functions.php:534
+#: wp-symposium-toolbar_admin_functions.php:536
+#@ wp-symposium-toolbar
+msgid "Rewrite Edit Link"
+msgstr "Réécrire le lien Éditer Mon Profil"
+
+#: wp-symposium-toolbar_admin_functions.php:521
+#@ wp-symposium-toolbar
+msgid "the alias symposium_profile shall be used alone, as a placeholder for a fully autodetected URL"
+msgstr "l'alias symposium_profile doit être utilisé seul, comme marqueur pour un chemin complet détecté automatiquement"
+
+#: wp-symposium-toolbar_admin_functions.php:534
+#@ wp-symposium-toolbar
+msgid "local URL expected"
+msgstr "URL locale attendue"
+
+#: wp-symposium-toolbar_admin_functions.php:536
+#@ wp-symposium-toolbar
+msgid "valid URL expected"
+msgstr "URL valide attendue"
+
+#: wp-symposium-toolbar_admin_functions.php:929
+#@ wp-symposium-toolbar
+msgid "Errors occured when saving options:"
+msgstr "Des erreurs se sont produites lors de la sauvegarde des options :"
+
+#: wp-symposium-toolbar_admin_functions.php:929
+#: wp-symposium-toolbar_admin_functions.php:931
+#@ wp-symposium-toolbar
+msgid "Other options were saved successfully"
+msgstr "Les autres options ont été sauvegardées avec succès"
+
+#: wp-symposium-toolbar_admin_functions.php:931
+#@ wp-symposium-toolbar
+msgid "One error occured when saving options:"
+msgstr "Une erreur s'est produite lors de la sauvegarde des options :"
+
+#: wp-symposium-toolbar_admin_functions.php:1144
+#: wp-symposium-toolbar_admin_functions.php:1146
+#@ wp-symposium-toolbar
+msgid "Other options (if any) have been imported successfully"
+msgstr "Les autres options (s'il y en avait) ont été importées avec succès"
+
+#: wp-symposium-toolbar_admin.php:234
+#@ wp-symposium-toolbar
+msgid "At any time, you may refer to the help tabs on top of this page for a description of the options."
+msgstr "A tout moment, vous pouvez vous référer aux onglets d'aide situés en haut de cette page pour une description des options."
+
+#: wp-symposium-toolbar_admin.php:244
+#@ wp-symposium-toolbar
+msgid "You need Javascript to navigate through the tabs."
+msgstr "Vous devez activer Javascript pour parcourir les onglets."
+
+#: wp-symposium-toolbar_admin.php:1917
+#@ wp-symposium-toolbar
+msgid "The following is a quick introduction to the plugin options page."
+msgstr "Ce qui suit est une introduction rapide à la page d'options de l'extension."
+
+#: wp-symposium-toolbar_admin.php:1917
+#@ wp-symposium-toolbar
+msgid "It aims at completing the WP Help tabs in an obviously non size-constrained and little less formal way, by further developing the help and providing hints, do's, don't's...."
+msgstr "Son but est de compléter les onglets d'aide WP dans un format manifestement moins contraint en place, et un style moins formel, en développant l'aide et fournissant des conseils, trucs à faire, à ne pas faire,..."
+
+#: wp-symposium-toolbar_admin.php:1922
+#: wp-symposium-toolbar_admin.php:2133
+#@ wp-symposium-toolbar
+msgid "Roles"
+msgstr "Rôles"
+
+#: wp-symposium-toolbar_admin.php:1923
+#@ wp-symposium-toolbar
+msgid "First of all, I would like to point out a few ideas behind the roles when using WPS Toolbar. Some of the settings of the plugin are defined on a per-role basis. In addition to the roles that are defined on your site, you may find within these settings, roles that don't correspond to anything. They are, really, only that: pseudo-roles, used internally by the plugin, but not formally registrered as roles within your WordPress site."
+msgstr "Pour commencer, je voudrais mettre en avant un point important au sujet des rôles utilisés par WPS Toolbar. Certains des paramètres de l'extension sont proposés par rôle. En plus des rôles qui sont définis sur votre site, vous trouverez des rôles qui ne correspondent à rien. Ce ne sont, en réalité, que des pseudo-rôles, utilisés en interne par l'extension, et non formellement enregistrés en tant que tels dans votre site WordPress."
+
+#: wp-symposium-toolbar_admin.php:1924
+#@ wp-symposium-toolbar
+msgid "The first pseudo-role is called \"Visitor\". As its name states, this role is used by the plugin to qualify non-users of your site or network of sites. Use this role to show the Toolbar and some of its items, as well as your custom menus, to your site's visitors and non logged-in users."
+msgstr "Le premier pseudo-rôle est appelé \"Visiteur\". Ainsi que son nom l'indique, ce rôle est utilisé pour qualifier les non-utilisateurs de votre site ou réseau de sites. Utilisez ce rôle pour montrer la Barre d'Outils et ce qu'elle contient, ainsi que vos Menus Personnalisés, aux visiteurs de votre site ainsi qu'à ses membres lorsqu'ils ne sont pas identifiés."
+
+#: wp-symposium-toolbar_admin.php:1925
+#@ wp-symposium-toolbar
+msgid "In addition to \"Visitor\", Multisites Admins will find checkboxes called \"User\". This role is used to qualify users of the network that may not be member of the browsed site, hence have no role / no capability on this site."
+msgstr "Outre \"Visiteur\", les administrateurs de réseaux multisites trouveront des cases à cocher appelées \"Utilisateur\". Ce rôle sert à qualifier les utilisateurs du réseau qui ne seraient pas membre du site parcouru, et donc n'ont aucun rôle sur ce site."
+
+#: wp-symposium-toolbar_admin.php:1925
+#@ wp-symposium-toolbar
+msgid "In addition to the WP User Menu, you may display specific navigation items via custom menus, like a link to the Register page so they can subscribe to the site, or links to WP Symposium that might be activated somewhere else in the network."
+msgstr "Vous pouvez ainsi afficher des éléments de navigation spécifiques au Menu Utilisateur WP, via les Menus Personnalisés, par exemple un lien vers la page d'enregistrement afin qu'ils puissent souscrire à ce site, ou des liens vers WP Symposium qui pourrait être activé ailleurs sur le réseau."
+
+#: wp-symposium-toolbar_admin.php:1925
+#@ wp-symposium-toolbar
+msgid "Of course if you haven't activated Multisites, you will not see this pseudo-role."
+msgstr "Bien sûr, si vous n'avez pas activé le mode multisites, vous ne verrez pas ce pseudo-rôle."
+
+#: wp-symposium-toolbar_admin.php:1932
+#@ wp-symposium-toolbar
+msgid "The key option of the plugin is the very first one of the tab. If your aim is to completely hide the WP Toolbar, regardless of members roles, you should probably look for another option: WPS Toolbar can do that, indeed, and will do what you ask it to do, but there are other, easier and lighter ways to hide the Toolbar without putting this whole plugin into action."
+msgstr "L'option essentielle de l'extension est la toute première de l'onglet. Si votre but est de masquer complètement la Barre d'Outils pour tous les rôles, vous devriez probablement chercher une autre solution. WPS Toolbar peut faire cela bien sûr, et fera ce que vous demandez, mais il existe des solutions plus simples et plus légères pour masquer complètement la Barre d'Outils, que de mettre en oeuvre cette extension dans son intégralité."
+
+#: wp-symposium-toolbar_admin.php:1933
+#@ wp-symposium-toolbar
+msgid "In addition to the roles to select, you can force the display of the Toolbar for these roles. This could be needed if you put navigation menus that are nowhere else on your site, and that you don't want your users to hide."
+msgstr "En addition à la sélection de rôles, vous pouvez forcer l'affichage de la Barre d'Outils pour ces rôles. Ceci peut s'avérer nécessaire si vous placez des menus de navigation qui ne se trouvent nul part ailleurs sur votre site, et que vous ne voulez pas que vos utilisateurs masquent."
+
+#: wp-symposium-toolbar_admin.php:1936
+#@ wp-symposium-toolbar
+msgid "The WP Logo can be used as a menu location : for a given role, if you choose to hide the WP Logo menu but attach a custom menu to it, your menu will <span style=\"font-style: italic;\">replace</span> the default WordPress menu. If you choose to show the default menu, your custom menu will be <span style=\"font-style: italic;\">appended</span> to it."
+msgstr "Le Logo WP peut être utilisé comme emplacement pour un menu personnalisé : pour un rôle donné, si vous choisissez de masquer le menu associé au logo WP mais attachez un Menu Personnalisé, votre menu va <span style=\"font-style: italic;\">remplacer</span> le menu par défaut. Si vous choisissez d'afficher le menu par défaut, votre menu sera <span style=\"font-style: italic;\">ajouté</span> au menu par défaut."
+
+#: wp-symposium-toolbar_admin.php:1937
+#@ wp-symposium-toolbar
+msgid "Moreover, when replacing the WP Logo menu, it is mandatory to use a custom menu contained in one single toplevel item that will be attached to the Toolbar, otherwise the first parentless item will be used as parent for any further parentless item. Make your own experience here..."
+msgstr "De plus, lors du remplacement du menu Logo WP, il est primordial d'utiliser un Menu Personnalisé contenu dans un seul élément de haut niveau qui sera attaché à la Barre d'Outils, faute de quoi le premier élément sans parent sera utilisé comme conteneur de tous les autres éléments sans parent. Faites quelques essais..."
+
+#: wp-symposium-toolbar_admin.php:1939
+#@ wp-symposium-toolbar
+msgid "By default WordPress never hides the Comments bubble, even when there is no comment to handle. If you do know that you'll never receive any comments since you have deactivated those from the posts settings or replaced them with forum topics, you could hide the icon from here so that it never shows."
+msgstr "Par défaut, WordPress ne masque jamais la Bulle des Commentaires, même lorsqu'il n'y a aucun commentaire à gérer. Si vous êtes certain de ne jamais recevoir de commentaires, parceque vous avez désactivé ceux-ci depuis les réglages des articles, ou remplacé les commentaires par un forum, vous pouvez masquer la Bulle des Commentaires ici, et elle ne sera jamais affichée."
+
+#: wp-symposium-toolbar_admin.php:1940
+#@ wp-symposium-toolbar
+msgid "Author Links"
+msgstr "Liens Auteur"
+
+#: wp-symposium-toolbar_admin.php:1941
+#@ wp-symposium-toolbar
+msgid "By author's links, I mean the Add New, the Shortlink and the Modify links. If your theme provides such links lower in the page and you wish to avoid duplication, you could hide them from here."
+msgstr "Par liens auteur, je veux parler du menu Créer, du lien court ou des liens Modifier. Si votre thème propose ces liens plus bas dans la page et que vous souhaitez éviter une redondance, vous pouvez les masquer ici."
+
+#: wp-symposium-toolbar_admin.php:1943
+#@ wp-symposium-toolbar
+msgid "This menu is also called \"My Account\" in WordPress litterature and code, it contains information related to the member account. Its toplevel item (made of both the avatar and the Howdy) makes this menu special, so that the plugin offers different alternatives to customize it, depending on whether you want to show its toplevel item or not."
+msgstr "Ce menu est également appelé \"Mon Compte\" dans la littérature WordPress et le code, il contient des informations relatives au compte du membre. Son élément de haut niveau (fait de l'avatar associé au message de bienvenue) rend ce menu spécial, si bien que l'extension offre différentes possibilités pour le personnaliser, selon que vous voulez afficher cet élément de haut niveau ou non."
+
+#: wp-symposium-toolbar_admin.php:1944
+#@ wp-symposium-toolbar
+msgid "If you wish to hide the menu as well as its toplevel item, you may hide it from the \"Toolbar\" tab."
+msgstr "Si vous souhaitez masquer le menu ainsi que son élément de haut niveau, vous pouvez les masquer depuis l'onglet \"Barre d'Outils\"."
+
+#: wp-symposium-toolbar_admin.php:1944
+#@ wp-symposium-toolbar
+msgid "If you wish to replace it with your custom menu, you should then use the location \"Left of User Menu\" for your custom menu, that will give the desired result."
+msgstr "Si vous souhaitez le remplacer avec votre Menu Personnalisé, vous pouvez alors utiliser l'emplacement \"A gauche du Menu Utilisateur\" ce qui produira le résultat désiré."
+
+#: wp-symposium-toolbar_admin.php:1945
+#@ wp-symposium-toolbar
+msgid "If you wish to replace the default User Menu with your custom menu over the Howdy and / or the small avatar, you should uncheck all items from the \"WP User Menu\" tab."
+msgstr "Si vous souhaitez remplacer le Menu Utilisateur par défaut par votre propre Menu Personnalisé tout en conservant l'avatar et le message de bienvenue, vous pouvez désélectionner tous les éléments de menu depuis l'onglet \"Menu Utilisateur WP\"."
+
+#: wp-symposium-toolbar_admin.php:1945
+#@ wp-symposium-toolbar
+msgid "You may then append your custom menu to the User Menu and it'll show under the Howdy."
+msgstr "Vous pouvez alors ajouter votre Menu Personnalisé au Menu Utilisateur et il s'affichera sous le message de bienvenue."
+
+#: wp-symposium-toolbar_admin.php:1946
+#@ wp-symposium-toolbar
+msgid "The key idea I want to stress here, is that if you hide the WP User Menu but attach a custom menu to it, none of the menus will be displayed, neither will be displayed the Howdy message and the avatar in the Toolbar."
+msgstr "Le message important que je souhaite faire passer est que si vous masquez le Menu Utilisateur WP tout en y attachant un Menu Personnalisé, aucun des deux menus ne s'affichera, pas plus que ne seront affichés le message de bienvenue et le petit avatar dans la Barre d'Outils."
+
+#: wp-symposium-toolbar_admin.php:1947
+#@ wp-symposium-toolbar
+msgid "Search Field"
+msgstr "Champ de Recherche"
+
+#: wp-symposium-toolbar_admin.php:1955
+#@ wp-symposium-toolbar
+msgid "From this tab, customize the content of the User Menu."
+msgstr "A cet onglet, personnalisez le contenu du Menu Utilisateur."
+
+#: wp-symposium-toolbar_admin.php:1955
+#@ wp-symposium-toolbar
+msgid "These options should be relatively straightforward : the first set of options deal with the menu toplevel item in the Toolbar, while the second set of options describes how this menu should look like. The last option allows you to add extra information to this menu."
+msgstr "Ces options devraient être relativement évidentes : le premier groupe d'options concerne l'élément de niveau haut du menu dans la Barre d'Outils, tandis que le second ensemble d'options décrit à quoi le menu doit ressembler. La dernière option vous permet d'ajouter un élément supplémentaire au menu."
+
+#: wp-symposium-toolbar_admin.php:1956
+#@ wp-symposium-toolbar
+msgid "If interrested in populating this menu with custom information, advanced users may refer to the Developers' Guide available from this page, and check out the hooks proposed by the plugin."
+msgstr "Les utilisateurs avancés qui souhaitent ajouter des informations personnelles à ce menu pourront consulter le Guide Développeur disponible à cette page, où ils trouveront une description des crochets proposés par l'extension."
+
+#: wp-symposium-toolbar_admin.php:1966
+#@ wp-symposium-toolbar
+msgid "You may choose to display your custom icon to the toplevel of this menu. Upload it somewhere on your server, either via FTP or using the WP Media Manager, and enter its URL into the corresponding field."
+msgstr "Vous pouvez ajouter votre propre icône à l'élément de haut niveau de votre menu.  Téléchargez l'icône quelque part sur votre serveur, soit via FTP soit en utilisant le Gestionnaire de Médias WordPress, puis entrez son URL dans le champ correspondant."
+
+#: wp-symposium-toolbar_admin.php:1967
+#@ wp-symposium-toolbar
+msgid "When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be replaced with this icon. If you wish to have several icons, you should create several custom menus."
+msgstr "Si vous utilisez des icônes avec vos menus, il est recommandé d'utiliser un seul élément de haut niveau, autrement tous les éléments de votre menu seront remplacés avec cette icône. Si vous souhaitez plusieurs icônes, créez plusieurs menus personnalisés."
+
+#: wp-symposium-toolbar_admin.php:1973
+#@ wp-symposium-toolbar
+msgid "On WP Symposium installations, the plugin adds a dedicated tab for WPS admins."
+msgstr "Pour les installations utilisant WP Symposium, l'extension ajoute un onglet dédié pour l'administration WPS."
+
+#: wp-symposium-toolbar_admin.php:1974
+#@ wp-symposium-toolbar
+msgid "This tab allows you to add to the Toolbar, the WPS admin menu as mirrored from the Dashboard sidebar. Obviously, only admins will see this menu."
+msgstr "Cet onglet vous permet d'ajouter à la Barre d'Outils un menu admin WPS, dont le contenu réplique celui du menu latéral de l'administration WordPress. Bien évidemment, seuls les admins verront ce menu."
+
+#: wp-symposium-toolbar_admin.php:1975
+#@ wp-symposium-toolbar
+msgid "You may also choose to display notification icons for mail and friendship to the Toolbar. These can be added based on member's role."
+msgstr "Vous pouvez également choisir d'ajouter à la Barre d'Outils des icônes de notification pour les emails et les amis, ceci en fonction du rôle de l'utilisateur."
+
+#: wp-symposium-toolbar_admin.php:1977
+#@ wp-symposium-toolbar
+msgid "The last checkbox at this tab will re-generate for you the WPS menus available at the NavMenus page of the WP Dashboard, which were created upon first activation of the plugin. If it ever appears that these menus weren't properly created, or if you've modified them to the point you've messed up everything, you may ask the plugin to re-generate them for you. As instructed, delete the menu you'd like to replace, check this box, and save the options. The plugin will then re-create missing menus, without modifying the existing ones."
+msgstr "La dernière case à cocher de cet onglet vous permet de re-générer les menus WPS disponibles à la page des Menus de Navigation du tableau d'administration de WordPress, tels qu'ils ont été créés lors de la première activation de l'extension. Si jamais il apparaît que ces menus n'ont pas été correctement créés, ou si vous les avez modifiés au point d'avoir tout détruit, vous pouvez demander à l’extension de le recréer pour vous. Ainsi qu'indiqué sur la page d'options, supprimez le menu à remplacer, cochez cette case et sauvegardez. L'extension va alors recréer les menus manquants, sans modifier les autres."
+
+#: wp-symposium-toolbar_admin.php:1984
+#@ wp-symposium-toolbar
+msgid "Styling settings are split into the two main components: the Toolbar itself and its dropdown menus, each of them being addressed through settings gathered in two families: one for normal style, and one for hover / focus."
+msgstr "Les réglages de style sont scindés en deux composants principaux : la Barre d'Outils proprement dite, et ses menus déroulants, chacun d'eux étant divisé en deux familles regroupant les réglages pour le mode normal, et ceux pour le mode survol / focus."
+
+#: wp-symposium-toolbar_admin.php:1984
+#@ wp-symposium-toolbar
+msgid "The hover style is used when the mouse moves over an item, and the focus style is used for an item when a submenu opens below that item and the mouse follows that menu."
+msgstr "Les style survol est utilisé lorsque la souris passe au-dessus d'un élément, et le style focus est utilisé pour un élément en face duquel un sous-menu s'ouvre, et lorsque la souris suit ce menu."
+
+#: wp-symposium-toolbar_admin.php:1984
+#@ wp-symposium-toolbar
+msgid "Each of these sections contains subsections dealing with: background, fonts, borders, shadow,..."
+msgstr "Chacune de ces sections contient des sous-sections concernant le fond, la police de caractères, les bordures, l'ombre,..."
+
+#: wp-symposium-toolbar_admin.php:1987
+#@ wp-symposium-toolbar
+msgid "It should be stressed here that the plugin uses the native inheritance mechanism of CSS (Cascading Style Sheets), so that its impact on page load is limited to the only elements you want to re-style. This means that if you don't define a given attribute it'll be inherited from either WordPress Toolbar default attributes, your theme, any other plugin or custom modification you may have made, or, of course, other settings you will make in WPS Toolbar."
+msgstr "Il est important d'insister sur le fait que l'extension utilise le mécanisme natif d'héritage du CSS (Cascading Style Sheets), si bien que son impact sur le chargement de page est limité aux seuls éléments que vous modifiez. Ceci signifie que si vous ne définissez pas un attribut donné, il sera hérité soit de la Barre d'Outils par défaut, soit de votre thème, toute autre extension ou modification personnelle, ou, bien sûr, d'autres réglages ailleurs dans WPS Toolbar."
+
+#: wp-symposium-toolbar_admin.php:1989
+#@ wp-symposium-toolbar
+msgid "My advice here, is to proceed from top to bottom, so that you see the results of settings that were changed 'above' a given element, otherwise you might add unneeded CSS to your page headers. It is better to 'play nicely' with the existing style than fight against it...."
+msgstr "Mon conseil est de procéder de haut en bas de la page d'options, afin de voir les résultats des changements de réglages 'au-dessus' d'un élément, faute de quoi vous risquez d'ajouter du CSS inutile dans les en-têtes de vos pages. Il est préférable de s’accommoder du style existant que de chercher à le combattre..."
+
+#: wp-symposium-toolbar_admin.php:1990
+#@ wp-symposium-toolbar
+msgid "What is the difference between \"default\" and \"none\" (or \"no\", etc.) ?"
+msgstr "Quelle est la différence entre \"défaut\" et \"aucune\" (ou \"non\", etc.) ?"
+
+#: wp-symposium-toolbar_admin.php:1991
+#@ wp-symposium-toolbar
+msgid "Every time you fill a value somewhere in this tab, the plugin will add a little something to your page header. For dropdown lists, the empty value is \"default\", and if you select this value, it won't add anything, leaving WordPress and your theme decide which value shall be taken into account. Any other choice will force the page to adopt that value for that style, including \"none\" which will force the style to drop an other value that might have been added by your theme."
+msgstr "A chaque fois que vous remplissez une valeur dans cet onglet, l'extension va ajouter un petit quelque chose dans l'en-tête de votre site. Pour les listes déroulantes, la valeur correspondant à un champ vide est donnée par \"défaut\", ce qui laisse WordPress et votre thème décider de la valeur à utiliser. Tout autre choix forcera la page à adopter une valeur pour ce style, ce qui inclus \"aucun\" qui forcera le style à laisser tomber toute autre valeur qui pourrait avoir été ajoutée dans votre thème."
+
+#: wp-symposium-toolbar_admin.php:1992
+#@ wp-symposium-toolbar
+msgid "If you're unsure which of these two values you should select and you can't see any difference in the preview, it is probably a good idea to keep the \"default\"."
+msgstr "Si vous êtes incertain de la valeur à sélectionner, et que vous ne voyez aucune différence dans l'aperçu, le meilleur choix est vraisemblablement  de conserver \"défaut\"."
+
+#: wp-symposium-toolbar_admin.php:1993
+#@ wp-symposium-toolbar
+msgid "As a reciprocal from the above, if you want to remove a default setting, you will need to input something in the relevant field of this tab."
+msgstr "De façon réciproque à ce qui précède, si vous souhaitez retirer un paramètre par défaut, vous devez entrer quelquechose dans le champ correspondant de cet onglet."
+
+#: wp-symposium-toolbar_admin_functions.php:53
+#@ wp-symposium-toolbar
+msgid "Developer's Guide"
+msgstr "Guide Développeur"
+
+#: wp-symposium-toolbar_admin.php:2036
+#@ wp-symposium-toolbar
+msgid "The following page helps you to go further and customize your WP Toolbar, by using the hooks and CSS classes available with the plugin."
+msgstr "Ce qui suit vous aidera à aller au-delà dans la personnalisation de votre Barre d'Outils, en utilisant les crochets et les classes CSS proposées par l'extension."
+
+#: wp-symposium-toolbar_admin.php:2040
+#@ wp-symposium-toolbar
+msgid "Hooks"
+msgstr "Crochets"
+
+#: wp-symposium-toolbar_admin.php:2041
+#@ wp-symposium-toolbar
+msgid "Prerequisites: you need to understand how WordPress hooks work, know how to add code to your theme's functions.php, and have some PHP knowledge."
+msgstr "Préconditions : vous devez connaitre le fonctionnement des crochets dans WordPress, savoir ajouter du code à votre fichier functions.php, et posséder quelques connaissances PHP"
+
+#: wp-symposium-toolbar_admin.php:2047
+#@ wp-symposium-toolbar
+msgid "Several hooks are available around the WP User Menu (\"My Account\"), used to change or add bits of information displayed for the current user. You will need to use one of the globals $current_user or $user_ID to get the user ID, and from then on, any other information you would need for that particular user."
+msgstr "Plusieurs crochets sont disponibles autour du Menu Utilisateur (\"Mon Compte\"), utilisés pour changer ou ajouter des morceaux d'information concernant l'utilisateur courant. Vous devrez utiliser l'une des variables globales $current_user ou $user_id pour récupérer l'identifiant de l'utilisateur, et à partir de là, toute autre information dont vous pourriez- avoir besoin sur cet utilisateur en particulier."
+
+#: wp-symposium-toolbar_admin.php:2052
+#@ wp-symposium-toolbar
+msgid "Sends the small HTML bit containing the display name in the User Menu, that you may replace with the information you want."
+msgstr "Envoie le bout d'HTML contenant le nom d'affichage dans le Menu Utilisateur, que vous pourrez remplacer avec l'information que vous voulez."
+
+#: wp-symposium-toolbar_admin.php:2053
+#@ wp-symposium-toolbar
+msgid "Example: put the first name instead of the whole display name, or any information you'd like"
+msgstr "Exemple : afficher le prénom au lieu du nom complet, ou toute autre information que vous voulez"
+
+#: wp-symposium-toolbar_admin.php:2062
+#@ wp-symposium-toolbar
+msgid "Add anything to the user info section of the User Menu."
+msgstr "Ajouter quelque chose à la section Info Utilisateur du Menu Utilisateur."
+
+#: wp-symposium-toolbar_admin.php:2063
+#@ wp-symposium-toolbar
+msgid "Example: add the role under certain conditions only, like for given accounts, given roles, etc. Note that I'm lazy here and use the username class to style it by default, eventually refined by the class wpst-role. You may of course put your own class directly."
+msgstr "Exemple : ajouter le rôle de l'utilisateur, sous certaines condition seulement, telles que pour certains comptes, certains rôles, etc.  Notez que je suis fainéant ici car j'utilise la classe username par défaut, surchargée par la classe wpst-role.  Vous pouvez bien évidemment préciser votre propre classe."
+
+#: wp-symposium-toolbar_admin.php:2076
+#@ wp-symposium-toolbar
+msgid "Add anything else to the User Info, that requires a dedicated link and/or a specific styling, like a membership level, or a rank, with a link that points to a page where details will be given."
+msgstr "Ajouter quelque chose à la section Info Utilisateur, qui nécessite un lien ou un style particulier, comme un niveau d'abonné, un classement, avec un lien qui pointerait vers une page où des détails pourraient être précisés."
+
+#: wp-symposium-toolbar_admin.php:2077
+#@ wp-symposium-toolbar
+msgid "Example: add a title along with a URL linking to the site main page, users of rating / ranking / membership plugins will transpose the following to their favorite plugin, and display the appropriate title and link."
+msgstr "Exemple : ajouter un titre et une URL pointant vers la page d'accueil du site, les utilisateurs d'extensions proposant des classements / scores / abonnements pourront transposer ceci vers leur extension favorite, pour afficher le titre et le lien appropriés."
+
+#: wp-symposium-toolbar_admin.php:2086
+#@ wp-symposium-toolbar
+msgid "Modify the URL over the Howdy message and the small avatar."
+msgstr "Modifier l'URL situé sur le message de bienvenue et le petit avatar."
+
+#: wp-symposium-toolbar_admin.php:2088
+#@ wp-symposium-toolbar
+msgid "Modify the URL over the user info in the User Menu."
+msgstr "Modifier l'URL situé sur la section Info Utilisateur du Menu Utilisateur."
+
+#: wp-symposium-toolbar_admin.php:2089
+#@ wp-symposium-toolbar
+msgid "Use Cases: By default, these two links point to the profile URL given by WordPress, and the site URL for visitors. The two hooks allow you to point them to different pages, from the Toolbar toplevel item and the User Menu user info, respectively."
+msgstr "Cas d'Utilisation : par défaut, ces deux liens pointent vers la page Profil de WordPress, et la page d'accueil du site pour les visiteurs. Ces deux crochets vous permettent de les rediriger vers d'autres pages, depuis l'élément de haut niveau du Menu Utilisateur, et la section Info Utilisateur de celui-ci, respectivement."
+
+#: wp-symposium-toolbar_admin.php:2099
+#@ wp-symposium-toolbar
+msgid "I personally consider that the Search icon should not have borders when it's moved to the inner part of the Toolbar, but that's purely a matter of taste. So if you'd like to remove the border-xxx: none that the plugin adds to li.admin-bar-search, you could use this hook."
+msgstr "Personnellement je considère que l'icône Recherche ne doit pas avoir de bordures lorsqu'on la déplace à l'intérieur de la Barre d'Outils, mais c'est purement une histoire de goût. Donc si vous souhaitez enlever le border-xxx: none que l'extension ajoute à li.admin-bar-search, utilisez ce crochet."
+
+#: wp-symposium-toolbar_admin.php:2106
+#@ wp-symposium-toolbar
+msgid "By default the plugin adds the same borders to the Toolbar items, whether they are hovered or not. Use this hook to add custom borders to those items when they are hovered."
+msgstr "Par défaut l'extension ajoute les mêmes bordures aux éléments de la Barre d'Outils, qu'ils soient survolés par la souris ou non. Utilisez ce crochet pour ajouter des bordures à ces éléments lorsqu'ils sont survolés par la souris."
+
+#: wp-symposium-toolbar_admin.php:2107
+#@ wp-symposium-toolbar
+msgid "Since hover doesn't affect monochrom dividers, it should be stressed that this hook is triggered only when two colours are defined for borders."
+msgstr "Etant donné que le survol n'affecte pas les séparateurs monochromes, il est important de signaler que ce crochet n'est pas déclenché lorsque deux couleurs sont définies pour les bordures."
+
+#: wp-symposium-toolbar_admin.php:2110
+#@ wp-symposium-toolbar
+msgid "Styles collected at the tab of the same name are gathered in a string that is then stored as an option. Upon page load, this string is read from its option and sent for display. This hook is triggered right before the string is formatted and stored. Use this hook to add your own style."
+msgstr "Les styles sollectés à l'onglet du même nom sont rassemblés dans une chaine de caractères qui est stockée dans une option. A chaque chargement de page, cette chaine est lue depuis l'option et ajoutée à l'en-tête de la page. Ce crochet est déclenché juste avant la sauvegarde de la chaine dûment formatée pour stockage. Vous pouvez utiliser ce crochet pour ajouter votre style."
+
+#: wp-symposium-toolbar_admin.php:2115
+#@ wp-symposium-toolbar
+msgid "Administration"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2121
+#@ wp-symposium-toolbar
+msgid "Example: being a little short on this one, I'll show how to add a font which is already proposed by default..."
+msgstr "Exemple : étant un peu court sur celui-ci, je vais montrer comment ajouter une police de caractères qui est déjà proposée par défaut..."
+
+#: wp-symposium-toolbar_admin.php:2132
+#@ wp-symposium-toolbar
+msgid "This hook is triggered at the end of the init of plugin globals, so Network Admins can interact with those before they are actually used by Site Admins, like dropping an array element or adding one element to one of those arrays. There are two kinds of arrays, all of them being made of items in the format"
+msgstr "Ce crochet est déclenché à la fin de l'intialisation des variables globales de l'extension, afin que les Administrateurs Réseau puissent interagir avec celles-ci avant qu'elles ne soient effectivement utilisées par les Administrateurs Site. Par exemple, pour enelever un élément d'une liste, ou ajouter autre chose. Il y a deux types de listes, toutes étant constituées d'éléments au format"
+
+#: wp-symposium-toolbar_admin.php:2134
+#@ wp-symposium-toolbar
+msgid "lists all roles of the site including the pseudo-role 'visitor'"
+msgstr "liste tous les rôles du site y compris le pseudo-rôle \"visiteur\""
+
+#: wp-symposium-toolbar_admin.php:2135
+#@ wp-symposium-toolbar
+msgid "all roles gathered on the site"
+msgstr "tous les rôles trouvés sur le site"
+
+#: wp-symposium-toolbar_admin.php:2136
+#@ wp-symposium-toolbar
+msgid "all roles that are allowed to 'edit_posts'"
+msgstr "tous les rôles autorisés à éditer les articles (capacité 'edit_posts')"
+
+#: wp-symposium-toolbar_admin.php:2137
+#@ wp-symposium-toolbar
+msgid "all roles that are allowed to add content to the site, this includes either of the following capabilities:"
+msgstr "tous les rôles autorisés à ajouter du contenu sur le site, ce qui inclus les capacités suivantes :"
+
+#: wp-symposium-toolbar_admin.php:2138
+#@ wp-symposium-toolbar
+msgid "all roles that can manage comments through the capability"
+msgstr "tous les rôles que peuvent gérer les commentaires à travers la capacité"
+
+#: wp-symposium-toolbar_admin.php:2139
+#@ wp-symposium-toolbar
+msgid "all roles that have either of the following capabilities:"
+msgstr "tous les rôles possédant l'une des capacités suivantes"
+
+#: wp-symposium-toolbar_admin.php:2140
+#@ wp-symposium-toolbar
+msgid "pretty self-explanatory, the tested capability is"
+msgstr "relativement clair, la capacité testée est"
+
+#: wp-symposium-toolbar_admin.php:2141
+#@ wp-symposium-toolbar
+msgid "Menu Locations"
+msgstr "Emplacements de Menus"
+
+#: wp-symposium-toolbar_admin.php:2142
+#@ wp-symposium-toolbar
+msgid "lists the available locations for custom menus as per the eponymous tab at the plugin options page"
+msgstr "énumère les emplacements de menus pour les Menus Personnalisés, à la page d'options éponyme"
+
+#: wp-symposium-toolbar_admin.php:2143
+#@ wp-symposium-toolbar
+msgid "For menu locations, it should be stressed that the slug in this array corresponds to the parent item ID to which the menu will be connected. So if you create a Toolbar menu or item and add its ID here as a slug (along with an explanatory title), it will be listed amongst the menu locations, ready to use by Site Admins."
+msgstr "Pour les emplacements de menus, il est important de préciser que le jeton dans ce tableau correspond à l’identifiant du parent auquel le menu est connecté. Donc si vous créez un menu ou un élément et ajoutez son identifiant ici (avec un titre explicatif), il sera listé au milieu des emplacements de menus, prêt à être utilisé par les Admins Site."
+
+#: wp-symposium-toolbar_admin.php:2147
+#@ wp-symposium-toolbar
+msgid "CSS styling"
+msgstr "Styles CSS"
+
+#: wp-symposium-toolbar_admin.php:2148
+#@ wp-symposium-toolbar
+msgid "Prerequisites: you need to know how to add custom CSS on your site, and obviously have some CSS knowledge."
+msgstr "Précondition : vous devez savoir ajouter du CSS personnalisé sur votre site, et bien évidemment connaitre le CSS."
+
+#: wp-symposium-toolbar_admin.php:2155
+#, php-format
+#@ wp-symposium-toolbar
+msgid "In the WP User Menu (\"My Account\"), the role added by the plugin option belongs to the classes %s and %s, where &lt;role&gt; stands for a given role.."
+msgstr "Dans le Menu Utilisateur (\"Mon Compte\"), le rôle ajouté par l'option de l'extension appartient aux classes %s et %s, où &lt;role&gt correspond au rôle en question."
+
+#: wp-symposium-toolbar_admin.php:2156
+#@ wp-symposium-toolbar
+msgid "For instance, by default the plugin defines a red border for admins through the class"
+msgstr "Par exemple, par défaut l'extension définit une bordure rouge pour les administrateurs à travers la classe"
+
+#: wp-symposium-toolbar_admin.php:2160
+#@ wp-symposium-toolbar
+msgid "Notification Icons"
+msgstr "Icônes de Notifications"
+
+#: wp-symposium-toolbar_admin.php:2161
+#, php-format
+#@ wp-symposium-toolbar
+msgid "The mail icons belong to the classes %s and %s, while the friend icons belong to %s and %s. "
+msgstr "Les icônes Mail appartiennent aux classes %s et %s, tandis que les icônes Amis appartiennent à %s et %s."
+
+#: wp-symposium-toolbar_admin.php:671
+#@ wp-symposium-toolbar
+msgid "Absolute path to a page, available aliases:"
+msgstr "Chemin absolu vers une page, alias disponibles :"
+
+#: wp-symposium-toolbar_admin_functions.php:1017
+#: wp-symposium-toolbar_admin_functions.php:1041
+#: wp-symposium-toolbar_admin_functions.php:1087
+#: wp-symposium-toolbar_admin_functions.php:1118
+#: wp-symposium-toolbar_admin_functions.php:1136
+#@ wp-symposium-toolbar
+msgid ": the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set."
+msgstr " : l'onglet correspondant a été désactivé sur ce site, si bien que cette option doit être importée depuis le Site Principal où elle est renseignée."
+
+#: wp-symposium-toolbar_admin_functions.php:1976
+#@ wp-symposium-toolbar
+msgid "Network Settings"
+msgstr "Réglages Réseau"
+
+#: wp-symposium-toolbar_admin.php:281
+#: wp-symposium-toolbar_admin.php:2007
+#: wp-symposium-toolbar_admin_functions.php:1979
+#@ wp-symposium-toolbar
+msgid "Home Site"
+msgstr "Site Maison"
+
+#: wp-symposium-toolbar_admin_functions.php:1990
+#@ wp-symposium-toolbar
+msgid "Your Home Site is currently set to"
+msgstr "Votre Site Maison est actuellement positionné vers"
+
+#: wp-symposium-toolbar_help.php:37
+#@ wp-symposium-toolbar
+msgid "This Options page is split into tabs."
+msgstr "Cette page d'options est scindée en onglets."
+
+#: wp-symposium-toolbar_help.php:40
+#@ wp-symposium-toolbar
+msgid "From the User Menu tab, you may change the content of the WP User Menu, and pick the items you want to display to all users, registrered and logged-in."
+msgstr "Depuis l'onglet Menu Utilisateur, vous pouvez changer le contenu du Menu Utilisateur WP, et sélectionner les éléments que vous voulez afficher à tous les utilisateurs, dûment enregistrés et identifiés."
+
+#: wp-symposium-toolbar_help.php:41
+#@ wp-symposium-toolbar
+msgid "From the Custom Menus tab, you may add your custom menus to several predefined locations in the WP Toolbar, to both logged-in members and site visitors."
+msgstr "Depuis l'onglet Menus Personnalisés, vous pouvez ajouter vos menus personnalisés à divers emplacements prédéfinis de la Barre d'Outils, aussi bien pour les utilisateurs identifiés que pour les visiteurs."
+
+#: wp-symposium-toolbar_help.php:42
+#@ wp-symposium-toolbar
+msgid "The plugin adds items specific to WP Symposium, that you may show or hide from the tab of the same name."
+msgstr "L'extension ajoute des éléments spécifiques à WP Symposium, que vous pourrez afficher ou masquer depuis l'onglet du même nom."
+
+#: wp-symposium-toolbar_help.php:43
+#@ wp-symposium-toolbar
+msgid "The Styles tab, not the least, will let you modify styling options of the WP Toolbar, so that it fits the look of your site."
+msgstr "L'onglet Styles, non le moindre, vous permet de modifier les options de style de la Barre d'Outils, afin qu'elle corresponde à votre site."
+
+#: wp-symposium-toolbar_help.php:65
+#@ wp-symposium-toolbar
+msgid "This set of options will allow you to select which of the default WP Toolbar items should be displayed, for each role of your site: at this tab, like at some other tabs of this plugin options page, you have to select which roles will see which item."
+msgstr "Cet ensemble d'options vous permet de sélectionner quels éléments par défaut doivent s'afficher dans la Barre d'Outils, pour chaque rôle de votre site : à cet onglet, ainsi qu'à d'autres onglets de lapage d'options de l'extension, vous devez sélectionner les rôles qui peuvent voir chaque élément."
+
+#: wp-symposium-toolbar_help.php:65
+#@ wp-symposium-toolbar
+msgid "An important thing to stress, is that the plugin will not enforce the rules used by WordPress to let users access to information, but only allow to restrict it further, and this is reflected by the rows of roles under each item at this tab."
+msgstr "Le point important à préciser est que l'extension ne forcera pas les règles définies par WordPress pour l'accès à l'information, mais se contentera de les restreindre, ceci est reflété par les lignes de rôles pour chaque option à cet onglet."
+
+#: wp-symposium-toolbar_help.php:65
+#@ wp-symposium-toolbar
+msgid "Most of these items will not be accessible to everybody, but to some of the roles only : either way, you will be able to hide what you don't want your users to see, but not to show what WordPress doesn't want them to see."
+msgstr "La plupart de ces éléments ne seront pas accessibles à tous, mais à quelques rôles seulement ; dans tous les cas, vous pourrez masquer ce que vous ne voulez pas que vos utilisateurs voient, mais ne pourrez pas afficher ce que WordPress ne veut pas qu'ils voient."
+
+#: wp-symposium-toolbar_admin.php:265
+#: wp-symposium-toolbar_admin.php:2005
+#@ wp-symposium-toolbar
+msgid "Network Toolbar"
+msgstr "Barre d'Outils Réseau"
+
+#: wp-symposium-toolbar_admin.php:269
+#@ wp-symposium-toolbar
+msgid "Activate the \"Network Toolbar\""
+msgstr "Activer la \"Barre d'Outils Réseau\""
+
+#: wp-symposium-toolbar_admin.php:285
+#@ wp-symposium-toolbar
+msgid "Activate the \"Home Site\" for users"
+msgstr "Activer le \"Site Maison\" pour les utilisateurs"
+
+#: wp-symposium-toolbar_admin.php:319
+#@ wp-symposium-toolbar
+msgid "Select the tabs that should be displayed on the WP Symposium Toolbar options page of each of the subsites of the network."
+msgstr "Pour chaque sous-site de votre réseau, sélectionnez les onglets qui doivent être affichés à la page d'options de WP Symposium Toolbar."
+
+#: wp-symposium-toolbar_admin.php:319
+#@ wp-symposium-toolbar
+msgid "Unchecking all tabs of a given subsite will hide its options page altogether."
+msgstr "Décochez tous les onglets d'un sous-site pour masquer complètement sa page d'options."
+
+#: wp-symposium-toolbar_admin.php:320
+#@ wp-symposium-toolbar
+msgid "It should be stressed that saving from the button on this page will immediately copy settings from the Main Site to the subsites where checkboxes are unchecked, while re-checking these checkboxes will not restore previous settings. You should therefore think twice before saving!"
+msgstr "Il est important de préciser que la sauvegarde depuis cette page va copier immédiatement les réglages depuis le Site Principal vers les sous-sites où les onglets ont été désactivés, tandis que leur réactivation ne restaurera pas les réglages précédents. En conséquence, vous devez réfléchir avant d'enregistrer cette page !"
+
+#: wp-symposium-toolbar_admin.php:325
+#@ wp-symposium-toolbar
+msgid "Tabs"
+msgstr "Onglets"
+
+#: wp-symposium-toolbar_help.php:53
+#@ wp-symposium-toolbar
+msgid "There are many Use Cases associated to these features, ranging from the provision of sites by a Network Admin to Site Admins while keeping a centralized, corporate look and feel to the Toolbar, network-wide, to the single-owned network of sites where the Admin wants the network of sites to look like one big site, without visiting each subsite individually to propagate the same settings."
+msgstr "Il y a plusieurs Case d'Utilisation associés à ces fonctionnalités, qui vont de la fourniture de sites par un Super Administrateur à des Administrateurs Site tout en conservant une Barre d'Outils définie de façon centralisée pour l'ensemble des sites, jusqu'au réseau de sites propriété d'un seul Administrateur qui souhaite que son réseau ressemble à un grand site, sans devoir visiter toutes les pages d'options une par une pour recopier les mêmes réglages."
+
+#: wp-symposium-toolbar_help.php:53
+#@ wp-symposium-toolbar
+msgid "There are also many in-betweens, when the Network Admin wants to reduce the flexibility offered to Site Admins, while leaving them some of the options, or more generally when the customization of the Toolbar differs between sites, to various extends and for various reasons."
+msgstr "Il y a également beaucoup de situations intermédiaires, lorsque le Super Administrateur souhaite réduire la flexibilité offerte aux Administrateur Site, tout en leur laissant accéder à certaines des options, ou plus généralement lorsque la personnalisation de la Barre d'Outils diffère entre les sites, dans des proportions variables et pour diverses raisons."
+
+#: wp-symposium-toolbar_admin.php:734
+#, php-format
+#@ wp-symposium-toolbar
+msgid "Create and edit your WP NavMenus at %s, and associate them to the WP Toolbar, at predefined locations, for the roles you wish."
+msgstr "Créez et modifiez vos Menus de Navigation WP à la page %s, et associez-les à la Barre d'Outils, à des emplacements prédéfinis, pour les rôles que vous souhaitez."
+
+#: wp-symposium-toolbar_admin.php:270
+#@ wp-symposium-toolbar
+msgid "Note: This feature will force the display of the WP Toolbar on all sites of the network, for selected roles."
+msgstr "Note : cette fonctionnalité force l'affichage de la Barre d'Outils WP, pour tous les sites du réseau, et pour les rôles sélectionnés."
+
+#: wp-symposium-toolbar_admin.php:270
+#: wp-symposium-toolbar_admin.php:286
+#@ wp-symposium-toolbar
+msgid "More precisely, it will:"
+msgstr "Plus précisément, elle va :"
+
+#: wp-symposium-toolbar_admin.php:271
+#@ wp-symposium-toolbar
+msgid "Remove the option to show / hide the Toolbar to selected roles from the \"Toolbar\" tab of the plugin options page, of all sites except the Main Site"
+msgstr "Supprimer l'option permettant d'afficher / masquer la Barre d'Outils pour les rôles sélectionnés de l'onglet \"Barre d'Outils\" de la page d'options de l'extension, pour tous les sites excepté le Site Principal"
+
+#: wp-symposium-toolbar_admin.php:273
+#@ wp-symposium-toolbar
+msgid "Remove the WP user option to show / hide the Toolbar on the frontend, from the WP Profile page"
+msgstr "Supprimer l'option utilisateur WordPress permettant d'afficher / masquer la Barre d'Outils en partie publique depuis la page Profil WP"
+
+#: wp-symposium-toolbar_admin.php:274
+#@ wp-symposium-toolbar
+msgid "Forcibly display the Toolbar in the frontend on all sites of the network, to all selected roles"
+msgstr "Forcer l'affichage de la Barre d'Outils en partie publique de tous les sites du réseau, pour les rôles sélectionnés"
+
+#: wp-symposium-toolbar_admin.php:275
+#@ wp-symposium-toolbar
+msgid "After activation, select the roles that shall see the WP Toolbar from the Main Site plugin option page,"
+msgstr "Après activation, sélectionnez les rôles qui doivent voir la Barre d'Outils depuis la page d'options de l'extension sur le Site Principal,"
+
+#: wp-symposium-toolbar_admin.php:286
+#@ wp-symposium-toolbar
+msgid "Note: This feature will allow users to select their \"Home Site\"."
+msgstr "Note : cette fonctionnalité permet aux utilisateurs de sélectionner leur \"Site Maison\"."
+
+#: wp-symposium-toolbar_admin.php:287
+#@ wp-symposium-toolbar
+msgid "Add a checkbox to WP Profile pages so that users can select the current site as their \"Home Site\""
+msgstr "Ajouter une case à cocher aux pages Profil WordPress des utilisateurs afin qu'ils puissent sélectionner le site courant en tant que \"Site Maison\""
+
+#: wp-symposium-toolbar_admin.php:288
+#@ wp-symposium-toolbar
+msgid "Link the Edit Profile URL, located over the Howdy and the WP User Menu, to the WP Profile page on the selected site"
+msgstr "Lier l'URL Editer Mon Profil situé sur le message de bienvenue et dans le Menu Utilisateur, à la page Profile WordPress du site sélectionné"
+
+#: wp-symposium-toolbar_admin.php:289
+#@ wp-symposium-toolbar
+msgid "Remove the option to rewrite the Edit Profile URL from the \"WP User Menu\" tab of the plugin options page, on all sites, to avoid any conflict with the above"
+msgstr "Supprimer l'option de réécriture de l'URL Editer Mon Profil de l'onglet \"Menu Utilisateur WP\", page d'options de l'extension, sur tous les sites, pour éviter tout télescopage avec ce qui précède"
+
+#: wp-symposium-toolbar_admin.php:290
+#@ wp-symposium-toolbar
+msgid "On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above"
+msgstr "Sur les installations WP Symposium, l'URL Editer Mon Profil pointera vers la page Profil WPS si celle-ci peut être trouvée ; si la page Profil WPS n'a <iu>pas</u> été correctement configurée, la page Profil WordPress du site sélectionné sera utilisée, cf. ci-dessus"
+
+#: wp-symposium-toolbar_admin.php:291
+#@ wp-symposium-toolbar
+msgid "On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the \"Network Share\" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden"
+msgstr "Sur les installations WP Symposium, les icônes de notification pointeront vers le site sélectionné si les pages Profil et Mail peuvent être trouvées ; si elles n'ont <u>pas</u> été correctement configurées, ou si la fonctionnalité de \"Partage Réseau\" n'a <u>pas</u> été activée sur le site correspondant, les icônes pointeront vers n'importe quel autre site où ces fonctionnalités peuvent être trouvées et sont partagées ; si aucun autre site n'est trouvé, les icônes seront masquées"
+
+#: wp-symposium-toolbar_admin.php:425
+#: wp-symposium-toolbar_admin.php:444
+#@ wp-symposium-toolbar
+msgid "Logged-in users will no longer be able to show / hide it from their WP Profile page."
+msgstr "Les utilisateurs connectés ne pourront alors plus la masquer depuis leur page Profil WP."
+
+#: wp-symposium-toolbar_admin.php:444
+#@ wp-symposium-toolbar
+msgid "Force the display of the WP Toolbar."
+msgstr "Forcer l'affichage de la Barre d'Outils WP."
+
+#: wp-symposium-toolbar_admin.php:978
+#@ wp-symposium-toolbar
+msgid "Note: WPS features must be activated and correctly set up from the WPS Install page"
+msgstr "Note : les fonctionnalités WPS doivent être activées et correctement réglées depuis la page d'Installation WPS"
+
+#: wp-symposium-toolbar_admin_functions.php:1985
+#@ wp-symposium-toolbar
+msgid "Make this site your Home Site, so that the Edit Profile link points to this page"
+msgstr "Faire de ce site votre Site Maison, afin que le lien Editer Mon Profil pointe vers cette page"
+
+#: wp-symposium-toolbar_help.php:78
+#@ wp-symposium-toolbar
+msgid "You may add your custom menus to a small number of predefined locations. Build your menus using the neat interface WordPress provides for NavMenus, then add them from this page."
+msgstr "Vous pouvez ajouter vos menus personnalisés à un petit nombre d'emplacements prédéfinis. Construisez vos menus en utilisant l'interface sympa fournie par WordPress pour les Menus de Navigation, puis ajoutez-les depuis cette page."
+
+#: wp-symposium-toolbar_admin.php:238
+#, php-format
+#@ wp-symposium-toolbar
+msgid "You might also want to take a look at the various sections of the online %s, that will give a few hints."
+msgstr "Vous pourriez parcourir les différentes sections de ce %s en ligne, qui vous donnera quelques conseils."
+
+#: wp-symposium-toolbar_admin.php:239
+#, php-format
+#@ wp-symposium-toolbar
+msgid "Should you plan to take advantage of the hooks and the CSS classes that the plugin contains, you might also be interrested in the %s"
+msgstr "Si vous prévoyez de tirer avantage des crochets et classes CSS fournies par l'extension, vous serez également intéressé par ce %s"
+
+#: wp-symposium-toolbar_admin.php:239
+#@ wp-symposium-toolbar
+msgid "Developers Guide"
+msgstr "Guide Développeur"
+
+#: wp-symposium-toolbar_admin.php:260
+#@ wp-symposium-toolbar
+msgid "From this tab, activate some of the network features provided by the plugin."
+msgstr "Depuis cet onglet, activez quelques unes des fonctionnalités réseau proposées par l'extension."
+
+#: wp-symposium-toolbar_admin.php:260
+#@ wp-symposium-toolbar
+msgid "Please note that these options will affect the display of some of the other options tabs, both on this site and the other sites of your network, as described hereafter."
+msgstr "Veuillez noter que ces options affecteront l'affichage de certaines autres onglets d'options, à la fois sur ce site et sur les autres sites de votre réseau, tel que décrit ci-dessous."
+
+#: wp-symposium-toolbar_admin.php:272
+#@ wp-symposium-toolbar
+msgid "Remove the option to force the display of the Toolbar on a site only, from the \"Toolbar\" tab of the plugin options page, of all sites"
+msgstr "Supprimer l'option pour forcer l'affichage de la Barre d'Outils sur un site seulement, de l'onglet \"Barre d\\'Outils\", de tous les sites"
+
+#: wp-symposium-toolbar_admin.php:275
+#@ wp-symposium-toolbar
+msgid "\"WP Toolbar\" tab, \"WP Toolbar\" option"
+msgstr "onglet Barre d'Outils, option Barre d'Outils"
+
+#: wp-symposium-toolbar_admin.php:319
+#@ wp-symposium-toolbar
+msgid "Unchecking a given tab will deactivate it and hide it on the subsite."
+msgstr "Décocher un onglet en particulier le désactivera et le masquera sur le sous-site."
+
+#: wp-symposium-toolbar_admin.php:319
+#@ wp-symposium-toolbar
+msgid "The corresponding settings will then be propagated from the Main Site to the subsite, both upon saving from this screen and for any update of the Main Site settings onwards."
+msgstr "Les réglages correspondants seront alors propagés depuis le Site Principal vers le sous-site, à la fois lors de la sauvegarde de cet écran et lors de toute autre mise à jour des réglages du Site Principal."
+
+#: wp-symposium-toolbar_admin.php:423
+#@ wp-symposium-toolbar
+msgid "Note:"
+msgstr "Note :"
+
+#: wp-symposium-toolbar_admin.php:426
+#@ wp-symposium-toolbar
+msgid "This is the main container for all the items defined with this plugin, it must obviously be activated for those items to show."
+msgstr "Ceci est le container principal pour tous les éléments définis avec cette extension, et doit bien évidemment être activé pour que ces éléments s'affichent."
+
+#: wp-symposium-toolbar_admin.php:735
+#@ wp-symposium-toolbar
+msgid "You may make these menus Network Custom Menus, and display them accross the whole network without Site Admins being able to hide them or modify them."
+msgstr "Vous pouvez faire de ces menus des Menus Personnalisés Réseau, et les afficher à travers tout votre réseau sans que les Administrateurs Site ne puissent les supprimer ni les modifier."
+
+#: wp-symposium-toolbar_admin.php:2149
+#@ wp-symposium-toolbar
+msgid "Several classes are defined for you to interact with items added by the plugin. They are all defined with the plugin CSS file, in the plugin folder."
+msgstr "Plusieurs classes sont définies, vous permettant d'interagir avec les éléments ajoutés par l'extension. Elles sont définies avec le fichier CSS de l'extension, situé dans le répertoire de l'extension."
+
+#: wp-symposium-toolbar_admin_functions.php:42
+#@ wp-symposium-toolbar
+msgid "Network"
+msgstr "Réseau"
+
+#: wp-symposium-toolbar_admin_functions.php:43
+#@ wp-symposium-toolbar
+msgid "Subsites"
+msgstr "Sites"
+
+#: wp-symposium-toolbar_help.php:38
+#@ wp-symposium-toolbar
+msgid "Only available when WPS Toolbar is network activated, the first two tabs are gathering most of the network features that the plugin provides."
+msgstr "Uniquement disponibles lorsque WPS Toolbar est activé pour l'ensemble du réseau, les deux premiers onglets rassemblent l'essentiel des fonctionnalités réseau proposées par l'extension."
+
+#: wp-symposium-toolbar_help.php:39
+#@ wp-symposium-toolbar
+msgid "The WP Toolbar tab will let you choose which of the WP default items, menus, icons and links to show to users with the appropriate rights."
+msgstr "L'onglet Barre d'Outils vous permet de choisir lesquels des éléments par défaut, menus, icônes, liens, doivent être affichés aux utilisateurs possédant les droits appropriés."
+
+#: wp-symposium-toolbar_help.php:57
+#@ default
+msgid "Network Features"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:822
+#: wp-symposium-toolbar_admin.php:870
+#@ wp-symposium-toolbar
+msgid "Make this menu a Network Menu"
+msgstr "Faire de ce menu un Menu Réseau"
+
+#: wp-symposium-toolbar_admin.php:1964
+#@ wp-symposium-toolbar
+msgid "You may add two or more menus to the same location: they will be shown only to the roles you have selected. If more than one menu should be shown to a given role at a given location, they will be appended one to the other, in the order you have defined them."
+msgstr "Vous pouvez attacher deux menus ou plus au même emplacement, ils seront affichés pour les rôles sélectionnés. Si plus d'un menu doit être affiché pour un rôle donné et un emplacement donné, ils seront ajoutés l'un à l'autre dans l'ordre où vous les avez définis."
+
+#: wp-symposium-toolbar_admin.php:1964
+#@ wp-symposium-toolbar
+msgid "This can be used to display different menu items to different roles: one main menu for all, and additional items for higher roles. Or, different menus for different roles. Your choice."
+msgstr "Ceci peut être utilisé pour afficher différents menus à différents rôles : un menu pour tous et des menus additionnels pour les rôles les plus élevés. Ou des menus différents pour chaque rôle, selon votre préférence."
+
+#: wp-symposium-toolbar_admin.php:1965
+#@ wp-symposium-toolbar
+msgid "You may use the same menu several times, however, for a given role it will be displayed only once, so this page will list the menus that won't be displayed since you attempt to show them several times to the same roles."
+msgstr "Vous pouvez utiliser le même menu plusieurs fois, cependant veuillez noter qu'il ne s'affichera qu'une seule fois pour chaque rôle, et cette page listera les menus qui ne peuvent être vus parce que vous tentez de les afficher plus d'une fois aux mêmes rôles."
+
+#: wp-symposium-toolbar_admin.php:1976
+#@ wp-symposium-toolbar
+msgid "If you leave this unchecked, the features of this site will be used locally only."
+msgstr "Si vous laissez ceci décoché, les fonctionnalités de ce site seront utilisées localement uniquement."
+
+#: wp-symposium-toolbar_admin.php:425
+#@ wp-symposium-toolbar
+msgid "You have activated the \"Network toolbar\" feature from the Network tab, therefore this option determines which roles shall see the Toolbar, network-wide."
+msgstr "Vous avez activé la fonctionnalité \"Barre d'Outils Réseau\" depuis l'onglet Réseau, en conséquence cette option servira à déterminer quels rôles pourront voir la Barre d'Outils sur l'ensemble des sites du réseau."
+
+#: wp-symposium-toolbar_admin.php:2002
+#@ wp-symposium-toolbar
+msgid "Multisites"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2120
+#@ wp-symposium-toolbar
+msgid "This hook can be used to add your custom font to the array of fonts that is displayed at the plugin options page. You may then select it from there, and use it for the Toolbar and / or its dropdown menus. You should always add a fallback to your font, in case the browser wouldn't be able to display it. Separate several font names with commas. Do not add brackets around multiword names, the plugin will deal with them automagically."
+msgstr "Ce crochet peut être utilisé pour ajouter votre police de caractères à la liste des police de caractèress qui est affichée à la page d'options de l'extension. Vous pourrez ensuite la sélectionner depuis cette page, et l'utiliser dans la Barre d'Outils et / ou ses menus déroulants. Vous devriez toujours ajouter une police de caractères de substitution au cas où le navigateur ne peut afficher la première. Séparez les noms par des virgules. N'ajoutez pas de guillements autour des noms en plusieurs mots, l'extension s'en débrouillera magiquement."
+
+#: wp-symposium-toolbar_help.php:80
+#@ wp-symposium-toolbar
+msgid "When the plugin is network activated, Super Admins will have the option to make a custom menu, a Network Menu, so that it is displayed accross the whole network without Site Admins being able to hide it or modify it."
+msgstr "Lorsque l'extension est activée réseau, les Super Administrateurs verront l'option permettant de faire d'un menu personnalisé, un Menu Réseau, afin qu'il s'affiche à travers l'ensemble du réseau, sans que les Administrateurs Site ne puissent le masquer ni le modifier."
+
+#: wp-symposium-toolbar_help.php:81
+#@ wp-symposium-toolbar
+msgid "Please refer to the online help for guidelines on what can be and can't be done..."
+msgstr "Veuillez vous référer à l'aide en ligne pour des conseils sur ce qui peut être fait, ce qui ne peut l'être..."
+
+#: wp-symposium-toolbar_help.php:91
+#@ wp-symposium-toolbar
+msgid "On a multisite network, Site Admins also have the option to display these notification icons accross the whole network, so that the users of their site can access their WPS profile and mail from any site where the Toolbar is shown"
+msgstr "Sur un réseau Multisites, les Administrateurs Site auront également la possibilité d'afficher ces icônes de notification à travers l'ensemble du réseau, afin que les utilisateurs de leur site puissent accéder à leur Profil WPS et leur mail depuis n'importe quel site où la Barre d'Outils est affichée"
+
+#: wp-symposium-toolbar_help.php:92
+#@ wp-symposium-toolbar
+msgid "Note that they will show only if the appropriate feature has been activated at the WPS Install page, and if a page has been properfly set up for both the Profile and the Mail features. This could serve as a replacement for the WPS Panel, however bear in mind they will need full page refreshes to reflect the actual status of new mails and friend requests."
+msgstr "Notez qu'elles ne s'afficheront que si la fonctionnalité correspondante a été activée depuis la page d'Install WPS, et si une page a été définie correctement, tant pour le Profil que pour le Mail. Ceci pourrait servir de remplacement pour le Tableau de Bord, conservez toutefois à l'esprit que cette information nécessite un rafraichissement de la page pour refléter le statut des nouveaux mails et demandes d'amis."
+
+#: wp-symposium-toolbar_admin.php:319
+#@ wp-symposium-toolbar
+msgid "Tabs left checked will be displayed on the plugin options page of the corresponding subsite, where the settings will apply."
+msgstr "Les onglets laissés cochés seront affichés à la page d'options de l'extension sur sous-site correspondant, où ces réglages s'appliqueront."
+
+#: wp-symposium-toolbar_help.php:51
+#@ wp-symposium-toolbar
+msgid "Home Site for users who can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network"
+msgstr "Site Maison pour les utilisateurs qui pourront alors choisir un site, où le Menu Utilisateur et les icônes de notification WP Symposium les amèneront préférablement à tout autre site du réseau"
+
+#: wp-symposium-toolbar_help.php:51
+#@ wp-symposium-toolbar
+msgid "The Network features are eseentially located on dedicated tabs that will only show to Super Admins, when the plugin is network activated. These features are:"
+msgstr "Les fonctionnalités réseau sont essentiellement localisées dans deux onglets qui ne s'afficheront que pour les Administrateurs Réseau, lorsque l'extension est activée réseau. Ces fonctionnalités sont :"
+
+#: wp-symposium-toolbar_help.php:51
+#@ wp-symposium-toolbar
+msgid "Force the display of the Toolbar network wide, for selected roles, from the \"Network\" tab"
+msgstr "Forcer l'affichage de la Barre d'Outils pour tout le réseau, pour les rôles sélectionnés, depuis l'onglet \"Réseau\""
+
+#: wp-symposium-toolbar_help.php:51
+#@ wp-symposium-toolbar
+msgid "Select the subsites you want to be synchronized with the Main Site from the \"Subsites\" tab, and selected settings will then be propagated to these sites automatically"
+msgstr "Sélectionnez les sous-sites que vous voulez synchroniser avec le Site Principal depuis l'onglet \"Sous-Sites\", et les réglages sélectionnés seront alors propagés jusqu'à ces sites automatiquement"
+
+#: wp-symposium-toolbar_help.php:51
+#@ wp-symposium-toolbar
+msgid "Create Network Custom Menus that will be displayed on all sites without Site Admins being able to remove them, from the \"Custom Menus\" tab"
+msgstr "Créer des Menus Personnalisés Réseau qui s'afficheront sur tous les sites sans que les Administrateurs Site puissent les supprimer, depuis l'onglet \"Menus Personnalisés\""
+
+#: wp-symposium-toolbar_help.php:52
+#@ wp-symposium-toolbar
+msgid "Share WP Symposium features from one site with all sites, from the \"WP Symposium\" tab on all sites where WP Symposium is activated"
+msgstr "Partager les fonctionnalités WP Symposium depuis un site vers tous les sites, depuis l'onglet \"WP Symposium\" sur tous les sites où WP Symposium est activé"
+
+#: wp-symposium-toolbar_admin.php:78
+#@ wp-symposium-toolbar
+msgid "Select Page:"
+msgstr "Sélectionner une page :"
+
+#: wp-symposium-toolbar_admin.php:86
+#@ default
+msgid "Select"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:241
+#, php-format
+#@ wp-symposium-toolbar
+msgid "Bugs and issues should be reported in the %s forum, where support is ensured."
+msgstr "Les plantages et les soucis doivent être rapportés dans le forum %s, où le support est assuré."
+
+#: wp-symposium-toolbar_admin.php:977
+#@ wp-symposium-toolbar
+msgid "Display the notification icons accross the whole network (if unchecked, this site's features will be displayed only on this site's Toolbar)"
+msgstr "Afficher les icônes de notification à travers tout le réseau (si décoché, les fonctionnalités de ce site ne seront utilisées que sur la Barre d'Outils de ce site)"
+
+#: wp-symposium-toolbar_admin.php:1934
+#@ wp-symposium-toolbar
+msgid "Be aware that this roles' selection also means that those that are <u>not</u> checked here, will never be able to see the Toolbar."
+msgstr "Votre attention est attirée sur le fait que cette sélection de rôles signifie également que tous ceux qui ne sont <u>pas</u> sélectionnés ne verront jamais la Barre d'Outils."
+
+#: wp-symposium-toolbar_admin.php:2003
+#@ wp-symposium-toolbar
+msgid "On Multisite installations, when the plugin is network activated it adds a few features, that are described hereafter."
+msgstr "Pour les installations Multisites, lorsque l'extension est activée réseau, cela lui ajoute quelques fonctionnalités, qui sont décrites ci-après."
+
+#: wp-symposium-toolbar_admin.php:2003
+#@ wp-symposium-toolbar
+msgid "These options will only be shown to Super Admins, from the two dedicated tabs, as well as mixed with other, standard options."
+msgstr "Ces options ne seront visibles que du Super Admin, à partir de deux onglets dédiés, ainsi que mélangés aux autres options standard."
+
+#: wp-symposium-toolbar_admin.php:2003
+#@ wp-symposium-toolbar
+msgid "The features at the \"Network\" tab will also hide some of the options at the other tabs, as described under each feature."
+msgstr "Les fonctionnalités à l'onglet \"Réseau\" vont également masquer des options des autres onglets, ainsi que décrit en-dessous de chaque fonctionnalité."
+
+#: wp-symposium-toolbar_admin.php:2006
+#@ wp-symposium-toolbar
+msgid "Located at the \"Network\" tab of the Main Site, the feature called \"Network Toolbar\" allows Super Admins to force the display of the Toolbar on all sites of their network."
+msgstr "Située à l'onglet \"Réseau\" du Site Principal, la fonctionnalité appelée \"Barre d'Outils Réseau\" permet aux Administrateurs Réseau de forcer l'affichage de la Barre d'Outils sur tous les sites du réseau."
+
+#: wp-symposium-toolbar_admin.php:2006
+#@ wp-symposium-toolbar
+msgid "It's basicaly similar to the \"Force Toolbar\" available otherwise from the \"WP Toolbar\" tab of all sites, except that it moves this prerogative to the Super Admin solely, and affects the whole network."
+msgstr "C'est tout simplement la même fonctionnalité que celle qui force l'affichage par site, disponible à l'onglet \"Barre d'Outils\" de chaque site lorsque celle-ci n'est pas activée, sauf que cela en déplace la prérogative chez l'Administrateur Réseau, et affecte l'ensemble du réseau."
+
+#: wp-symposium-toolbar_admin.php:2006
+#@ wp-symposium-toolbar
+msgid "The roles that shall see the Toolbar must then be defined from the \"WP Toolbar\" tab of the plugin options page, at the Main Site."
+msgstr "Les rôles qui verront la Barre d'Outils doivent ensuite être choisis depuis l'onglet \"Barre d'Outils WP\" de la page d'options du Site Principal."
+
+#: wp-symposium-toolbar_admin.php:2008
+#@ wp-symposium-toolbar
+msgid "The second feature provided at the \"Network\" tab is called \"Home Site\"."
+msgstr "La seconde fonctionnalité fournie à l'onglet \"Réseau\" est appelée \"Site Maison\"."
+
+#: wp-symposium-toolbar_admin.php:2012
+#@ wp-symposium-toolbar
+msgid "Please note that, if the WPS features cannot be found on the selected site for that user: the link on the Howdy and in the User Menu will revert to pointing to the WordPress Profile page on that site, whereas the icons will attempt to find WP Symposium somewhere else on the sites the user is member of, or eventually simply not be displayed."
+msgstr "Veuillez noter que, si les fonctionnalités WPS ne peuvent être trouvées sur le site sélectionné pour cet utilisateur : le lien sur le message de bienvenue et dans le Menu Utilisateur redirigera vers la page profil WordPress, tandis que les icônes tenteront de diriger vers WP Symposium ailleurs sur le réseau, vers un site dont l'utilisateur est membre, ou dans le pire des cas ne seront pas affichées."
+
+#: wp-symposium-toolbar_admin.php:2012
+#@ wp-symposium-toolbar
+msgid "So if you plan to activate this feature while using WP Symposium, you should make sure WP Symposium is available from all sites, for all users."
+msgstr "Donc si vous prévoyez d'activer cette fonctionnalité conjointement avec WP Symposium, vous devrez vous assurer que WP Symposium est disponible depuis tous les sites, pour tous les utilisateurs."
+
+#: wp-symposium-toolbar_admin.php:2013
+#@ wp-symposium-toolbar
+msgid "Subsites Options Tabs"
+msgstr "Onglets d'Options des Sous-sites"
+
+#: wp-symposium-toolbar_admin.php:2014
+#@ wp-symposium-toolbar
+msgid "The sistership feature of the \"Network Toolbar\" is the ability for Super Admins to synchronize subsites with the Main Site, by deactivating the plugin options tabs for these subsites."
+msgstr "La fonctionnalité jumelle de la \"Barre d'Outils Réseau\" est la possibilité pour les Administrateurs Réseau de synchroniser les sous-sites avec le Site Principal, en désactivant les onglets d'options de l'extension pour ces sous-sites."
+
+#: wp-symposium-toolbar_admin.php:2014
+#@ wp-symposium-toolbar
+msgid "From the table located at the \"Subsites\" tab at the Main Site plugin options page, when a given tab is unchecked, the corresponding options tab will not show on that given site, and its features will mirror those of the Main Site, so you don't have to replicate the same settings on all your subsites."
+msgstr "A la table située à l'onglet \"Sous-sites\" de la page d'options du Site Principal, lorsqu'un onglet en particulier est décoché, les options correspondantes ne seront pas disponibles sur le site en question, et ses fonctionnalités répliqueront celles du Site Principal, si bien que vous n'aurez pas besoin de visiter chaque sous-site individuellement."
+
+#: wp-symposium-toolbar_admin.php:2015
+#@ wp-symposium-toolbar
+msgid "If you activate the \"Network Toolbar\" and uncheck all tabs from \"Subsites\", you will end up with the same Toolbar accross your network of sites, with a unique options page at the Main Site, just like if it were a single site install."
+msgstr "Si vous activez la \"Barre d'Outils Réseau\" et décochez tous les onglets à la page \"Sous-Sites\", vous obtiendrez la même Barre d'Outils à travers tout votre réseau, avec une unique page d'options sur le Site Principal, tout comme si vous utilisiez une installation comportant un site unique."
+
+#: wp-symposium-toolbar_admin.php:2015
+#@ wp-symposium-toolbar
+msgid "There are many intermediate situations, when you want your Toolbar to look the same on some aspects, while keeping some flexibility for each subsites on other aspects."
+msgstr "Il y a beaucoup de situations intermédiaires, lorsque vous voulez que votre Barre d'Outils ait le même aspect sur certains points, tout en conservant des caractères distincts par site."
+
+#: wp-symposium-toolbar_admin.php:2016
+#@ wp-symposium-toolbar
+msgid "Network Custom Menus"
+msgstr "Menus Personnalisés Réseau"
+
+#: wp-symposium-toolbar_admin.php:2018
+#@ wp-symposium-toolbar
+msgid "WP Symposium Network Share"
+msgstr "Partage Réseau de WP Symposium"
+
+#: wp-symposium-toolbar_admin.php:2018
+#@ wp-symposium-toolbar
+msgid "Accessible by all Site Admins, the last network feature is the ability for them to share their WP Symposium features network-wide, so that their site users can access their Profile page and Mail from anywhere in the network."
+msgstr "Accessible par les Administrateurs Site, la dernière fonctionnalité est la possibilité de partager leur fonctionnalités WP Symposium à travers tout le réseau, afin que les utilisateurs de leur site puisse accéder à leur page Profil et leur mail, où qu'ils soient sur le réseau."
+
+#: wp-symposium-toolbar_admin.php:2018
+#@ wp-symposium-toolbar
+msgid "Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the \"Home Site\" feature is activated as well, in which case users will be able to choose which site they want as a home site."
+msgstr "De plus, si plusieurs instances de WP Symposium sont actives sur le réseau, elles seront cherchées dans l'ordre qui suit : site courant, Site Principal, Sous-sites en ordre ascendant d'identifiant. Si bien qu'un site donné ne sera pas forcément sur la liste et les liens et les icônes WPS pourraient ne pas pointer vers ce site, sauf si la fonctionnalité \"Site Maison\" est activée auquel cas les utilisateurs pourront choisir quel site sert de site maison."
+
+#. translators: if you want your name under mine at the bottom of the User Guide, translate this word, and add your name/email/website. Leave untranslated otherwise. HTML allowed, use br and ahref. 
+#: wp-symposium-toolbar_admin.php:2025
+#@ wp-symposium-toolbar
+msgid "translation:"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:1948
+#@ wp-symposium-toolbar
+msgid "Only visible on the frontend, the default WP Search icon will unfold when clicked on to reveal the search field. While unfolding, you'll notice that the search field pushes the WP User Menu. If, like me, you're concerned with menus and other items being pushed like this, rather than removing the WP Search icon, you may move it to either the right or left inner portion of the Toolbar."
+msgstr "Uniquement visible de la partie publique du site, l'icône de recherche WordPress se déplie lorsqu'on la clique, pour révéler le champ de recherche. En se dépliant, vous avez certainement constaté qu'elle pousse le Menu Utilisateur. Si, comme moi, vous n'aimez pas que les menus et autres éléments soient déplacés ainsi, plutôt que de supprimer cette icône complètement, vous pouvez la déplacer vers l'intérieur de la Barre d'Outils, à gauche ou à droite."
+
+#: wp-symposium-toolbar_admin.php:1976
+#@ wp-symposium-toolbar
+msgid "On Multisites Installs, a checkbox will allow you to share the WP Symposium features accross the whole network. These features (the WPS Profile and Mail) must be active, and a dedicated page properly defined so users can access them from anywhere on the network."
+msgstr "Sur les installations multisites, une case à cocher vous permet de partager les fonctionnalités WP Symposium à travers tout le réseau. Ces fonctionnalités (Profil et Mail WP Symposium) doivent être active, et une page doit être définie correctement, afin que les utilisateurs de ce site puissent y accéder depuis tout le réseau."
+
+#: wp-symposium-toolbar_admin.php:1976
+#@ wp-symposium-toolbar
+msgid "When this checkbox is checked, the features will be shared with other sites, if no other site takes precedence."
+msgstr "Lorsque cette case est cochée, les fonctionnalités sont partagées avec les autres sites, si aucun autre site ne prend la précédence."
+
+#: wp-symposium-toolbar_admin.php:1976
+#@ wp-symposium-toolbar
+msgid "The share order is: Home Site (if activated from the \"Network\" tab), current site, sites in ascending ID order starting with the Main Site."
+msgstr "L'ordre pour le partage est le suivant : Site Maison (si la fonctionnalité est activée depuis l'onglet \"Réseau\"), site courant, sites en ordre ascendant d'identifiant en commençant pas le Site Principal."
+
+#: wp-symposium-toolbar_admin.php:1976
+#@ wp-symposium-toolbar
+msgid "In conjunction with the \"Network Toolbar\", this allows you to make available the features of a site-activated WPS to a whole network."
+msgstr "Utilisé conjointement avec la \"Barre d'Outils Réseau\", ceci vous permet de rendre accessible les fonctionnalités de WP Symposium activé sur un site, à l'ensemble du réseau."
+
+#: wp-symposium-toolbar.php:297
+#@ wp-symposium-toolbar
+msgid "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?"
+msgstr "Vous tentez de quitter cette page. Si vous avez effectué des changements sans cliquer le bouton Enregistrer, ces changements seront perdus. Etes-vous sûr de vouloir quitter cette page ?"
+
+#: wp-symposium-toolbar_admin.php:1963
+#@ wp-symposium-toolbar
+msgid "Create your WordPress NavMenus from the Appearance > Menus page, before visiting this plugin options tab to create Custom Menus. Select the menu you wish to place in the Toolbar from the dropdown list of menus, the location from the dropdown list of locations and check the box(s) for the roles you wish to see that particular menu."
+msgstr "Créez vos Menus de Navigation WordPress à la page Apparence > Menus, avant de visiter cet onglet de la page d'options de l'extension pour y créer vos Menus Personnalisés. Sélectionnez le menu que vous souhaitez placer dans la Barre d'Outils depuis la liste des menus, l'emplacement depuis la liste des emplacements, et cochez les cases correspondant aux rôles qui pourront voir ce menu."
+
+#: wp-symposium-toolbar_admin.php:2009
+#@ wp-symposium-toolbar
+msgid "Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu and over the WPS notification icons point to this site."
+msgstr "Une fois cette fonctionnalité activée, les utilisateurs du réseau pourront choisir un site en tant que site maison, afin que les liens dans le Menu Utilisateur et les icônes de notification WPS pointent vers ce site."
+
+#: wp-symposium-toolbar_admin.php:2011
+#@ wp-symposium-toolbar
+msgid "This feature will be useful if your network of sites is made of member pages for instance, so that they can choose their personal page as home site."
+msgstr "Cette fonctionnalité sera utile si votre réseau est constitué de pages de membres par exemple, o* ils pourront choisir leur page personnelle en tant que site maison."
+
+#: wp-symposium-toolbar_admin.php:2010
+#@ wp-symposium-toolbar
+msgid "Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu point to this site."
+msgstr "Une fois cette fonctionnalité activée, les utilisateurs du réseau pourront choisir un site en tant que site maison, afin que les liens dans le Menu Utilisateur pointent vers ce site."
+
+#: wp-symposium-toolbar_admin.php:1983
+#@ wp-symposium-toolbar
+msgid "At this tab, settings allow you to modify the look of the WP Toolbar. A preview mode is available, as well as a popup message to remind you to save your settings to make them permanent !"
+msgstr "A cet onglet, les réglages vous permettent de modifier l'apparence de la Barre d'Outils WordPress. Un mode prévisualisation est disponible, ainsi qu'un message pop-up pour vous souvenir de sauvegarder vos réglages afin de les rendre permanents !"
+
+#: wp-symposium-toolbar_admin.php:1988
+#@ wp-symposium-toolbar
+msgid "There is no strong rule for this inheritance. Some colours (like the background and gradient colours) will need to be set and will use WP default value if they are not. Some other colours (like item borders or font shadow) will inherit from other colours. For the fonts, the values of font family / size / attributes set by the plugin will be propagated accross the Toolbar and dropdown menus."
+msgstr "Il n'y a pas de règle absolue pour cet héritage. Certaines couleurs (fond, gradient) nécessiteront d'être définies, et utiliseront la valeur par défaut de WordPress si elles ne le sont pas. D'autres couleurs (bordures, ombre de police de caractères) hériteront d'autres couleurs. Pour la police de caractères, les valeurs de famille / taille / attributs réglés par l'extension se propageront à travers l'ensemble de la Barre d'Outils et ses menus déroulants."
+
+#: wp-symposium-toolbar_admin.php:1994
+#@ wp-symposium-toolbar
+msgid "Monochrom dividers or two-colours borders ?"
+msgstr "Diviseurs monochromes ou bordures bicolores ?"
+
+#: wp-symposium-toolbar_admin.php:1995
+#@ wp-symposium-toolbar
+msgid "It may not be perceptible, but WP Toolbar by default uses two borders, one on each side of its items. The plugin mirrors this while allowing you to define two-colour borders. You may however, switch to a monochrom divider by not defining a second colour. WPS Toolbar will then adjust those settings so that it displays nice dividers on either side of your Toolbar items."
+msgstr "Cela n'est peut-être pas perceptible, mais la Barre d'Outils WP utilise par défaut deux couleurs de bordure, une pour chaque côté d'un élément. Cette extension réplique ceci en vous permettant de définir des bordures bicolores. Cependant, si vous le souhaitez, vous pouvez également définir des séparateurs monochromes, en omettant la seconde couleur. Dans les deux cas, WPS Toolbar ajustera ces réglages afin d'afficher de jolies bordures autour de vos éléments de menus."
+
+#: wp-symposium-toolbar_admin.php:2017
+#@ wp-symposium-toolbar
+msgid "Super Admins will also find at the \"Custom Menus\" tab of the Main Site plugin options page, checkboxes under each menu that allow them to make these menus, \"Network Menus\"."
+msgstr "Les Administrateurs Réseau trouveront également à l'onglet \"Menus Personnalisés\" de la page d'options de l'extension, des cases à cocher sous chaque menu permettant de faire de ces menus des \"Menus Personnalisés Réseau\"."
+
+#: wp-symposium-toolbar_admin.php:2017
+#@ wp-symposium-toolbar
+msgid "This feature is similar to the previous one, in that it'll help Super Admins avoid having to re-create the same menu on each subsite: the corresponding WP NavMenu needs to be defined on the Main Site only, and once the Custom Menu placed in the Toolbar on the Main Site is made a Network Menu, it'll be replicated on all subsites' Toolbar, even though the WP NavMenu doesn't exist on subsites."
+msgstr "Cette fonctionnalité est similaire à la précédente, en ce qu'elle épargne à l'Administrateur Réseau la tâche de re-créer le même menu sur chaque sous-site: le Menu de Navigation WordPress ne doit être défini que sur le Site Principal, et dès lors que le Menu Personnalisé placé dans la Barre d'Outils via le Site Principal est coché comme étant Menu Personnalisé Réseau, il est dupliqué sur la Barre d 'Outils de tous les sites, même si le Menu de Navigation correspondant n'existe pas sur les sous-sites."
+
+#: wp-symposium-toolbar_admin.php:2017
+#@ wp-symposium-toolbar
+msgid "Whether the Custom Menus tab is showing on a subsite or not, Site Admins will not see Network Menus and won't be able to edit or remove them."
+msgstr "Que l'onglet des Menus Personnalisés soit affiché sur un sous-site ou non, les Administrateurs Site ne verront pas ces Menus Personnalisés Réseau dans leur interface, et ne pourront ni les modifier ni les supprimer."
+
+#: wp-symposium-toolbar_admin.php:2018
+#@ wp-symposium-toolbar
+msgid "Activated by default, this feature should probably be used in conjunction with the Network Toolbar feature, to ensure the Toolbar is actually visible everywhere in the network for these site users."
+msgstr "Activée par défaut, cette fonctionnalité devrait probablement être utilisée en même temps que la Barre d'Outils Réseau, afin d'assurer que la Barre d'Outils sera effectivement visible dans tout le réseau par ces utilisateurs site."
+
+#: wp-symposium-toolbar_admin.php:706
+#@ wp-symposium-toolbar
+msgid "You are attempting to redirect the Edit Profile URL to the WP Symposium Profile page while this page cannot be found! Please check that you have activated the WP Symposium Profile feature and defined a Profile page, from the WPS Install page!"
+msgstr "Vous tentez de rediriger le lien Editer Mon Profil vers la page Profil de WP Symposium, alors que celle-ci ne peut être trouvée ! Veuillez vérifier que vous avez activé la fonctionnalité Profil de WP Symposium et correctement défini un page Profil, depuis la page Installation de WP Symposium !"
+
+#: wp-symposium-toolbar_admin.php:1957
+#@ wp-symposium-toolbar
+msgid "For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode."
+msgstr "Pour les écrans de petite dimension, WordPress 3.8 introduit une nouvelle Barre d'Outils dite responsive.  Le plus grand avatar n'est plus affiché dans le Menu Utilisateur, tandis qu'un avatar de taille intermédiaire (26px) remplace le petit avatar dans la Barre d'Outils.  Le message de bienvenue n'est pas affiché dans ce mode."
+
+#: wp-symposium-toolbar_admin.php:1957
+#@ wp-symposium-toolbar
+msgid "The plugin will not enforce this, and when your site Toolbar is displayed in this \"tablet mode\", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page \"User Menu\" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed."
+msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché dans ce \"mode tablette\", certains de vos réglages seront laissés de côté afin de préserver ce Menu Utilisateur : les deux réglages de la page \"Menu Utilisateur\" permettant de masquer les avatars ne seront pas pris en compte, et de la même façon, votre message de bienvenue personnalisé ne sera pas affiché."
+
+#: wp-symposium-toolbar_admin.php:1957
+#@ wp-symposium-toolbar
+msgid "Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar."
+msgstr "Toute autre modification que vous pourriez avoir apportée à ce Menu Utilisateur sera répliquée dans cette Barre d'Outils responsive."
+
+#: wp-symposium-toolbar_admin.php:1986
+#@ wp-symposium-toolbar
+msgid "Style Inheritance"
+msgstr "Héritage de Style"
+
+#: wp-symposium-toolbar_admin.php:1996
+#@ wp-symposium-toolbar
+msgid "Tablet Mode"
+msgstr "Mode Tablette"
+
+#: wp-symposium-toolbar_admin.php:1997
+#@ wp-symposium-toolbar
+msgid "For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar, of a fixed height of 46px and a content made of textless icons. Dropdown menus have a larger font and line height, ending up in tapable menu items."
+msgstr "Pour les écrans de petite dimension, WordPress 3.8 introduit une nouvelle Barre d'Outils dite responsive, d'une hauteur de 46px et contenant des icônes sans texte. Les menus déroulants ont une police de caractères de taille plus grande et un interligne élargi, ce qui permet d'y accéder aisément avec le doigt."
+
+#: wp-symposium-toolbar_admin.php:1997
+#@ wp-symposium-toolbar
+msgid "The plugin will not enforce this, and when your site Toolbar is displayed in this \"tablet mode\", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account."
+msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché dans ce \"mode tablette\", certains de vos réglages seront laissés de côté afin de préserver cette Barre d'Outils responsive : la hauteur de la Barre d'Outils et les dimensions de police ne seront pas prises en compte."
+
+#: wp-symposium-toolbar_admin.php:1997
+#@ wp-symposium-toolbar
+msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
+msgstr "Toute autre modification que vous pourriez avoir apportée sera répliquée dans cette Barre d'Outils responsive."
+
+#: wp-symposium-toolbar_admin_functions.php:1916
+#@ wp-symposium-toolbar
+msgid "Advertising"
+msgstr "Publicités"
+
