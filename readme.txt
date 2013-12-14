@@ -7,8 +7,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 0.23.1
-Version: 0.23.1
+Stable tag: 0.24.0
+Version: 0.24.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +114,15 @@ It will show only in the frontend and not in the backend, have you checked in th
 4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
 
 == Changelog ==
+
+= 0.24.0. =
+
+* Bugfix: get rid of PHP warnings on get_option default values for some setups
+* Bugfix: WP 3.8, Styles tab, saved CSS, secondary-level dropdown menus no longer picking colours due to a change in WP 3.8 (submenu div vs. ul)
+* Bugfix: WP 3.8, Styles tab, preview mode, default value for icon colour
+* Change: WPMS multisite, change internal name 'my_home_site' into 'wpst_my_home_site' for WP profile page added field
+* Bugfix: Styles tab, confirmation message no longer fired from the colorpickers, due to needToConfirm not shared between the splitted files
+* Bugfix: WP 3.7.1, styles not taken into account when no hover colour is selected for menus
 
 = 0.23.0. =
 

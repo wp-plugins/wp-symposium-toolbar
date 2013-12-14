@@ -128,7 +128,7 @@ function symposium_toolbar_init_globals() {
  */
 function symposium_toolbar_add_styles() {
 
-	if ( is_admin_bar_showing() && ( get_option( 'wpst_tech_style_to_header', '' ) != '' ) )
+	if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
 		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 }
 
@@ -150,7 +150,7 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 	
 	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
-	if ( is_user_logged_in() )
+	if ( is_user_logged_in() ) {
 		// WPMS:
 		// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
 		// - Superadmins are made administrators of the site
@@ -159,7 +159,7 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 		else
 			$current_role = ( is_super_admin() ) ? array( "administrator" ) : array( "wpst_user" );
 		
-	else
+	} else
 		$current_role = array( "wpst_visitor" );
 	
 	// Network Toolbar setting on WPMS

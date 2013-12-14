@@ -171,8 +171,8 @@ function symposium_toolbar_update() {
 		if ( is_multisite() && is_main_site() ) update_option( 'wpst_wpms_network_toolbar', '' );
 	}
 	
-	// Update to Build 2246
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2246 ) {
+	// Update to Build 2400
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2400 ) {
 		
 		// Update CSS based on stored styles and installed plugins
 		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
@@ -238,7 +238,7 @@ global $wpst_menus;
 			if ( is_array( $menu_items ) ) foreach ( $menu_items as $menu_item ) {
 				$menu_item_ids[$menu_item[0]] = wp_update_nav_menu_item( $menu_id, 0, array( 
 					'menu-item-title' => $menu_item[0],
-					'menu-item-parent-id' => $menu_item_ids[$menu_item[1]],
+					'menu-item-parent-id' => ( isset( $menu_item_ids[$menu_item[1]] ) ) ? $menu_item_ids[$menu_item[1]] : 0,
 					'menu-item-classes' => symposium_toolbar_make_slug( $menu_item[1] ).'_'.symposium_toolbar_make_slug( $menu_item[0] ),
 					'menu-item-url' => $menu_item[2],
 					'menu-item-description' => $menu_item[3],
@@ -278,7 +278,8 @@ function symposium_toolbar_update_tab( $blog_id, $tab ) {
 	
 	// Check Main Site options and propagate to subsite if needed
 	foreach ( $wpst_main_site_settings[$tab] as $option ) {
-		if ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] )
+		if ( ( !isset( $wpst_subsite_tab[ $option['option_name'] ] ) ) ||
+			 ( isset( $wpst_subsite_tab[ $option['option_name'] ] ) && ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] ) ) )
 			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog_id."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option['option_name'], $option['option_value'], 'yes' ) );
 	}
 	
@@ -406,6 +407,7 @@ function symposium_toolbar_save_before_render() {
 					$wpst_wpms_hidden_tabs = array_diff( array_keys( $wpst_subsites_tabs ), $wpst_tech_show_tabs );
 					
 					// Build the list of tabs that were removed from the subsite options page, hence need to be sync'ed with the Main Site
+					$removed_tabs = array();
 					if ( isset( $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] ) && is_array( $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] ) )
 						$removed_tabs = array_diff( $wpst_wpms_hidden_tabs, $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] );
 					
@@ -425,7 +427,8 @@ function symposium_toolbar_save_before_render() {
 						
 						// Check Main Site options and propagate to subsite if needed
 						foreach ( $wpst_main_site_settings[$tab] as $option ) {
-							if ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] )
+							if ( ( !isset( $wpst_subsite_tab[ $option['option_name'] ] ) ) ||
+								( isset( $wpst_subsite_tab[ $option['option_name'] ] ) && ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] ) ) )
 								$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog['blog_id']."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option['option_name'], $option['option_value'], 'yes' ) );
 						}
 						
@@ -551,7 +554,7 @@ function symposium_toolbar_save_before_render() {
 							$all_custom_menus[] = array(
 								$_POST['display_custom_menu_slug'][$key],
 								$_POST['display_custom_menu_location'][$key],
-								( $_POST['display_custom_menu_roles_'.$key] ) ? $_POST['display_custom_menu_roles_'.$key] : array(),
+								( $_POST['display_custom_menu_'.$key.'_roles'] ) ? $_POST['display_custom_menu_'.$key.'_roles'] : array(),
 								filter_var( trim ( $_POST['display_custom_menu_icon'][$key] ), FILTER_SANITIZE_URL ),
 								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network_'.$key] ) ) : false
 							);
@@ -1665,7 +1668,10 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	// Add the Background colour to the Dropdown Menus
 	if ( $style_chunk_ext != '' ) {
 		$style_saved .= '#wpadminbar .ab-sub-wrapper > ul { '.$style_chunk.'} ';
-		$style_saved .= '#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-sub-wrapper ul { ' . $style_chunk_ext . '} ';
+		// if( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+		$style_saved .= '#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu { ' . $style_chunk_ext . '} ';
+		// else
+			// $style_saved .= '#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-sub-wrapper ul { ' . $style_chunk_ext . '} ';
 	} else
 		if ( $style_chunk != '' ) $style_saved .= '#wpadminbar .ab-sub-wrapper > ul, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary { '.$style_chunk.'} ';
 	
@@ -1776,7 +1782,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus';
 	} elseif( version_compare( $wp_version, '3.8-alpha', '<' ) )
 		// Add the hoverbox to the User Info for pre-3.8
-		$style_saved = "#wpadminbar #wp-admin-bar-user-info:hover .ab-item { background-color: #EAF2FA; }";
+		$style_saved .= "#wpadminbar #wp-admin-bar-user-info:hover .ab-item { background-color: #EAF2FA; }";
 	
 	if ( ( get_option( 'wpst_myaccount_display_name', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_username', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_role', '' ) == "" ) ) {
 		$style_saved .= ' { '.$style_chunk.'} ';
@@ -1790,7 +1796,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk_ext = 'background-color: ' . $wpst_style_tb_current['menu_hover_ext_background_colour'] . '; ';
 		// $style_chunk_ext = 'background: rgb(' . symposium_toolbar_hex_to_rgb( $wpst_style_tb_current['menu_hover_ext_background_colour'] ) . '); ';
 		
-		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover { ' . $style_chunk_ext . '} ';
+		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover';
+		// $style_saved .= ', #wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu';
+		$style_saved .= ' { ' . $style_chunk_ext . '} ';
 	}
 	$style_chunk = "";
 	$style_chunk_ext = "";
@@ -1907,10 +1915,10 @@ function symposium_toolbar_update_admin_menu() {
 	
 	// Aggregate menu items?
 	$hidden = get_option( WPS_OPTIONS_PREFIX.'_long_menu' ) == "on" ? '_hidden': '';
-	$symposium_toolbar_admin_menu_items = $submenu["symposium_debug"];
+	$symposium_toolbar_admin_menu_items = ( isset( $submenu["symposium_debug"] ) ) ? $submenu["symposium_debug"] : array();
 	
 	(bool)$has_toolbar = false;
-	if ( is_array( $symposium_toolbar_admin_menu_items ) ) foreach ( $symposium_toolbar_admin_menu_items as $symposium_toolbar_admin_menu_item ) {
+	if ( isset( $submenu["symposium_debug"] ) && is_array( $submenu["symposium_debug"] ) ) foreach ( $submenu["symposium_debug"] as $symposium_toolbar_admin_menu_item ) {
 		$slug = symposium_toolbar_make_slug( $symposium_toolbar_admin_menu_item[0] );										// Slug
 		$symposium_toolbar_admin_menu_item[1] = admin_url( 'admin.php?page='.$symposium_toolbar_admin_menu_item[2] );		// URL
 		$symposium_toolbar_admin_menu_item[2] = 'symposium_toolbar_'.$slug;													// ID
@@ -1969,7 +1977,7 @@ function symposium_toolbar_custom_profile_update( $user_id ) {
 	global $blog_id;
 	
 	// Save the returned value from $_POST
-	if ( isset( $_POST['my_home_site'] ) )
+	if ( isset( $_POST['wpst_my_home_site'] ) )
 		update_user_meta( $user_id, 'wpst_home_site', $blog_id );
 	else
 		update_user_meta( $user_id, 'wpst_home_site', '' );
@@ -1999,13 +2007,13 @@ function symposium_toolbar_custom_profile_option( $profileuser ) {
 		echo '<h3>' . __( 'Network Settings', 'wp-symposium-toolbar' ) . '</h3>';
 		
 		echo '<table class="form-table">';
-		echo '<tr><th scope="row"><label for="my_home_site">'. __( 'Home Site', 'wp-symposium-toolbar' ) .'</label></th>';
+		echo '<tr><th scope="row"><label for="wpst_my_home_site">'. __( 'Home Site', 'wp-symposium-toolbar' ) .'</label></th>';
 		
 		// Checkbox to select the current site as Home Site
-		echo '<td><input name="my_home_site" type="checkbox" id="my_home_site"';
+		echo '<td><input name="wpst_my_home_site" type="checkbox" id="wpst_my_home_site"';
 		if ( $home_id == $blog_id ) echo ' CHECKED';
 		echo ' />';
-		echo '<span class="description" for="my_home_site"> '.__( 'Make this site your Home Site, so that the Edit Profile link points to this page', 'wp-symposium-toolbar' ) . '</span>';
+		echo '<span class="description" for="wpst_my_home_site"> '.__( 'Make this site your Home Site, so that the Edit Profile link points to this page', 'wp-symposium-toolbar' ) . '</span>';
 		
 		// Add a reference link to the Home Site when it is selected and we're not on it
 		if ( $home_id && ( $home_id != $blog_id ) ) {

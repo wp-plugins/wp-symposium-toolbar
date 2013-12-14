@@ -113,6 +113,11 @@
 	}
 }
 
+/* Fix arrows height for User Menu submenus */
+#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
+	top: 1px;
+}
+
 /**
  * Site Name Menu
  */

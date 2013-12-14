@@ -19,7 +19,6 @@ jQuery(document).ready(function($){
 	// SAFERS
 	
 	// Reference: http://www.4guysfromrolla.com/demos/OnBeforeUnloadDemo2.htm
-	var needToConfirm = false;
 	window.onbeforeunload = confirmExit;
 	function confirmExit() {
 		if ( needToConfirm )

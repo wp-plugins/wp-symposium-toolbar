@@ -96,6 +96,8 @@ jQuery(document).ready(function($){
 		var wpstHoverEmptyColorRgb = "rgb( 51, 51, 51 )";
 		var wpstFontEmptyColor = "#eee";
 		var wpstFontEmptyColorRgb = "rgb( 238, 238, 238 )";
+		var wpstIconEmptyColor = "#999";
+		var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
 		var wpstFontHoverEmptyColor = "#2ea2cc";
 		var wpstFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 		
@@ -383,11 +385,13 @@ jQuery(document).ready(function($){
 	
 	function update_tb_font_colour() {
 	
-		if ( $('#wpst_font_colour').val() !== "" )
+		if ( $('#wpst_font_colour').val() !== "" ) {
 			var tbFontColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_font_colour').val() )+", "+hexToG( $('#wpst_font_colour').val() )+", "+hexToB( $('#wpst_font_colour').val() )+")" : $('#wpst_font_colour').val() ;
-		else
+			var tbIconColor = tbFontColor;
+		} else {
 			var tbFontColor = wpstRgbColors ? wpstFontEmptyColorRgb : wpstFontEmptyColor;
-		
+			var tbIconColor = wpstRgbColors ? wpstIconEmptyColorRgb : wpstIconEmptyColor;
+		}
 		if ( $('#wpst_hover_font_colour').val() !== "" )
 			var tbHoverFontColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_font_colour').val() )+", "+hexToG( $('#wpst_hover_font_colour').val() )+", "+hexToB( $('#wpst_hover_font_colour').val() )+")" : $('#wpst_hover_font_colour').val() ;
 		else
@@ -415,7 +419,10 @@ jQuery(document).ready(function($){
 				var style = document.createElement('style');
 				style.id = 'wpstFontColour';
 			}
-			style.innerHTML = '#wpadminbar .ab-item, #wpadminbar .ab-label, #wpadminbar li > .ab-item, #wpadminbar li > .ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.ab-label, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar li #adminbarsearch:before { color: '+tbFontColor+'; ';
+			style.innerHTML = '#wpadminbar .ab-item, #wpadminbar .ab-label, #wpadminbar li > .ab-item, #wpadminbar li > .ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.ab-label{ color: '+tbFontColor+' } ';
+			style.innerHTML += '#wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar li #adminbarsearch:before { color: '+tbIconColor+' } ';
+			style.innerHTML += '#wpadminbar .ab-top-menu>li>.ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu>li>.ab-item:focus, #wpadminbar .ab-top-menu>li:hover>.ab-item, #wpadminbar .ab-top-menu>li.hover>.ab-item { color: '+tbHoverFontColor+' } ';
+			
 			document.head.appendChild(style);
 		}
 	}
