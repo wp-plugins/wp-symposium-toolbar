@@ -125,6 +125,8 @@ function symposium_toolbar_update() {
 	global $is_wps_profile_active, $wpst_buildnr;
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	
+	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
+	
 	// Update to Build 2101
 	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2101 ) {
 		
@@ -171,18 +173,18 @@ function symposium_toolbar_update() {
 		if ( is_multisite() && is_main_site() ) update_option( 'wpst_wpms_network_toolbar', '' );
 	}
 	
-	// Update to Build 2400
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2400 ) {
-		
-		// Update CSS based on stored styles and installed plugins
-		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
-		symposium_toolbar_update_styles( $wpst_style_tb_current );
+	// Update to Build 2401
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2401 ) {
+		delete_option( 'wpst_style_highlight_external_links' );
+
+		$avatars = "";
+		if ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == '' ) $avatars .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-user > .ab-item > img { display: none; } ';
+		if ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == '' ) $avatars .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-visitor > .ab-item > img { display: none; } ';
+		if ( $avatars != '' )
+			update_option( 'wpst_tech_feature_to_header', '@media screen and (min-width: 783px) { '.$avatars.'}' );
+		else
+			update_option( 'wpst_tech_feature_to_header', '' );
 	}
-	
-	// Update to Build xxxx
-	// if ( get_option( 'wpst_tech_buildnr', 0 ) < xxxx ) {
-		// update_option( 'wpst_tech_mytest', 'yes' );
-	// }
 	
 	// Store build nr
 	update_option( 'wpst_tech_buildnr', $wpst_buildnr );
@@ -206,13 +208,24 @@ function symposium_toolbar_update_walker() {
 		
 		foreach ( (array) $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
+			
 			symposium_toolbar_init_globals();
 			symposium_toolbar_update();
+			
+			// Update CSS based on stored styles and installed plugins
+			$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+			symposium_toolbar_update_styles( $wpst_style_tb_current );
+			
 			restore_current_blog();
 		}
 	
-	} else
+	} else {
 		symposium_toolbar_update();
+		
+		// Update CSS based on stored styles and installed plugins
+		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+		symposium_toolbar_update_styles( $wpst_style_tb_current );
+	}
 }
 
 /**
@@ -225,7 +238,7 @@ function symposium_toolbar_update_walker() {
  */
 function symposium_toolbar_create_custom_menus() {
 
-global $wpst_menus;
+	global $wpst_menus;
 	
 	if ( $wpst_menus ) foreach ( $wpst_menus as $menu_name => $menu_items ) {
 		
@@ -263,35 +276,46 @@ function symposium_toolbar_update_tab( $blog_id, $tab ) {
 	
 	global $wpdb;
 	
-	// Some translation work...
-	if ( $tab == 'menus' ) $tab = 'custom_menu';
-	
-	// If not filled already, get it now
-	$wpst_main_site_settings[$tab] = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
-	
-	// Get the options from target subsite for this tab, as an array of option_name => option_value
+	$wpst_main_site_options = array();
 	$wpst_subsite_tab = array();
-	$wpst_subsite_select = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog_id."_options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
-	if ( $wpst_subsite_select ) foreach ( $wpst_subsite_select as $option ) {
-		$wpst_subsite_tab[ $option['option_name'] ] = $option['option_value'];
+	
+	if ( $tab == 'menus' ) {
+		// Get the option from Main Site tab, as an array of option_name => option_value
+		$wpst_main_site_select = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
+		
+		// Get only non-network menus
+		$non_network_custom_menus = array();
+		$unserialized_custom_menus = maybe_unserialize( $wpst_main_site_select[0]["option_value"] );
+		if ( is_array( $unserialized_custom_menus ) ) foreach ( $unserialized_custom_menus as $menu ) {
+			if ( !$menu[4] ) $non_network_custom_menus[] = $menu;
+		}
+		$wpst_main_site_options[ "wpst_custom_menus" ] = serialize( $non_network_custom_menus );
+		
+		// Get the options from the target subsite for this tab
+		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog_id."_options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
+		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $subsite_option ) {
+			$wpst_subsite_tab[ $subsite_option[ 'option_name' ] ] = $subsite_option[ 'option_value' ];
+		}
+		
+	} else {
+		// Get the options from Main Site tab, as an array of option_name => option_value
+		$wpst_main_site_select = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
+		if ( $wpst_main_site_select ) foreach( $wpst_main_site_select as $select ) {
+			$wpst_main_site_options[ $select[ 'option_name' ] ] = $select[ 'option_value' ];
+		}
+		
+		// Get the options from the target subsite for this tab
+		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog_id."_options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
+		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $option ) {
+			$wpst_subsite_tab[ $option[ 'option_name' ] ] = $option[ 'option_value' ];
+		}
 	}
 	
 	// Check Main Site options and propagate to subsite if needed
-	foreach ( $wpst_main_site_settings[$tab] as $option ) {
-		if ( ( !isset( $wpst_subsite_tab[ $option['option_name'] ] ) ) ||
-			 ( isset( $wpst_subsite_tab[ $option['option_name'] ] ) && ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] ) ) )
-			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog_id."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option['option_name'], $option['option_value'], 'yes' ) );
-	}
-	
-	// Generate CSS from Styles if needed
-	if ( $tab == 'style' ) { //&& ( $ret > 0 ) ) {
-		$wpst_tech_style_to_header = $wpdb->get_row( "SELECT option_name,option_value,autoload FROM ".$wpdb->options." WHERE option_name LIKE 'wpst_tech_style_to_header' LIMIT 1", ARRAY_A );
-		if ( $wpst_tech_style_to_header ) {
-			$wpst_tech_style_to_header = $wpst_tech_style_to_header['option_value'];
-			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog_id."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", 'wpst_tech_style_to_header', $wpst_tech_style_to_header, 'yes' ) );
-			// This means it will not be re-generated based on subsite specificities, like JetPack activated here and not there, etc.
-			// Alternate is switch_to_blog() / restore_blog() but it's much more resources consumming...
-		}
+	foreach ( $wpst_main_site_options as $option_name => $option_value ) {
+		if ( ( !isset( $wpst_subsite_tab[ $option_name ] ) ) ||
+			 ( isset( $wpst_subsite_tab[ $option_name ] ) && ( $option_value != $wpst_subsite_tab[ $option_name ] ) ) )
+			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog_id."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option_name, $option_value, 'yes' ) );
 	}
 }
 
@@ -308,7 +332,7 @@ function symposium_toolbar_update_tab( $blog_id, $tab ) {
  */
 function symposium_toolbar_save_before_render() {
 
-	global $wpdb, $current_screen;
+	global $wpdb, $current_screen, $wp_version;
 	global $is_wpst_network_admin, $is_wps_active, $wpst_locations, $wpst_failed, $wpst_notices, $wpst_shown_tabs, $wpst_subsites_tabs, $wpst_roles_all;
 	
 	// Make sure we're at the plugin options page, and only this one - this should simply confirm what this function is hooked to
@@ -476,7 +500,7 @@ function symposium_toolbar_save_before_render() {
 						}
 					}
 				
-				// Either on Main Site or on a subsite when the Network Toolbar isn't activated
+				// We're either on single site / the Main Site or on a subsite when the Network Toolbar isn't activated
 				if ( is_main_site() || ( get_option( 'wpst_wpms_network_toolbar', '' ) == "" ) ) update_option( 'wpst_toolbar_wp_toolbar', $display_wp_toolbar_roles );
 				
 				if ( get_option( 'wpst_wpms_network_toolbar', '' ) == "" ) update_option( 'wpst_toolbar_wp_toolbar_force', isset( $_POST["display_wp_toolbar_force"] ) ? 'on' : '' );
@@ -503,6 +527,18 @@ function symposium_toolbar_save_before_render() {
 				update_option( 'wpst_myaccount_avatar_small', isset( $_POST["display_wp_toolbar_avatar"] ) ? 'on' : '' );
 				update_option( 'wpst_myaccount_avatar_visitor', isset( $_POST["display_wp_toolbar_avatar_visitor"] ) ? 'on' : '' );
 				update_option( 'wpst_myaccount_avatar', isset( $_POST["display_wp_avatar"] ) ? 'on' : '' );
+				update_option( 'wpst_myaccount_avatar', isset( $_POST["display_wp_avatar"] ) ? 'on' : '' );
+				
+				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+					$avatars = "";
+					if ( !isset( $_POST["display_wp_toolbar_avatar"] ) ) $avatars .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-user > .ab-item > img { display: none; } ';
+					if ( !isset( $_POST["display_wp_toolbar_avatar_visitor"] ) ) $avatars .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-visitor > .ab-item > img { display: none; } ';
+					if ( $avatars )
+						update_option( 'wpst_tech_feature_to_header', '@media screen and (min-width: 783px) { '.$avatars.'}' );
+					else
+						update_option( 'wpst_tech_feature_to_header', '' );
+				}
+				
 				update_option( 'wpst_myaccount_display_name', isset( $_POST["display_wp_display_name"] ) ? 'on' : '' );
 				update_option( 'wpst_myaccount_username', isset( $_POST["display_wp_username"] ) ? 'on' : '' );
 				update_option( 'wpst_myaccount_edit_link', isset( $_POST["display_wp_edit_link"] ) ? 'on' : '' );
@@ -1158,19 +1194,50 @@ function symposium_toolbar_save_before_render() {
 		// Re-generate WPS Admin Menu upon saving from WPST Options page
 		if ( $is_wps_active ) symposium_toolbar_update_admin_menu();
 		
-		// Network Toolbar: from Multisite Main Site and network activated
+		// Network Toolbar: Super Admin, Multisite, Main Site and network activated
 		if ( $is_wpst_network_admin ) {
 			
 			// Propagate from Main Site to subsites as needed
 			// $wpst_wpms_hidden_tabs_all is an array (sites) of arrays (hidden tabs)
 			$wpst_wpms_hidden_tabs_all = get_option( 'wpst_wpms_hidden_tabs_all', array() );
-			if ( $wpst_wpms_hidden_tabs_all ) foreach ( $wpst_wpms_hidden_tabs_all as $blog_id => $hidden_tabs ) {
-				if ( $hidden_tabs ) foreach ( $hidden_tabs as $tab ) {
-					symposium_toolbar_update_tab( $blog_id, $tab );
-					if ( $tab == 'wps' ) {
-						switch_to_blog( $blog_id );
-						symposium_toolbar_update_admin_menu();
-						restore_current_blog();
+			if ( $wpst_wpms_hidden_tabs_all ) {
+				
+				// In case of import, parse all tabs of all subsites
+				if ( $_POST["symposium_toolbar_view"] == 'themes' ) {
+					foreach ( $wpst_wpms_hidden_tabs_all as $blog_id => $hidden_tabs ) {
+						if ( $hidden_tabs ) foreach ( $hidden_tabs as $tab ) {
+							symposium_toolbar_update_tab( $blog_id, $tab );
+							if ( $tab == 'wps' ) {
+								switch_to_blog( $blog_id );
+								symposium_toolbar_update_admin_menu();
+								restore_current_blog();
+							}
+							if ( $tab == 'style' ) {
+								$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+								switch_to_blog( $blog_id );
+								update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
+								restore_current_blog();
+							}
+						}
+					}
+				
+				// Otherwise, parse only the current tab of all subsites
+				} else {
+					foreach ( $wpst_wpms_hidden_tabs_all as $blog_id => $hidden_tabs ) {
+						if ( in_array( $_POST["symposium_toolbar_view"], $hidden_tabs ) ) {
+							symposium_toolbar_update_tab( $blog_id, $_POST["symposium_toolbar_view"] );
+							if ( $_POST["symposium_toolbar_view"] == 'wps' ) {
+								switch_to_blog( $blog_id );
+								symposium_toolbar_update_admin_menu();
+								restore_current_blog();
+							}
+							if ( $_POST["symposium_toolbar_view"] == 'style' ) {
+								$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+								switch_to_blog( $blog_id );
+								update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
+								restore_current_blog();
+							}
+						}
 					}
 				}
 			}
@@ -1178,11 +1245,11 @@ function symposium_toolbar_save_before_render() {
 			// Save reference to Network menus separately, prepare their wp_setup_nav_menu_item,
 			// and save under a dedicated option to recover them easily from subsites
 			$all_custom_menus = get_option( 'wpst_custom_menus', array() ) ;
-			if ( $all_custom_menus ) {
+			if ( $all_custom_menus && ( $_POST["symposium_toolbar_view"] == 'menus' ) ) {
 				$network_menus = array ();
 				foreach ( $all_custom_menus as $custom_menu ) {
 					
-					if ( $custom_menu[4] ) {
+					if ( isset( $custom_menu[4] ) && $custom_menu[4] ) {
 						$items = $menu_items = false;
 						
 						// Get IDs of the items populating this menu
@@ -1645,7 +1712,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	// Add the Font Hover to the Toplevel Items
 	if ( $style_chunk != "" ) {
-		$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .menupop.hover .ab-label, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item .ab-label, #wpadminbar li:hover .ab-icon:before, #wpadminbar li.hover .ab-icon:before, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label, #wpadminbar li:hover #adminbarsearch:before { ' . $style_chunk . '} ';
+		$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .menupop.hover .ab-label, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item .ab-label, #wpadminbar li:hover .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label, #wpadminbar li:hover #adminbarsearch:before { ' . $style_chunk . '} ';
 		$style_chunk = "";
 	}
 	
@@ -1780,9 +1847,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		// $style_chunk_ext = 'background: rgb(' . $wpst_default_toolbar['menu_ext_hover_color_rgb'] . '); ';
 		
 		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus';
-	} elseif( version_compare( $wp_version, '3.8-alpha', '<' ) )
-		// Add the hoverbox to the User Info for pre-3.8
-		$style_saved .= "#wpadminbar #wp-admin-bar-user-info:hover .ab-item { background-color: #EAF2FA; }";
+	}
 	
 	if ( ( get_option( 'wpst_myaccount_display_name', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_username', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_role', '' ) == "" ) ) {
 		$style_saved .= ' { '.$style_chunk.'} ';
@@ -1917,7 +1982,6 @@ function symposium_toolbar_update_admin_menu() {
 	$hidden = get_option( WPS_OPTIONS_PREFIX.'_long_menu' ) == "on" ? '_hidden': '';
 	$symposium_toolbar_admin_menu_items = ( isset( $submenu["symposium_debug"] ) ) ? $submenu["symposium_debug"] : array();
 	
-	(bool)$has_toolbar = false;
 	if ( isset( $submenu["symposium_debug"] ) && is_array( $submenu["symposium_debug"] ) ) foreach ( $submenu["symposium_debug"] as $symposium_toolbar_admin_menu_item ) {
 		$slug = symposium_toolbar_make_slug( $symposium_toolbar_admin_menu_item[0] );										// Slug
 		$symposium_toolbar_admin_menu_item[1] = admin_url( 'admin.php?page='.$symposium_toolbar_admin_menu_item[2] );		// URL
@@ -1952,13 +2016,7 @@ function symposium_toolbar_update_admin_menu() {
 			array_push( $args, array ( __( 'Templates', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_templates' ), 'symposium_toolbar_templates', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
 			if ( get_option( WPS_OPTIONS_PREFIX.'_audit' ) ) array_push( $args, array ( __( 'Audit', WPS_TEXT_DOMAIN ), 'symposium_audit', 'symposium_toolbar_audit', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
 		}
-		if ( $symposium_toolbar_admin_menu_item[0] == __( 'Toolbar', 'wp-symposium-toolbar' ) )
-			(bool)$has_toolbar = true;
 	}
-	
-	// During activation the plugin isn't quite yet activated... Falling back. Hell, translation not loaded yet... No fall back.
-	if ( !$has_toolbar )
-		array_push( $args, array ( __( 'Toolbar', 'wp-symposium-toolbar' ), admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php' ), 'symposium_toolbar_toolbar', 'my-symposium-admin', array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_toolbar' ) ) );
 	
 	// Store the menu structure for instant use
 	update_option( 'wpst_tech_wps_admin_menu', $args );
@@ -1995,7 +2053,7 @@ function symposium_toolbar_custom_profile_option( $profileuser ) {
 	
 	global $wpst_roles_all, $blog_id;
 	
-	// Remove the option to show/hide the Toolbar ("Show Toolbar when viewing site"): when the role cannot see the Toolbar
+	// Remove the option to show/hide the Toolbar ("Show Toolbar when viewing site") when the role cannot see the Toolbar
 	if ( ( is_array( get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) && ( !array_intersect( $profileuser->roles, get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) ) )
 		|| ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) == "on" )		// when the display of the Toolbar is forced locally
 		|| ( get_option( 'wpst_wpms_network_toolbar', '' ) == "on" ) )			// when the display of the Toolbar is forced network-wide

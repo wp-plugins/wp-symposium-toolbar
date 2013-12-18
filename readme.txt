@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.0
+Version: 0.24.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,6 @@ Now the usual bulleted list of features...
 * Redesign the WP User Menu ("My Account"), by selecting each of its default items individually and adding your own custom items
 * WP Symposium sites - Add links to WP Symposium to the WP Toolbar, providing single-click access to WP Symposium from anywhere in your WordPress site
 * WP Symposium sites - Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
-* Show the Toolbar to non logged-in members, with links to your Login page along with the welcome message you wish
 * Style the Toolbar your way: custom colours, gradient, transparency, shadow, fonts, for the Toolbar and its menus
 * Real-time preview mode at the styling page  :-)
 * Import / export the plugin settings, ideal for backups or exchanging those settings accross your sites
@@ -108,20 +107,31 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Screenshots ==
 
-1. Share your thoughts with the World in either format, under your custom Toolbar: gradients, transparency, colorfull
+1. Share your thoughts with the World in either format, under your custom Toolbar: gradients, transparency, colorful
 2. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 3. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
 4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
 
 == Changelog ==
 
+= 0.25.0. =
+
+* Change: add WPS icon to WPS Admin menu
+* Bugfix: WP 3.8, Styles, preview mode, Toolbar items hover colour
+* Bugfix: do not go through symposium_toolbar_custom_profile_update for single sites and do not create useless users metadata
+* Change: the rendering of the row for "new site settings" at the Sites tab of the plugin options page
+* Bugfix: missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
+* Bugfix: style secondary submenus to look like their parent when using WP default background color
+* Bugfix: WPMS, update tabs in all cases, and update style upon new site creation
+* Bugfix: minor CSS default settings
+
 = 0.24.0. =
 
 * Bugfix: get rid of PHP warnings on get_option default values for some setups
 * Bugfix: WP 3.8, Styles tab, saved CSS, secondary-level dropdown menus no longer picking colours due to a change in WP 3.8 (submenu div vs. ul)
 * Bugfix: WP 3.8, Styles tab, preview mode, default value for icon colour
-* Change: WPMS multisite, change internal name 'my_home_site' into 'wpst_my_home_site' for WP profile page added field
-* Bugfix: Styles tab, confirmation message no longer fired from the colorpickers, due to needToConfirm not shared between the splitted files
+* Change: WPMS, change internal name 'my_home_site' into 'wpst_my_home_site' for WP profile page added field
+* Bugfix: Styles tab, confirmation message no longer fired from the colorpickers, due to Javascript variable not shared between the splitted files
 * Bugfix: WP 3.7.1, styles not taken into account when no hover colour is selected for menus
 
 = 0.23.0. =

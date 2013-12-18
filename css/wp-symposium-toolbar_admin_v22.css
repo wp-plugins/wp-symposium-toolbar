@@ -15,17 +15,18 @@
 */
 
 /**
- * WPS Icon
+ * Icons
  */
  
-#wpadminbar .ab-icon-wps {
-	display: none;
+#wpadminbar #wp-admin-bar-my-symposium-admin .ab-icon-wps {
+	background-image: url('../images/wps.png');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	padding-left: 2px;
+	padding-right: 2px;
+	float:left;
 }
 
-/**
- * Notification Icons
- */
- 
 #wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail .ab-icon-mail {
 	background-image: url('../images/mail-open.png');
 	background-color: transparent;
@@ -86,7 +87,7 @@
 	display: inline;
 }
 
-/* Style the User Menu for a correct partial display */
+/* Style the User Menu user actions for a correct partial display */
 #wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
 	min-height: 84px;
 }
@@ -112,6 +113,17 @@
 /* Spans look too small on hover */
 #wpadminbar #wp-admin-bar-user-info a {
 	padding-bottom: 10px;
+}
+
+/* Style secondary submenus to look like their parent */
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+    background: none repeat scroll 0 0 #EEEEEE;
+    box-shadow: none;
+    display: block;
+    margin: 0;
+    position: relative;
+    right: auto;
 }
 
 /* Add Admin Role to User Menu */
@@ -224,9 +236,11 @@
 	display: inline;
 }
 
-/* Roles */
-.wpst_roles_checkboxes span {
-    padding-right: 10px;
+/* Roles in roles' lists, sites in sites' lists */
+.wpst_roles_checkboxes span.description,
+.wpst_sites_checkboxes span.description {
+    padding-right: 20px;
+	display: inline;
 }
 
 /* Styles tables */
@@ -242,6 +256,14 @@
 
 .wpst-positive-int, .wpst-int, .wpst-percent {
 	width: 50px;
+}
+
+/* Error messages in the admin page */
+.wpst-error-message {
+	margin-top: 12px;
+	padding: 12px;
+	background-color: #FFEBE8;
+	border: 1px solid #CC0000;
 }
 
 /* Refines WP colorpicker */

@@ -106,8 +106,7 @@ function symposium_toolbar_init_globals() {
 	// the parent slug will be used directly to add_node the menu to the Toolbar, this is why '' is a location
 	$wpst_locations = array();
 	$wpst_locations['wp-logo'] = __( 'Append to / Replace the WP Logo menu', 'wp-symposium-toolbar' );
-	if ( is_multisite() )
-		$wpst_locations['my-sites'] = __( 'Append to My Sites', 'wp-symposium-toolbar' );
+	if ( is_multisite() ) $wpst_locations['my-sites'] = __( 'Append to My Sites', 'wp-symposium-toolbar' );
 	$wpst_locations[''] = __( 'At the right of the New Content menu', 'wp-symposium-toolbar' );
 	$wpst_locations['top-secondary'] = __( 'At the left of the WP User Menu', 'wp-symposium-toolbar' );
 	$wpst_locations['my-account'] = __( 'Append to the WP User Menu', 'wp-symposium-toolbar' );
@@ -130,6 +129,21 @@ function symposium_toolbar_add_styles() {
 
 	if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
 		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+}
+
+/**
+ * Called on top of all pages
+ * Add avatar feature to the WP header
+ *
+ * @since 0.25.0
+ *
+ * @param  none
+ * @return none
+ */
+function symposium_toolbar_add_features() {
+
+	if ( get_option( 'wpst_tech_feature_to_header', '' ) != '' )
+		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_feature_to_header', '' ) ) . '</style>';
 }
 
 /**
@@ -318,7 +332,8 @@ function symposium_toolbar_edit_wp_toolbar() {
 			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
 				$avatar_small = ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';
 			else
-				$avatar_small = ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) ? get_avatar( $user_id, 26 ) : '';
+				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_features()
+				$avatar_small = get_avatar( $user_id, 26 );
 			
 			// User Info that goes on top of the menu
 			$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
@@ -359,16 +374,17 @@ function symposium_toolbar_edit_wp_toolbar() {
 			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
 				$avatar_small = ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
 			else
-				$avatar_small = ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == "on" ) ? get_avatar( $user_id, 26 ) : '';  // Get a blank avatar
+				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_features()
+				$avatar_small = get_avatar( $user_id, 26 );  // Get a blank avatar
 		}
 		
 		// Classes
+		$my_account_class = ( $user_id > 0 ) ? 'wpst-user' : 'wpst-visitor';
 		if ( $avatar_large && $user_info_collected ) {
-			$my_account_class = 'with-avatar';
+			$my_account_class .= ' with-avatar';
 			$user_info_class  = '';
 		} else {
-			// $my_account_class = '';
-			$my_account_class = ( version_compare( $wp_version, '3.8-alpha', '>' ) ) ? 'with-avatar' : '';
+			$my_account_class .= ( version_compare( $wp_version, '3.8-alpha', '>' ) ) ? ' with-avatar' : '';
 			$user_info_class  = ( $avatar_large ) ? 'wpst-user-info wpst-with-avatar' : '';
 			$avatar_large = str_replace( "avatar-64", "avatar-64 wpst-avatar", $avatar_large );
 		}
@@ -454,7 +470,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 		//  $custom_menu[1] = location slug
 		//  $custom_menu[2] = array of selected roles for this menu
 		//  $custom_menu[3] = URL to a custom icon that will replace the toplevel menu item title
-		//  $custom_menu[4] = optional, WPMS Network menu, the list of its menu items
+		//  $custom_menu[4] = if a WPMS Network menu, true / the array of its menu items, false otherwise
 		if ( is_array( $custom_menu[2] ) ) if ( array_intersect( $current_role, $custom_menu[2] ) ) {
 			
 			$menu_items = array();
@@ -659,7 +675,7 @@ function symposium_toolbar_symposium_notifications() {
 			$title = __( "Your Inbox", 'wp-symposium-toolbar' ).': '.$total_mail.' '.__( "archived", 'wp-symposium-toolbar' );
 		}
 		
-		if ( $inbox ) {
+		if ( isset( $inbox ) && $inbox ) {
 			$args = apply_filters( 'symposium_toolbar_wps_item_for_mail', array(
 				'id' => 'symposium-toolbar-notifications-mail',
 				'parent' => 'top-secondary',
@@ -688,7 +704,7 @@ function symposium_toolbar_symposium_notifications() {
 			$title = __( "Your Friends list", 'wp-symposium-toolbar' ).': '.$current_friends.' '.__( "friends", 'wp-symposium-toolbar' );
 		}
 		
-		if ( $friends ) {
+		if ( isset( $friends ) && $friends ) {
 			$friends_url = array_shift( $friends_url_arr );
 			$friends_url .= ( strpos( $friends_url, '?' ) !== FALSE ) ? "&view=friends" : "?view=friends";
 			$args = apply_filters( 'symposium_toolbar_wps_item_for_friends', array(

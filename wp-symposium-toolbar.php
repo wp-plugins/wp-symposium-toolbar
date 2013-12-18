@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.0
+Version: 0.24.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2400;
+$wpst_buildnr = 2402;
 
 
 // Exit if accessed directly
@@ -93,8 +93,8 @@ function symposium_toolbar_init() {
 	// CSS for Admin page
 	// WP 3.7.x and older installs
 	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
-		$adminStyleUrl = WP_PLUGIN_URL . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar_admin_v22.css';
-		$adminStyleFile = WP_PLUGIN_DIR . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar_admin_v22.css';
+		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
+		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
 		if ( file_exists($adminStyleFile) ) {
 				wp_register_style( 'wp-symposium-toolbar_admin_v22', $adminStyleUrl );
 				wp_enqueue_style( 'wp-symposium-toolbar_admin_v22' );
@@ -102,8 +102,8 @@ function symposium_toolbar_init() {
 	
 	// WP 3.8+ installs
 	} else {
-		$adminStyleUrl = WP_PLUGIN_URL . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar_admin.css';
-		$adminStyleFile = WP_PLUGIN_DIR . '/'. dirname(plugin_basename(__FILE__)) . '/css/wp-symposium-toolbar_admin.css';
+		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
+		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
 		if ( file_exists($adminStyleFile) ) {
 				wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
 				wp_enqueue_style( 'wp-symposium-toolbar_admin' );
@@ -143,9 +143,10 @@ function symposium_toolbar_trigger_activate() {
 			restore_current_blog();
 		}
 	
-	} else
+	} else {
 		if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 		symposium_toolbar_activate();
+	}
 }
 register_activation_hook(__FILE__,'symposium_toolbar_trigger_activate' );
 
@@ -251,20 +252,28 @@ if ( $is_wps_active ) {
 	// Add default tabs to subsites
 	function symposium_toolbar_new_site_default( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 		
-		global $wpdb;
-		
 		$hidden_tabs = get_option( 'wpst_wpms_hidden_tabs_default', array() );
-		switch_to_blog( $blog_id );
-		symposium_toolbar_init_globals();
-		symposium_toolbar_activate();
-		update_option( 'wpst_wpms_hidden_tabs', $hidden_tabs );
-		restore_current_blog();
+		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
 		
-		if ( $hidden_tabs ) {
-			foreach( $hidden_tabs as $tab ) {
-				symposium_toolbar_update_tab( $blog_id, $tab );
-			}
+		switch_to_blog( $blog_id );
+		
+		// Set globals
+		symposium_toolbar_init_globals();
+		
+		// Create menus
+		symposium_toolbar_activate();
+		
+		// Update new site options with Main Site options
+		symposium_toolbar_update();
+		if ( $hidden_tabs ) foreach( $hidden_tabs as $tab ) {
+			symposium_toolbar_update_tab( $blog_id, $tab );
 		}
+		update_option( 'wpst_wpms_hidden_tabs', $hidden_tabs );
+		
+		// Update CSS based on stored styles and installed plugins
+		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
+		
+		restore_current_blog();
 	}
 	add_action( 'wpmu_new_blog', 'symposium_toolbar_new_site_default', 10, 6 );
 }
@@ -326,70 +335,55 @@ if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 	add_action( 'admin_head', 'symposium_toolbar_add_styles' );
 
 // Add icons to WP 3.8+ Toolbar
-// Reference: https://github.com/tillkruess/MP6-Icon-Examples
+// References & Credits:
+// https://github.com/tillkruess/MP6-Icon-Examples
+// Envelope:	http://fontawesome.io/icons/
+// Friends:		http://icomoon.io/#icons
+// WPS "S":		http://centralgeek.com/
+// All icons gathered in a font using IcoMoon http://icomoon.io/app/
 } else {
 	
-	// Add dashicon\f307 for the group / friendship icon
-	// Reference: http://melchoyce.github.io/dashicons/
-	function symposium_toolbar_set_custom_dashicon() {
-		
-		if ( !is_admin_bar_showing() )
-			return;
-		
-		echo '<style type="text/css">';
-		echo '#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before { content: \'\f307\'; }';
-		echo '</style>';
-	}
-	add_action( 'admin_head', 'symposium_toolbar_set_custom_dashicon' );
-	add_action( 'wp_head', 'symposium_toolbar_set_custom_dashicon' );
-	
-	// Add font-awesome\f003 for the envelope / mail icon
-	// Reference: http://fontawesome.io/icons/
-	function symposium_toolbar_set_custom_font_icon() {
+	function symposium_toolbar_set_custom_fonticons() {
         
 		if ( !is_admin_bar_showing() )
 			return;
 		
 		echo '<style type="text/css">';
+		
 		echo '#wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before { ';
-			echo 'font-family: FontAwesome !important; ';
-			echo 'content: \'\f003\';';
+			echo 'font-family: WPST-icons !important; ';
+			echo 'font-size: 85% !important; ';
+			echo 'content: \'\e602\';';
+		echo ' } ';
+		
+		echo '#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before { ';
+			echo 'font-family: WPST-icons !important; ';
+			echo 'font-size: 85% !important; ';
+			echo 'content: \'\e600\';';
+			echo 'margin-top: -5px;';
+		echo ' } ';
+		
+		echo '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before { ';
+			echo 'font-family: WPST-icons !important; ';
+			echo 'content: \'\e601\'; ';
+			echo 'font-size: 125% !important; ';
 		echo ' } ';
 		
         echo '</style>';
 	}
-	add_action( 'admin_head', 'symposium_toolbar_set_custom_font_icon' );
-	add_action( 'wp_head', 'symposium_toolbar_set_custom_font_icon' );
+	add_action( 'admin_head', 'symposium_toolbar_set_custom_fonticons' );
+	add_action( 'wp_head', 'symposium_toolbar_set_custom_fonticons' );
 	
 	// enqueue custom font icon
-	function enqueue_font_awesome() {
+	function enqueue_custom_fonticons() {
 		
-		if ( is_admin_bar_showing() ) wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false, null );
-	}
-	add_action( 'admin_enqueue_scripts', 'enqueue_font_awesome' );
-	add_action( 'wp_enqueue_scripts', 'enqueue_font_awesome' );
-	
-	// Add a custom icon for the WP Symposium "S" icon
-	function symposium_toolbar_set_custom_svg_icon() {
-	
 		if ( !is_admin_bar_showing() )
 			return;
 		
-		echo '<style type="text/css">';
-		
-		// set fallback dashicon, if browser does _not_ support SVG
-		echo '.no-svg #wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before { ';
-			echo 'content: "\f111";';
-		echo ' } ';
-		
-		// set SVG background image, if browser _does_ supports SVG
-		echo '.svg #wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before { ';
-			echo 'content: url(\'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAtNCAzMiAzMiI+Cgk8cGF0aCBkPSJNOS42IDAuN2MtNS42MiAxLjI2LTkuNTYgNi41Ni05LjEyIDEyLjIgMC40IDQuOTYgMy45IDkuMTYgOC42NiAxMC40IDEuNDYgMC4zOCA0LjQ0IDAuMzggNS44NiAwIDIuMDIwLTAuNTQgMy42LTEuNDggNS4yMi0zLjA4MCAyLjM4LTIuMzggMy4zOC00LjgyIDMuMzgtOC4yOCAwLTYuMTQtNC43NC0xMS4xLTEwLjk0LTExLjQ0LTEuMTYtMC4wNjAtMi4yIDAtMy4wNjAgMC4yek0xNC45OCAyLjc4YzIuNzQgMC44NiA1LjE4IDMuMTYgNi4yMiA1LjkybDAuMiAwLjVoLTcuMDIwbDAuNzItMC43YzEuNDYtMS40OCAwLjY2LTMuNTYtMS42Ni00LjIyLTEuOTgtMC41OC00LjIyIDAuMTQtNC45MiAxLjYtMC40MiAwLjg4LTAuNCAxLjI4IDAuMDgwIDIuMDYwIDAuOSAxLjQ4IDIuODYgMi4wNjAgNyAyLjA2MCA1LjQ4IDAgNi44IDAuOTggNS45MiA0LjQtMC40NiAxLjc4LTEuMjQgMy4xMi0yLjYyIDQuNS0xLjkyIDEuOTItNC4yMiAyLjktNi44IDIuOS01LjE4IDAtOS43LTQuMzQtOS43LTkuMzJ2LTEuMjhoNy43bC0wLjggMC4zOGMtMi4xOCAxLTMuMDgwIDMtMi40IDUuMzIgMC45MiAzLjIgNC44MiA0LjY2IDcuOTIgMi45OCAxLjgyLTEgMi42OC0yLjYyIDIuNTQtNC44LTAuMDYwLTEuMDQwLTAuMTgtMS40LTAuNjgtMi4wMjAtMC43NC0wLjktMS43NC0xLjUtMy40Mi0yLjA2MC0xLjAyMC0wLjMyLTEuNzgtMC40LTQuMzItMC40LTMuNDIgMC00LjY0LTAuMjYtNS4zNC0xLjE0LTAuNi0wLjc2LTAuNS0xLjQ4IDAuNDItMi44NiAxLjI0LTEuODQgMy41Ni0zLjUyIDUuNTItMy45OCAxLjQtMC4zMiA0LjE0LTAuMjQgNS40NCAwLjE2eiIgZmlsbD0iIzk5OTk5OSIgLz4KPC9zdmc+\');';
-		echo ' } ';
-		
-		echo '</style>';
+		wp_enqueue_style( 'wpst-font', WP_PLUGIN_URL.'/wp-symposium-toolbar/css/wp-symposium-toolbar_fonticons.css', false, null );
 	}
-	// add_action( 'admin_head', 'symposium_toolbar_set_custom_svg_icon' ); /* */
+	add_action( 'admin_enqueue_scripts', 'enqueue_custom_fonticons' );
+	add_action( 'wp_enqueue_scripts', 'enqueue_custom_fonticons' );
 	
 	// Style Preview - add styles to the plugin options page only if active tab is "style"
 	if ( is_admin() ) {
@@ -402,6 +396,10 @@ if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 
 // Add custom style to the frontend pages header
 add_action( 'wp_head', 'symposium_toolbar_add_styles' );
+
+// Add features to pages header
+add_action( 'admin_head', 'symposium_toolbar_add_features' );
+add_action( 'wp_head', 'symposium_toolbar_add_features' );
 
 
 // Toolbar rendition, chronological order has importance
@@ -431,8 +429,10 @@ add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_modify_search_menu'
 add_action( 'contextual_help', 'symposium_toolbar_add_help_text', 10, 3 );
 
 // WP Profile options: to show the admin bar when viewing the site, to make a site the Home Site (in WPMS)
-add_action( 'personal_options_update', 'symposium_toolbar_custom_profile_update', 10, 1 );
-add_action( 'edit_user_profile_update', 'symposium_toolbar_custom_profile_update', 10, 1 );
+if ( is_multisite() ) {
+	add_action( 'personal_options_update', 'symposium_toolbar_custom_profile_update', 10, 1 );
+	add_action( 'edit_user_profile_update', 'symposium_toolbar_custom_profile_update', 10, 1 );
+}
 add_action( 'show_user_profile', 'symposium_toolbar_custom_profile_option', 10, 1 );
 add_action( 'edit_user_profile', 'symposium_toolbar_custom_profile_option', 10, 1 );
 

@@ -131,32 +131,6 @@ jQuery(document).ready(function($){
 		needToConfirm = false;
 	});
 	
-	// Remove the Error message associated to checkboxes
-	$(".wpst-check-role").click(function() {
-		
-		var this_id = this.id.replace("[]","");
-		this_id = this_id.replace("_all_none","");
-		$("#"+this_id+"_error").slideUp();
-	});
-	
- 	// Remove the Error message associated to User Menu
-	$(".wpst-check-myaccount").click(function() {
-		
-		$("#display_user_menu_error").slideUp();
-	});
-	
-	// Remove the Error message associated to Custom Menus
-	$(".wpst-select-menu").click(function() {
-		
-		$("#"+this.id+"_error").slideUp();
-	});
-	
-	// Remove the Error messages associated to WPS settings
-	$(".wpst-wps-item").click(function() {
-		
-		$("#display_wps_error").slideUp();
-	});
-	
 	// In such fields, User shall input an integer
 	$(".wpst-int").keyup(function() {
 	
