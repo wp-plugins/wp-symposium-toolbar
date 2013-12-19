@@ -257,7 +257,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 		$all_network_menus = $wpdb->get_results( $sql, ARRAY_A );
 		if ( $all_network_menus ) {
 			$all_network_menus = maybe_unserialize( $all_network_menus[0]['option_value'] );
-			$all_custom_menus = array_merge( $all_custom_menus, $all_network_menus );
+			$all_custom_menus = array_merge( $all_network_menus, $all_custom_menus );
 		}
 	}
 	
@@ -787,12 +787,15 @@ function symposium_toolbar_modify_search_menu() {
  */
 function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '' ) {
 	
-	global $wpdb, $blog_id, $current_user, $is_wps_active, $wpst_roles_all_incl_user;
+	global $wpdb, $blog_id, $current_user, $is_wps_active, $is_wps_available, $wpst_roles_all_incl_user;
 	
 	// Hook to (most likely) drop the user ID and return an array of all URLs
 	// $user_id = apply_filters( 'symposium_toolbar_wps_url_for_user', $user_id );
 	
 	if ( !$feature || $user_id != filter_var( $user_id, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
+		return array();
+	
+	if ( !$is_wps_available )
 		return array();
 	
 	// WPMS:

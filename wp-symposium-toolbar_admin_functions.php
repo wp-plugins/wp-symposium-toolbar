@@ -122,8 +122,8 @@ function symposium_toolbar_activate() {
 function symposium_toolbar_update() {
 	
 	global $wpdb;
-	global $is_wps_profile_active, $wpst_buildnr;
-	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
+	global $is_wps_available, $is_wps_profile_active, $wpst_buildnr;
+	global $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	
 	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
@@ -148,6 +148,8 @@ function symposium_toolbar_update() {
 		if ( !get_option( 'wpst_myaccount_avatar', '' ) ) update_option( 'wpst_myaccount_avatar', 'on' );
 		if ( !get_option( 'wpst_myaccount_display_name', '' ) ) update_option( 'wpst_myaccount_display_name', 'on' );
 		if ( !get_option( 'wpst_myaccount_logout_link', '' ) ) update_option( 'wpst_myaccount_logout_link', 'on' );
+		if ( !is_array( get_option( 'wpst_wps_notification_mail', '' ) ) ) update_option( 'wpst_wps_notification_mail', array_keys( $wpst_roles_all_incl_user ) );
+		if ( !is_array( get_option( 'wpst_wps_notification_friendship', '' ) ) ) update_option( 'wpst_wps_notification_friendship', array_keys( $wpst_roles_all_incl_user ) );
 		
 		// Remove options in the old format and naming convention
 		$wpdb->query( "DELETE FROM ".$wpdb->prefix."options WHERE option_name LIKE 'symposium_toolbar_%'" );
@@ -422,7 +424,6 @@ function symposium_toolbar_save_before_render() {
 				// This defaults to an empty array for "all tabs activated", while this page lists all tabs as checked
 				// Hence the array_diff below, and the "not in_array" a bit lower
 				$wpst_wpms_hidden_tabs_all = get_option( 'wpst_wpms_hidden_tabs_all', array() );
-				$wpst_main_site_settings = array();
 				
 				if ( $blogs ) foreach ( $blogs as $blog ) if ( $blog['blog_id'] != "1" ) {
 					
@@ -435,37 +436,16 @@ function symposium_toolbar_save_before_render() {
 					if ( isset( $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] ) && is_array( $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] ) )
 						$removed_tabs = array_diff( $wpst_wpms_hidden_tabs, $wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] );
 					
-					// If anything has changed from this page for this row, update WPS Toolbar settings for the subsite's removed tabs
+					// Update WPS Toolbar settings for the removed tabs
 					if ( $removed_tabs ) foreach ( $removed_tabs as $tab ) {
+						symposium_toolbar_update_tab( $blog['blog_id'], $tab );
 						
-						// If not filled already, get it now
-						if ( $tab == 'menus' ) $tab = 'custom_menu';
-						if ( !isset( $wpst_main_site_settings[$tab] ) ) $wpst_main_site_settings[$tab] = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->options." WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
-						
-						// Get the options from target subsite for this tab, as an array of option_name => option_value
-						$wpst_subsite_tab = array();
-						$wpst_subsite_select = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog['blog_id']."_options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
-						if ( $wpst_subsite_select ) foreach ( $wpst_subsite_select as $option ) {
-							$wpst_subsite_tab[ $option['option_name'] ] = $option['option_value'];
-						}
-						
-						// Check Main Site options and propagate to subsite if needed
-						foreach ( $wpst_main_site_settings[$tab] as $option ) {
-							if ( ( !isset( $wpst_subsite_tab[ $option['option_name'] ] ) ) ||
-								( isset( $wpst_subsite_tab[ $option['option_name'] ] ) && ( $option['option_value'] != $wpst_subsite_tab[ $option['option_name'] ] ) ) )
-								$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog['blog_id']."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option['option_name'], $option['option_value'], 'yes' ) );
-						}
-						
-						// Generate CSS from Styles if needed
-						if ( $tab == 'style' ) { //&& ( $ret > 0 ) ) {
-							$wpst_tech_style_to_header = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->options." WHERE option_name LIKE 'wpst_tech_style_to_header' LIMIT 1", ARRAY_A );
-							if ( $wpst_tech_style_to_header ) {
-								$wpst_tech_style_to_header = array_shift( $wpst_tech_style_to_header );
-								$wpst_tech_style_to_header = $wpst_tech_style_to_header['option_value'];
-								$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog['blog_id']."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", 'wpst_tech_style_to_header', $wpst_tech_style_to_header, 'yes' ) );
-								// This means it will not be re-generated based on subsite specificities, like JetPack activated here and not there, etc.
-								// Alternate is switch_to_blog() / restore_blog()
-							}
+						// If this is the Style tab, generate Style with new settings
+						if ( $tab == 'style' ) {
+							$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+							switch_to_blog( $blog['blog_id'] );
+							update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
+							restore_current_blog();
 						}
 					}
 					
@@ -1245,6 +1225,7 @@ function symposium_toolbar_save_before_render() {
 			// Save reference to Network menus separately, prepare their wp_setup_nav_menu_item,
 			// and save under a dedicated option to recover them easily from subsites
 			$all_custom_menus = get_option( 'wpst_custom_menus', array() ) ;
+			(int)$shift_value = 20000;
 			if ( $all_custom_menus && ( $_POST["symposium_toolbar_view"] == 'menus' ) ) {
 				$network_menus = array ();
 				foreach ( $all_custom_menus as $custom_menu ) {
@@ -1264,12 +1245,20 @@ function symposium_toolbar_save_before_render() {
 						
 						// If menu items, keep only needed stuff from these objects and store as an array of menu items
 						if ( $menu_items ) {
+							$new_menu_items = array();
 							foreach ( $menu_items as $menu_item ) {
+								$new_menu_item = new stdClass();
 								foreach ( $menu_item as $attr => $value ) {
-									if ( strstr( "ID,menu_item_parent,title,classes,attr_title,target,url", $attr ) == false ) unset( $menu_item->$attr );
+									if ( strstr( "ID,menu_item_parent", $attr ) ) {
+										$new_menu_item->$attr = ( $value > 0 ) ? $value + $shift_value : "0";
+									}
+									if ( strstr( "title,classes,attr_title,target,url", $attr ) ) {
+										$new_menu_item->$attr = $value;
+									}
 								}
+								$new_menu_items[] = $new_menu_item;
 							}
-							$custom_menu[4] = $menu_items;
+							$custom_menu[4] = $new_menu_items;
 							$network_menus[] = $custom_menu;
 						}
 					}

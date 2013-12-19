@@ -220,7 +220,6 @@ function symposium_toolbar_admin_page() {
 
 function symposium_toolbar_admintab_welcome() {
 
-	global $screen;
 	global $is_wps_active, $wpst_shown_tabs;
 	
 	echo '<div class="postbox"><div class="inside">';
@@ -435,7 +434,7 @@ function symposium_toolbar_admintab_sites() {
 
 function symposium_toolbar_admintab_toolbar() {
 
-	global $wpdb, $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
+	global $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table">';
@@ -1951,7 +1950,7 @@ function symposium_toolbar_admintab_themes() {
 
 function symposium_toolbar_admintab_userguide() {
 
-	global $is_wps_available, $wpst_shown_tabs, $is_wpst_network_admin;
+	global $is_wps_active, $wpst_shown_tabs, $is_wpst_network_admin;
 	
 	echo '<div class="postbox"><div class="inside wpst-inside-guide">';
 		
@@ -2010,7 +2009,7 @@ function symposium_toolbar_admintab_userguide() {
 		}
 		
 		// wpst_page_wps
-		if ( $is_wps_available && ( is_main_site() || isset( $wpst_shown_tabs[ 'wps' ] ) ) ) {
+		if ( $is_wps_active && ( is_main_site() || isset( $wpst_shown_tabs[ 'wps' ] ) ) ) {
 		echo '<h4><li>'.__( 'WP Symposium', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'On WP Symposium installations, the plugin adds a dedicated tab for WPS admins.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'This tab allows you to add to the Toolbar, the WPS admin menu as mirrored from the Dashboard sidebar. Obviously, only admins will see this menu.', 'wp-symposium-toolbar' ) . '</p>';
@@ -2048,16 +2047,16 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'Located at the "Network" tab of the Main Site, the feature called "Network Toolbar" allows Super Admins to force the display of the Toolbar on all sites of their network.', 'wp-symposium-toolbar' ) . ' ' . __( 'It\'s basicaly similar to the "Force Toolbar" available otherwise from the "WP Toolbar" tab of all sites, except that it moves this prerogative to the Super Admin solely, and affects the whole network.', 'wp-symposium-toolbar' ) . ' ' . __( 'The roles that shall see the Toolbar must then be defined from the "WP Toolbar" tab of the plugin options page, at the Main Site.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Home Site', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'The second feature provided at the "Network" tab is called "Home Site".', 'wp-symposium-toolbar' ) . ' ';
-			if ( $is_wps_available ) echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu and over the WPS notification icons point to this site.', 'wp-symposium-toolbar' ) . ' ';
+			if ( $is_wps_active ) echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu and over the WPS notification icons point to this site.', 'wp-symposium-toolbar' ) . ' ';
 			else echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu point to this site.', 'wp-symposium-toolbar' ) . ' ';
 			echo __( 'This feature will be useful if your network of sites is made of member pages for instance, so that they can choose their personal page as home site.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( $is_wps_available ) echo '<p>' . __( 'Please note that, if the WPS features cannot be found on the selected site for that user: the link on the Howdy and in the User Menu will revert to pointing to the WordPress Profile page on that site, whereas the icons will attempt to find WP Symposium somewhere else on the sites the user is member of, or eventually simply not be displayed.', 'wp-symposium-toolbar' ) . ' ' . __( 'So if you plan to activate this feature while using WP Symposium, you should make sure WP Symposium is available from all sites, for all users.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( $is_wps_active ) echo '<p>' . __( 'Please note that, if the WPS features cannot be found on the selected site for that user: the link on the Howdy and in the User Menu will revert to pointing to the WordPress Profile page on that site, whereas the icons will attempt to find WP Symposium somewhere else on the sites the user is member of, or eventually simply not be displayed.', 'wp-symposium-toolbar' ) . ' ' . __( 'So if you plan to activate this feature while using WP Symposium, you should make sure WP Symposium is available from all sites, for all users.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Subsites Options Tabs', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'The sistership feature of the "Network Toolbar" is the ability for Super Admins to synchronize subsites with the Main Site, by deactivating the plugin options tabs for these subsites.', 'wp-symposium-toolbar' ) . ' ' . __( 'From the table located at the "Subsites" tab at the Main Site plugin options page, when a given tab is unchecked, the corresponding options tab will not show on that given site, and its features will mirror those of the Main Site, so you don\'t have to replicate the same settings on all your subsites.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'If you activate the "Network Toolbar" and uncheck all tabs from "Subsites", you will end up with the same Toolbar accross your network of sites, with a unique options page at the Main Site, just like if it were a single site install.', 'wp-symposium-toolbar' ) . ' ' . __( 'There are many intermediate situations, when you want your Toolbar to look the same on some aspects, while keeping some flexibility for each subsites on other aspects.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Network Custom Menus', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Super Admins will also find at the "Custom Menus" tab of the Main Site plugin options page, checkboxes under each menu that allow them to make these menus, "Network Menus".', 'wp-symposium-toolbar' ) . ' ' . __( 'This feature is similar to the previous one, in that it\'ll help Super Admins avoid having to re-create the same menu on each subsite: the corresponding WP NavMenu needs to be defined on the Main Site only, and once the Custom Menu placed in the Toolbar on the Main Site is made a Network Menu, it\'ll be replicated on all subsites\' Toolbar, even though the WP NavMenu doesn\'t exist on subsites.', 'wp-symposium-toolbar' ) . ' ' . __( 'Whether the Custom Menus tab is showing on a subsite or not, Site Admins will not see Network Menus and won\'t be able to edit or remove them.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( $is_wps_available ) echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Symposium Network Share', 'wp-symposium-toolbar' ) . '</li></h4>' . '<p>' . __( 'Accessible by all Site Admins, the last network feature is the ability for them to share their WP Symposium features network-wide, so that their site users can access their Profile page and Mail from anywhere in the network.', 'wp-symposium-toolbar' ) . ' ' . __( 'Activated by default, this feature should probably be used in conjunction with the Network Toolbar feature, to ensure the Toolbar is actually visible everywhere in the network for these site users.', 'wp-symposium-toolbar' ) . ' ' . __( 'Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the "Home Site" feature is activated as well, in which case users will be able to choose which site they want as a home site.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( $is_wps_active ) echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Symposium Network Share', 'wp-symposium-toolbar' ) . '</li></h4>' . '<p>' . __( 'Accessible by all Site Admins, the last network feature is the ability for them to share their WP Symposium features network-wide, so that their site users can access their Profile page and Mail from anywhere in the network.', 'wp-symposium-toolbar' ) . ' ' . __( 'Activated by default, this feature should probably be used in conjunction with the Network Toolbar feature, to ensure the Toolbar is actually visible everywhere in the network for these site users.', 'wp-symposium-toolbar' ) . ' ' . __( 'Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the "Home Site" feature is activated as well, in which case users will be able to choose which site they want as a home site.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
 		}
 		
@@ -2231,12 +2230,22 @@ function symposium_toolbar_add_roles_to_item( $slug, $option, $roles ) {
 			$error = $error || ( $ret_roles != $option );
 			
 			// list roles available for this item
-			// if ( is_rtl() ) $roles = array_reverse ( $roles );
-			foreach ( $roles as $key => $role ) {
-				$html .= '<input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
-				if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
-				$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
-				$html .= '><span class="description"> '.__( $role ).'</span>';
+			if ( is_rtl() ) {
+				$roles = array_reverse ( $roles );
+				foreach ( $roles as $key => $role ) {
+					$html .= '<span class="description"> '.__( $role ).'</span>';
+					$html .= '<input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
+					if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
+					$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
+					$html .= '>';
+				}
+			} else {
+				foreach ( $roles as $key => $role ) {
+					$html .= '<input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
+					if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
+					$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
+					$html .= '><span class="description"> '.__( $role ).'</span>';
+				}
 			}
 			
 			// Add a toggle link

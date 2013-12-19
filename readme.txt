@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.2
+Version: 0.24.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ This plugin is targetted for WP Symposium sites.  However, if you're not running
 = In a nutshell =
 When I began this project, I was aiming at primarily providing WP Symposium sites with a little more functionality.  I needed to ensure WP Symposium is actually activated, and what was initially a safeguard eventually became a feature : WP Symposium Toolbar can function as a stand alone plugin as well as integrate with WP Symposium.  Looking at the result, I'd like to stress that the scope of the generic options of this plugin by far exceeds those dedicated to WP Symposium sites solely...
 
-Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Provide navigation from the Toolbar via per role access to custom menus: control which roles can access which parts of your site, welcome your non-logged-in members with a custom Howdy message and login menu, etc.  Multisite wise: each site of your network can have individual links and styles, or your network can function as though it is one big site.  On top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
+Brand the Toolbar: put your logo over your menu at your colours.  Gather personal information in one place: in the top right corner of the Toolbar, leaving room in the site for its actual content.  Determine which information will be displayed in the Toolbar to each role of your site: hide unneeded information to your members, and eventually hide the backend of the site.  Provide navigation from the Toolbar via per role access to custom menus: control which roles can access which parts of your site.  Show the Toolbar to non logged-in members, with links to your Login page along with a custom Howdy message.  Multisite wise: each site of your network can have individual links and styles, or your network can function as though it is one big site.  On top of all this, style the Toolbar beyond the limits of your imagination: colours, gradients, shadow, fonts can all be changed from the Styles settings page, which by the way has a nice real-time preview mode for you to play with the styling before actually saving...
 
 You are no longer bound to showing to your members information you don't want them to see.  You are no longer bound to using just a theme navbar for navigating your site, or network of sites.  You are no longer bound to displaying that dark bar that doesn't fit with the overall look of your site.  You are no longer bound to configuring several plugins to make the Toolbar at your wishes.
 
@@ -123,14 +123,18 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
 * Bugfix: style secondary submenus to look like their parent when using WP default background color
 * Bugfix: WPMS, update tabs in all cases, and update style upon new site creation
-* Bugfix: minor CSS default settings
+* Bugfix: Style, minor CSS issues with WP default values in menus
+* Bugfix: in RTL, list roles in descending order from R to L
+* Bugfix: get rid of PHP notices due to WPST searching for WPS paths when WPS not activated
+* Bugfix: make sure network menus don't clash with site menus
+* Bugfix: Search icon no longer folds / unfolds when on the left side of Toolbar
 
 = 0.24.0. =
 
 * Bugfix: get rid of PHP warnings on get_option default values for some setups
 * Bugfix: WP 3.8, Styles tab, saved CSS, secondary-level dropdown menus no longer picking colours due to a change in WP 3.8 (submenu div vs. ul)
 * Bugfix: WP 3.8, Styles tab, preview mode, default value for icon colour
-* Change: WPMS, change internal name 'my_home_site' into 'wpst_my_home_site' for WP profile page added field
+* Change: WPMS, change internal name 'my_home_site' into 'wpst_my_home_site' for the field added to WP profile page
 * Bugfix: Styles tab, confirmation message no longer fired from the colorpickers, due to Javascript variable not shared between the splitted files
 * Bugfix: WP 3.7.1, styles not taken into account when no hover colour is selected for menus
 

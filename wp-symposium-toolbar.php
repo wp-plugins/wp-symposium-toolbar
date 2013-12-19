@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.2
+Version: 0.24.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2402;
+$wpst_buildnr = 2404;
 
 
 // Exit if accessed directly
@@ -30,8 +30,7 @@ global $wp_version;
 if( version_compare( $wp_version, '3.3', '<' ) )
 	return false;
 
-// Sounds good...
-
+// Sounds good... Now a few more checks
 
 if ( ! function_exists( 'is_plugin_active_for_network' ) || ! function_exists( 'is_plugin_active' ) ) include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( is_admin() ) include_once( 'wp-symposium-toolbar_admin.php' );
@@ -41,12 +40,12 @@ include_once( 'wp-symposium-toolbar_help.php' );
 
 // Is WP Symposium running ?
 // $is_wps_active				true when WPS active on the current site, either network activated or site activated, false otherwise
-// $is_wps_available			true when WPS is available from any site of the network and WPS tab was deactivated on the current site, false otherwise.
+// $is_wps_available			true when WPS is available from any site of the network, false otherwise.
 global $wpdb, $is_wps_active, $is_wps_available, $is_wps_profile_active;
 
 if ( is_multisite() ) {
 	(bool)$is_wps_active = ( is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' ) || is_plugin_active( 'wp-symposium/wp-symposium.php' ) );
-	(bool)$is_wps_available = is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' );
+	(bool)$is_wps_available = $is_wps_active;
 	if ( !$is_wps_available ) {
 		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
 		$blogs = $wpdb->get_results( $query, ARRAY_A );
@@ -66,10 +65,14 @@ if ( is_multisite() ) {
 }
 
 // WPMS - Needed for WPS icons and paths when WPS is activated on the net<work but not the current site
-if ( $is_wps_active || $is_wps_available ) if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
+if ( $is_wps_available ) {
+	if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
+	
+	// $is_wps_profile_active		true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
+	(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
 
-// $is_wps_profile_active		true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
-(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
+} else
+	(bool)$is_wps_profile_active = false;
 
 if ( $is_wps_active ) {
 	if ( !function_exists( '__wps__get_url' ) ) include_once( WP_PLUGIN_DIR .'/wp-symposium/functions.php' );
@@ -330,19 +333,22 @@ function symposium_toolbar_load_settings_page() {
 add_action( 'admin_head-wp-symposium_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_load_settings_page' );
 add_action( 'admin_head-appearance_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_load_settings_page' );
 
-// Add custom style to the dashboard pages for up to WP 3.7.1
+// WP 3.7.1
 if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+	
+	// Add custom style to the dashboard pages for up to WP 3.7.1
 	add_action( 'admin_head', 'symposium_toolbar_add_styles' );
 
-// Add icons to WP 3.8+ Toolbar
-// References & Credits:
-// https://github.com/tillkruess/MP6-Icon-Examples
-// Envelope:	http://fontawesome.io/icons/
-// Friends:		http://icomoon.io/#icons
-// WPS "S":		http://centralgeek.com/
-// All icons gathered in a font using IcoMoon http://icomoon.io/app/
+// WP 3.8+
 } else {
 	
+	// Add icons to WP 3.8+ Toolbar
+	// References & Credits:
+	// https://github.com/tillkruess/MP6-Icon-Examples
+	// Envelope:	http://fontawesome.io/icons/
+	// Friends:		http://icomoon.io/#icons
+	// WPS "S":		http://centralgeek.com/
+	// All icons gathered in a font using IcoMoon http://icomoon.io/app/
 	function symposium_toolbar_set_custom_fonticons() {
         
 		if ( !is_admin_bar_showing() )
@@ -371,19 +377,8 @@ if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 		
         echo '</style>';
 	}
-	add_action( 'admin_head', 'symposium_toolbar_set_custom_fonticons' );
-	add_action( 'wp_head', 'symposium_toolbar_set_custom_fonticons' );
-	
-	// enqueue custom font icon
-	function enqueue_custom_fonticons() {
-		
-		if ( !is_admin_bar_showing() )
-			return;
-		
-		wp_enqueue_style( 'wpst-font', WP_PLUGIN_URL.'/wp-symposium-toolbar/css/wp-symposium-toolbar_fonticons.css', false, null );
-	}
-	add_action( 'admin_enqueue_scripts', 'enqueue_custom_fonticons' );
-	add_action( 'wp_enqueue_scripts', 'enqueue_custom_fonticons' );
+	// add_action( 'admin_head', 'symposium_toolbar_set_custom_fonticons' );
+	// add_action( 'wp_head', 'symposium_toolbar_set_custom_fonticons' );
 	
 	// Style Preview - add styles to the plugin options page only if active tab is "style"
 	if ( is_admin() ) {
@@ -392,14 +387,14 @@ if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 			 ( isset( $_POST["symposium_toolbar_view_no_js"] ) && ( ( $_POST["symposium_toolbar_view_no_js"] == 'style' ) || ( $_POST["symposium_toolbar_view_no_js"] == 'css' ) ) ) )
 				add_action( 'admin_head', 'symposium_toolbar_add_styles' );
 	}
+	
+	// Add features to pages header
+	add_action( 'admin_head', 'symposium_toolbar_add_features' );
+	add_action( 'wp_head', 'symposium_toolbar_add_features' );
 }
 
 // Add custom style to the frontend pages header
 add_action( 'wp_head', 'symposium_toolbar_add_styles' );
-
-// Add features to pages header
-add_action( 'admin_head', 'symposium_toolbar_add_features' );
-add_action( 'wp_head', 'symposium_toolbar_add_features' );
 
 
 // Toolbar rendition, chronological order has importance
@@ -417,7 +412,7 @@ add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 if ( $is_wps_active ) add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_admin', 999 );
 
 // Add the WPS Notification icons
-if ( $is_wps_active || $is_wps_available ) add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
+if ( $is_wps_available ) add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
 
 // Remove and eventually re-add the Search icon and field to the inner part of the Toolbar - must be done after everything else
 add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_modify_search_menu', 999 );
