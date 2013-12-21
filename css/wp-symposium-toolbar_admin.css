@@ -237,12 +237,12 @@
 /* Fix arrows height for User Menu submenus */
 @media screen and (max-width: 782px) {
 	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
-		top: 10px;
+		top: 10px !Important;
 	}
 }
 @media screen and (min-width: 783px) {
 	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
-		top: 1px;
+		top: 1px !Important;
 	}
 }
 
@@ -276,6 +276,7 @@
 	height: 16px;
 	margin-top: 6px;"
 }
+
 
 /**
  * Admin Dashboard Options Page Items

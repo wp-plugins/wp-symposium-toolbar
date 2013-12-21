@@ -1429,10 +1429,10 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= '@media screen and ( min-width: 783px ) { ';
 		$style_saved .= '#wpadminbar, #wpadminbar .quicklinks, #wpadminbar .ab-top-secondary { '.$style_chunk.'} ';
 		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-			$style_saved .= ' } ';
+			$style_saved .= '} ';
 			$style_saved .= '@media screen and ( max-width: 782px ) { ';
 			$style_saved .= '#wpadminbar { '.$style_chunk_tablet.'} ';
-			$style_saved .= ' } ';
+			$style_saved .= '} ';
 		}
 		$style_chunk = "";
 		$style_chunk_tablet = "";
@@ -1647,7 +1647,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			$style_saved .= ' } ';
 			$style_saved .= '@media screen and ( max-width: 782px ) { ';
 			$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label { ' . $style_chunk_tablet . '} ';
-			$style_saved .= ' } ';
+			$style_saved .= '} ';
 		}
 		$style_chunk = "";
 		$style_chunk_tablet = "";
@@ -1701,7 +1701,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	// Add the Font Hover to the Toplevel Items
 	if ( $style_chunk != "" ) {
-		$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .menupop.hover .ab-label, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item .ab-label, #wpadminbar li:hover .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label, #wpadminbar li:hover #adminbarsearch:before { ' . $style_chunk . '} ';
+		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before, ';
+		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= '#wpadminbar li:hover .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar li:hover .ab-label:before, #wpadminbar li.hover > .ab-item > .ab-label:before, ';
+		$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .menupop.hover .ab-label, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label, #wpadminbar li:hover #adminbarsearch:before { ' . $style_chunk . '} ';
 		$style_chunk = "";
 	}
 	
@@ -1810,7 +1812,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= '@media screen and ( min-width: 783px ) { ';
 		$style_saved .= '#wpadminbar #wp-admin-bar-user-info .display-name { font-size: '.$font_size.'px; } ';
 		$style_saved .= '#wpadminbar #wp-admin-bar-user-info .username { font-size: '.($font_size - 2).'px; } ';
-		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= ' } ';
+		if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $style_saved .= '} ';
 	}
 	// "text-transform", "none" and "font-variant", "normal"
 	
@@ -2009,67 +2011,6 @@ function symposium_toolbar_update_admin_menu() {
 	
 	// Store the menu structure for instant use
 	update_option( 'wpst_tech_wps_admin_menu', $args );
-}
-
-/**
- * In Multisite, updates the user option to choose a Home Site with the current blog ID
- *
- * @since O.23.0
- *
- * @param $user_id, the ID of the user which has chosen the current site as Home Site
- * @return none
- */
-function symposium_toolbar_custom_profile_update( $user_id ) {
-
-	global $blog_id;
-	
-	// Save the returned value from $_POST
-	if ( isset( $_POST['wpst_my_home_site'] ) )
-		update_user_meta( $user_id, 'wpst_home_site', $blog_id );
-	else
-		update_user_meta( $user_id, 'wpst_home_site', '' );
-}
-
-/**
- * In Multisite, add the Home Site feature to WP profile pages when this feature is active
- *
- * @since O.23.0
- *
- * @param $profileuser, the array of current user info passed by WP
- * @return none
- */
-function symposium_toolbar_custom_profile_option( $profileuser ) {
-	
-	global $wpst_roles_all, $blog_id;
-	
-	// Remove the option to show/hide the Toolbar ("Show Toolbar when viewing site") when the role cannot see the Toolbar
-	if ( ( is_array( get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) && ( !array_intersect( $profileuser->roles, get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) ) )
-		|| ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) == "on" )		// when the display of the Toolbar is forced locally
-		|| ( get_option( 'wpst_wpms_network_toolbar', '' ) == "on" ) )			// when the display of the Toolbar is forced network-wide
-			echo '<script type="text/javascript">jQuery( document ).ready( function() { jQuery( \'.show-admin-bar\' ).remove(); } );</script>';
-	
-	// Add the Home Site feature to multisites WP profile pages when this feature is active
-	if ( get_option( 'wpst_wpms_user_home_site', '' ) == "on" ) {
-		$home_id = get_user_meta( $profileuser->ID, 'wpst_home_site', true );
-		echo '<h3>' . __( 'Network Settings', 'wp-symposium-toolbar' ) . '</h3>';
-		
-		echo '<table class="form-table">';
-		echo '<tr><th scope="row"><label for="wpst_my_home_site">'. __( 'Home Site', 'wp-symposium-toolbar' ) .'</label></th>';
-		
-		// Checkbox to select the current site as Home Site
-		echo '<td><input name="wpst_my_home_site" type="checkbox" id="wpst_my_home_site"';
-		if ( $home_id == $blog_id ) echo ' CHECKED';
-		echo ' />';
-		echo '<span class="description" for="wpst_my_home_site"> '.__( 'Make this site your Home Site, so that the Edit Profile link points to this page', 'wp-symposium-toolbar' ) . '</span>';
-		
-		// Add a reference link to the Home Site when it is selected and we're not on it
-		if ( $home_id && ( $home_id != $blog_id ) ) {
-			$blog_details = get_blog_details( get_user_meta( $profileuser->ID, 'wpst_home_site', true ) );
-			echo '<br /><span class="description">'.__( 'Your Home Site is currently set to', 'wp-symposium-toolbar' ).' ';
-			echo '<a href="'.trim( $blog_details->siteurl, '/' ).'/wp-admin/profile.php">'.$blog_details->blogname.'</a></span>';
-		}
-		echo '</td></tr></table>';
-	}
 }
 
 /**

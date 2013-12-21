@@ -427,7 +427,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 			(bool)$has_user_info = false;
 		
 		// Hook to add anything to the User Actions
-		if ( is_array( $added_info = apply_filters( 'symposium_toolbar_add_user_action', $user_id ) ) ) {
+		if ( $user_id > 0 ) if ( is_array( $added_info = apply_filters( 'symposium_toolbar_add_user_action', $user_id ) ) ) {
 			(int)$i = 1;
 			// added_info should be an array of arrays in case there would be more than one item to add...
 			foreach ( $added_info as $added_info_row ) {
@@ -906,6 +906,67 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 	
 	// Hook to do anything with the array of URLs for a given feature
 	return apply_filters( 'symposium_toolbar_wps_url_for_feature', $feature_url, $feature );
+}
+
+/**
+ * In Multisite, updates the user option to choose a Home Site with the current blog ID
+ *
+ * @since O.23.0
+ *
+ * @param $user_id, the ID of the user which has chosen the current site as Home Site
+ * @return none
+ */
+function symposium_toolbar_custom_profile_update( $user_id ) {
+
+	global $blog_id;
+	
+	// Save the returned value from $_POST
+	if ( isset( $_POST['wpst_my_home_site'] ) )
+		update_user_meta( $user_id, 'wpst_home_site', $blog_id );
+	else
+		update_user_meta( $user_id, 'wpst_home_site', '' );
+}
+
+/**
+ * In Multisite, add the Home Site feature to WP profile pages when this feature is active
+ *
+ * @since O.23.0
+ *
+ * @param $profileuser, the array of current user info passed by WP
+ * @return none
+ */
+function symposium_toolbar_custom_profile_option( $profileuser ) {
+	
+	global $wpst_roles_all, $blog_id;
+	
+	// Remove the option to show/hide the Toolbar ("Show Toolbar when viewing site") when the role cannot see the Toolbar
+	if ( ( is_array( get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) && ( !array_intersect( $profileuser->roles, get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) ) )
+		|| ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) == "on" )		// when the display of the Toolbar is forced locally
+		|| ( get_option( 'wpst_wpms_network_toolbar', '' ) == "on" ) )			// when the display of the Toolbar is forced network-wide
+			echo '<script type="text/javascript">jQuery( document ).ready( function() { jQuery( \'.show-admin-bar\' ).remove(); } );</script>';
+	
+	// Add the Home Site feature to multisites WP profile pages when this feature is active
+	if ( get_option( 'wpst_wpms_user_home_site', '' ) == "on" ) {
+		$home_id = get_user_meta( $profileuser->ID, 'wpst_home_site', true );
+		echo '<h3>' . __( 'Network Settings', 'wp-symposium-toolbar' ) . '</h3>';
+		
+		echo '<table class="form-table">';
+		echo '<tr><th scope="row"><label for="wpst_my_home_site">'. __( 'Home Site', 'wp-symposium-toolbar' ) .'</label></th>';
+		
+		// Checkbox to select the current site as Home Site
+		echo '<td><input name="wpst_my_home_site" type="checkbox" id="wpst_my_home_site"';
+		if ( $home_id == $blog_id ) echo ' CHECKED';
+		echo ' />';
+		echo '<span class="description" for="wpst_my_home_site"> '.__( 'Make this site your Home Site, so that the Edit Profile link points to this page', 'wp-symposium-toolbar' ) . '</span>';
+		
+		// Add a reference link to the Home Site when it is selected and we're not on it
+		if ( $home_id && ( $home_id != $blog_id ) ) {
+			$blog_details = get_blog_details( get_user_meta( $profileuser->ID, 'wpst_home_site', true ) );
+			echo '<br /><span class="description">'.__( 'Your Home Site is currently set to', 'wp-symposium-toolbar' ).' ';
+			echo '<a href="'.trim( $blog_details->siteurl, '/' ).'/wp-admin/profile.php">'.$blog_details->blogname.'</a></span>';
+		}
+		echo '</td></tr></table>';
+	}
 }
 
 // Work out query extension

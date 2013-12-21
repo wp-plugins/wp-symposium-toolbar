@@ -81,36 +81,48 @@ jQuery(document).ready(function($){
 		var wpstMenuExtHoverEmptyColorRgb = "rgb( 223, 223, 223 )";
 		var wpstMenuFontEmptyColor = "#21759B";
 		var wpstMenuFontEmptyColorRgb = "rgb( 33, 117, 155 )";
+		var wpstMenuFontHoverEmptyColor = "#CCCCCC";
+		var wpstMenuFontHoverEmptyColorRgb = "rgb( 204, 204, 204 )";
+		// var wpstMenuExtFontEmptyColor = "#eeeeee";
+		// var wpstMenuExtFontEmptyColorRgb = "rgb( 238, 238, 238 )";
+		// var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
+		// var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 		
 	// Toolbar default values for WordPress 3.8+
 	} else {
 		var wpstDefaultHeight = "32";
 		var wpstResponsiveHeight = "46";
 		var wpstFontEmpty = '"Open Sans",sans-serif';
-		var wpstEmptyColor = "#222";
+		var wpstEmptyColor = "#222222";
 		var wpstEmptyColorRgb = "rgb( 34, 34, 34)";
-		var wpstBottomEmptyColor = "#222";
+		var wpstBottomEmptyColor = "#222222";
 		var wpstBottomEmptyColorRgb = "rgb( 34, 34, 34)";
 		var wpstBottomEmptyHeight = "0px";
-		var wpstHoverEmptyColor = "#333";
+		var wpstHoverEmptyColor = "#333333";
 		var wpstHoverEmptyColorRgb = "rgb( 51, 51, 51 )";
-		var wpstFontEmptyColor = "#eee";
+		var wpstFontEmptyColor = "#eeeeee";
 		var wpstFontEmptyColorRgb = "rgb( 238, 238, 238 )";
-		var wpstIconEmptyColor = "#999";
+		var wpstIconEmptyColor = "#999999";
 		var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
 		var wpstFontHoverEmptyColor = "#2ea2cc";
 		var wpstFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 		
-		var wpstMenuEmptyColor = "#333";
+		var wpstMenuEmptyColor = "#333333";
 		var wpstMenuEmptyColorRgb = "rgb( 51, 51, 51 )";
-		var wpstMenuHoverEmptyColor = "#333";
+		var wpstMenuHoverEmptyColor = "#333333";
 		var wpstMenuHoverEmptyColorRgb = "rgb( 51, 51, 51 )";
 		var wpstMenuExtEmptyColor = "#4b4b4b";
 		var wpstMenuExtEmptyColorRgb = "rgb( 75, 75, 75 )";
 		var wpstMenuExtHoverEmptyColor = "#4b4b4b";
 		var wpstMenuExtHoverEmptyColorRgb = "rgb( 75, 75, 75 )";
-		var wpstMenuFontEmptyColor = "#eee";
+		var wpstMenuFontEmptyColor = "#eeeeee";
 		var wpstMenuFontEmptyColorRgb = "rgb( 238, 238, 238 )";
+		var wpstMenuFontHoverEmptyColor = "#2ea2cc";
+		var wpstMenuFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
+		// var wpstMenuExtFontEmptyColor = "#eeeeee";
+		// var wpstMenuExtFontEmptyColorRgb = "rgb( 238, 238, 238 )";
+		// var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
+		// var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 	}
 	
 	var wpstFontSizeEmpty = "13px";
@@ -423,10 +435,13 @@ jQuery(document).ready(function($){
 				var style = document.createElement('style');
 				style.id = 'wpstFontColour';
 			}
-			style.innerHTML = '#wpadminbar .ab-item, #wpadminbar .ab-label, #wpadminbar li > .ab-item, #wpadminbar li > .ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.ab-label{ color: '+tbFontColor+'; } ';
+			style.innerHTML = '#wpadminbar .ab-item, #wpadminbar .ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.ab-label { color: '+tbFontColor+'; } ';
 			style.innerHTML += '#wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar li #adminbarsearch:before { color: '+tbIconColor+'; } ';
-			style.innerHTML += '#wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li:hover > .ab-item > span.ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item > span.ab-label, #wpadminbar > #wp-toolbar > ul > li.menupop.hover > .ab-item { color: '+tbHoverFontColor+' !Important; } ';
-			style.innerHTML += '#wpadminbar .ab-top-menu > li:hover .ab-item span:before, #wpadminbar .ab-top-menu > li.hover .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop.hover .ab-item span:before, #wpadminbar #wp-admin-bar-site-name .ab-item span:before { color: '+tbHoverIconColor+' !Important; } ';
+			// style.innerHTML += '#wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li:hover > .ab-item > span.ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item > span.ab-label, #wpadminbar > #wp-toolbar > ul > li.menupop.hover > .ab-item { color: '+tbHoverFontColor+'; } ';
+			style.innerHTML += '#wpadminbar .ab-top-menu > li:hover > .ab-item > span:before, #wpadminbar .ab-top-menu > li.hover > .ab-item > span:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item > span:before, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before { color: '+tbHoverIconColor+'; } ';
+			
+			// style.innerHTML += '#wpadminbar li:hover .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar li:hover .ab-label:before, #wpadminbar li.hover > .ab-item > .ab-label:before { '+tbHoverIconColor+'; } ';
+			style.innerHTML += '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .menupop.hover .ab-label, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li.hover > .ab-item .ab-label, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label { color:  '+tbHoverFontColor+'; } ';
 			
 			document.head.appendChild(style);
 		}
@@ -541,7 +556,7 @@ jQuery(document).ready(function($){
 		if ( $('#wpst_menu_hover_font_colour').val() !== "" )
 			var menuHoverColor = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_font_colour").val())+", "+hexToG($("#wpst_menu_hover_font_colour").val())+", "+hexToB($("#wpst_menu_hover_font_colour").val())+")" : $("#wpst_menu_hover_font_colour").val();
 		else
-			var menuHoverColor = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuHoverColor = wpstRgbColors ? wpstMenuFontHoverEmptyColorRgb : wpstMenuFontHoverEmptyColor;
 		
 		if ( $('#wpst_menu_ext_font_colour').val() !== "" )
 			var menuMainColorExt = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_font_colour').val())+", "+hexToG($('#wpst_menu_ext_font_colour').val())+", "+hexToB($('#wpst_menu_ext_font_colour').val())+")" : $('#wpst_menu_ext_font_colour').val();
@@ -551,7 +566,7 @@ jQuery(document).ready(function($){
 		if ( $('#wpst_menu_hover_ext_font_colour').val() !== "" )
 			var menuHoverColorExt = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_font_colour").val())+")" : $("#wpst_menu_hover_ext_font_colour").val();
 		else
-			var menuHoverColorExt = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuHoverColorExt = wpstRgbColors ? wpstMenuFontHoverEmptyColorRgb : wpstMenuFontHoverEmptyColor;
 		
 		// Put it where it should go
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "color", menuMainColor );
@@ -712,6 +727,7 @@ jQuery(document).ready(function($){
 		var menuFontFamily = ( $('#wpst_menu_font').val() !== "" ) ? $('#wpst_menu_font').val() : tbFontFamily;
 		
 		$("#wpadminbar").find(".ab-item").css( "font-family", tbFontFamily );
+		$("#wpadminbar").find(".ab-item .ab-label").css( "font-family", tbFontFamily );
 		$("#wpadminbar").find(".ab-submenu .ab-item").css( "font-family", menuFontFamily );
 	});
 	

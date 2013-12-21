@@ -273,10 +273,10 @@ function symposium_toolbar_admintab_features() {
 			}
 			echo '/><span> ' . __( 'Activate the "Network Toolbar"', 'wp-symposium-toolbar' ) . '</span>';
 			echo '<br /><span class="description"> ' . __( 'Note: This feature will force the display of the WP Toolbar on all sites of the network, for selected roles.', 'wp-symposium-toolbar' ) . '  ' . __( 'More precisely, it will:', 'wp-symposium-toolbar' );
-			echo '<br />1. ' . __( 'Remove the option to show / hide the Toolbar to selected roles from the "Toolbar" tab of the plugin options page, of all sites except the Main Site', 'wp-symposium-toolbar' );
-			echo '<br />2. ' . __( 'Remove the option to force the display of the Toolbar on a site only, from the "Toolbar" tab of the plugin options page, of all sites', 'wp-symposium-toolbar' );
-			echo '<br />3. ' . __( 'Remove the WP user option to show / hide the Toolbar on the frontend, from the WP Profile page', 'wp-symposium-toolbar' );
-			echo '<br />4. ' . __( 'Forcibly display the Toolbar in the frontend on all sites of the network, to all selected roles', 'wp-symposium-toolbar' );
+			echo '<br />1. ' . __( 'Forcibly display the Toolbar in the frontend on all sites of the network, to all selected roles', 'wp-symposium-toolbar' );
+			echo '<br />2. ' . __( 'Remove the option to show / hide the Toolbar to selected roles from the "Toolbar" tab of the plugin options page, of all sites except the Main Site', 'wp-symposium-toolbar' );
+			echo '<br />3. ' . __( 'Remove the option to force the display of the Toolbar on a site only, from the "Toolbar" tab of the plugin options page, of all sites', 'wp-symposium-toolbar' );
+			echo '<br />4. ' . __( 'Remove the WP user option to show / hide the Toolbar on the frontend, from the WP Profile page', 'wp-symposium-toolbar' );
 			echo '<br />' . __( 'After activation, select the roles that shall see the WP Toolbar from the Main Site plugin option page,', 'wp-symposium-toolbar' ) . ' <a href="'.admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab=toolbar' ).'" style="cursor:pointer;">' . __( '"WP Toolbar" tab, "WP Toolbar" option', 'wp-symposium-toolbar' ) .'.</a>';
 			echo '</span>';
 			if ( $error ) echo '<div id="display_activate_network_toolbar" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
@@ -1876,6 +1876,20 @@ function symposium_toolbar_admintab_css() {
 					$style_saved = str_replace( "; ", ";\n\t", $style_saved );
 					$style_saved = str_replace( ", #wp", ",\n#wp", $style_saved );
 					echo stripslashes( $style_saved );
+					
+					// Add carriage returns
+					$style_saved = str_replace( " }", "\n}", get_option( 'wpst_tech_style_to_header', '' ) );
+					$style_saved = str_replace( "} ", "}\n", $style_saved );
+					$style_saved = str_replace( "{ ", "{\n", $style_saved );
+					$style_saved = str_replace( "; ", ";\n", $style_saved );
+					$style_saved = str_replace( ", ", ",\n", $style_saved );
+					
+					// Add tabulations
+					$tab = 0;
+					$style_saved_arr = explode( "\n", $style_saved );
+					foreach ( $style_saved_arr as $style_saved_row ) {
+						echo stripslashes( str_repeat( "\t", $tab ) . $style_saved_row . '\n' );
+					}
 				}
 				echo '</textarea>';
 				echo '<p class="submit" style="min-width: 15%;margin-left:6px;">';
