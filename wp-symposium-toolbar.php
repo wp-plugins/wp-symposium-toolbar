@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.5
+Version: 0.24.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2405;
+$wpst_buildnr = 2408;
 
 
 // Exit if accessed directly
@@ -99,8 +99,8 @@ function symposium_toolbar_init() {
 		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
 		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
 		if ( file_exists($adminStyleFile) ) {
-				wp_register_style( 'wp-symposium-toolbar_admin_v22', $adminStyleUrl );
-				wp_enqueue_style( 'wp-symposium-toolbar_admin_v22' );
+				wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
+				wp_enqueue_style( 'wp-symposium-toolbar_admin' );
 		}
 	
 	// WP 3.8+ installs
@@ -295,14 +295,8 @@ function symposium_toolbar_load_settings_page() {
 	// CSS for WP color picker
 	wp_enqueue_style( 'wp-color-picker' );
 	
-	// Add the WP version as a JS var
-	echo '<script type="text/javascript">';
-	if( version_compare( $wp_version, '3.8-alpha', '<' ) )
-		echo 'var wpVersion = 0;';
-	else
-		echo 'var wpVersion = 380;';
-	echo ' var needToConfirm = false;';
-	echo '</script>';
+	// Add the JS var for confirm leaving the page
+	echo '<script type="text/javascript">var needToConfirm = false;</script>';
 	
 	// Load Javascript file
 	wp_enqueue_script( 'wp-symposium-toolbar', plugins_url( 'js/wp-symposium-toolbar.js', __FILE__ ), array( 'jquery' ), false, true );
@@ -312,7 +306,7 @@ function symposium_toolbar_load_settings_page() {
 	
 	// Up to WP 3.7.1, load preview at all tabs of this page
 	if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
-		wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), false, true );
+		wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), false, true );
 	
 	// For WP 3.8+, load preview at 'Styles' tab solely...
 	} else {
@@ -341,44 +335,6 @@ if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 
 // WP 3.8+
 } else {
-	
-	// Add icons to WP 3.8+ Toolbar
-	// References & Credits:
-	// https://github.com/tillkruess/MP6-Icon-Examples
-	// Envelope:	http://fontawesome.io/icons/
-	// Friends:		http://icomoon.io/#icons
-	// WPS "S":		http://centralgeek.com/
-	// All icons gathered in a font using IcoMoon http://icomoon.io/app/
-	function symposium_toolbar_set_custom_fonticons() {
-        
-		if ( !is_admin_bar_showing() )
-			return;
-		
-		echo '<style type="text/css">';
-		
-		echo '#wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before { ';
-			echo 'font-family: WPST-icons !important; ';
-			echo 'font-size: 85% !important; ';
-			echo 'content: \'\e602\';';
-		echo ' } ';
-		
-		echo '#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before { ';
-			echo 'font-family: WPST-icons !important; ';
-			echo 'font-size: 85% !important; ';
-			echo 'content: \'\e600\';';
-			echo 'margin-top: -5px;';
-		echo ' } ';
-		
-		echo '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before { ';
-			echo 'font-family: WPST-icons !important; ';
-			echo 'content: \'\e601\'; ';
-			echo 'font-size: 125% !important; ';
-		echo ' } ';
-		
-        echo '</style>';
-	}
-	// add_action( 'admin_head', 'symposium_toolbar_set_custom_fonticons' );
-	// add_action( 'wp_head', 'symposium_toolbar_set_custom_fonticons' );
 	
 	// Style Preview - add styles to the plugin options page only if active tab is "style"
 	if ( is_admin() ) {

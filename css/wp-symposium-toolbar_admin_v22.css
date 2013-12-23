@@ -115,6 +115,19 @@
 	padding-bottom: 10px;
 }
 
+/* Default colour on username */
+#wpadminbar #wp-admin-bar-user-info .ab-item span,
+#wpadminbar .quicklinks .menupop .ab-submenu > li > .ab-item {
+	color: #21759B;
+}
+
+/* Default hover colour on display name */
+#wpadminbar #wp-admin-bar-user-info:hover .ab-item span,
+#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item,
+#wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item {
+	color: #2ea2cc;
+}
+
 /* Style secondary submenus to look like their parent */
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {

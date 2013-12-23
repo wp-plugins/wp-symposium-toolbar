@@ -142,8 +142,13 @@ function symposium_toolbar_add_styles() {
  */
 function symposium_toolbar_add_features() {
 
-	if ( get_option( 'wpst_tech_feature_to_header', '' ) != '' )
-		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_feature_to_header', '' ) ) . '</style>';
+	if ( $features = get_option( 'wpst_tech_feature_to_header', array() ) ) {
+		echo '<style type="text/css">';
+		foreach ( $features as $key => $feature ) {
+			echo stripslashes( $feature );
+		}
+		echo '</style>';
+	}
 }
 
 /**

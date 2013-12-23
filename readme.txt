@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: 0.24.0
-Version: 0.24.5
+Version: 0.24.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,19 +117,18 @@ It will show only in the frontend and not in the backend, have you checked in th
 = 0.25.0. =
 
 * Change: add WPS icon to WPS Admin menu
-* Bugfix: WP 3.8, Styles, preview mode, Toolbar items hover colour
+* Bugfix: WP 3.8, Styles, preview mode, several issues: manage default values according to WP version, Toolbar items hover missing colour, User Info not picking colour
 * Bugfix: do not go through symposium_toolbar_custom_profile_update for single sites and do not create useless users metadata
 * Change: the rendering of the row for "new site settings" at the Sites tab of the plugin options page
-* Bugfix: missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
-* Bugfix: style secondary submenus to look like their parent when using WP default background color
-* Bugfix: WPMS, update tabs in all cases, and update style upon new site creation
-* Bugfix: Style, minor CSS issues with WP default values in menus
-* Bugfix: in RTL, list roles in descending order from R to L
+* Bugfix: WP 3.8, missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
+* Bugfix: style secondary submenus to use their parent's background color even when using WP default value
+* Bugfix: WPMS, update subsites in all cases as needed, and update style upon new site creation
+* Bugfix: in RTL, list roles and sites in descending order from R to L
 * Bugfix: get rid of PHP notices due to WPST searching for WPS paths when WPS not activated
-* Bugfix: make sure network menus don't clash with site menus
-* Bugfix: Search icon no longer folds / unfolds when on the left side of Toolbar
+* Bugfix: WPMS, network menus no longer clash with site menus
+* Bugfix: WP 3.8, WP Search icon had stopped folding / unfolding when on the left side of Toolbar
 * Bugfix: secure the hook 'symposium_toolbar_add_user_action' behind a test to ensure the current user is actually logged in
-* Bugfix: move 'symposium_toolbar_custom_profile_option' to the "public" part of the code so it can be found when Edit Profile is called from frontend (solving an issue with TML)
+* Bugfix: move 'symposium_toolbar_custom_profile_option' to the "public" part of the code so it can be found when Edit Profile is called from frontend by other plugins
 
 = 0.24.0. =
 

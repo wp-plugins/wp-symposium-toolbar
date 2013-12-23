@@ -188,13 +188,6 @@
 	padding-bottom: 10px;
 }
 
-/* Default hover colour on display name */
-#wpadminbar #wp-admin-bar-user-info:hover .display-name,
-#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item,
-#wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item {
-	color: #2ea2cc;
-}
-
 /* Style secondary submenus to look like their parent */
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
@@ -366,6 +359,14 @@
 .rtl .wpst_sites_checkboxes span.description {
     padding-right: 2px;
     padding-left: 20px;
+}
+
+.wpst-float-div {
+    float: left;
+}
+
+.rtl .wpst-float-div {
+    float: right;
 }
 
 /* Styles tables */

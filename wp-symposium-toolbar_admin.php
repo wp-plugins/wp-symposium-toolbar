@@ -340,6 +340,7 @@ function symposium_toolbar_admintab_sites() {
 			
 			echo '<tbody>';
 			
+			
 			// Parse subsites and tabs
 			if ( count( $blogs ) > 1 ) {
 				$color = $color_odd = '#FBFBFB';
@@ -359,22 +360,22 @@ function symposium_toolbar_admintab_sites() {
 					echo '<tr style="background-color: '.$color.';">';
 					
 						echo '<td style="border-bottom-color: '.$color.';"><span class="description"><a href="http://'.trim( $blog['domain'], 'http://' ).'/'.trim( $blog['path'], '/' ).'/wp-admin/"> '.$blog_details->blogname.'</a></span></td>';
-						// echo '<td style="border-bottom-color: '.$color.';"><span class="description"> '.$blog_details->blogname.' @ '.$blog['domain'].$blog['path'].'</span></td>';
 						echo '<td style="border-bottom-color: '.$color.';"><div id="blog_'.$blog['blog_id'].'" class="wpst_sites_checkboxes">';
+						
 						foreach ( $wpst_subsites_tabs as $key => $title ) {
-							
 							if ( $key == 'css' ) 
 								echo '<input type="hidden" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="css">';
 							elseif ( ( $is_wps_available && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
-								echo '<input type="checkbox" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="'.$key.'" class="wpst-admin wpst-check-site"';
+								echo '<div class="wpst-float-div"><input type="checkbox" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="'.$key.'" class="wpst-admin wpst-check-site"';
 								if ( ! in_array( $key, $wpst_wpms_hidden_tabs ) ) { echo " CHECKED"; } // Display it the other way round to Network Admins
-								echo '><span class="description" style="padding-right: 20px"> '.__( $title ).'</span>';
+								echo '><span class="description"> '.__( $title ).'</span></div>';
 							}
 						}
 						
 						// Add a toggle link
-						echo '<div id="blog_'.$blog['blog_id'].'_all_none" class="wpst-admin wpst-check-site" style="float:right; cursor:default;"><a id="blog_'.$blog['blog_id'].'"';
-						echo ' onclick="var items=document.getElementById( \'blog_'.$blog['blog_id'].'\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;"';
+						echo '<div id="blog_'.$blog['blog_id'].'_all_none" class="wpst-admin wpst-check-site" style="float:right; cursor:default; ';
+						if ( is_rtl() ) { echo 'float:left;">'; } else { echo 'float:right;">'; }
+						echo '<a id="blog_'.$blog['blog_id'].'" onclick="var items=document.getElementById( \'blog_'.$blog['blog_id'].'\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;"';
 						echo '>'.__( 'toggle all / none', 'wp-symposium-toolbar' ).'</a></div>';
 						
 						echo '</div></td>';
@@ -399,20 +400,21 @@ function symposium_toolbar_admintab_sites() {
 				echo '<tr>';
 					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf; background-color: #ececec;"><span class="description"> New Site Default Tabs</span></td>';
 					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf; background-color: #ececec;"><div id="blog_new" class="wpst_sites_checkboxes">';
+					
 					foreach ( $wpst_subsites_tabs as $key => $title ) {
-						
 						if ( $key == 'css' ) 
 							echo '<input type="hidden" id="blog_new[]" name="blog_new[]" value="css">';
 						elseif ( ( $is_wps_available && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
-							echo '<input type="checkbox" id="blog_new[]" name="blog_new[]" value="'.$key.'" class="wpst-admin wpst-check-site"';
+							echo '<div class="wpst-float-div"><input type="checkbox" id="blog_new[]" name="blog_new[]" value="'.$key.'" class="wpst-admin wpst-check-site"';
 							if ( ! in_array( $key, $wpst_wpms_hidden_tabs ) ) { echo " CHECKED"; } // Display it the other way round to Network Admins
-							echo '><span class="description" style="padding-right: 20px"> '.__( $title ).'</span>';
+							echo '><span class="description"> '.__( $title ).'</span></div>';
 						}
 					}
 					
 					// Add a toggle link
-					echo '<div id="blog_new_all_none" class="wpst-admin wpst-check-site" style="float:right; cursor:default;"><a id="blog_new"';
-					echo ' onclick="var items=document.getElementById( \'blog_new\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;"';
+					echo '<div id="blog_new_all_none" class="wpst-admin wpst-check-site" style="float:right; cursor:default; ';
+					if ( is_rtl() ) { echo 'float:left;">'; } else { echo 'float:right;">'; }
+					echo '<a id="blog_new" onclick="var items=document.getElementById( \'blog_new\' ).getElementsByTagName( \'input\' ); var checked = items[0].checked; for( var i in items ) items[i].checked = ! checked;"';
 					echo '>'.__( 'toggle all / none', 'wp-symposium-toolbar' ).'</a></div>';
 					
 					echo '</div></td>';
@@ -558,7 +560,7 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '<span>' . __( 'The Search icon and field, allows searching the site from the frontend', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_search_field', get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ), $wpst_roles_all_incl_visitor );
 				
-				echo '<br /><span> ' . __( 'But move it to a location where it won\'t push other items when unfolding...', 'wp-symposium-toolbar' ) . '</span>';
+				echo '<br style="clear: both;" /><span> ' . __( 'But move it to a location where it won\'t push other items when unfolding...', 'wp-symposium-toolbar' ) . '</span>';
 				
 				echo '<select name="move_search_field" id="move_search_field" class="wpst-admin"';
 				if ( !in_array( get_option( 'wpst_toolbar_move_search_field', 'empty' ), array( "", "empty", "top-secondary" ) ) )
@@ -2244,22 +2246,11 @@ function symposium_toolbar_add_roles_to_item( $slug, $option, $roles ) {
 			$error = $error || ( $ret_roles != $option );
 			
 			// list roles available for this item
-			if ( is_rtl() ) {
-				$roles = array_reverse ( $roles );
-				foreach ( $roles as $key => $role ) {
-					$html .= '<span class="description"> '.__( $role ).'</span>';
-					$html .= '<input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
-					if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
-					$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
-					$html .= '>';
-				}
-			} else {
-				foreach ( $roles as $key => $role ) {
-					$html .= '<input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
-					if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
-					$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
-					$html .= '><span class="description"> '.__( $role ).'</span>';
-				}
+			foreach ( $roles as $key => $role ) {
+				$html .= '<div class="wpst-float-div"><input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin wpst-check-role"';
+				if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= " CHECKED"; }
+				$html .= ' onclick="var items=document.getElementById( \''.$slug.'_roles\' ).getElementsByTagName( \'input\' ); for( var i in items ) { if ( items[i].style !== undefined ) items[i].style.outline = \'none\';}"';
+				$html .= '><span class="description"> '.__( $role ).'</span></div>';
 			}
 			
 			// Add a toggle link
