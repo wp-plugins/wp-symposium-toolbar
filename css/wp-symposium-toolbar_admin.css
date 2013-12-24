@@ -1,0 +1,433 @@
+/*  Copyright 2013  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as 
+	published by the Free Software Foundation.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/**
+ * Icons
+ */
+
+@font-face {
+	font-family: 'WPST-icons';
+	src:url('../fonts/WPST-icons.eot');
+	src:url('../fonts/WPST-icons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/WPST-icons.ttf') format('truetype'),
+		url('../fonts/WPST-icons.woff') format('woff'),
+		url('../fonts/WPST-icons.svg#WPST-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'WPST-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before {
+	font-family: WPST-icons !important;
+	font-size: 85% !important;
+	content: '\e602';
+ }
+		
+#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before {
+	font-family: WPST-icons !important;
+	font-size: 85% !important;
+	content: '\e600';
+	margin-top: -5px;
+ }
+		
+#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before {
+	font-family: WPST-icons !important;
+	content: '\e601';
+	font-size: 125% !important;
+ }
+
+#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon {
+	margin-top: 3px;
+}
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-mail > .ab-item > span.ab-icon,
+#wpadminbar #wp-admin-bar-symposium-toolbar-notifications-friendship > .ab-item > span.ab-icon {
+	margin-top: -2px;
+}
+
+#wp-admin-bar-top-secondary .ab-item > .ab-label-mail,
+#wp-admin-bar-top-secondary .ab-item > .ab-label-friendship {
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+/* Force the display of these icons, whenever screen width permits */
+@media screen and (max-width: 782px) {
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
+		display: block;
+	}
+}
+@media screen and (max-width: 600px) {
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
+	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
+		display: none;
+	}
+}
+
+/**
+ * Search Icon and Field
+ */
+
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	position: relative;
+	z-index: 30;
+	font: 13px/24px "Open Sans", sans-serif;
+	height: 24px;
+	width: 24px;
+	padding: 0 3px 0 24px;
+	margin: 0;
+	color: #ccc;
+	background-color: rgba( 255, 255, 255, 0 );
+	border: none;
+	outline: none;
+	cursor: pointer;
+
+	-webkit-box-shadow: none;
+	box-shadow: none;
+
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+
+	-webkit-transition-duration: 400ms;
+	-webkit-transition-property: width, background;
+	-webkit-transition-timing-function: ease;
+	-moz-transition-duration: 400ms;
+	-moz-transition-property: width, background;
+	-moz-transition-timing-function: ease;
+	-o-transition-duration: 400ms;
+	-o-transition-property: width, background;
+	-o-transition-timing-function: ease;
+}
+
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	z-index: 10;
+	color: #000;
+	width: 200px;
+	background-color: rgba( 255, 255, 255, 0.9 );
+	cursor: text;
+	border: 0;
+}
+
+#wpadminbar.ie7 > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	margin-top: 3px;
+	width: 120px;
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	margin-top: 4px;
+	background-color: #464646;
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	background-color: #fff;
+}
+
+/**
+ * User Menu
+ */
+
+/* Style the User Menu for a correct partial display */
+@media screen and (min-width: 783px) {
+	#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
+		min-height: 80px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account .wpst-with-avatar {
+		min-height: 64px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li.wpst-with-avatar {
+		height: 64px;
+	}
+
+	#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li {
+		margin-left: 16px !Important;
+	}
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-avatar {
+	left: 8px;
+}
+
+/* Ensure a small gap under the avatar when it's alone */
+#wpadminbar #wp-admin-bar-user-info {
+	margin-bottom: 10px;
+}
+
+/* Those spans look too small with a box on hover */
+#wpadminbar #wp-admin-bar-user-info a {
+	padding-bottom: 10px;
+}
+
+/* Style secondary submenus to look like their parent */
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+    background: none repeat scroll 0 0 #4b4b4b;
+    box-shadow: none;
+    display: block;
+    margin: 0;
+    position: relative;
+    right: auto;
+}
+
+/* Add Admin Role to User Menu */
+#wpadminbar #wp-admin-bar-my-account .wpst-role {
+	padding: 0 0 10px 15px;
+	margin: 10px 0 0 0;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
+	border: 1px solid red;
+}
+
+/* Fix User Menu submenus */
+#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
+	right: 100% !Important;
+}
+
+@media screen and (max-width: 594px) {
+	#wpadminbar .ab-top-secondary .menupop li.hover > .ab-sub-wrapper {
+		right: 0% !Important;
+	}
+}
+
+/* Leave room for the submenu arrows */
+@media screen and (max-width: 782px) {
+	#wpadminbar .ab-top-secondary .menupop .ab-submenu > li .ab-item {
+		margin-left: 10px;
+	}
+}
+
+/* Fix arrows height for User Menu submenus */
+@media screen and (max-width: 782px) {
+	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
+		top: 10px !Important;
+	}
+}
+@media screen and (min-width: 783px) {
+	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
+		top: 1px !Important;
+	}
+}
+
+/**
+ * Site Name Menu
+ */
+
+/* Fix the Site Name frontend menu */
+#wpadminbar #wp-admin-bar-site-name-default {
+	margin-top: 0px;
+	padding-bottom: 0px;
+}
+
+#wpadminbar #wp-admin-bar-site-name-default:last-child {
+	padding-bottom: 6px;
+}
+
+#wpadminbar #wp-admin-bar-appearance {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/**
+ * Custom menu icons
+ */
+ 
+#wpadminbar .wpst-icon {
+	position: relative;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 6px;"
+}
+
+
+/**
+ * Admin Dashboard Options Page Items
+ */
+
+/* Tabs carrousel */
+#wpst-nav-management {
+	position: relative;
+	float: right;
+	width: 100%;
+}
+
+#wpst-nav-tabs-wrapper {
+	width: 10000px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+#wpst-nav-tabs {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#wpst-nav-div-wrapper {
+	clear: both;
+}
+
+/* Arrows */
+.wpst-nav-tabs-arrow {
+	width: 10px;
+	padding: 0 5px 4px;
+	cursor: pointer;
+	position: absolute;
+	line-height: 22px;
+	font-size: 18px;
+	background-color: white;
+	text-shadow: 0 1px 0 #fff;
+	display: none;
+}
+
+#wpst-nav-tabs-arrow-left {
+	left: 0;
+}
+
+#wpst-nav-tabs-arrow-right {
+	top: 0;
+	right: 0;
+	text-align: right;
+}
+
+/* Individual tabs */
+.wpst-nav-tab {
+	margin-top: 0;
+	cursor: pointer;
+}
+
+.wpst-nav-tab-active {
+	background-color: #F9F9F9;
+}
+
+.wpst-nav-div-active {
+	display: inline;
+}
+
+/* Responsive tabs */
+@media screen and (max-width: 782px) {
+	.wpst-nav-tab {
+		padding-top: 10px;
+		height: 21px;
+	}
+	.wpst-nav-tabs-arrow {
+		width: 24px;
+		height: 36px;
+	}
+}
+
+/* Item Titles */
+.wpst-form-item-title {
+	width: 15%;
+}
+
+/* Roles in roles' lists, sites in sites' lists */
+.wpst_roles_checkboxes span.description,
+.wpst_sites_checkboxes span.description {
+    padding-right: 20px;
+	display: inline; 
+	line-height: 2em;
+}
+.rtl .wpst_roles_checkboxes span.description,
+.rtl .wpst_sites_checkboxes span.description {
+    padding-right: 2px;
+    padding-left: 20px;
+}
+
+.wpst_roles_checkboxes {
+	overflow: hidden;
+}
+
+.wpst-float-div {
+    float: left;
+}
+
+.rtl .wpst-float-div {
+    float: right;
+}
+
+/* Styles tables */
+.wpst-widefat {
+	border: none;
+	line-height: 1.4em;
+}
+
+.wpst-widefat td {
+	padding: 9px;
+	width:14%;
+}
+
+.wpst-positive-int, .wpst-int, .wpst-percent {
+	width: 50px;
+}
+
+/* Error messages in the admin page */
+.wpst-error-message {
+	margin-top: 12px;
+	padding: 12px;
+	background-color: #FFEBE8;
+	border: 1px solid #CC0000;
+	vertical-align: bottom;
+	text-align: center;
+}
+
+/* Refines WP colorpicker */
+.wp-color-picker-field {
+	width: 67px;
+}
+
+/* Styling the two Guides */
+.wpst-devguide-function {
+	font-family: Courier New;
+	font-size: 9pt;
+	background: rgb(251, 251, 251);
+	border: lightgrey 1px solid;
+	padding: 10px 35px;
+}
+
+.wpst-devguide-code {
+	font-family: Courier New;
+	font-size: 9pt;
+	background: rgb(251, 251, 251);
+}
+
+.wpst-inside-guide {
+	padding: 20px;
+}
+
+.wpst-inside-guide h5 {
+	font-size: 0.9em;
+	font-style: italic;
+}
