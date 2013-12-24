@@ -249,11 +249,29 @@
 	display: inline;
 }
 
+/* Item Titles */
+.wpst-form-item-title {
+	width: 15%;
+}
+
 /* Roles in roles' lists, sites in sites' lists */
 .wpst_roles_checkboxes span.description,
 .wpst_sites_checkboxes span.description {
     padding-right: 20px;
-	display: inline;
+	display: inline; 
+	line-height: 2em;
+}
+
+.wpst_roles_checkboxes {
+	overflow: hidden;
+}
+
+.wpst-float-div {
+    float: left;
+}
+
+.rtl .wpst-float-div {
+    float: right;
 }
 
 /* Styles tables */
@@ -277,6 +295,8 @@
 	padding: 12px;
 	background-color: #FFEBE8;
 	border: 1px solid #CC0000;
+	vertical-align: bottom;
+	text-align: center;
 }
 
 /* Refines WP colorpicker */

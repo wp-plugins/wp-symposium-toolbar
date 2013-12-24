@@ -56,7 +56,6 @@ jQuery(document).ready(function($){
 	
 	var wpstDefaultHeight = "28";
 	var $wpstBorderWidth = "1";
-	// var $wpstBorderStyle = "solid";
 	var wpstFontEmpty = "sans-serif";
 	var wpstEmptyColor = "#464646";
 	var wpstEmptyColorRgb = "rgb( 70, 70, 70)";
@@ -82,10 +81,6 @@ jQuery(document).ready(function($){
 	var wpstMenuFontEmptyColorRgb = "rgb( 33, 117, 155 )";
 	var wpstMenuFontHoverEmptyColor = "#CCCCCC";
 	var wpstMenuFontHoverEmptyColorRgb = "rgb( 204, 204, 204 )";
-	// var wpstMenuExtFontEmptyColor = "#eeeeee";
-	// var wpstMenuExtFontEmptyColorRgb = "rgb( 238, 238, 238 )";
-	// var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
-	// var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 	
 	var wpstFontSizeEmpty = "13px";
 	var wpstFontSizeSmallEmpty = "11px";
@@ -181,7 +176,6 @@ jQuery(document).ready(function($){
 		var tbPaddingTop = Math.round( ( tbHeight - wpstDefaultHeight )/2 );
 		if ( tbPaddingTop < 0 ) tbPaddingTop = 0;
 		var tbMarginTop = tbHeight - wpstDefaultHeight;
-		// if ( tbMarginTop < 0 ) tbMarginTop = 0;
 		var wpstSubwrapperTop = wpstDefaultHeight - 2;
 		
 		$("#wpadminbar").css( "height", tbHeight + "px" );

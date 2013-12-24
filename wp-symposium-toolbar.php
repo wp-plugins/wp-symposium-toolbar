@@ -9,15 +9,15 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
 Tested up to: 3.8
-Stable tag: 0.24.0
-Version: 0.24.9
+Stable tag: 0.25.0
+Version: 0.25.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2408;
+$wpst_buildnr = 2500;
 
 
 // Exit if accessed directly
@@ -236,7 +236,10 @@ if ( $is_wps_active ) {
 	// Add "Toolbar" to WP Admin menu
 	function add_symposium_toolbar_to_admin_menu() {
 		
-		if ( count( get_option( 'wpst_wpms_hidden_tabs', array() ) ) == 7 )				// Nr of tabs that can be hidden excluding WPS
+		// Nr of tabs that can be hidden
+		$wpst_wpms_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
+		if ( !in_array( 'wps', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'wps';
+		if ( count( $wpst_wpms_hidden_tabs ) == 8 )
 			return;
 		
 		add_theme_page(

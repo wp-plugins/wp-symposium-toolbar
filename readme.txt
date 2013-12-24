@@ -7,8 +7,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 0.24.0
-Version: 0.24.9
+Stable tag: 0.25.0
+Version: 0.25.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,8 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: WP 3.8, WP Search icon had stopped folding / unfolding when on the left side of Toolbar
 * Bugfix: secure the hook 'symposium_toolbar_add_user_action' behind a test to ensure the current user is actually logged in
 * Bugfix: move 'symposium_toolbar_custom_profile_option' to the "public" part of the code so it can be found when Edit Profile is called from frontend by other plugins
+* Change: WPMS, add error messages to Multisite features
+* Change: error messages no longer removed upon clicking, need to reload page to get rid of them
 
 = 0.24.0. =
 

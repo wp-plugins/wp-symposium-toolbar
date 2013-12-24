@@ -348,6 +348,11 @@
 	}
 }
 
+/* Item Titles */
+.wpst-form-item-title {
+	width: 15%;
+}
+
 /* Roles in roles' lists, sites in sites' lists */
 .wpst_roles_checkboxes span.description,
 .wpst_sites_checkboxes span.description {
@@ -359,6 +364,10 @@
 .rtl .wpst_sites_checkboxes span.description {
     padding-right: 2px;
     padding-left: 20px;
+}
+
+.wpst_roles_checkboxes {
+	overflow: hidden;
 }
 
 .wpst-float-div {

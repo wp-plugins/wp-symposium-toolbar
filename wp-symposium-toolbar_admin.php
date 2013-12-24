@@ -261,7 +261,7 @@ function symposium_toolbar_admintab_features() {
 	echo '</tr>';
 		
 	echo '<tr valign="top">';
-		echo '<td scope="row" style="width:15%;"><span>' . __( 'Network Toolbar', 'wp-symposium-toolbar' ) . '</span></td>';
+		echo '<td scope="row" class="wpst-form-item-title"><span>' . __( 'Network Toolbar', 'wp-symposium-toolbar' ) . '</span></td>';
 		echo '<td>';
 			echo '<input type="checkbox" name="activate_network_toolbar" id="activate_network_toolbar" class="wpst-admin wpst-check-network"';
 			(bool)$error = false;
@@ -284,7 +284,7 @@ function symposium_toolbar_admintab_features() {
 	echo '</tr>';
 	
 	echo '<tr valign="top">';
-		echo '<td scope="row" style="width:15%;"><span>' . __( 'Home Site', 'wp-symposium-toolbar' ) . '</span></td>';
+		echo '<td scope="row" class="wpst-form-item-title"><span>' . __( 'Home Site', 'wp-symposium-toolbar' ) . '</span></td>';
 		echo '<td>';
 			echo '<input type="checkbox" name="activate_network_home_site" id="activate_network_home_site" class="wpst-admin wpst-check-network"';
 			(bool)$error = false;
@@ -449,7 +449,7 @@ function symposium_toolbar_admintab_toolbar() {
 		
 		if ( is_main_site() || ( get_option( 'wpst_wpms_network_toolbar', '' ) == "" ) ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>'.__( 'WP Toolbar', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'WP Toolbar', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td>';
 					echo '<span> ' . __( 'The WordPress Toolbar itself, in the frontend of the site solely, and depending on a user setting ; the WP Toolbar will always be visible in the backend.', 'wp-symposium-toolbar' ) . '</span>';
 					echo '<br /><span class="description"> ' . __( 'Note:', 'wp-symposium-toolbar' ) . ' ';
@@ -463,7 +463,7 @@ function symposium_toolbar_admintab_toolbar() {
 		
 		if ( get_option( 'wpst_wpms_network_toolbar', '' ) == "" ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
 					echo '<input type="checkbox" name="display_wp_toolbar_force" id="display_wp_toolbar_force" class="wpst-admin"';
 					(bool)$error = false;
@@ -480,7 +480,7 @@ function symposium_toolbar_admintab_toolbar() {
 		}
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'WP Logo', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'WP Logo', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The WordPress logo and its menu, links to WordPress help and support', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_wp_logo', get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ), $wpst_roles_all_incl_visitor );
@@ -488,7 +488,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Site Name', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Site Name', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The site name and its menu, gives access to the site from the backend, and various dashboard pages from the frontend', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_site_name', get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ), $wpst_roles_all );
@@ -497,7 +497,7 @@ function symposium_toolbar_admintab_toolbar() {
 		
 		if ( is_multisite() ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>'.__( 'My Sites', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'My Sites', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td>';
 					echo '<span>' . __( 'The list of all sites of the network', 'wp-symposium-toolbar' ) . '</span>';
 					// echo '<br /><span class="description"> ' . __( 'Note: This item will show only when the user is administrator of at least one site of the network, or is a super admin', 'wp-symposium-toolbar' ) . '</span>';
@@ -507,7 +507,7 @@ function symposium_toolbar_admintab_toolbar() {
 		}
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Updates Icon', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Updates Icon', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Updates icon, links to the Updates page of the dashboard', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_updates_icon', get_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) ), $wpst_roles_updates );
@@ -515,7 +515,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Comments Bubble', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Comments Bubble', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Comments bubble, links to the Comments moderation page', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_comments_bubble', get_option( 'wpst_toolbar_comments_bubble', array_keys( $wpst_roles_comment ) ), $wpst_roles_comment );
@@ -523,7 +523,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Add New', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Add New', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Add New menu, allows adding new content to the site', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_new_content', get_option( 'wpst_toolbar_new_content', array_keys( $wpst_roles_new_content ) ), $wpst_roles_new_content );
@@ -531,7 +531,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Shortlink', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Shortlink', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Shortlink to the page / post being edited', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_get_shortlink', get_option( 'wpst_toolbar_get_shortlink', array_keys( $wpst_roles_author ) ), $wpst_roles_author );
@@ -539,7 +539,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Edit Link', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Edit Link', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Edit link to the Edit page for the page / post being viewed', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_edit_page', get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ), $wpst_roles_author );
@@ -547,7 +547,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The WP User Menu, as well as the "Howdy" message and the small avatar, located in the upper right corner of the screen - customize them from the other tab, or hide them completely from here', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_user_menu', get_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all_incl_visitor ) ), $wpst_roles_all_incl_visitor );
@@ -555,7 +555,7 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Search Icon', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Search Icon', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'The Search icon and field, allows searching the site from the frontend', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_search_field', get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ), $wpst_roles_all_incl_visitor );
@@ -602,7 +602,7 @@ function symposium_toolbar_admintab_myaccount() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Top Level Item', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Top Level Item', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
 				echo '<span>' . __( 'Customize the "Howdy" message displayed in the WP Toolbar for members, leave empty for no message', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '<input type="text" style="width:250px;" name="display_wp_howdy" id="display_wp_howdy" class="wpst-admin" value="'.get_option( 'wpst_myaccount_howdy', __( 'Howdy', 'wp-symposium-toolbar' ).", %display_name%" ).'" />';
@@ -615,7 +615,7 @@ function symposium_toolbar_admintab_myaccount() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 			echo '<td>';
 				echo '<input type="checkbox" name="display_wp_toolbar_avatar" id="display_wp_toolbar_avatar" class="wpst-admin"';
 				if ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" )
@@ -639,7 +639,7 @@ function symposium_toolbar_admintab_myaccount() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>'.__( 'Default Menu Items', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Default Menu Items', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td colspan="2">';
 				echo '<span>' . __( 'Which of the WP User Menu default items should be displayed?', 'wp-symposium-toolbar' ) . '</span><br />';
 				
@@ -692,7 +692,7 @@ function symposium_toolbar_admintab_myaccount() {
 		
 		if ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" class="wpst-admin wpst-wps-item" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" style="width:250px; ';
@@ -708,7 +708,7 @@ function symposium_toolbar_admintab_myaccount() {
 		}
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" style="width:15%;"><span>' . __( 'Additional Menu Items', 'wp-symposium-toolbar' ) . '</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>' . __( 'Additional Menu Items', 'wp-symposium-toolbar' ) . '</span></td>';
 			echo '<td>';
 				echo '<input type="checkbox" name="display_wp_role" id="display_wp_role" class="wpst-admin"';
 				if ( get_option( 'wpst_myaccount_role', '' ) == "on" )
@@ -723,7 +723,7 @@ function symposium_toolbar_admintab_myaccount() {
 		
 		if ( $error ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
 				echo '<div id="display_user_menu_error" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
 				echo __( 'There is an issue with the options stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' );
@@ -732,7 +732,7 @@ function symposium_toolbar_admintab_myaccount() {
 		}
 		if ( $no_wps ) {
 			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%;"><span>&nbsp;</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
 				echo '<div id="display_wps_error" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
 				echo __( 'You are attempting to redirect the Edit Profile URL to the WP Symposium Profile page while this page cannot be found! Please check that you have activated the WP Symposium Profile feature and defined a Profile page, from the WPS Install page!', 'wp-symposium-toolbar' );
