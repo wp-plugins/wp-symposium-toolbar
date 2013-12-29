@@ -109,16 +109,16 @@ jQuery(document).ready(function($){
 	var wpadminbarWidth = $( "#wpadminbar" ).width();
 	document.body.style.overflow = "";
 	
-	
-	// Load Default CSS file while loading this page...
-	// update_tb_background();
+	/*
+	// Use default theme while loading this page... Set unset values
+	update_tb_background();
 	// update_tb_borders();
-	// update_tb_font_colour();
+	update_tb_font_colour();
 	// update_tb_font_shadow();
-	// update_menu_background();
-	// update_menu_font_colour();
+	update_menu_background();
+	update_menu_font_colour();
 	// update_menu_font_shadow();
-	
+	/* */
 	
 	// ENABLERS
 	
@@ -524,9 +524,8 @@ jQuery(document).ready(function($){
 		// Hover / Focus
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColor );
-		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", menuMainColor );
-		} });
+		},function(){ $(this).find("> .ab-item").css( "color", menuMainColor );
+		});
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
 			$(this).find("span").css( "color", menuHoverColor );
 		},function(){
@@ -534,14 +533,12 @@ jQuery(document).ready(function($){
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
-		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", menuMainColorExt );
-		} });
+		},function(){ $(this).find("> .ab-item").css( "color", menuMainColorExt );
+		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
-		},function(){ if ( !$(this).is("focus") ) {
-			$(this).find("> .ab-item").css( "color", menuMainColorExt );
-		} });
+		},function(){ $(this).find("> .ab-item").css( "color", menuMainColorExt );
+		});
 		
 		// if ( document.getElementById("wpstMenuFontColour") )
 			// var style = document.getElementById("wpstMenuFontColour");

@@ -255,14 +255,14 @@
 }
 
 /* Roles in roles' lists, sites in sites' lists */
-.wpst_roles_checkboxes span.description,
-.wpst_sites_checkboxes span.description {
+.wpst-roles-checkboxes span.description,
+.wpst-sites-checkboxes span.description {
     padding-right: 20px;
 	display: inline; 
 	line-height: 2em;
 }
 
-.wpst_roles_checkboxes {
+.wpst-roles-checkboxes {
 	overflow: hidden;
 }
 

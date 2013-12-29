@@ -116,9 +116,11 @@ function symposium_toolbar_init_globals() {
 }	
 
 /**
- * Called on top of the plugin option page, if current tab is "styles"
- * And on top of all frontend pages
- * Add styles to the WP header
+ * Called on top of all pages
+ * Add styles to the WP header:
+ * - to hide the avatars via display:none, mandatory in 3.8 to cope with responsive mode
+ * - to force WP default color scheme in dashboard
+ * - to apply WPST custom style when needed
  *
  * @since 0.18.0
  *
@@ -127,27 +129,49 @@ function symposium_toolbar_init_globals() {
  */
 function symposium_toolbar_add_styles() {
 
-	if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
-		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
-}
-
-/**
- * Called on top of all pages
- * Add avatar feature to the WP header
- *
- * @since 0.25.0
- *
- * @param  none
- * @return none
- */
-function symposium_toolbar_add_features() {
-
-	if ( $features = get_option( 'wpst_tech_feature_to_header', array() ) ) {
-		echo '<style type="text/css">';
-		foreach ( $features as $key => $feature ) {
-			echo stripslashes( $feature );
+	global $wp_version;
+	
+	// WP 3.7.1-
+	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+		
+		// Add custom style to the dashboard pages for up to WP 3.7.1
+		if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+		
+	// WP 3.8+
+	} else {
+		
+		// Avatar - Hide them from all pages Toolbar, when admin chooses to do so
+		if ( get_option( 'wpst_tech_avatar_to_header', '' ) != '' )
+			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_avatar_to_header', '' ) ) . '</style>';
+		
+		// Styles, both default and custom
+		// Backend
+		// Add styles to the plugin options page only if active tab is "style"
+		// Or to the whole dashboard if admin choose to do so
+		if ( is_admin() ) {
+			$wpst_active_tab = '';
+			if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
+			if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
+			if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
+			
+			if ( ( get_option( 'wpst_style_tb_in_admin', '' ) == 'on' ) || ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
+				
+				// Use WP default color scheme in backend if admin chooses to do so, and at the Styles tab in preview
+				if ( get_option( 'wpst_tech_default_style_to_header', '' ) != '' )
+					echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_default_style_to_header', '' ) ) . '</style>';
+				
+				// Shows in backend if admin chooses to do so, and at the Styles tab in preview
+				if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+					echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+			}
+		
+		// Frontend
+		// Add custom style to all frontend pages
+		} else {
+			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 		}
-		echo '</style>';
 	}
 }
 
@@ -337,7 +361,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
 				$avatar_small = ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';
 			else
-				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_features()
+				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_styles()
 				$avatar_small = get_avatar( $user_id, 26 );
 			
 			// User Info that goes on top of the menu
@@ -379,7 +403,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
 				$avatar_small = ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
 			else
-				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_features()
+				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_styles()
 				$avatar_small = get_avatar( $user_id, 26 );  // Get a blank avatar
 		}
 		
@@ -610,6 +634,51 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 	}
 	
 	return $url;
+}
+
+/**
+ * Displays an array of arrays by parsing sites of the network
+ *
+ * @since O.26.0
+ *
+ * @param none
+ * @return none
+ */
+function symposium_toolbar_super_admin_menu() {
+
+	global $wpdb, $wp_admin_bar;
+	
+	if ( !is_admin_bar_showing() )
+		return;
+	
+	if ( !is_multisite() || !is_super_admin() || !is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) )
+		return;
+	
+	// All Sites
+	$blogs = $wpdb->get_results( "SELECT blog_id,domain,path FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id", ARRAY_A );
+
+	// Menu entry - Top level menu item
+	$wp_admin_bar->add_node( array (
+		'title' => __( 'All Sites', 'wp-symposium-toolbar' ),
+		'href' => network_site_url( 'wp-admin/network/' ),
+		'id' => 'my-wpms-admin',
+		'parent' => '',
+		'meta' => array( 'class' => 'my-toolbar-page' )
+	) );
+	
+	foreach ( $blogs as $blog ) {
+
+		// Get blog details for this subsite
+		$blog_details = get_blog_details($blog['blog_id']);
+		
+		$wp_admin_bar->add_node( array (
+			'title' => $blog_details->blogname,
+			'href' => $blog['domain'] . '/' . trim( $blog['path'], '/' ) . '/wp-admin/',
+			'id' => 'my-wpms-admin-'.$blog['blog_id'],
+			'parent' => 'my-wpms-admin',
+			'meta' => array( 'class' => 'my-toolbar-page' )
+		) );
+	}
 }
 
 /**

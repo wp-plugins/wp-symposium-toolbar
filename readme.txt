@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: 0.25.0
-Version: 0.25.0
+Version: 0.25.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +114,14 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Changelog ==
 
+= 0.26.0. =
+
+* Bugfix: WP 3.8, Styles, incorrect font and background colours, added default values based on WP default color scheme in case user has chosen another scheme
+* Bugfix: WP 3.8, Styles, icon not hovered when no hover color is set
+* Change: WP 3.8, Styles, added the option to choose to style the Toolbar in the whole dashboard, in addition to the plugin option page, Styles tab for the preview
+* Bugfix: make sure styles are generated upon upgrading the plugin
+* Change: WPMS, added the network feature to list All Sites in a dedicated menu for Super Admins (and not only My Sites)
+
 = 0.25.0. =
 
 * Change: add WPS icon to WPS Admin menu
@@ -123,7 +131,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: WP 3.8, missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
 * Bugfix: style secondary submenus to use their parent's background color even when using WP default value
 * Bugfix: WPMS, update subsites in all cases as needed, and update style upon new site creation
-* Bugfix: in RTL, list roles and sites in descending order from R to L
+* Bugfix: in RTL, list roles and sites' tabs in descending order from R to L
 * Bugfix: get rid of PHP notices due to WPST searching for WPS paths when WPS not activated
 * Bugfix: WPMS, network menus no longer clash with site menus
 * Bugfix: WP 3.8, WP Search icon had stopped folding / unfolding when on the left side of Toolbar
