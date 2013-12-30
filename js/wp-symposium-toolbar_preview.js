@@ -68,10 +68,12 @@ jQuery(document).ready(function($){
 	var wpstHoverEmptyColorRgb = "rgb( 51, 51, 51 )";
 	var wpstFontEmptyColor = "#eeeeee";
 	var wpstFontEmptyColorRgb = "rgb( 238, 238, 238 )";
-	var wpstIconEmptyColor = "#999999";
-	var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
 	var wpstFontHoverEmptyColor = "#2ea2cc";
 	var wpstFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
+	var wpstIconEmptyColor = "#999999";
+	var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
+	var wpstIconHoverEmptyColor = "#2ea2cc";
+	var wpstIconHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 	
 	var wpstMenuEmptyColor = "#333333";
 	var wpstMenuEmptyColorRgb = "rgb( 51, 51, 51 )";
@@ -85,10 +87,10 @@ jQuery(document).ready(function($){
 	var wpstMenuFontEmptyColorRgb = "rgb( 238, 238, 238 )";
 	var wpstMenuFontHoverEmptyColor = "#2ea2cc";
 	var wpstMenuFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
-	// var wpstMenuExtFontEmptyColor = "#eeeeee";
-	// var wpstMenuExtFontEmptyColorRgb = "rgb( 238, 238, 238 )";
-	// var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
-	// var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
+	var wpstMenuExtFontEmptyColor = "#eeeeee";
+	var wpstMenuExtFontEmptyColorRgb = "rgb( 238, 238, 238 )";
+	var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
+	var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 	
 	var wpstFontSizeEmpty = "13px";
 	var wpstIconSizeEmpty = "20px";
@@ -508,12 +510,12 @@ jQuery(document).ready(function($){
 		if ( $('#wpst_menu_ext_font_colour').val() !== "" )
 			var menuMainColorExt = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_font_colour').val())+", "+hexToG($('#wpst_menu_ext_font_colour').val())+", "+hexToB($('#wpst_menu_ext_font_colour').val())+")" : $('#wpst_menu_ext_font_colour').val();
 		else
-			var menuMainColorExt = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuMainColorExt = wpstRgbColors ? wpstMenuExtFontEmptyColorRgb : wpstMenuExtFontEmptyColor;
 			
 		if ( $('#wpst_menu_hover_ext_font_colour').val() !== "" )
 			var menuHoverColorExt = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_font_colour").val())+")" : $("#wpst_menu_hover_ext_font_colour").val();
 		else
-			var menuHoverColorExt = wpstRgbColors ? wpstMenuFontHoverEmptyColorRgb : wpstMenuFontHoverEmptyColor;
+			var menuHoverColorExt = wpstRgbColors ? wpstMenuExtFontHoverEmptyColorRgb : wpstMenuExtFontHoverEmptyColor;
 		
 		// Put it where it should go
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "color", menuMainColor );

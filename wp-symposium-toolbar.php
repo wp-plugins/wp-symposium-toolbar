@@ -9,15 +9,15 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
 Tested up to: 3.8
-Stable tag: 0.25.0
-Version: 0.25.3
+Stable tag: 0.26.0
+Version: 0.26.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2503;
+$wpst_buildnr = 2600;
 
 
 // Exit if accessed directly
@@ -95,7 +95,6 @@ function symposium_toolbar_init() {
 	
 	// CSS
 	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
-	// Saves one call for what would be a short file
 	
 	// WP 3.7.x and older installs
 	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
@@ -212,7 +211,8 @@ if ( $is_wps_active ) {
 	// Add "Toolbar" to WP Symposium admin menu via hook
 	function symposium_toolbar_add_to_admin_menu() {
 		
-		if ( count( get_option( 'wpst_wpms_hidden_tabs', array() ) ) == 8 )				// Nr of tabs that can be hidden incl. WPS
+		// Nr of tabs that can be hidden incl. WPS
+		if ( count( get_option( 'wpst_wpms_hidden_tabs', array() ) ) == 8 )
 			return;
 		
 		add_submenu_page(
@@ -279,27 +279,12 @@ if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-sy
 		}
 		update_option( 'wpst_wpms_hidden_tabs', $hidden_tabs );
 		
-		// Update list of sites of the network
-		// symposium_toolbar_update_super_admin_menu;
-		
 		// Update CSS based on stored styles and installed plugins
 		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
 		
 		restore_current_blog();
 	}
 	add_action( 'wpmu_new_blog', 'symposium_toolbar_new_site_default', 10, 6 );
-	
-	// Update the Super Admin Menu by visiting the Plugins Install page
-	// add_action( 'admin_head-plugins.php', 'symposium_toolbar_update_super_admin_menu' );
-	
-	// Delete a subsite and update the Superadmin menu
-	function symposium_toolbar_delete_site( $blog_id, $drop = false ) {
-		
-		$args = get_option( 'wpst_tech_super_admin_menu', array() );
-		unset ( $args[ $blog_id ] );
-		update_option( 'wpst_tech_super_admin_menu', $args );
-	}
-	// add_action( 'delete_blog', 'symposium_toolbar_delete_site', 10, 2 );
 }
 
 // Load at plugin options page only...
@@ -364,7 +349,7 @@ add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_edit_wp_toolbar', 9
 // Edit the Profile link to point to a custom page
 add_filter( 'edit_profile_url', 'symposium_toolbar_edit_profile_url', 10, 3 );
 
-// Add the Super Admin menu
+// Add the All Sites menu
 if ( is_multisite() && ( get_option( 'wpst_wpms_network_superadmin_menu', "" ) == "on" ) ) add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_super_admin_menu', 999 );
 
 // Add the WPS Admin menu

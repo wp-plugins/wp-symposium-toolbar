@@ -173,6 +173,32 @@ function symposium_toolbar_add_styles() {
 				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 		}
 	}
+	
+	global $wpst_buildnr;
+	global $wpst_roles_all_incl_visitor;
+	
+	echo '<!-- WPS Toolbar says... Traces ON... ';
+	echo 'Version '.$wp_version.', ';
+	echo 'Build NR '.$wpst_buildnr.', ';
+	if ( is_multisite() ) { echo 'WPMS: Yes, '; } else { echo 'WPMS: No, '; }
+	
+	echo 'Roles: ';
+	foreach ( $wpst_roles_all_incl_visitor as $key => $role ) {
+		echo $key.' => '.$role.', ';
+	}
+	
+	echo 'Custom Menus: ';
+	$all_custom_menus = get_option( 'wpst_custom_menus', array() );
+	if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
+		echo 'slug '.$custom_menu[0].', location '.$custom_menu[1].', allowed roles: ';
+		if ( $custom_menu[2] ) foreach ( $custom_menu[2] as $role ) {
+			echo $role.', ';
+		}
+		if ( $custom_menu[3] ) echo 'custom icon '.$custom_menu[3].', ';
+		if ( $custom_menu[4] ) echo 'network, ';
+	}
+	
+	echo ' -->';
 }
 
 /**
@@ -637,7 +663,7 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 }
 
 /**
- * Displays an array of arrays by parsing sites of the network
+ * Displays the list of sites of the network, to superadmins only, when network activated
  *
  * @since O.26.0
  *
@@ -862,9 +888,6 @@ function symposium_toolbar_modify_search_menu() {
 function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '' ) {
 	
 	global $wpdb, $blog_id, $current_user, $is_wps_active, $is_wps_available, $wpst_roles_all_incl_user;
-	
-	// Hook to (most likely) drop the user ID and return an array of all URLs
-	// $user_id = apply_filters( 'symposium_toolbar_wps_url_for_user', $user_id );
 	
 	if ( !$feature || $user_id != filter_var( $user_id, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
 		return array();

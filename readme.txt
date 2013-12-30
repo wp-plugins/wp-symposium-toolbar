@@ -1,14 +1,14 @@
 === Plugin Name ===
 Plugin Name: WP Symposium Toolbar
-Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your Social Network site.
+Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your site.
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 0.25.0
-Version: 0.25.3
+Stable tag: 0.26.0
+Version: 0.26.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,7 +120,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Bugfix: WP 3.8, Styles, icon not hovered when no hover color is set
 * Change: WP 3.8, Styles, added the option to choose to style the Toolbar in the whole dashboard, in addition to the plugin option page, Styles tab for the preview
 * Bugfix: make sure styles are generated upon upgrading the plugin
-* Change: WPMS, added the network feature to list All Sites in a dedicated menu for Super Admins (and not only My Sites)
+* Change: WPMS, added the network feature to list All Sites in a dedicated menu for Super Admins (in addition to My Sites)
 
 = 0.25.0. =
 

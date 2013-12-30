@@ -46,6 +46,7 @@
 #wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before {
 	font-family: dashicons !important;
 	content: '\f319';
+	margin-top: 2px;
 }
 
 #wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before {

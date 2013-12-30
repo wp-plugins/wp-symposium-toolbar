@@ -20,12 +20,6 @@ function symposium_toolbar_add_help_text( $contextual_help, $screen_id, $screen 
 	global $is_wps_active, $is_wps_available, $is_wpst_network_admin;
 	(string)$help_content = '';
 	
-	// var_dump($screen);
-	// $current_screen = get_current_screen();
-	// var_dump($current_screen);
-	// global $hook_suffix;
-	// var_dump( $hook_suffix );
-	
 	$wpst_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
 	
 	switch( $screen->id ) {
@@ -48,13 +42,13 @@ function symposium_toolbar_add_help_text( $contextual_help, $screen_id, $screen 
 			'content' => $help_content
 		) );
 	
-		$help_content = '<p>' . __( 'The Network features are eseentially located on dedicated tabs that will only show to Super Admins, when the plugin is network activated. These features are:', 'wp-symposium-toolbar') . '<br />1. ' . __('Force the display of the Toolbar network wide, for selected roles, from the "Network" tab', 'wp-symposium-toolbar') . '<br />2. ' . __('Home Site for users who can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network', 'wp-symposium-toolbar') . '<br />3. ' . __('Select the subsites you want to be synchronized with the Main Site from the "Subsites" tab, and selected settings will then be propagated to these sites automatically', 'wp-symposium-toolbar') . '<br />4. ' . __('Create Network Custom Menus that will be displayed on all sites without Site Admins being able to remove them, from the "Custom Menus" tab', 'wp-symposium-toolbar');
-		if ( $is_wps_available ) $help_content .= '<br />5. ' . __('Share WP Symposium features from one site with all sites, from the "WP Symposium" tab on all sites where WP Symposium is activated', 'wp-symposium-toolbar');
+		$help_content = '<p>' . __( 'The Network features are eseentially located on dedicated tabs that will only show to Super Admins, when the plugin is network activated. These features are:', 'wp-symposium-toolbar') . '<br />1. ' . __('Force the display of the Toolbar network wide, for selected roles, from the "Network" tab', 'wp-symposium-toolbar') . '<br />2. ' . __('Home Site for users who can then choose a home site, where the User Menu and the WPS notification icons will bring them preferably to any other of the network', 'wp-symposium-toolbar') . '<br />3. ' . __('A dedicated menu that lists all sites of the network, and not only those the Super Admin is member of', 'wp-symposium-toolbar') . '<br />4. ' . __('Select the subsites you want to be synchronized with the Main Site from the "Subsites" tab, and selected settings will then be propagated to these sites automatically', 'wp-symposium-toolbar') . '<br />5. ' . __('Create Network Custom Menus that will be displayed on all sites without Site Admins being able to remove them, from the "Custom Menus" tab', 'wp-symposium-toolbar');
+		if ( $is_wps_available ) $help_content .= '<br />6. ' . __('Share WP Symposium features from one site with all sites, from the "WP Symposium" tab on all sites where WP Symposium is activated', 'wp-symposium-toolbar');
 		$help_content .= '</p><p>' . __('There are many Use Cases associated to these features, ranging from the provision of sites by a Network Admin to Site Admins while keeping a centralized, corporate look and feel to the Toolbar, network-wide, to the single-owned network of sites where the Admin wants the network of sites to look like one big site, without visiting each subsite individually to propagate the same settings.', 'wp-symposium-toolbar') . ' ' . __('There are also many in-betweens, when the Network Admin wants to reduce the flexibility offered to Site Admins, while leaving them some of the options, or more generally when the customization of the Toolbar differs between sites, to various extends and for various reasons.', 'wp-symposium-toolbar') . '</p>';
 		
 		if ( $is_wpst_network_admin ) get_current_screen()->add_help_tab( array(
 			'id'      => 'wpst_network',
-			'title'   => __('Network Features'),
+			'title'   => __('Network Features', 'wp-symposium-toolbar'),
 			'content' => $help_content
 		) );
 		
