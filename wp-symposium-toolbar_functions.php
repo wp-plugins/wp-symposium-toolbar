@@ -173,7 +173,7 @@ function symposium_toolbar_add_styles() {
 				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 		}
 	}
-	
+	/*
 	global $wpst_buildnr;
 	global $wpst_roles_all_incl_visitor;
 	
@@ -198,7 +198,7 @@ function symposium_toolbar_add_styles() {
 		if ( $custom_menu[4] ) echo 'network, ';
 	}
 	
-	echo ' -->';
+	echo ' -->'; /* */
 }
 
 /**
@@ -743,9 +743,6 @@ function symposium_toolbar_symposium_admin() {
  * Called on top of each site page
  * Display of new mails and friend requests
  *
- * uses Font Awesome by Dave Gandy - http://fontawesome.io
- * The Font Awesome font is licensed under the SIL Open Font License
- *
  * @since 0.0.12
  *
  * @param  none
@@ -817,6 +814,96 @@ function symposium_toolbar_symposium_notifications() {
 			$wp_admin_bar->add_node( $args );
 		}
 	}
+}
+
+/**
+ * Called on top of each site page
+ * Display social share icons
+ *
+ * uses Font Awesome by Dave Gandy - http://fontawesome.io
+ * The Font Awesome font is licensed under the SIL Open Font License
+ *
+ * @since 0.27.0
+ *
+ * @param  none
+ * @return none
+ */
+function symposium_toolbar_social_icons() {
+
+	global $wp_admin_bar;
+	
+	if ( !is_admin_bar_showing() || is_admin() )
+		return;
+	
+	$blog_name = get_bloginfo('name');
+	$blog_url = get_bloginfo('url');
+	$share = get_option( 'wpst_share_icons', array() );
+	
+	// LinkedIn
+	if ( isset( $share['linkedin'] ) && ( $share['linkedin'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-linkedin',
+			'parent' => '',
+			'title' => '',
+			'href' => 'http://www.linkedin.com/shareArticle?mini=true&url=' . $blog_url,
+			'meta' => array( 'title' => __( "Share this site on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-linkedin', 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// Facebook
+	if ( isset( $share['facebook'] ) && ( $share['facebook'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-facebook',
+			'parent' => '',
+			'title' => '',
+			'href' => 'http://www.facebook.com/sharer.php?u=' . $blog_url,
+			'meta' => array( 'title' => __( "Share this site on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-facebook', 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// Twitter
+	if ( isset( $share['twitter'] ) && ( $share['twitter'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-twitter',
+			'parent' => '',
+			'title' => '',
+			'href' => 'http://twitter.com/share?url=' . $blog_url . '&text=' . $blog_name,
+			'meta' => array( 'title' => __( "Share this site on Twitter", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-twitter', 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// Google Plus
+	if ( isset( $share['google_plus'] ) && ( $share['google_plus'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-google-plus',
+			'parent' => '',
+			'title' => '',
+			'href' => 'https://plus.google.com/share?url=' . $blog_url,
+			'meta' => array( 'title' => __( "Share this site on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-google-plus', 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+/*
+http://www.simplesharebuttons.com/
+ 
+<!-- Digg -->
+<a href="http://www.digg.com/submit?url=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/diggit.png" alt="Digg" /></a>
+ 
+<!-- Reddit -->
+<a href="http://reddit.com/submit?url=http://www.simplesharebuttons.com&title=Simple Share Buttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" /></a>
+ 
+<!-- Pinterest -->
+<a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="http://www.simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" /></a>
+ 
+<!-- StumbleUpon-->
+<a href="http://www.stumbleupon.com/submit?url=http://www.simplesharebuttons.com&title=Simple Share Buttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/stumbleupon.png" alt="StumbleUpon" /></a>
+ 
+<!-- Email -->
+<a href="mailto:?Subject=Simple Share Buttons&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://www.simplesharebuttons.com"><img src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a>
+/* */
 }
 
 /**

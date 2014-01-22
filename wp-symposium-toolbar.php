@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.0
+Version: 0.26.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2600;
+$wpst_buildnr = 2618;
 
 
 // Exit if accessed directly
@@ -91,7 +91,7 @@ function symposium_toolbar_main() {
 
 function symposium_toolbar_init() {
 	
-	global $wp_version, $wpst_roles_all;
+	global $wp_version, $wpst_roles_all, $wpst_buildnr;
 	
 	// CSS
 	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
@@ -107,8 +107,8 @@ function symposium_toolbar_init() {
 	
 	// WP 3.8+ installs
 	} else {
-		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
-		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
+		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin999.css';
+		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin999.css';
 		if ( file_exists($adminStyleFile) ) {
 				wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
 				wp_enqueue_style( 'wp-symposium-toolbar_admin' );
@@ -290,10 +290,9 @@ if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-sy
 // Load at plugin options page only...
 function symposium_toolbar_load_settings_page() {
 	
-	global $wp_version;
+	global $wp_version, $wpst_buildnr;
 	
 	// Ensure update was performed earlier
-	global $wpst_buildnr;
 	if ( get_option( 'wpst_tech_buildnr', 0 ) < $wpst_buildnr ) {
 		symposium_toolbar_update_walker();
 	}
@@ -305,14 +304,14 @@ function symposium_toolbar_load_settings_page() {
 	echo '<script type="text/javascript">var needToConfirm = false;</script>';
 	
 	// Load Javascript file
-	wp_enqueue_script( 'wp-symposium-toolbar', plugins_url( 'js/wp-symposium-toolbar.js', __FILE__ ), array( 'jquery' ), false, true );
+	wp_enqueue_script( 'wp-symposium-toolbar', plugins_url( 'js/wp-symposium-toolbar.js', __FILE__ ), array( 'jquery' ), $wpst_buildnr );
 	wp_localize_script( 'wp-symposium-toolbar', 'wpstL10n', array(
 		'needToConfirm' => __('You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?', 'wp-symposium-toolbar')
 	) );
 	
 	// Up to WP 3.7.1, load preview at all tabs of this page
 	if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
-		wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), false, true );
+		wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
 	
 	// For WP 3.8+, load preview at 'Styles' tab solely...
 	} else {
@@ -321,7 +320,7 @@ function symposium_toolbar_load_settings_page() {
 		if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
 		if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) )
-			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), false, true );
+			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
 	}
 	
 	// Init admin tabs
@@ -357,6 +356,9 @@ if ( $is_wps_active ) add_action( 'wp_before_admin_bar_render', 'symposium_toolb
 
 // Add the WPS Notification icons
 if ( $is_wps_available ) add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_symposium_notifications', 999 );
+
+// Add the Social Share icons
+add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_social_icons', 999 );
 
 // Remove and eventually re-add the Search icon and field to the inner part of the Toolbar - must be done after everything else
 add_action( 'wp_before_admin_bar_render', 'symposium_toolbar_modify_search_menu', 999 );

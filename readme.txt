@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.0
+Version: 0.26.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,12 +107,20 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Screenshots ==
 
-1. Share your thoughts with the World in either format, under your custom Toolbar: gradients, transparency, colorful
+1. Share your thoughts with the World under your custom Toolbar: gradients, transparency, colorful
 2. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 3. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
 4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
 
 == Changelog ==
+
+= 0.27.0. =
+
+* Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
+* Bugfix: in RTL, correct display for the User Menu
+* Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used
+* Change: Added the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus
+* Change: Styles tab, implement default values shown & hidden via Javascript
 
 = 0.26.0. =
 
@@ -121,6 +129,8 @@ It will show only in the frontend and not in the backend, have you checked in th
 * Change: WP 3.8, Styles, added the option to choose to style the Toolbar in the whole dashboard, in addition to the plugin option page, Styles tab for the preview
 * Bugfix: make sure styles are generated upon upgrading the plugin
 * Change: WPMS, added the network feature to list All Sites in a dedicated menu for Super Admins (in addition to My Sites)
+* Change: CSS, do not duplicate background color over 782px breakpoint when not needed (no gradient,..)
+* Change: recompute gradients when browser window width changes
 
 = 0.25.0. =
 

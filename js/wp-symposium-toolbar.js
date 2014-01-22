@@ -166,5 +166,45 @@ jQuery(document).ready(function($){
 			$(this).css("border", "1px solid #DFDFDF");
 		}
 	});
+	
+	// These fields may contain a greyed out default value
+	// Upon focus, remove default value and turn color darker
+	$(".wpst-default").focus(function() {
+		
+		if ( $(this).val() == document.getElementById( this.id+"_default" ).value ) {
+			this.value = "";
+			$(this).removeClass( "wpst-has-default" );
+		}
+	});
+	
+	// These fields contain a greyed out default value
+	// Upon blurred, if empty, re-add default value and turn color into light grey
+	$(".wpst-default").blur(function() {
+		
+		// If this is empty, fill it with default value
+		if ( $(this).val() == "" ) {
+			this.value = document.getElementById( this.id+"_default" ).value;
+		}
+		
+		// Such fields are part of the definition of a font shadow
+		if ( $(this).hasClass( "wpst_font_shadow" ) ) {
+			
+			// If this contains a default value, add default class to all three
+			if ( $(this).val() == "0" ) {
+				if ( ( $("#wpst_font_h_shadow").val() == "0" ) && ( $("#wpst_font_v_shadow").val() == "0" ) && ( $("#wpst_font_shadow_blur").val() == "0" ) )
+					$(".wpst_font_shadow").addClass( "wpst-has-default" );
+			
+			// If this contains a non-default value, remove default class from all three
+			} else {
+				$(".wpst_font_shadow").removeClass( "wpst-has-default" );
+			}
+		
+		// If this contains a default value, add default class
+		} else {
+			if ( $(this).val() == document.getElementById( this.id+"_default" ).value ) {
+				$(this).addClass( "wpst-has-default" );
+			}
+		}
 
+	});
 });

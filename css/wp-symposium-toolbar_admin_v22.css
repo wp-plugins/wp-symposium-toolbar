@@ -74,7 +74,8 @@
  */
 
 /* Style the avatar for visitors */
-#wpadminbar a img.avatar-16, #wpadminbar a img.avatar-16:hover {
+#wpadminbar a img.avatar-16,
+#wpadminbar a img.avatar-16:hover {
 	width: 16px;
 	height: 16px;
 	border: 1px solid #999;
@@ -87,17 +88,35 @@
 	display: inline;
 }
 
-/* Style the User Menu user actions for a correct partial display */
-#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
-	min-height: 84px;
+/* Style the avatar in RTL */
+.rtl #wpadminbar a img.avatar-16,
+.rtl #wpadminbar a img.avatar-16:hover {
+	margin: -3px 6px 0 0;
 }
 
-#wpadminbar #wp-admin-bar-my-account .wpst-user-info {
-	min-height: 64px;
+/* Style the User Menu user actions for a correct partial display */
+#wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
+	min-height: 80px;
+}
+
+#wpadminbar #wp-admin-bar-my-account .wpst-with-avatar a {
+	height: 64px;
+}
+
+#wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li {
+	margin-left: 16px !Important;
+}
+
+.rtl #wpadminbar #wp-admin-bar-my-account ul.wpst-user-actions-narrow li {
+	margin-right: 16px !Important;
 }
 
 #wpadminbar #wp-admin-bar-my-account .wpst-avatar {
-	left: 16px;
+	left: 8px;
+}
+
+.rtl #wpadminbar #wp-admin-bar-my-account .wpst-avatar {
+	right: 8px;
 }
 
 /* Add the hoverbox to the User Info */
@@ -105,12 +124,12 @@
 	background-color: #EAF2FA;
 }
 
-/* Resize User Info container */
+/* Ensure a small gap under the avatar when it's alone */
 #wpadminbar #wp-admin-bar-user-info {
 	margin-bottom: 10px;
 }
 
-/* Spans look too small on hover */
+/* Those spans look too small with a box on hover */
 #wpadminbar #wp-admin-bar-user-info a {
 	padding-bottom: 10px;
 }
@@ -179,6 +198,7 @@
 	height: 16px;
 	margin-top: 6px;"
 }
+
 
 /**
  * Admin Dashboard Options Page Items
@@ -249,23 +269,30 @@
 	display: inline;
 }
 
-/* Item Titles */
+/* Form items Titles */
 .wpst-form-item-title {
 	width: 15%;
 }
 
-/* Roles in roles' lists, sites in sites' lists */
-.wpst-roles-checkboxes span.description,
-.wpst-sites-checkboxes span.description {
+/* Roles in roles' lists, sites in sites' lists, individual checkboxes */
+.wpst-checkboxes span.description,
+.form-table span.description.wpst-checkbox {
     padding-right: 20px;
 	display: inline; 
 	line-height: 2em;
 }
+.rtl .wpst-checkboxes span.description,
+.rtl .form-table span.description.wpst-checkbox {
+    padding-right: 2px;
+    padding-left: 20px;
+}
 
-.wpst-roles-checkboxes {
+/* Ensure roles' lists and sites' lists are not eaten by other HTML elements */
+.wpst-checkboxes {
 	overflow: hidden;
 }
 
+/* All / none toggle */
 .wpst-float-div {
     float: left;
 }
