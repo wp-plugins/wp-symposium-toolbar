@@ -73,31 +73,26 @@
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin > .ab-item:before {
 	font-family: WPST-icons !important;
 	content: '\e610';
-	top: 1px;
 }
 
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook > .ab-item:before {
 	font-family: WPST-icons !important;
 	content: '\e611';
-	top: 1px;
 }
 
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter > .ab-item:before {
 	font-family: WPST-icons !important;
 	content: '\e612';
-	top: 1px;
 }
 
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus > .ab-item:before {
 	font-family: WPST-icons !important;
 	content: '\e613';
-	top: 1px;
 }
 
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr > .ab-item:before {
 	font-family: WPST-icons !important;
 	content: '\e613';
-	top: 1px;
 }
 
 #wpadminbar .symposium-toolbar-share-icon > .ab-item {

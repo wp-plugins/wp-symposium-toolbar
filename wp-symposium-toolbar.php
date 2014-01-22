@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.18
+Version: 0.26.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2618;
+$wpst_buildnr = 2619;
 
 
 // Exit if accessed directly
@@ -107,11 +107,11 @@ function symposium_toolbar_init() {
 	
 	// WP 3.8+ installs
 	} else {
-		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin999.css';
-		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin999.css';
+		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
+		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
 		if ( file_exists($adminStyleFile) ) {
 				wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
-				wp_enqueue_style( 'wp-symposium-toolbar_admin' );
+				wp_enqueue_style( 'wp-symposium-toolbar_admin', false, array(), $wpst_buildnr );
 		}
 	}
 	

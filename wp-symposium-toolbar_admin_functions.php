@@ -1513,7 +1513,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			
 			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item, #wpadminbar #wp-toolbar > ul > li > .ab-item span, ';
 			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item:before, #wpadminbar #wp-toolbar > ul > li > .ab-item span:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-icon, #wpadminbar .ab-item:before { line-height: '.$height.'px; padding-bottom: 0px; padding-top: 0px; } ';
-			$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item, #wpadminbar .quicklinks > ul > li > a span, #wpadminbar .quicklinks > ul > li > .ab-item span, #wpadminbar #wp-admin-bar-wp-logo > .ab-item span { height: '.$height.'px; } '; 
+			$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item, #wpadminbar .quicklinks > ul > li > a span, #wpadminbar .quicklinks > ul > li > .ab-item span, #wpadminbar #wp-admin-bar-wp-logo > .ab-item span { height: '.$height.'px; } ';
+			$style_saved .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before, #wpadminbar #wp-admin-bar-site-name > .ab-item:before { top: 0; } ';
+			$style_saved .= '#wpadminbar #wp-admin-bar-comments .ab-icon:before { top: 2px; } ';
 			$style_saved .= '} ';
 		}
 	}
@@ -1742,12 +1744,21 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			if ( $wpst_style_tb_current['icon_size'] != '' ) {
 				$style_saved .= '@media screen and ( min-width: 783px ) { ';
 				
-				// Add font size to Toolbar fonticons, and size to Toolbar Avatar, non-responsive only
-				$style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar li #adminbarsearch:before, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar li > .ab-item > .ab-icon:before { font-size: '.$wpst_style_tb_current['icon_size'].'px; } ';
+				// Add icon size to Toolbar fonticons
+				$style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar li > .ab-item > .ab-icon:before { font-size: '.$wpst_style_tb_current['icon_size'].'px; } ';
+				
+				// Add size to Toolbar Avatar, non-responsive only
 				if ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) $style_saved .= '#wp-admin-bar-wp-logo > a, '; // resize WP Logo
-				$style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { width: '.$wpst_style_tb_current['icon_size'].'px; height: '.$wpst_style_tb_current['icon_size'].'px; margin: 0 0 0 6px; } '; // margin-top: '.( round( ( $height - $wpst_style_tb_current['icon_size'] ) /2 ) -4 ).'px; 
+				$style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { width: '.$wpst_style_tb_current['icon_size'].'px; height: '.$wpst_style_tb_current['icon_size'].'px; margin: 0 0 0 6px; } '; //  
+				
+				// Add icon size to Search fonticon as height and margin-top
+				$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input { height: '.$wpst_style_tb_current['icon_size'].'px; padding-left: '.$wpst_style_tb_current['icon_size'].'px; margin-top: '. round( ( $height - $wpst_style_tb_current['icon_size'] ) /2 ) .'px; } ';
+				
+				// Add font size to Search fonticon with "Important" in it
+				$style_saved .= '#wpadminbar #adminbarsearch:before { font-size: '.$wpst_style_tb_current['icon_size'].'px !Important; top: '. round( ( $height - $wpst_style_tb_current['icon_size'] ) /2 ) .'px; } ';
 				
 				// Add paddings to icons as needed
+				// This is essentially based on trial-error method, please don't tell my wife, OK?
 				if ( $wpst_style_tb_current['icon_size'] < $wpst_default_toolbar['icon_size'] - 1 ) {  // fonticons of 18px downwards
 					$icon_W_margin_top = round( ( $wpst_style_tb_current['icon_size'] - $wpst_default_toolbar['icon_size'] ) /2 );
 					$icon_new_content_margin_top = $icon_W_margin_top +1;
@@ -1774,32 +1785,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	$font_size = round( ( $search_height * $wpst_default_toolbar['font_size'] ) / $wpst_default_toolbar['search_height'] );
 	// Center the search field in the Toolbar
 	$search_padding_top = round( ( $height  - $search_height ) / 2 ) - 4;
-	/*
-	if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-		// Determine font size as set by admin
-		(int)$font_size = ( isset( $wpst_style_tb_current['font_size'] ) ) ? $wpst_style_tb_current['font_size'] : $wpst_default_toolbar['font_size'];
-	var_dump( $font_size );
-		// Apply ratio so that search field has same aspect in WP Toolbar
-		(int)$search_height = round( ( $font_size * $wpst_default_toolbar['search_height'] ) / $wpst_default_toolbar['font_size'] );
-	var_dump( $search_height );
-		// Ensure the search field fits in the Toolbar
-		if ( $search_height > $height - 4 ) $search_height = $height - 4;
-		// Ensure the font size fits in the search field
-		if ( $font_size > $search_height ) $font_size = $search_height;
-		// Center the search field in the Toolbar
-		$search_padding_top = round( ( $height  - $search_height ) / 2 ) - 4;
-	}
-	// $google_padding_top = round( ( $search_height - $wpst_default_toolbar['search_height']) / 2 );					// Center the google in the search field
-	// if ( $search_height > $wpst_default_toolbar['search_height'] ) $google_padding_top = $wpst_default_toolbar['search_height'] - $search_height;
-	// Hide the small bit of another icon, showing bottom of icon
-	if ( $search_height > 30 ) $google_padding_top = $search_height - 28;
-	
-	// Put these where they should go
-	if ( $search_height != $wpst_default_toolbar['search_height']) $style_saved .= '#wpadminbar #adminbarsearch { height: '. $search_height . 'px; } ';
-	if ( $search_padding_top > 2 ) $style_saved .= '#wpadminbar #wp-admin-bar-search .ab-item { padding-top: ' . $search_padding_top . 'px; } ';
-	$style_saved .= '#wpadminbar #adminbarsearch .adminbar-input, #wpadminbar #adminbarsearch input { height: ' . $search_height . 'px; font-size: ' . $font_size . 'px; ';
-	if ( $google_padding_top > 2 ) $style_saved .= 'background-position: 3px ' . $google_padding_top . 'px; ';
-	$style_saved .= '} '; /* */
 	
 	if ( $search_height > 0 ) {
 		$style_saved .= '#wpadminbar #adminbarsearch { height: '. $search_height . 'px; } ';
