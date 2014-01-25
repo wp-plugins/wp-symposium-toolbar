@@ -740,11 +740,17 @@ jQuery(document).ready(function($){
 		
 	});
 	
-	var tbInitialIconSize = ( $('#wpst_icon_size').val() !== "" ) ? ( parseInt( $('#wpst_icon_size').val() ) ) : wpstIconSizeEmpty;
 	$('.wpst_icon_size').change(function() {
 		
 		var tbIconSize = ( $('#wpst_icon_size').val() !== "" ) ? ( parseInt( $('#wpst_icon_size').val() ) ) : wpstIconSizeEmpty;
-		var tbIconPaddingTop = Math.round( ( tbInitialIconSize - tbIconSize )/2 );
+		if ( tbIconSize < wpstIconSizeEmpty - 1 ) {
+			var wMarginTop = Math.round( ( tbIconSize / wpstIconSizeEmpty ) / 2 );
+			var sMarginTop = Math.round( ( ( tbIconSize / wpstIconSizeEmpty ) / 2 ) - 1.5 );
+		} else {
+			var wMarginTop = 0;
+			var sMarginTop = -1;
+		}
+		var newMarginTop = wMarginTop + 2;
 		
 		if ( document.getElementById("wpstFontSize") )
 			var style = document.getElementById("wpstFontSize");
@@ -756,6 +762,9 @@ jQuery(document).ready(function($){
 		style.innerHTML = '#wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar li #adminbarsearch:before, #wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before, #wpadminbar #wp-toolbar > ul > li > .ab-item span.ab-icon, #wpadminbar #wp-toolbar > ul > li > .ab-item:before { font-size: '+tbIconSize+'px !Important; } ';
 		
 		style.innerHTML += '#wp-admin-bar-wp-logo > a, #wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { width: '+tbIconSize+'px; height: '+tbIconSize+'px; } ';
+		style.innerHTML += '#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before, #wpadminbar #wp-admin-bar-updates .ab-icon:before { top: '+wMarginTop+'px; } ';
+		style.innerHTML += '#wpadminbar #wp-admin-bar-new-content .ab-icon:before, #wpadminbar #wp-admin-bar-comments .ab-icon:before { top: '+newMarginTop+'px; } ';
+		style.innerHTML += '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before { top: '+sMarginTop+'px; } ';
 		
 		document.head.appendChild(style);
 	});

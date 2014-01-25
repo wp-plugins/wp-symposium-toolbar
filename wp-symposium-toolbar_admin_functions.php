@@ -291,7 +291,10 @@ function symposium_toolbar_update() {
 		update_option( 'wpst_style_tb_current', $wpst_style_tb_current );
 	}
 	
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2606 ) {
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2625 ) {
+		
+		delete_option( 'wpst_share_icons_hover_color' );
+		delete_option( 'wpst_tech_style_social_icons' );
 		
 		// Update CSS based on stored styles and installed plugins
 		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
@@ -711,14 +714,22 @@ function symposium_toolbar_save_before_render() {
 			}
 			
 			// Share Social Icons
-			if ( $_POST["symposium_toolbar_view"] == 'share' ) {
+			if ( ( $_POST["symposium_toolbar_view"] == 'share' ) && version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 				
 				$share = array();
 				$share['linkedin'] = isset( $_POST["share_linkedin"] ) ? 'on' : '';
 				$share['facebook'] = isset( $_POST["share_facebook"] ) ? 'on' : '';
 				$share['twitter'] = isset( $_POST["share_twitter"] ) ? 'on' : '';
 				$share['google_plus'] = isset( $_POST["share_google_plus"] ) ? 'on' : '';
+				$share['pinterest'] = isset( $_POST["share_pinterest"] ) ? 'on' : '';
+				$share['stumbleupon'] = isset( $_POST["share_stumbleupon"] ) ? 'on' : '';
 				update_option( 'wpst_share_icons', $share );
+				
+				update_option( 'wpst_share_content', isset( $_POST["shared_content"] ) ? $_POST["shared_content"] : '' );
+				update_option( 'wpst_share_icons_set', isset( $_POST["icons_set"] ) ? $_POST["icons_set"] : 'lightweight' );
+				update_option( 'wpst_share_icons_position', isset( $_POST["icons_position"] ) ? $_POST["icons_position"] : '' );
+				update_option( 'wpst_share_icons_color', isset( $_POST["icons_color"] ) ? 'on' : '' );
+				// update_option( 'wpst_share_icons_hover_color', isset( $_POST["icons_hover_color"] ) ? 'on' : '' );
 			}
 			
 			// Styles and CSS
@@ -1478,6 +1489,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	$style_chunk = "";
 	$style_chunk_tablet = "";
 	$style_chunk_ext = "";
+	(bool)$has_gradient = false;
 	
 	// Init default Toolbar style
 	symposium_toolbar_init_default_toolbar();
@@ -1514,8 +1526,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item, #wpadminbar #wp-toolbar > ul > li > .ab-item span, ';
 			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item:before, #wpadminbar #wp-toolbar > ul > li > .ab-item span:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-icon, #wpadminbar .ab-item:before { line-height: '.$height.'px; padding-bottom: 0px; padding-top: 0px; } ';
 			$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item, #wpadminbar .quicklinks > ul > li > a span, #wpadminbar .quicklinks > ul > li > .ab-item span, #wpadminbar #wp-admin-bar-wp-logo > .ab-item span { height: '.$height.'px; } ';
-			$style_saved .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before, #wpadminbar #wp-admin-bar-site-name > .ab-item:before { top: 0; } ';
-			$style_saved .= '#wpadminbar #wp-admin-bar-comments .ab-icon:before { top: 2px; } ';
 			$style_saved .= '} ';
 		}
 	}
@@ -1761,16 +1771,17 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 				// This is essentially based on trial-error method, please don't tell my wife, OK?
 				if ( $wpst_style_tb_current['icon_size'] < $wpst_default_toolbar['icon_size'] - 1 ) {  // fonticons of 18px downwards
 					$icon_W_margin_top = round( ( $wpst_style_tb_current['icon_size'] - $wpst_default_toolbar['icon_size'] ) /2 );
-					$icon_new_content_margin_top = $icon_W_margin_top +1;
 					$icon_S_margin_top = round( ( ( $wpst_style_tb_current['icon_size'] - $wpst_default_toolbar['icon_size'] ) /2 ) -1.5 );
 				} else {
 					$icon_W_margin_top = 0;
-					$icon_new_content_margin_top = 1;
 					$icon_S_margin_top = -1;
 				}
+				$icon_new_content_margin_top = $icon_W_margin_top + 2;
+				
 				$style_saved .= '#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before, #wpadminbar #wp-admin-bar-updates .ab-icon:before { top: '.$icon_W_margin_top.'px; } '; 
-				$style_saved .= '#wpadminbar #wp-admin-bar-new-content .ab-icon:before { top: '.$icon_new_content_margin_top.'px; } '; 
+				$style_saved .= '#wpadminbar #wp-admin-bar-new-content .ab-icon:before, #wpadminbar #wp-admin-bar-comments .ab-icon:before { top: '.$icon_new_content_margin_top.'px; } '; 
 				$style_saved .= '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before, #wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before { top: '.$icon_S_margin_top.'px; } '; 
+				$style_saved .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before, #wpadminbar #wp-admin-bar-site-name > .ab-item:before { top: 0; } ';
 				
 				$style_saved .= '} ';
 		}

@@ -146,8 +146,7 @@ function symposium_toolbar_add_styles() {
 			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_avatar_to_header', '' ) ) . '</style>';
 		
 		// Styles, both default and custom
-		// Backend
-		// Add styles to the plugin options page only if active tab is "style"
+		// Backend - Add styles to the plugin options page only if active tab is "style"
 		// Or to the whole dashboard if admin choose to do so
 		if ( is_admin() ) {
 			$wpst_active_tab = '';
@@ -167,10 +166,14 @@ function symposium_toolbar_add_styles() {
 			}
 		
 		// Frontend
-		// Add custom style to all frontend pages
 		} else {
+			// Add custom style to all frontend pages
 			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
 				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+			
+			// Style Social Icons, frontend only
+			if ( get_option( 'wpst_tech_style_social_icons', '' ) != '' )
+				echo '<style type="text/css">' . get_option( 'wpst_tech_style_social_icons', '' ) . '</style>';
 		}
 	}
 	/*
@@ -329,13 +332,13 @@ function symposium_toolbar_edit_wp_toolbar() {
 	// Depending on result we'll hide the whole node, or only its menu items while keeping the node for the custom menu
 	// Re-adding a removed node would put it at the inner end of the quicklinks and this is not what we want  :)
 	
-	if ( is_array( get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
-			$wp_admin_bar->remove_menu( 'site-name' );
-	
 	if ( is_array( get_option( 'wpst_toolbar_my_sites', array_keys( $wpst_roles_administrator ) ) ) )
 		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_my_sites', array_keys( $wpst_roles_administrator ) ) ) )
 			$wp_admin_bar->remove_menu( 'my-sites' );
+	
+	if ( is_array( get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
+		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
+			$wp_admin_bar->remove_menu( 'site-name' );
 	
 	if ( is_array( get_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) ) ) )
 		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) ) ) )
@@ -830,23 +833,26 @@ function symposium_toolbar_symposium_notifications() {
  */
 function symposium_toolbar_social_icons() {
 
-	global $wp_admin_bar;
+	global $wp, $wp_admin_bar, $screen;
 	
 	if ( !is_admin_bar_showing() || is_admin() )
 		return;
 	
-	$blog_name = get_bloginfo('name');
-	$blog_url = get_bloginfo('url');
 	$share = get_option( 'wpst_share_icons', array() );
+	$blog_name = get_bloginfo('name');
+	$shared_url = ( get_option( 'wpst_share_content', '' ) == "current" ) ? home_url( add_query_arg( array(), $wp->request ) ) : get_bloginfo('url');
+	$parent = get_option( 'wpst_share_icons_position', '' );
+	$class = get_option( 'wpst_share_icons_set', 'lightweight' );
+	if ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) $class .= ' brand';
 	
 	// LinkedIn
 	if ( isset( $share['linkedin'] ) && ( $share['linkedin'] == "on" ) ) {
 		$args = array(
 			'id' => 'symposium-toolbar-share-linkedin',
-			'parent' => '',
+			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://www.linkedin.com/shareArticle?mini=true&url=' . $blog_url,
-			'meta' => array( 'title' => __( "Share this site on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-linkedin', 'target' => '_blank' )
+			'href' => 'http://www.linkedin.com/shareArticle?mini=true&url=' . $shared_url,
+			'meta' => array( 'title' => __( "Share this site on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-linkedin '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -855,10 +861,10 @@ function symposium_toolbar_social_icons() {
 	if ( isset( $share['facebook'] ) && ( $share['facebook'] == "on" ) ) {
 		$args = array(
 			'id' => 'symposium-toolbar-share-facebook',
-			'parent' => '',
+			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://www.facebook.com/sharer.php?u=' . $blog_url,
-			'meta' => array( 'title' => __( "Share this site on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-facebook', 'target' => '_blank' )
+			'href' => 'http://www.facebook.com/sharer.php?u=' . $shared_url,
+			'meta' => array( 'title' => __( "Share this site on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -867,10 +873,10 @@ function symposium_toolbar_social_icons() {
 	if ( isset( $share['twitter'] ) && ( $share['twitter'] == "on" ) ) {
 		$args = array(
 			'id' => 'symposium-toolbar-share-twitter',
-			'parent' => '',
+			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://twitter.com/share?url=' . $blog_url . '&text=' . $blog_name,
-			'meta' => array( 'title' => __( "Share this site on Twitter", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-twitter', 'target' => '_blank' )
+			'href' => 'http://twitter.com/share?url=' . $shared_url . '&text=' . $blog_name,
+			'meta' => array( 'title' => __( "Share this site on Twitter", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -879,10 +885,34 @@ function symposium_toolbar_social_icons() {
 	if ( isset( $share['google_plus'] ) && ( $share['google_plus'] == "on" ) ) {
 		$args = array(
 			'id' => 'symposium-toolbar-share-google-plus',
-			'parent' => '',
+			'parent' => $parent,
 			'title' => '',
-			'href' => 'https://plus.google.com/share?url=' . $blog_url,
-			'meta' => array( 'title' => __( "Share this site on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-google-plus', 'target' => '_blank' )
+			'href' => 'https://plus.google.com/share?url=' . $shared_url,
+			'meta' => array( 'title' => __( "Share this site on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-google-plus '.$class, 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// Pinterest
+	if ( isset( $share['pinterest'] ) && ( $share['pinterest'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-pinterest',
+			'parent' => $parent,
+			'title' => '',
+			'href' => "javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());",
+			'meta' => array( 'title' => __( "Share this site on Pinterest", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-pinterest '.$class, 'target' => '_blank' )
+		);
+		// $wp_admin_bar->add_node( $args );
+	}
+	
+	// StumbleUpon
+	if ( isset( $share['stumbleupon'] ) && ( $share['stumbleupon'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-stumbleupon',
+			'parent' => $parent,
+			'title' => '',
+			'href' => 'http://www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
+			'meta' => array( 'title' => __( "Share this site on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -894,16 +924,7 @@ http://www.simplesharebuttons.com/
  
 <!-- Reddit -->
 <a href="http://reddit.com/submit?url=http://www.simplesharebuttons.com&title=Simple Share Buttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" /></a>
- 
-<!-- Pinterest -->
-<a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="http://www.simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" /></a>
- 
-<!-- StumbleUpon-->
-<a href="http://www.stumbleupon.com/submit?url=http://www.simplesharebuttons.com&title=Simple Share Buttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/stumbleupon.png" alt="StumbleUpon" /></a>
- 
-<!-- Email -->
-<a href="mailto:?Subject=Simple Share Buttons&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://www.simplesharebuttons.com"><img src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a>
-/* */
+ /* */
 }
 
 /**

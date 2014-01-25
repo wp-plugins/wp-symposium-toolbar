@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.19
+Version: 0.26.25
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,33 @@ It will show only in the frontend and not in the backend, have you checked in th
 2. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 3. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
 4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
+
+== Credits ==
+
+This plugin would never have been what it is without the help and work of the following people.
+
+Louis, my friend at [Central Geek](http://centralgeek.com), for his advices in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there, you'll find he's a nice guy always willing to help.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
+
+= Translations =
+
+* French translation by the author
+* Spanish translation by Maria Ramos, [WebHostingHub](http://www.webhostinghub.com/)
+
+= Icons =
+
+The fonticons set bundled with the plugin was created using [IcoMoon](http://icomoon.io/app), and gathers icons from various packages:
+
+* WP Symposium Friends: IcoMoon Free
+* WP Symposium Mail: Font Awesome
+* WP Symposium: by Louis at Central Geek
+* Social icons from: IcoMoon (Lightweight, Rounded Corners), Entypo (Plain Circles), Typicons (Lightweight)
+
+Not only because the [Creative Commons license](http://creativecommons.org/licenses/by-sa/3.0/) requests it, but also to thank them for their work, I'm happy to attribute these fonts as follows.  Note that most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
+
+* [IcoMoon](http://icomoon.io/#icons) by [Keyamoon](keyamoon.com), License GPL
+* [Font Awesome](http://fortawesome.github.com/Font-Awesome/) by [Dave Gandy](https://github.com/davegandy), CC BY 3.0
+* [Entypo](http://www.entypo.com/) by [Daniel Bruce](danielbruce.se), CC BY-SA 3.0 
+* [Typicons](http://typicons.com/) by [Stephen Hutchings](https://github.com/stephenhutchings), CC BY-SA 3.0 
 
 == Changelog ==
 
