@@ -171,9 +171,9 @@ function symposium_toolbar_add_styles() {
 			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
 				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 			
-			// Style Social Icons, frontend only
-			if ( get_option( 'wpst_tech_style_social_icons', '' ) != '' )
-				echo '<style type="text/css">' . get_option( 'wpst_tech_style_social_icons', '' ) . '</style>';
+			// Script loaded in the frontend only
+			if ( get_option( 'wpst_tech_script_to_header', '' ) != '' )
+				echo '<script type="text/javascript">' . get_option( 'wpst_tech_script_to_header', '' ) . '</script>';
 		}
 	}
 	/*
@@ -552,12 +552,13 @@ function symposium_toolbar_edit_wp_toolbar() {
 			// Create the menu, item by item
 			if ( $menu_items ) foreach ( $menu_items as $menu_item ) {
 				
-				$menu_id = $menu_item->ID;
-				$title = $menu_item->title;
-				$meta = array( 'class' => implode( " ", $menu_item->classes ), 'tabindex' => -1, 'title' => $menu_item->attr_title, 'target' => $menu_item->target );
+				$menu_item = wp_parse_args( $menu_item, array( 'classes' => array(), 'title' => '', 'attr_title' => '', 'target' => '', 'xfn' => '' ) );
+				$menu_id = $menu_item['ID'];
+				$title = $menu_item['title'];
+				$meta = array( 'class' => implode( " ", $menu_item['classes'] ), 'tabindex' => -1, 'title' => $menu_item['attr_title'], 'target' => $menu_item['target'], 'xfn' => $menu_item['xfn'] );
 				
 				// Toplevel menu item
-				if ( $menu_item->menu_item_parent == 0 ) {
+				if ( $menu_item['menu_item_parent'] == 0 ) {
 					
 					// Replacing the toplevel menu item title with a custom icon, while keeping the title for mouse hover
 					if ( !empty( $custom_menu[3] ) && is_string( $custom_menu[3] ) ) {
@@ -570,7 +571,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 						if ( !$has_navmenu_on_custom_menu ) {
 							$menu_id = 'wp-logo';
 							$menu_item_parent = false;
-							$old_menu_id = $menu_item->ID;
+							$old_menu_id = $menu_item['ID'];
 							$has_navmenu_on_custom_menu = true;
 						} else {
 							$menu_item_parent = 'wp-logo';
@@ -582,18 +583,18 @@ function symposium_toolbar_edit_wp_toolbar() {
 					
 				} else {
 					// We are replacing WP Logo, and this is one of its menu items
-					if ( ( $custom_menu[1] == 'wp-logo' ) && ( !array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', $wpst_roles_all_incl_visitor ) ) ) && ( $menu_item->menu_item_parent == $old_menu_id ) ) {
+					if ( ( $custom_menu[1] == 'wp-logo' ) && ( !array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', $wpst_roles_all_incl_visitor ) ) ) && ( $menu_item['menu_item_parent'] == $old_menu_id ) ) {
 						$menu_item_parent = 'wp-logo'; // parent slug
 					
 					// Any other menu item
 					} else
-						$menu_item_parent = $menu_item->menu_item_parent;
+						$menu_item_parent = $menu_item['menu_item_parent'];
 				}
 				
 				// Add the item to the Toolbar
 				$symposium_toolbar_user_menu_item = array( 
 					'title' => $title,
-					'href' => $menu_item->url,
+					'href' => $menu_item['url'],
 					'id' => $menu_id,
 					'parent' => $menu_item_parent,
 					'meta' => $meta
@@ -823,9 +824,6 @@ function symposium_toolbar_symposium_notifications() {
  * Called on top of each site page
  * Display social share icons
  *
- * uses Font Awesome by Dave Gandy - http://fontawesome.io
- * The Font Awesome font is licensed under the SIL Open Font License
- *
  * @since 0.27.0
  *
  * @param  none
@@ -840,7 +838,7 @@ function symposium_toolbar_social_icons() {
 	
 	$share = get_option( 'wpst_share_icons', array() );
 	$blog_name = get_bloginfo('name');
-	$shared_url = ( get_option( 'wpst_share_content', '' ) == "current" ) ? home_url( add_query_arg( array(), $wp->request ) ) : get_bloginfo('url');
+	$shared_url = htmlentities( ( get_option( 'wpst_share_content', '' ) == "current" ) ? home_url( add_query_arg( array(), $wp->request ) ) : get_bloginfo('url') );
 	$parent = get_option( 'wpst_share_icons_position', '' );
 	$class = get_option( 'wpst_share_icons_set', 'lightweight' );
 	if ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) $class .= ' brand';
@@ -852,7 +850,7 @@ function symposium_toolbar_social_icons() {
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'http://www.linkedin.com/shareArticle?mini=true&url=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this site on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-linkedin '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-linkedin '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -864,7 +862,7 @@ function symposium_toolbar_social_icons() {
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'http://www.facebook.com/sharer.php?u=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this site on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -876,7 +874,8 @@ function symposium_toolbar_social_icons() {
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'http://twitter.com/share?url=' . $shared_url . '&text=' . $blog_name,
-			'meta' => array( 'title' => __( "Share this site on Twitter", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
+			/* translators: alternatively, this could be translated with "share this on Twitter" */
+			'meta' => array( 'title' => __( "Tweet this", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -888,21 +887,9 @@ function symposium_toolbar_social_icons() {
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'https://plus.google.com/share?url=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this site on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-google-plus '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-google-plus '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
-	}
-	
-	// Pinterest
-	if ( isset( $share['pinterest'] ) && ( $share['pinterest'] == "on" ) ) {
-		$args = array(
-			'id' => 'symposium-toolbar-share-pinterest',
-			'parent' => $parent,
-			'title' => '',
-			'href' => "javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());",
-			'meta' => array( 'title' => __( "Share this site on Pinterest", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-pinterest '.$class, 'target' => '_blank' )
-		);
-		// $wp_admin_bar->add_node( $args );
 	}
 	
 	// StumbleUpon
@@ -912,19 +899,11 @@ function symposium_toolbar_social_icons() {
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'http://www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
-			'meta' => array( 'title' => __( "Share this site on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
-/*
-http://www.simplesharebuttons.com/
- 
-<!-- Digg -->
-<a href="http://www.digg.com/submit?url=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/diggit.png" alt="Digg" /></a>
- 
-<!-- Reddit -->
-<a href="http://reddit.com/submit?url=http://www.simplesharebuttons.com&title=Simple Share Buttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" /></a>
- /* */
+	/* http://www.simplesharebuttons.com/ */
 }
 
 /**

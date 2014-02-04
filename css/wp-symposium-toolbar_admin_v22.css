@@ -94,7 +94,7 @@
 	margin: -3px 6px 0 0;
 }
 
-/* Style the User Menu user actions for a correct partial display */
+/* Style the User Menu for a correct partial display */
 #wpadminbar #wp-admin-bar-my-account .wpst-user-actions {
 	min-height: 80px;
 }
@@ -314,6 +314,10 @@
 
 .wpst-positive-int, .wpst-int, .wpst-percent {
 	width: 50px;
+}
+
+.js .wpst-widefat .wpst-has-default {
+	color: #aaaaaa;
 }
 
 /* Error messages in the admin page */

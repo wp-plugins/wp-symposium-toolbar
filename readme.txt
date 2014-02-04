@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.25
+Version: 0.26.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,9 +69,11 @@ Whether you're running WP Symposium or not, the first activation of the plugin w
 
 You may, of course, modify these settings, create your own custom menus, edit the default ones, and eventually remove them from the WP Toolbar.
 
-= Sorting out issues (if any!) =
+= Sorting out issues =
 
 If you're running WP Symposium, remember to visit the WP Symposium Install page "after you add a WP Symposium shortcode to a page; change pages with WP Symposium shortcodes; if you change WordPress Permalinks" (as stated by WP Symposium), that will re-generate the WP Symposium Admin menu in the Toolbar.
+
+For custom menus, WPS Toolbar has known issues with plugins/themes that filter menu items on a per-role basis.  In general, this is achieved through a field stored as a page metadata of any given name, and WPS Toolbar simply cannot find this information.
 
 In general, if you notice odd things with the plugin, visit the Options page, and save the options (even unchanged), that will trigger a few cleanup tasks.
 
@@ -114,9 +116,9 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Credits ==
 
-This plugin would never have been what it is without the help and work of the following people.
+This plugin would never have been what it is without the help and/or work from the following people.
 
-Louis, my friend at [Central Geek](http://centralgeek.com), for his advices in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there, you'll find he's a nice guy always willing to help.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
+First of all, my warm thanks to Louis, my friend at [Central Geek](http://centralgeek.com), for his advices in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
 
 = Translations =
 
@@ -125,19 +127,21 @@ Louis, my friend at [Central Geek](http://centralgeek.com), for his advices in s
 
 = Icons =
 
-The fonticons set bundled with the plugin was created using [IcoMoon](http://icomoon.io/app), and gathers icons from various packages:
+The set of fonticons bundled with the plugin was created using [IcoMoon](http://icomoon.io/app), and gathers icons from various packages:
 
-* WP Symposium Friends: IcoMoon Free
+* WP Symposium Friends: IcoMoon
 * WP Symposium Mail: Font Awesome
-* WP Symposium: by Louis at Central Geek
+* WP Symposium: by Louis at [Central Geek](http://centralgeek.com)
 * Social icons from: IcoMoon (Lightweight, Rounded Corners), Entypo (Plain Circles), Typicons (Lightweight)
 
-Not only because the [Creative Commons license](http://creativecommons.org/licenses/by-sa/3.0/) requests it, but also to thank them for their work, I'm happy to attribute these fonts as follows.  Note that most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
+With my thanks for their work, and as required by the [Creative Commons license](http://creativecommons.org/licenses/by-sa/3.0/), I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
 
 * [IcoMoon](http://icomoon.io/#icons) by [Keyamoon](keyamoon.com), License GPL
 * [Font Awesome](http://fortawesome.github.com/Font-Awesome/) by [Dave Gandy](https://github.com/davegandy), CC BY 3.0
 * [Entypo](http://www.entypo.com/) by [Daniel Bruce](danielbruce.se), CC BY-SA 3.0 
-* [Typicons](http://typicons.com/) by [Stephen Hutchings](https://github.com/stephenhutchings), CC BY-SA 3.0 
+* [Typicons](http://typicons.com/) by [Stephen Hutchings](https://github.com/stephenhutchings), CC BY-SA 3.0
+
+Last but not least, please note that all brand icons are trademarks of their respective owners.
 
 == Changelog ==
 
@@ -145,9 +149,11 @@ Not only because the [Creative Commons license](http://creativecommons.org/licen
 
 * Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
 * Bugfix: in RTL, correct display for the User Menu
-* Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used
-* Change: Added the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus
-* Change: Styles tab, implement default values shown & hidden via Javascript
+* Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used by colorpickers
+* Change: Added the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
+* Change: Styles, implement default values shown & hidden via Javascript
+* Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
+* Bugfix: Styles, preview mode, correct menu font colors in hover
 
 = 0.26.0. =
 

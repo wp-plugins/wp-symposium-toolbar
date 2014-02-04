@@ -187,24 +187,24 @@ jQuery(document).ready(function($){
 		}
 		
 		// Such fields are part of the definition of a font shadow
-		if ( $(this).hasClass( "wpst_font_shadow" ) ) {
+		// if ( $(this).hasClass( "wpst_font_shadow" ) ) {
 			
 			// If this contains a default value, add default class to all three
-			if ( $(this).val() == "0" ) {
-				if ( ( $("#wpst_font_h_shadow").val() == "0" ) && ( $("#wpst_font_v_shadow").val() == "0" ) && ( $("#wpst_font_shadow_blur").val() == "0" ) )
-					$(".wpst_font_shadow").addClass( "wpst-has-default" );
+			// if ( $(this).val() == "0" ) {
+				// if ( ( $("#wpst_font_h_shadow").val() == "0" ) && ( $("#wpst_font_v_shadow").val() == "0" ) && ( $("#wpst_font_shadow_blur").val() == "0" ) )
+					// $(".wpst_font_shadow").addClass( "wpst-has-default" );
 			
 			// If this contains a non-default value, remove default class from all three
-			} else {
-				$(".wpst_font_shadow").removeClass( "wpst-has-default" );
-			}
+			// } else {
+				// $(".wpst_font_shadow").removeClass( "wpst-has-default" );
+			// }
 		
 		// If this contains a default value, add default class
-		} else {
+		// } else {
 			if ( $(this).val() == document.getElementById( this.id+"_default" ).value ) {
 				$(this).addClass( "wpst-has-default" );
 			}
-		}
+		// }
 
 	});
 });

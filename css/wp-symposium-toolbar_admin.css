@@ -15,7 +15,26 @@
 */
 
 /**
- * Icons
+ * Default WP Icons
+ */
+
+@media screen and (min-width: 783px) {
+	#wpadminbar .ab-top-menu > li > a:before {
+		top: 1px;
+	}
+/*	#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before,
+	#wpadminbar #wp-admin-bar-updates .ab-icon:before,
+	#wpadminbar #wp-admin-bar-my-sites > .ab-item:before,
+	#wpadminbar #wp-admin-bar-site-name > .ab-item:before {
+		top: 0px;
+	}
+	#wpadminbar #wp-admin-bar-comments .ab-icon:before {
+		top: 2px;
+	} /* */
+}
+
+/**
+ * Custom Icons
  */
 
 @font-face {
@@ -67,7 +86,10 @@
 #wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before {
 	font-family: dashicons !important;
 	content: '\f319';
-	top: 1px;
+}
+
+#wpadminbar .symposium-toolbar-social-icon > .ab-item:before {
+	top: 0px;
 }
 
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin > .ab-item:before {
@@ -201,16 +223,6 @@
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
 		display: none;
-	}
-}
-
-/**
- * Default WP Icons "a"
- */
-
-@media screen and (min-width: 783px) {
-	#wpadminbar .ab-top-menu > li > a:before {
-		top: 0px;
 	}
 }
 
@@ -371,20 +383,13 @@
 	}
 }
 
-/* Fix arrows height for User Menu submenus */ /*
-@media screen and (max-width: 782px) {
-	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
-		top: 10px !Important;
-	}
-}
+/* Fix arrows height for User Menu submenus */
 @media screen and (min-width: 783px) {
+/*	#wpadminbar .menupop .menupop > .ab-item:before {
+		top: 5px !Important;
+	} /* */
 	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
-		top: 1px !Important;
-	}
-} /* */
-@media screen and (min-width: 783px) {
-	#wpadminbar .menupop .menupop > .ab-item:before {
-		top: 5px;
+		top: 1px;
 	}
 }
 
