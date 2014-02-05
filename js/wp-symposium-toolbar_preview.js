@@ -672,8 +672,12 @@ jQuery(document).ready(function($){
 		
 		style.innerHTML = '#wpadminbar .menupop .menupop > .ab-item:before { color: '+menuMainColor+'; } #wpadminbar .menupop .menupop > .ab-item { color: '+menuMainColor+'; } ';
 		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:before { color: '+menuMainColorExt+'; } #wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item { color: '+menuMainColorExt+'; } ';
-		style.innerHTML += '#wpadminbar .menupop .menupop > .ab-item:before:hover { color: '+menuHoverColor+'; } #wpadminbar .menupop .menupop > .ab-item:hover { color: '+menuHoverColor+'; } ';
-		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:before:hover { color: '+menuHoverColorExt+'; } #wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:hover { color: '+menuHoverColorExt+'; } ';
+		// style.innerHTML += '#wpadminbar .menupop .menupop > .ab-item:before { color: '+menuMainColorExt+'; } ';
+		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar { color: '+menuMainColorExt+'; } #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before { color: '+menuMainColorExt+'; } ';
+		
+		style.innerHTML += '#wpadminbar .menupop .menupop > .ab-item:hover:before { color: '+menuHoverColor+'; } #wpadminbar .menupop li.menupop:hover > .ab-item:before { color: '+menuHoverColor+'; } ';
+		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar { color: '+menuHoverColorExt+'; } #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before { color: '+menuHoverColorExt+'; }  #wpadminbar .quicklinks li a:hover .blavatar:before { color: '+menuHoverColorExt+'; } ';
+		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:hover:before { color: '+menuHoverColorExt+'; } #wpadminbar .menupop .ab-sub-secondary > .menupop.hover > .ab-item:before { color: '+menuHoverColorExt+'; } ';
 		
 		document.head.appendChild(style);
 	}
