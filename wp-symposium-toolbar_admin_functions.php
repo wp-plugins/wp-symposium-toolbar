@@ -1132,6 +1132,8 @@ function symposium_toolbar_save_before_render() {
 					$default .= '#wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon, ';
 					// Menus Fonts
 					$default .= '#wpadminbar .quicklinks .menupop ul li .ab-item, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item, #wpadminbar #wp-admin-bar-user-info .display-name, #wpadminbar #wp-admin-bar-user-info .username, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong, #wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a, #wpadminbar #wp-admin-bar-user-info .ab-item:hover { color: #eee; } ';
+					// Toolbar Icons
+					$default .= '#wpadminbar .ab-icon, #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar .ab-item:after { color: #999; } ';
 					// Icons hover
 					$default .= '#wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before, #wpadminbar li:hover > .ab-item > .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar li:hover > .ab-item > .ab-label:before, #wpadminbar li.hover > .ab-item > .ab-label:before, ';
 					// Fonts Hover
@@ -1149,7 +1151,7 @@ function symposium_toolbar_save_before_render() {
 					// Secondary menus arrows hover
 					// $default .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, ';
 					// User Info Hover
-					$default .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, #wpadminbar #wp-admin-bar-user-info:hover span { color: #2ea2cc; } ';
+					$default .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, #wpadminbar #wp-admin-bar-user-info:hover span, #wpadminbar #wp-admin-bar-user-info a:hover .username, #wpadminbar #wp-admin-bar-user-info a:hover span { color: #2ea2cc; } ';
 					// Toolbar items hover background
 					$default .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, ';
 					// Menus background
@@ -2218,7 +2220,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		
 		// WP 3.8+ Menu items
 		} else {
-			$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item, #wpadminbar #wp-admin-bar-user-info .display-name, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.display-name, #wpadminbar #wp-admin-bar-user-info .username { ' . $style_chunk . '} ';
+			$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary span.display-name, #wpadminbar #wp-admin-bar-user-info .username { ' . $style_chunk . '} ';
 			
 			// Menu Arrows
 			if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) if ( $wpst_style_tb_current['menu_font_colour'] != '' ) $style_saved .= '#wpadminbar .menupop .menupop > .ab-item:before { color: '.$wpst_style_tb_current['menu_font_colour'].'; } ';
@@ -2245,10 +2247,23 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		}
 	}
 	
-	// Menu Font color for secondary menus and submenus
+	// Colors - We'll set variables now so they're used lower...
 	// If no color was defined for secondary items but one color was defined for ul li a, force back secondary to WP default color
 	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) $menu_ext_font_colour = $wpst_default_toolbar['menu_ext_font_colour'];
+	
+	// If a color is set for secondary, use it
 	if ( isset( $wpst_style_tb_current['menu_ext_font_colour'] ) ) $menu_ext_font_colour = $wpst_style_tb_current['menu_ext_font_colour'];
+	
+	// If no color was defined for hover items but one color was defined for ul li a, force back to WP default hover colors
+	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) {
+		$menu_hover_font_colour = $wpst_default_toolbar['menu_hover_font_colour'];
+		$menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
+	}
+	// If colors are set for hover, use these
+	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) $menu_hover_font_colour = $wpst_style_tb_current['menu_hover_font_colour'];
+	if ( isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_style_tb_current['menu_hover_ext_font_colour'];
+	
+	// Menu Font color for secondary menus and submenus
 	if ( isset( $menu_ext_font_colour ) ) {
 		// Non-icons items
 		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a, ';
@@ -2310,14 +2325,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			$style_chunk .= 'font-variant: normal; ';
 	}
 	
-	$menu_hover_font_colour = ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) ? $wpst_style_tb_current['menu_hover_font_colour'] : $wpst_default_toolbar['menu_hover_font_colour'];
-	if ( isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) )
-		if ( ( $wpst_style_tb_current['menu_hover_ext_font_colour'] != '' ) && ( $wpst_style_tb_current['menu_hover_ext_font_colour'] != $menu_hover_font_colour ) )
-			$style_chunk_ext = 'color: '.$wpst_style_tb_current['menu_hover_ext_font_colour'].'; ';
-	
-	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) )
-		if ( $wpst_style_tb_current['menu_hover_font_colour'] != '' )
-			$style_chunk .= 'color: '.$wpst_style_tb_current['menu_hover_font_colour'].'; ';
+	// Menu Hover Font Colors
+	if ( isset( $menu_hover_font_colour ) ) $style_chunk .= 'color: '.$menu_hover_font_colour.'; ';
+	if ( isset( $menu_hover_ext_font_colour ) ) $style_chunk_ext = 'color: '.$menu_hover_ext_font_colour.'; ';
 	
 	// Menu Hover Font shadow
 	$wpst_style_tb_current = array_merge( array( 'menu_hover_font_h_shadow' => $wpst_default_toolbar['menu_hover_font_h_shadow'], 'menu_hover_font_v_shadow' => $wpst_default_toolbar['menu_hover_font_v_shadow'], 'menu_hover_font_shadow_blur' => $wpst_default_toolbar['menu_hover_font_shadow_blur'] ), $wpst_style_tb_current );
@@ -2340,11 +2350,12 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			// Style the non-a ab-items
 			$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .quicklinks .menupop ul li .ab-item:hover strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover, #wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, ';
 			// admin-bar.css:274
-			$style_saved .= '#wpadminbar .quicklinks .menupop ul li a:hover, #wpadminbar .quicklinks .menupop ul li a:hover strong, #wpadminbar .quicklinks .menupop.hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, #wpadminbar #wp-admin-bar-user-info a:hover .display-name, #wpadminbar #wp-admin-bar-user-info:hover span { ' . $style_chunk . '} ';
+			$style_saved .= '#wpadminbar .quicklinks .menupop ul li a:hover, #wpadminbar .quicklinks .menupop ul li a:hover strong, #wpadminbar .quicklinks .menupop.hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, #wpadminbar #wp-admin-bar-user-info:hover span, ';
 			// Other User Info Hover
-			$style_saved .= '#wpadminbar #wp-admin-bar-user-info a:hover .username, #wpadminbar #wp-admin-bar-user-info a:hover span, ';
+			$style_saved .= '#wpadminbar #wp-admin-bar-user-info a:hover .username, #wpadminbar #wp-admin-bar-user-info a:hover span ';
+			$style_saved .= '{ ' . $style_chunk . '} ';
 			// Arrows
-			if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) if ( $wpst_style_tb_current['menu_hover_font_colour'] != '' ) $style_saved .= '#wpadminbar .menupop li.menupop:hover > .ab-item:before { color: '.$wpst_style_tb_current['menu_hover_font_colour'].'; } ';
+			if ( isset( $menu_hover_font_colour ) ) $style_saved .= '#wpadminbar .menupop li.menupop.hover > .ab-item:before, #wpadminbar .menupop li.menupop:hover > .ab-item:before { color: '.$menu_hover_font_colour.'; } ';
 			
 		} else
 			$style_saved .= '#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover, #wpadminbar #wp-admin-bar-user-info .ab-item:hover span { ' . $style_chunk . '} ';
@@ -2352,12 +2363,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	}
 	
 	// Menu Hover Font color for secondary menus and submenus
-	// If no color was defined for secondary items but one color was defined for ul li a, force back secondary to WP default hover color
-	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
-	if ( isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_style_tb_current['menu_hover_ext_font_colour'];
-	// if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) && isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) && ( $wpst_style_tb_current['menu_hover_font_colour'] == $wpst_style_tb_current['menu_hover_ext_font_colour'] ) ) unset( $menu_hover_ext_font_colour );
-	if ( isset( $menu_hover_ext_font_colour ) ) $style_chunk_ext = 'color: '.$menu_hover_ext_font_colour.'; ';
-	
 	if ( $style_chunk_ext !== "" ) {
 		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 			// Labels in dropdown menus
@@ -2367,7 +2372,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			// "W" icons - admin-bar.css:486
 			$style_saved .= '#wpadminbar .quicklinks li a:hover .blavatar, #wpadminbar .quicklinks li a:hover .blavatar:before, ';
 			// Arrows
-			$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, #wpadminbar .menupop .ab-sub-secondary > .menupop.hover > .ab-item:before ';
+			$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before ';
 			$style_saved .= '{ ' . $style_chunk_ext . '} ';
 		
 		} else

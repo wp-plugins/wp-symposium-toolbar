@@ -677,7 +677,8 @@ jQuery(document).ready(function($){
 		
 		style.innerHTML += '#wpadminbar .menupop .menupop > .ab-item:hover:before { color: '+menuHoverColor+'; } #wpadminbar .menupop li.menupop:hover > .ab-item:before { color: '+menuHoverColor+'; } ';
 		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar { color: '+menuHoverColorExt+'; } #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before { color: '+menuHoverColorExt+'; }  #wpadminbar .quicklinks li a:hover .blavatar:before { color: '+menuHoverColorExt+'; } ';
-		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:hover:before { color: '+menuHoverColorExt+'; } #wpadminbar .menupop .ab-sub-secondary > .menupop.hover > .ab-item:before { color: '+menuHoverColorExt+'; } ';
+		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before { color: '+menuHoverColorExt+'; } ';
+		// style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary .menupop > .ab-item:hover:before { color: '+menuHoverColorExt+'; } #wpadminbar .menupop .ab-sub-secondary > .menupop.hover > .ab-item:before { color: '+menuHoverColorExt+'; } ';
 		
 		document.head.appendChild(style);
 	}

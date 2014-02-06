@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Symposium Toolbar v0.26.29\n"
+"Project-Id-Version: WP Symposium Toolbar v0.26.31\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-04 20:45:39+0000\n"
+"PO-Revision-Date: 2014-02-06 20:35:34+0000\n"
 "Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,119 +58,119 @@ msgstr "Salvar los Cambios"
 msgid "Admin Menu"
 msgstr "Menú de Administración"
 
-#: wp-symposium-toolbar_admin_functions.php:2438
+#: wp-symposium-toolbar_admin_functions.php:2456
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr "Opciones"
 
-#: wp-symposium-toolbar_admin_functions.php:2439
+#: wp-symposium-toolbar_admin_functions.php:2457
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Perfil"
 
-#: wp-symposium-toolbar_admin_functions.php:2440
+#: wp-symposium-toolbar_admin_functions.php:2458
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr "Más"
 
-#: wp-symposium-toolbar_admin_functions.php:2441
+#: wp-symposium-toolbar_admin_functions.php:2459
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr "Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2442
+#: wp-symposium-toolbar_admin_functions.php:2460
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Directorio"
 
-#: wp-symposium-toolbar_admin_functions.php:2443
+#: wp-symposium-toolbar_admin_functions.php:2461
 #: wp-symposium-toolbar_functions.php:93
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr "Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2444
+#: wp-symposium-toolbar_admin_functions.php:2462
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Grupos"
 
-#: wp-symposium-toolbar_admin_functions.php:2445
+#: wp-symposium-toolbar_admin_functions.php:2463
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galería"
 
-#: wp-symposium-toolbar_admin_functions.php:2446
+#: wp-symposium-toolbar_admin_functions.php:2464
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertas"
 
-#: wp-symposium-toolbar_admin_functions.php:2447
+#: wp-symposium-toolbar_admin_functions.php:2465
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panel"
 
-#: wp-symposium-toolbar_admin_functions.php:2448
+#: wp-symposium-toolbar_admin_functions.php:2466
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Eventos"
 
 #: wp-symposium-toolbar_admin.php:1109
-#: wp-symposium-toolbar_admin_functions.php:2449
+#: wp-symposium-toolbar_admin_functions.php:2467
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-symposium-toolbar_admin_functions.php:2450
+#: wp-symposium-toolbar_admin_functions.php:2468
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr "Móvil"
 
-#: wp-symposium-toolbar_admin_functions.php:2451
+#: wp-symposium-toolbar_admin_functions.php:2469
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Responder"
 
-#: wp-symposium-toolbar_admin_functions.php:2452
+#: wp-symposium-toolbar_admin_functions.php:2470
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salón"
 
-#: wp-symposium-toolbar_admin_functions.php:2454
+#: wp-symposium-toolbar_admin_functions.php:2472
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gestionar"
 
-#: wp-symposium-toolbar_admin_functions.php:2455
+#: wp-symposium-toolbar_admin_functions.php:2473
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Configurar"
 
-#: wp-symposium-toolbar_admin_functions.php:2457
+#: wp-symposium-toolbar_admin_functions.php:2475
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Tesauro"
 
-#: wp-symposium-toolbar_admin_functions.php:2458
+#: wp-symposium-toolbar_admin_functions.php:2476
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Categorías"
 
-#: wp-symposium-toolbar_admin_functions.php:2459
+#: wp-symposium-toolbar_admin_functions.php:2477
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Mensajes del Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2460
+#: wp-symposium-toolbar_admin_functions.php:2478
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Mensajes de Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2461
+#: wp-symposium-toolbar_admin_functions.php:2479
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Plantillas"
 
-#: wp-symposium-toolbar_admin_functions.php:2462
+#: wp-symposium-toolbar_admin_functions.php:2480
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr "Auditoría"
@@ -796,20 +796,11 @@ msgstr "Usted también puede modificar el elemento al nivel superior del menú, 
 msgid "No available NavMenu !"
 msgstr "¡Menú de Navegación no disponible!"
 
-#: wp-symposium-toolbar_admin_functions.php:1256
-#: wp-symposium-toolbar_admin_functions.php:1347
+#: wp-symposium-toolbar_admin_functions.php:1258
+#: wp-symposium-toolbar_admin_functions.php:1349
 #@ wp-symposium-toolbar
 msgid ": incorrect format, an array of roles was expected"
 msgstr ": formato incorrecto, un conjunto de roles se esperaban"
-
-#: wp-symposium-toolbar_admin_functions.php:1230
-#: wp-symposium-toolbar_admin_functions.php:1278
-#: wp-symposium-toolbar_admin_functions.php:1355
-#: wp-symposium-toolbar_admin_functions.php:1409
-#: wp-symposium-toolbar_admin_functions.php:1445
-#@ wp-symposium-toolbar
-msgid ": incorrect value, expected values are \"\" or \"on\""
-msgstr ": valor incorrecto, los valores esperados son \"\" o \"on\""
 
 #: wp-symposium-toolbar_admin_functions.php:1232
 #: wp-symposium-toolbar_admin_functions.php:1280
@@ -817,26 +808,35 @@ msgstr ": valor incorrecto, los valores esperados son \"\" o \"on\""
 #: wp-symposium-toolbar_admin_functions.php:1411
 #: wp-symposium-toolbar_admin_functions.php:1447
 #@ wp-symposium-toolbar
+msgid ": incorrect value, expected values are \"\" or \"on\""
+msgstr ": valor incorrecto, los valores esperados son \"\" o \"on\""
+
+#: wp-symposium-toolbar_admin_functions.php:1234
+#: wp-symposium-toolbar_admin_functions.php:1282
+#: wp-symposium-toolbar_admin_functions.php:1359
+#: wp-symposium-toolbar_admin_functions.php:1413
+#: wp-symposium-toolbar_admin_functions.php:1449
+#@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\" or \"on\""
 msgstr ": formato incorrecto, se esperaba una cadena. ya sea \"\" o \"on\""
 
-#: wp-symposium-toolbar_admin_functions.php:1240
+#: wp-symposium-toolbar_admin_functions.php:1242
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"\", \"empty\" or \"top-secondary\""
 msgstr ": valor incorrecto, los valores esperados son \"\", \"empty\" or \"top-secondary\""
 
-#: wp-symposium-toolbar_admin_functions.php:1242
+#: wp-symposium-toolbar_admin_functions.php:1244
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\", \"empty\" or \"top-secondary\""
 msgstr ": formato incorrecto, se esperaba una cadena, ya sea \"\", \"empty\" or \"top-secondary\""
 
-#: wp-symposium-toolbar_admin_functions.php:1270
+#: wp-symposium-toolbar_admin_functions.php:1272
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected"
 msgstr ": formato incorrecto, se esperaba  una cadena"
 
-#: wp-symposium-toolbar_admin_functions.php:1451
-#: wp-symposium-toolbar_admin_functions.php:1456
+#: wp-symposium-toolbar_admin_functions.php:1453
+#: wp-symposium-toolbar_admin_functions.php:1458
 #@ wp-symposium-toolbar
 msgid ": option not recognized"
 msgstr ": opción no reconocida"
@@ -1031,8 +1031,8 @@ msgstr "Minúscula"
 msgid "Small Caps"
 msgstr "Pequeña capitalización"
 
-#: wp-symposium-toolbar_admin_functions.php:1371
-#: wp-symposium-toolbar_admin_functions.php:1437
+#: wp-symposium-toolbar_admin_functions.php:1373
+#: wp-symposium-toolbar_admin_functions.php:1439
 #@ wp-symposium-toolbar
 msgid ": incorrect format, an array was expected"
 msgstr ": formato incorrecto, se esperaba un arreglo"
@@ -1049,7 +1049,7 @@ msgstr "Configuración de la Barra de Herramientas WPS"
 
 #: wp-symposium-toolbar_admin.php:57
 #: wp-symposium-toolbar_admin.php:2425
-#: wp-symposium-toolbar_admin_functions.php:1184
+#: wp-symposium-toolbar_admin_functions.php:1186
 #@ wp-symposium-toolbar
 msgid "Import"
 msgstr "Importar"
@@ -1343,7 +1343,7 @@ msgid "If you would like to backup the plugin settings or export them to another
 msgstr "Si usted desea hacer copia de seguridad de la configuración del plugin o exportarlo a otro sitio, copie lo siguiente en su editor de texto favorito y sálvelo como un archivo de texto. Recíprocamente, si usted quisiera actualizar esa configuración con un conjunto salvado anteriormente, péguelo en este campo y haga clic en \"Importar\" debajo. Note que este proceso va a descartar cualquier cambio que usted puede haber hecho en los otros tabs. ¡No edite esta información directamente!"
 
 #: wp-symposium-toolbar_admin.php:2430
-#: wp-symposium-toolbar_admin_functions.php:1189
+#: wp-symposium-toolbar_admin_functions.php:1191
 #@ wp-symposium-toolbar
 msgid "Import from Main Site"
 msgstr "Importar desde el Sitio Principal"
@@ -1704,39 +1704,39 @@ msgstr "Los Estilos están separados en varios boxes que permitirán personaliza
 msgid "The Ultimate WordPress Toolbar Plugin"
 msgstr "El último Plugin de la Barra de Herramienta de WordPress"
 
-#: wp-symposium-toolbar_admin_functions.php:1177
+#: wp-symposium-toolbar_admin_functions.php:1179
 #@ wp-symposium-toolbar
 msgid "The following settings could not be saved:"
 msgstr "Los siguientes ajustes no pudieron salvarse:"
 
-#: wp-symposium-toolbar_admin_functions.php:1212
+#: wp-symposium-toolbar_admin_functions.php:1214
 #@ wp-symposium-toolbar
 msgid "please check the menu settings from the Custom Menu tab, and save"
 msgstr "por favor verifique la configuración del menú en la pestaña del Menú personalizado y salve"
 
-#: wp-symposium-toolbar_admin_functions.php:1213
+#: wp-symposium-toolbar_admin_functions.php:1215
 #@ wp-symposium-toolbar
 msgid "please check plugin settings, and save"
 msgstr "por favor revise la configuración del plugin y salve "
 
-#: wp-symposium-toolbar_admin_functions.php:1302
+#: wp-symposium-toolbar_admin_functions.php:1304
 #@ wp-symposium-toolbar
 msgid "unknown menu"
 msgstr "menú desconocido"
 
-#: wp-symposium-toolbar_admin_functions.php:1307
+#: wp-symposium-toolbar_admin_functions.php:1309
 #@ wp-symposium-toolbar
 msgid "unknown location"
 msgstr "localización desconocida"
 
-#: wp-symposium-toolbar_admin_functions.php:1249
-#: wp-symposium-toolbar_admin_functions.php:1317
-#: wp-symposium-toolbar_admin_functions.php:1340
+#: wp-symposium-toolbar_admin_functions.php:1251
+#: wp-symposium-toolbar_admin_functions.php:1319
+#: wp-symposium-toolbar_admin_functions.php:1342
 #@ wp-symposium-toolbar
 msgid "unknown role"
 msgstr "función desconocida"
 
-#: wp-symposium-toolbar_admin_functions.php:1468
+#: wp-symposium-toolbar_admin_functions.php:1470
 #@ wp-symposium-toolbar
 msgid "No option to import!!"
 msgstr "¡¡No hay opción para importar!!"
@@ -1751,12 +1751,12 @@ msgstr "Advertencia"
 msgid "Important"
 msgstr "Importante"
 
-#: wp-symposium-toolbar_admin_functions.php:1462
+#: wp-symposium-toolbar_admin_functions.php:1464
 #@ wp-symposium-toolbar
 msgid "The following errors occured during import and the corresponding options couldn't be taken into account"
 msgstr "Los siguientes errores ocurrieron durante la importación y las opciones correspondientes no pudieron tenerse en cuenta"
 
-#: wp-symposium-toolbar_admin_functions.php:1464
+#: wp-symposium-toolbar_admin_functions.php:1466
 #@ wp-symposium-toolbar
 msgid "The following error occured during import and the corresponding option couldn't be taken into account"
 msgstr "El siguiente error ocurrió durante la importación y la opción correspondiente no pudo ser tenida en cuenta"
@@ -2303,34 +2303,34 @@ msgstr "URL local esperada"
 msgid "valid URL expected"
 msgstr "URL válida esperada"
 
-#: wp-symposium-toolbar_admin_functions.php:1172
+#: wp-symposium-toolbar_admin_functions.php:1174
 #@ wp-symposium-toolbar
 msgid "Errors occured when saving options:"
 msgstr "Ocurrieron errores salvando las opciones:"
 
-#: wp-symposium-toolbar_admin_functions.php:1172
 #: wp-symposium-toolbar_admin_functions.php:1174
+#: wp-symposium-toolbar_admin_functions.php:1176
 #@ wp-symposium-toolbar
 msgid "Other options were saved successfully"
 msgstr "Las otras opciones fueron salvadas satisfactoriamente"
 
-#: wp-symposium-toolbar_admin_functions.php:1174
+#: wp-symposium-toolbar_admin_functions.php:1176
 #@ wp-symposium-toolbar
 msgid "One error occured when saving options:"
 msgstr "Un error ocurrió cuando se salvaron las opciones:"
 
-#: wp-symposium-toolbar_admin_functions.php:1260
-#: wp-symposium-toolbar_admin_functions.php:1284
-#: wp-symposium-toolbar_admin_functions.php:1330
-#: wp-symposium-toolbar_admin_functions.php:1361
-#: wp-symposium-toolbar_admin_functions.php:1415
-#: wp-symposium-toolbar_admin_functions.php:1454
+#: wp-symposium-toolbar_admin_functions.php:1262
+#: wp-symposium-toolbar_admin_functions.php:1286
+#: wp-symposium-toolbar_admin_functions.php:1332
+#: wp-symposium-toolbar_admin_functions.php:1363
+#: wp-symposium-toolbar_admin_functions.php:1417
+#: wp-symposium-toolbar_admin_functions.php:1456
 #@ wp-symposium-toolbar
 msgid ": the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set."
 msgstr ": el tab correspondiente fue desactivado en este sitio, por tanto esta opción debe ser importada desde el Sitio Principal donde está asignado."
 
-#: wp-symposium-toolbar_admin_functions.php:1462
 #: wp-symposium-toolbar_admin_functions.php:1464
+#: wp-symposium-toolbar_admin_functions.php:1466
 #@ wp-symposium-toolbar
 msgid "Other options (if any) have been imported successfully"
 msgstr "Otras opciones (si hay) han sido importadas satisfactoriamente"
@@ -2962,7 +2962,7 @@ msgstr "El plugin no forzará esto, y cuando su Barra de Herramientas del sitio 
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Cualquier otro cambio de estilos que usted pueda haber realizado serán reflejados en esta Barra de Herramientas de respuesta."
 
-#: wp-symposium-toolbar_admin_functions.php:2456
+#: wp-symposium-toolbar_admin_functions.php:2474
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicidad"
@@ -3228,37 +3228,37 @@ msgstr ""
 msgid "Toolbar Hover Icon Size"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1379
+#: wp-symposium-toolbar_admin_functions.php:1381
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"home\" or \"current\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1381
+#: wp-symposium-toolbar_admin_functions.php:1383
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"home\" or \"current\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1389
+#: wp-symposium-toolbar_admin_functions.php:1391
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"lightweight\", \"rounded\" or \"circle\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1391
+#: wp-symposium-toolbar_admin_functions.php:1393
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"lightweight\", \"rounded\" or \"circle\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1399
+#: wp-symposium-toolbar_admin_functions.php:1401
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"\" or \"top-secondary\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1401
+#: wp-symposium-toolbar_admin_functions.php:1403
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\" or \"top-secondary\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1435
+#: wp-symposium-toolbar_admin_functions.php:1437
 #@ wp-symposium-toolbar
 msgid ": an array of non-empty values was expected, at least one value was not set correctly"
 msgstr ""

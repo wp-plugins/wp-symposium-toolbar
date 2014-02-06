@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.30
+Version: 0.26.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,6 +154,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Change: Styles, implement default values shown & hidden via Javascript
 * Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
 * Bugfix: Styles, preview mode, correct menu font colors in hover
+* Bugfix: Styles, correct menu font colors for display and user names
 
 = 0.26.0. =
 
