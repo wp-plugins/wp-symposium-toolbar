@@ -10,14 +10,14 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.31
+Version: 0.26.32
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2631;
+$wpst_buildnr = 2632;
 
 
 // Exit if accessed directly
@@ -228,11 +228,6 @@ if ( $is_wps_active ) {
 
 
 /* =========================================================== HOOKS & FILTERS INTO WORDPRESS ============================================================== */
-
-	// Update the WPS Admin Menu by visiting the Plugins Install page (if WPS is activated after WPS Toolbar)
-	add_action( 'admin_head-plugins.php', 'symposium_toolbar_update_wps_admin_menu' );
-	// Update the WPS Admin Menu by visiting the WPS Install page (where WPS features might be activated/deactivated)
-	add_action( 'admin_head-toplevel_page_symposium_debug', 'symposium_toolbar_update_wps_admin_menu' );
 
 } else {
 

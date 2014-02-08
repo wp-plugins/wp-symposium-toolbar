@@ -30,7 +30,7 @@ jQuery(document).ready(function($){
 	function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
 	function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
 	function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
-	function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+	function cutHex(h) {if (h.charAt(0)=="#") h = h.substring(1,7); return (h.length == 3) ? h+h :h}
 	
 	// Reference: http://www.javascripter.net/faq/rgbtohex.htm
 	// H = rgbToHex(R,G,B);
@@ -110,23 +110,23 @@ jQuery(document).ready(function($){
 				var tbTopColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_top_colour').val() )+", "+hexToG( $('#wpst_top_colour').val() )+", "+hexToB( $('#wpst_top_colour').val() )+")" : $('#wpst_top_colour').val() ;
 				var tbTopLength = $('#wpst_top_gradient').val();
 			} else {
-				var tbTopColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+				var tbTopColor = tbMainColor;
 				var tbTopLength = "0";
 			}
 			if ( ( $('#wpst_bottom_colour').val() !== "" ) && ( $('#wpst_bottom_gradient').val() !== "" ) ) {
 				var tbBottomColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_bottom_colour').val() )+", "+hexToG( $('#wpst_bottom_colour').val() )+", "+hexToB( $('#wpst_bottom_colour').val() )+")" : $('#wpst_bottom_colour').val() ;
 				var tbBottomLength = $('#wpst_bottom_gradient').val();
 			} else {
-				var tbBottomColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+				var tbBottomColor = tbMainColor;
 				var tbBottomLength = "0";
 			}
 		
 		} else {
 			var tbMainColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
-			var tbTopColor = wpstRgbColors ? wpstEmptyColorRgb : wpstEmptyColor;
+			var tbTopColor = tbMainColor;
 			var tbTopLength = "0";
-			var tbBottomColor = wpstRgbColors ? wpstBottomEmptyColorRgb : wpstBottomEmptyColor;
-			var tbBottomLength = wpstBottomEmptyHeight;
+			var tbBottomColor = tbMainColor;
+			var tbBottomLength = "0";
 		}
 		
 		// Determine the new "background-image" string from the values above
@@ -144,14 +144,14 @@ jQuery(document).ready(function($){
 				var tbTopColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_top_colour').val() )+", "+hexToG( $('#wpst_hover_top_colour').val() )+", "+hexToB( $('#wpst_hover_top_colour').val() )+")" : $('#wpst_hover_top_colour').val() ;
 				var tbTopLength = $('#wpst_hover_top_gradient').val();
 			} else {
-				var tbTopColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+				var tbTopColor = tbHoverColor;
 				var tbTopLength = "0";
 			}
 			if ( ( $('#wpst_hover_bottom_colour').val() !== "" ) && ( $('#wpst_hover_bottom_gradient').val() !== "" ) ) {
 				var tbBottomColor = wpstRgbColors ? "rgb("+hexToR( $('#wpst_hover_bottom_colour').val() )+", "+hexToG( $('#wpst_hover_bottom_colour').val() )+", "+hexToB( $('#wpst_hover_bottom_colour').val() )+")" : $('#wpst_hover_bottom_colour').val() ;
 				var tbBottomLength = $('#wpst_hover_bottom_gradient').val();
 			} else {
-				var tbBottomColor = wpstRgbColors ? wpstHoverEmptyColorRgb : wpstHoverEmptyColor;
+				var tbBottomColor = tbHoverColor;
 				var tbBottomLength = "0";
 			}
 			
@@ -243,12 +243,12 @@ jQuery(document).ready(function($){
 			$(this).find("> .ab-item").css( "background-color", tbHoverColor );
 			$(this).find("> .ab-item").css( "background-image", tbHoverImage );
 			$(this).find("> .ab-item > .ab-label").css( "background", "transparent" );
-		},function(){ if ( !$(this).is("focus") ) {
+		},function(){
 			$(this).find("> a").css( "background-color", tbMainColor );
 			$(this).find("> a").css( "background-image", tbNormalImage );
 			$(this).find("> .ab-item").css( "background-color", tbMainColor );
 			$(this).find("> .ab-item").css( "background-image", tbNormalImage );
-		} });
+		} );  //  if ( !$(this).is("focus") ) {
 	}
 	
 	function update_tb_borders() {
@@ -455,12 +455,12 @@ jQuery(document).ready(function($){
 		if ( $('#wpst_menu_ext_font_colour').val() !== "" )
 			var menuMainColorExt = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_ext_font_colour').val())+", "+hexToG($('#wpst_menu_ext_font_colour').val())+", "+hexToB($('#wpst_menu_ext_font_colour').val())+")" : $('#wpst_menu_ext_font_colour').val();
 		else
-			var menuMainColorExt = wpstRgbColors ? wpstMenuFontEmptyColorRgb : wpstMenuFontEmptyColor;
+			var menuMainColorExt = wpstRgbColors ? wpstMenuExtFontEmptyColorRgb : wpstMenuExtFontEmptyColor;
 			
 		if ( $('#wpst_menu_hover_ext_font_colour').val() !== "" )
 			var menuHoverColorExt = wpstRgbColors ? "rgb("+hexToR($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToG($("#wpst_menu_hover_ext_font_colour").val())+", "+hexToB($("#wpst_menu_hover_ext_font_colour").val())+")" : $("#wpst_menu_hover_ext_font_colour").val();
 		else
-			var menuHoverColorExt = wpstRgbColors ? wpstMenuFontHoverEmptyColorRgb : wpstMenuFontHoverEmptyColor;
+			var menuHoverColorExt = wpstRgbColors ? wpstMenuExtFontHoverEmptyColorRgb : wpstMenuExtFontHoverEmptyColor;
 		
 		// Put it where it should go
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li > .ab-item").css( "color", menuMainColor );
@@ -471,9 +471,9 @@ jQuery(document).ready(function($){
 		// Hover / Focus
 		$("#wpadminbar").find(".ab-sub-wrapper > ul > li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColor );
-		},function(){ if ( !$(this).is("focus") ) {
+		},function(){
 			$(this).find("> .ab-item").css( "color", menuMainColor );
-		} });
+		});
 		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item").hover(function(){
 			$(this).find("span").css( "color", menuHoverColor );
 		},function(){
@@ -481,14 +481,20 @@ jQuery(document).ready(function($){
 		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
-		},function(){ if ( !$(this).is("focus") ) {
+		},function(){
 			$(this).find("> .ab-item").css( "color", menuMainColorExt );
-		} });
+		});
 		$("#wpadminbar").find(".menupop > .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li").hover(function(){
 			$(this).find("> .ab-item").css( "color", menuHoverColorExt );
+		},function(){
+			$(this).find("> .ab-item").css( "color", menuMainColorExt );
+		});
+		$("#wpadminbar").find(".quicklinks li a").hover(function(){
+			$(this).find(".blavatar").css( "color", menuHoverColorExt );
 		},function(){ if ( !$(this).is("focus") ) {
 			$(this).find("> .ab-item").css( "color", menuMainColorExt );
-		} });
+		}});
+//  if ( !$(this).is("focus") ) {
 	}
 	
 	function update_menu_font_shadow() {
@@ -622,7 +628,7 @@ jQuery(document).ready(function($){
 		
 		$("#wpadminbar").find(".ab-item").css( "font-family", tbFontFamily );
 		$("#wpadminbar").find(".ab-submenu .ab-item").css( "font-family", menuFontFamily );
-		$("#wpadminbar").find("#wp-admin-bar-user-info .ab-item span").css( "font-family", menuFontFamily );
+		$("#wpadminbar").find(".ab-item span.ab-label").css( "font-family", menuFontFamily );
 	});
 	
 	$('.wpst_font_size').change(function() {

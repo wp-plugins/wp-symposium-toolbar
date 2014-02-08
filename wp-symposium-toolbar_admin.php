@@ -156,7 +156,7 @@ function symposium_toolbar_admin_page() {
 		}
 		
 		// Social Share
-		if ( isset( $wpst_shown_tabs[ 'share' ] ) && ( $wpst_active_tab == 'share' ) && version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+		if ( isset( $wpst_shown_tabs[ 'share' ] ) && ( $wpst_active_tab == 'share' ) ) {
 			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="share">';
 			echo '<div id="share" class="wpst-nav-div-active">';
 			symposium_toolbar_admintab_share();
@@ -1290,7 +1290,6 @@ function symposium_toolbar_admintab_styles() {
 			echo '<td colspan="3">';
 				echo '<span>' . __( 'Define how the Toolbar, its items and its dropdown menus should look like, both without and with the mouse hover/focus.', 'wp-symposium-toolbar' ).'  ';
 				echo __( 'Specify a value, or force to "No" / "None" to get rid of a style inherited from a CSS parent.', 'wp-symposium-toolbar' ) . '  ';
-				echo __( 'Default values appear as are greyed out in fields, as well as preset in color pickers, and will be used unless changed.', 'wp-symposium-toolbar' ) . '  ';
 				echo __( 'Use the preview mode to set your style, and save from the button at the bottom of the page to make your settings permanent!', 'wp-symposium-toolbar' ) . '</span>';
 			echo '</td>';
 		echo '</tr>';

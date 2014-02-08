@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.31
+Version: 0.26.32
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,12 +129,12 @@ First of all, my warm thanks to Louis, my friend at [Central Geek](http://centra
 
 The set of fonticons bundled with the plugin was created using [IcoMoon](http://icomoon.io/app), and gathers icons from various packages:
 
-* WP Symposium Friends: IcoMoon
-* WP Symposium Mail: Font Awesome
-* WP Symposium: by Louis at [Central Geek](http://centralgeek.com)
+* WP Symposium Friends icon: IcoMoon
+* WP Symposium Mail icon: Font Awesome
+* WP Symposium icon: by Louis at [Central Geek](http://centralgeek.com)
 * Social icons from: IcoMoon (Lightweight, Rounded Corners), Entypo (Plain Circles), Typicons (Lightweight)
 
-With my thanks for their work, and as required by the [Creative Commons license](http://creativecommons.org/licenses/by-sa/3.0/), I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
+With my thanks for their work, I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
 
 * [IcoMoon](http://icomoon.io/#icons) by [Keyamoon](keyamoon.com), License GPL
 * [Font Awesome](http://fortawesome.github.com/Font-Awesome/) by [Dave Gandy](https://github.com/davegandy), CC BY 3.0
@@ -150,11 +150,12 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
 * Bugfix: in RTL, correct display for the User Menu
 * Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used by colorpickers
-* Change: Added the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
-* Change: Styles, implement default values shown & hidden via Javascript
+* Change: Add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
 * Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
+* Change: Styles, implement default values shown & hidden via Javascript
 * Bugfix: Styles, preview mode, correct menu font colors in hover
 * Bugfix: Styles, correct menu font colors for display and user names
+* Bugfix: WP Symposium, admin menu wasn't always up to date
 
 = 0.26.0. =
 
