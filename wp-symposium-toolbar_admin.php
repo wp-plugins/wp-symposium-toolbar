@@ -517,7 +517,6 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'My Sites', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td>';
 					echo '<span>' . __( 'The list of all sites of the network, the admin is member of', 'wp-symposium-toolbar' ) . '</span>';
-					// echo '<br /><span class="description"> ' . __( 'Note: This item will show only when the user is administrator of at least one site of the network, or is a super admin', 'wp-symposium-toolbar' ) . '</span>';
 					echo symposium_toolbar_add_roles_to_item( 'display_my_sites', get_option( 'wpst_toolbar_my_sites', $wpst_roles_administrator ), $wpst_roles_administrator );
 				echo '</td>';
 			echo '</tr>';
@@ -1091,47 +1090,57 @@ function symposium_toolbar_admintab_share() {
 					echo '<span>' . __( 'Allow members and visitors to share this site with the following networks:', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_linkedin" id="share_linkedin" class="wpst-admin"';
-					if ( isset( $share['linkedin'] ) ) if ( $share['linkedin'] == "on" )
-					echo " CHECKED";
-					elseif ( $share['linkedin'] != "" ) {
-						$error = true;
-						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( isset( $share['linkedin'] ) ) {
+						if ( $share['linkedin'] == "on" )
+							echo " CHECKED";
+						elseif ( $share['linkedin'] != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+						}
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'LinkedIn', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_facebook" id="share_facebook" class="wpst-admin"';
-					if ( isset( $share['facebook'] ) ) if ( $share['facebook'] == "on" )
-					echo " CHECKED";
-					elseif ( $share['facebook'] != "" ) {
-						$error = true;
-						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( isset( $share['facebook'] ) ) {
+						if ( $share['facebook'] == "on" )
+							echo " CHECKED";
+						elseif ( $share['facebook'] != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+						}
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'Facebook', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_twitter" id="share_twitter" class="wpst-admin"';
-					if ( isset( $share['twitter'] ) ) if ( $share['twitter'] == "on" )
-					echo " CHECKED";
-					elseif ( $share['twitter'] != "" ) {
-						$error = true;
-						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( isset( $share['twitter'] ) ) {
+						if ( $share['twitter'] == "on" )
+							echo " CHECKED";
+						elseif ( $share['twitter'] != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+						}
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'Twitter', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_google_plus" id="share_google_plus" class="wpst-admin"';
-					if ( isset( $share['google_plus'] ) ) if ( $share['google_plus'] == "on" )
-					echo " CHECKED";
-					elseif ( $share['google_plus'] != "" ) {
-						$error = true;
-						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( isset( $share['google_plus'] ) ) {
+						if ( $share['google_plus'] == "on" )
+							echo " CHECKED";
+						elseif ( $share['google_plus'] != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+						}
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'Google Plus', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_stumbleupon" id="share_stumbleupon" class="wpst-admin"';
-					if ( isset( $share['stumbleupon'] ) ) if ( $share['stumbleupon'] == "on" )
-					echo " CHECKED";
-					elseif ( $share['stumbleupon'] != "" ) {
-						$error = true;
-						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( isset( $share['stumbleupon'] ) ) {
+						if ( $share['stumbleupon'] == "on" )
+							echo " CHECKED";
+						elseif ( $share['stumbleupon'] != "" ) {
+							$error = true;
+							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+						}
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'StumbleUpon', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
@@ -1234,18 +1243,18 @@ function symposium_toolbar_admintab_share() {
 
 function symposium_toolbar_admintab_styles() {
 
-	global $wp_version, $wpst_default_toolbar;
+	global $wp_version;
 	
 	// Get data to show
 	$wpst_all_fonts = array( "Andale Mono, mono", "Arial, sans-serif", "Arial Black, sans-serif", "Avant Garde, sans-serif", "Bitstream Charter, serif", "Bookman, serif", "Century Gothic, sans-serif", "Comic Sans MS, sans-serif", "Courier New, mono", "Garamond, serif", "Georgia, serif", "Helvetica Neue, sans-serif", "Impact, sans-serif", "Lucida Grande, sans-serif", "Palatino, serif", "Tahoma, sans-serif", "Times New Roman, serif", "Trebuchet, sans-serif", "Univers, sans-serif", "Verdana, sans-serif" );
 	$wpst_all_fonts = apply_filters( 'symposium_toolbar_add_fonts', $wpst_all_fonts );
 	$wpst_all_borders = array( "none", "dotted", "dashed", "solid", "double" );
 	
+	// Init default Toolbar style
+	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar();
+	
 	// Get current style
 	$wpst_style_tb_current = maybe_unserialize( get_option( 'wpst_style_tb_current', array() ) );
-	
-	// Make sure globals are actually initialized
-	if ( !isset( $wpst_default_toolbar['height'] ) ) symposium_toolbar_init_default_toolbar();
 	
 	$wpst_top_colour = ( isset( $wpst_style_tb_current['top_colour'] ) ) ? $wpst_style_tb_current['top_colour'] : '';
 	$wpst_top_gradient = ( isset( $wpst_style_tb_current['top_gradient'] ) ) ? $wpst_style_tb_current['top_gradient'] : '';

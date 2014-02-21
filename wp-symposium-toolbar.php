@@ -10,14 +10,19 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.32
+Version: 0.26.42
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
+// References:
+// http://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
+// http://melchoyce.github.io/dashicons/
+// http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
+	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2632;
+$wpst_buildnr = 2642;
 
 
 // Exit if accessed directly
@@ -212,7 +217,10 @@ if ( $is_wps_active ) {
 	function symposium_toolbar_add_to_admin_menu() {
 		
 		// Nr of tabs that can be hidden incl. WPS
-		if ( count( get_option( 'wpst_wpms_hidden_tabs', array() ) ) == 8 )
+		$wpst_wpms_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
+		if ( !in_array( 'wps', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'wps';
+		if ( !in_array( 'share', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'share';
+		if ( count( $wpst_wpms_hidden_tabs ) == 9 )
 			return;
 		
 		add_submenu_page(
@@ -237,7 +245,8 @@ if ( $is_wps_active ) {
 		// Nr of tabs that can be hidden
 		$wpst_wpms_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
 		if ( !in_array( 'wps', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'wps';
-		if ( count( $wpst_wpms_hidden_tabs ) == 8 )
+		if ( !in_array( 'share', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'share';
+		if ( count( $wpst_wpms_hidden_tabs ) == 9 )
 			return;
 		
 		add_theme_page(
@@ -256,23 +265,31 @@ if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-sy
 	// Add default tabs to subsites
 	function symposium_toolbar_new_site_default( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 		
+		// Hidden tabs
+		$wpst_wpms_hidden_tabs_all = get_option( 'wpst_wpms_hidden_tabs_all', array() );
 		$hidden_tabs = get_option( 'wpst_wpms_hidden_tabs_default', array() );
+		$wpst_wpms_hidden_tabs_all[ $blog_id ] = $hidden_tabs;
+		update_option( 'wpst_wpms_hidden_tabs_all', $wpst_wpms_hidden_tabs_all );
+		
+		// Get other data from Main Site settings
 		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
+		$wpst_wpms_network_superadmin_menu = get_option( 'wpst_wpms_network_superadmin_menu', "" );
 		
 		switch_to_blog( $blog_id );
 		
-		// Set globals
+		// Set globals locally
 		symposium_toolbar_init_globals();
 		
 		// Create menus
 		symposium_toolbar_activate();
 		
-		// Update new site options with Main Site options
+		// Update new site settings with Main Site settings
 		symposium_toolbar_update();
 		if ( $hidden_tabs ) foreach( $hidden_tabs as $tab ) {
 			symposium_toolbar_update_tab( $blog_id, $tab );
 		}
 		update_option( 'wpst_wpms_hidden_tabs', $hidden_tabs );
+		update_option( 'wpst_wpms_network_superadmin_menu', $wpst_wpms_network_superadmin_menu );
 		
 		// Update CSS based on stored styles and installed plugins
 		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );

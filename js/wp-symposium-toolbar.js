@@ -56,7 +56,9 @@ jQuery(document).ready(function($){
 		
 		// Get the current screen width
 		navWidth = $( '#wpst-nav-management' ).width();
-		arrowWidth = $( '#wpst-nav-tabs-arrow-left' ).outerWidth();	// Recompute it in case of switch between responsive and normal
+		
+		// Recompute it in case of switch between responsive and normal
+		arrowWidth = $( '#wpst-nav-tabs-arrow-left' ).outerWidth();
 		
 		// Compute the total width of all tabs and set the container width
 		tabs.last().css( "margin-right", "0px" );
@@ -186,25 +188,9 @@ jQuery(document).ready(function($){
 			this.value = document.getElementById( this.id+"_default" ).value;
 		}
 		
-		// Such fields are part of the definition of a font shadow
-		// if ( $(this).hasClass( "wpst_font_shadow" ) ) {
-			
-			// If this contains a default value, add default class to all three
-			// if ( $(this).val() == "0" ) {
-				// if ( ( $("#wpst_font_h_shadow").val() == "0" ) && ( $("#wpst_font_v_shadow").val() == "0" ) && ( $("#wpst_font_shadow_blur").val() == "0" ) )
-					// $(".wpst_font_shadow").addClass( "wpst-has-default" );
-			
-			// If this contains a non-default value, remove default class from all three
-			// } else {
-				// $(".wpst_font_shadow").removeClass( "wpst-has-default" );
-			// }
-		
 		// If this contains a default value, add default class
-		// } else {
-			if ( $(this).val() == document.getElementById( this.id+"_default" ).value ) {
-				$(this).addClass( "wpst-has-default" );
-			}
-		// }
-
+		if ( $(this).val() == document.getElementById( this.id+"_default" ).value ) {
+			$(this).addClass( "wpst-has-default" );
+		}
 	});
 });

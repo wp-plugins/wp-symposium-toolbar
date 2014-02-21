@@ -697,65 +697,22 @@ function symposium_toolbar_super_admin_menu() {
  */
 function symposium_toolbar_symposium_admin() {
 	
-	if ( !is_admin_bar_showing() || !current_user_can( 'manage_options' ) || ( get_option( 'wpst_wps_admin_menu', 'on' ) != "on" ) )
-		return;
+	global $wp_admin_bar;
 	
-	global $submenu, $wp_admin_bar;
-	$args = array();
+	if ( is_admin_bar_showing() && current_user_can( 'manage_options' ) && ( get_option( 'wpst_wps_admin_menu', 'on' ) == "on" ) ) {
 	
-	// Aggregate menu items?
-	$hidden = get_option( WPS_OPTIONS_PREFIX.'_long_menu' ) == "on" ? '_hidden': '';
-	
-	// Menu entry - Top level menu item
-	array_push( $args, array ( '<span class="ab-icon ab-icon-wps"></span><span class="ab-label ab-label-wps">WP Symposium</span>', admin_url( 'admin.php?page=symposium_debug' ), 'my-symposium-admin', '', array( 'class' => 'my-toolbar-page' ) ) );
-	
-	// Now, loop over menu items
-	if ( isset( $submenu["symposium_debug"] ) && is_array( $submenu["symposium_debug"] ) ) foreach ( $submenu["symposium_debug"] as $symposium_toolbar_admin_menu_item ) {
-		$slug = symposium_toolbar_make_slug( $symposium_toolbar_admin_menu_item[0] );										// Slug
-		$symposium_toolbar_admin_menu_item[1] = admin_url( 'admin.php?page='.$symposium_toolbar_admin_menu_item[2] );		// URL
-		$symposium_toolbar_admin_menu_item[2] = 'symposium_toolbar_'.$slug;													// ID
-		$symposium_toolbar_admin_menu_item[3] = "my-symposium-admin";														// Parent ID
-		array_push( $symposium_toolbar_admin_menu_item, array( 'class' => 'symposium_toolbar_admin' ) );					// Meta
-		$args[] = $symposium_toolbar_admin_menu_item;
+		$symposium_toolbar_admin_menu_args = get_option( 'wpst_tech_wps_admin_menu', array() );
 		
-		if ( $hidden && ( $symposium_toolbar_admin_menu_item[0] == __( 'Options', WPS_TEXT_DOMAIN ) ) ) {
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__profile_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__profile_network_activated' ) ) array_push( $args, array ( __( 'Profile', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_profile' ), 'symposium_toolbar_profile', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__profile_plus_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__profile_plus_network_activated' ) ) array_push( $args, array ( __( 'Plus', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/plus_admin.php' ), 'symposium_toolbar_plus', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__forum_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__forum_network_activated' ) ) array_push( $args, array ( __( 'Forum', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_forum' ), 'symposium_toolbar_forum', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__members_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__members_network_activated' ) ) array_push( $args, array ( __( 'Directory', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'__wps__members_menu' ), 'symposium_toolbar_directory', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__mail_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__mail_network_activated' ) ) array_push( $args, array ( __( 'Mail', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'__wps__mail_menu' ), 'symposium_toolbar_mail', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__groups_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__groups_network_activated' ) ) array_push( $args, array ( __( 'Groups', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/groups_admin.php' ), 'symposium_toolbar_groups', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__gallery_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__gallery_network_activated' ) ) array_push( $args, array ( __( 'Gallery', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/gallery_admin.php' ), 'symposium_toolbar_gallery', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__news_main_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__news_main_network_activated' ) ) 	array_push( $args, array ( __( 'Alerts', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/news_admin.php' ), 'symposium_toolbar_alerts', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__add_notification_bar_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__add_notification_bar_network_activated' ) ) array_push( $args, array ( __( 'Panel', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_bar' ), 'symposium_toolbar_panel', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__events_main_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__events_main_network_activated' ) ) array_push( $args, array ( __( 'Events', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/events_admin.php' ), 'symposium_toolbar_events', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__facebook_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__facebook_network_activated' ) ) array_push( $args, array ( __( 'Facebook', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/facebook_admin.php' ), 'symposium_toolbar_facebook', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__mobile_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__mobile_network_activated' ) )	 array_push( $args, array ( __( 'Mobile', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'__wps__mobile_menu' ), 'symposium_toolbar_mobile', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__mailinglist_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__mailinglist_network_activated' ) ) array_push( $args, array ( __( 'Reply', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/mailinglist_admin.php' ), 'symposium_toolbar_reply', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__lounge_main_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__lounge_main_network_activated' ) ) array_push( $args, array ( __( 'Lounge', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.WPS_DIR.'/lounge_admin.php' ), 'symposium_toolbar_lounge', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
+		if ( $symposium_toolbar_admin_menu_args ) foreach ( $symposium_toolbar_admin_menu_args as $args ) {
+			$symposium_toolbar_admin_menu_item = array( 
+				'title' => $args[0],
+				'href' => $args[1],
+				'id' => $args[2],
+				'parent' => $args[3],
+				'meta' => $args[4]
+			);
+			$wp_admin_bar->add_node( $symposium_toolbar_admin_menu_item );
 		}
-		if ( $hidden && ( $symposium_toolbar_admin_menu_item[0] == __( 'Manage', WPS_TEXT_DOMAIN ) ) ) {
-			array_push( $args, array ( __( 'Settings', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_settings' ), 'symposium_toolbar_settings', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			array_push( $args, array ( __( 'Advertising', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_advertising' ), 'symposium_toolbar_advertising', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			array_push( $args, array ( __( 'Thesaurus', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_thesaurus' ), 'symposium_toolbar_thesaurus', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__forum_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__forum_network_activated' ) ) array_push( $args, array ( __( 'Categories', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_categories' ), 'symposium_toolbar_categories', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__forum_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__forum_network_activated' ) ) array_push( $args, array ( __( 'Forum Posts', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_moderation' ), 'symposium_toolbar_forum_posts', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'__wps__mail_activated' ) || get_option( WPS_OPTIONS_PREFIX.'__wps__mail_network_activated' ) ) array_push( $args, array ( __( 'Mail Messages', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'__wps__mail_messages_menu' ), 'symposium_toolbar_mail_messages', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			array_push( $args, array ( __( 'Templates', WPS_TEXT_DOMAIN ), admin_url( 'admin.php?page='.'symposium_templates' ), 'symposium_toolbar_templates', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-			if ( get_option( WPS_OPTIONS_PREFIX.'_audit' ) ) array_push( $args, array ( __( 'Audit', WPS_TEXT_DOMAIN ), 'symposium_audit', 'symposium_toolbar_audit', 'symposium_toolbar_'.$slug, array( 'class' => 'symposium_toolbar_admin symposium_toolbar_admin_'.$slug ) ) );
-		}
-	}
-	
-	// Now, draw the menu itself
-	if ( $args ) foreach ( $args as $symposium_toolbar_admin_menu_item ) {
-		$args = array( 
-			'title' => $symposium_toolbar_admin_menu_item[0],
-			'href' => $symposium_toolbar_admin_menu_item[1],
-			'id' => $symposium_toolbar_admin_menu_item[2],
-			'parent' => $symposium_toolbar_admin_menu_item[3],
-			'meta' => $symposium_toolbar_admin_menu_item[4]
-		);
-		$wp_admin_bar->add_node( $args );
 	}
 }
 
@@ -860,16 +817,16 @@ function symposium_toolbar_social_icons() {
 	if ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) $class .= ' brand';
 	
 	// Add Group
-	if ( !empty( $share ) ) {
+/*	if ( !empty( $share ) ) {
 		$args = array(
 			'id' => 'symposium-toolbar-share',
 			'parent' => $parent,
 			'title' => '',
 			'meta' => array( 'class' => 'symposium-toolbar-social-icon symposium-toolbar-share' )
 		);
-		$wp_admin_bar->add_node( $args );
+		$wp_admin_bar->add_group( $args );
 		$parent = 'symposium-toolbar-share';
-	}
+	} /* */
 	
 	// LinkedIn
 	if ( isset( $share['linkedin'] ) && ( $share['linkedin'] == "on" ) ) {

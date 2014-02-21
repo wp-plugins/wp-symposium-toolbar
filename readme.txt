@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.32
+Version: 0.26.42
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -123,7 +123,7 @@ First of all, my warm thanks to Louis, my friend at [Central Geek](http://centra
 = Translations =
 
 * French translation by the author
-* Spanish translation by Maria Ramos, [WebHostingHub](http://www.webhostinghub.com/)
+* Spanish translation by Maria Ramos at WebHostingHub
 
 = Icons =
 
@@ -150,12 +150,13 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
 * Bugfix: in RTL, correct display for the User Menu
 * Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used by colorpickers
-* Change: Add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
+* Change: WP 3.8, add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
 * Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
 * Change: Styles, implement default values shown & hidden via Javascript
 * Bugfix: Styles, preview mode, correct menu font colors in hover
 * Bugfix: Styles, correct menu font colors for display and user names
-* Bugfix: WP Symposium, admin menu wasn't always up to date
+* Bugfix: WP 3.8, Styles, improve vertical centering of icons on Toolbar, as well as Search field
+* Bugfix: security, strip tags from Import feature
 
 = 0.26.0. =
 
