@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2013  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+/*  Copyright 2013-2014 Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
@@ -315,12 +315,17 @@ function symposium_toolbar_update() {
 		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
 	}
 	
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2643 ) {
+		
+		delete_option( 'wpst_tech_default_style_to_header' );
+	}
+	
 	// Store build nr
 	update_option( 'wpst_tech_buildnr', $wpst_buildnr );
 }
 
 /**
- * In Multisite, parses sites of the network and launches the update function
+ * In Multisite, parses sites of the network and fires the update function
  * 
  * @since O.23.0
  *
@@ -1125,43 +1130,6 @@ function symposium_toolbar_save_before_render() {
 				
 				// Update the option to style the whole dashboard
 				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) update_option( 'wpst_style_tb_in_admin', isset( $_POST["display_style_tb_in_admin"] ) ? 'on' : '' );
-				
-				// WP 3.8, update WP default admin color scheme to force CSS against user chosen scheme
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-					// Toolbar Background
-					$default = '#wpadminbar { background: #222; } ';
-					// Toolbar Fonts
-					$default .= '#wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon, ';
-					// Menus Fonts
-					$default .= '#wpadminbar .quicklinks .menupop ul li .ab-item, #wpadminbar .quicklinks .menupop ul li a strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item, #wpadminbar #wp-admin-bar-user-info .display-name, #wpadminbar #wp-admin-bar-user-info .username, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item, #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong, #wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a, #wpadminbar #wp-admin-bar-user-info .ab-item:hover { color: #eee; } ';
-					// Toolbar Icons
-					$default .= '#wpadminbar .ab-icon, #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar .ab-item:after { color: #999; } ';
-					// Icons hover
-					$default .= '#wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before, #wpadminbar li:hover > .ab-item > .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar li:hover > .ab-item > .ab-label:before, #wpadminbar li.hover > .ab-item > .ab-label:before, ';
-					// Fonts Hover
-					$default .= '#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before, ';
-					// admin-bar.css:215
-					$default .= '#wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar > #wp-toolbar li:hover span.ab-label, #wpadminbar > #wp-toolbar li.hover span.ab-label, #wpadminbar > #wp-toolbar a:focus span.ab-label, ';
-					// Style the non-a ab-items
-					$default .= '#wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .quicklinks .menupop ul li .ab-item:hover strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover,  ';
-					// admin-bar.css:274
-					$default .= '#wpadminbar .quicklinks .menupop ul li a:hover, #wpadminbar .quicklinks .menupop ul li a:focus, #wpadminbar .quicklinks .menupop ul li a:hover strong, #wpadminbar .quicklinks .menupop ul li a:focus strong, #wpadminbar .quicklinks .menupop.hover ul li a:hover, #wpadminbar .quicklinks .menupop.hover ul li a:focus, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, #wpadminbar li:hover .ab-icon:before, #wpadminbar li:hover .ab-item:before, #wpadminbar li a:focus .ab-icon:before, #wpadminbar li .ab-item:focus:before, #wpadminbar li.hover .ab-icon:before, #wpadminbar li.hover .ab-item:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label, #wpadminbar li:hover #adminbarsearch:before, ';
-					// admin-bar.css:486
-					$default .= '#wpadminbar .quicklinks li a:hover .blavatar, #wpadminbar .quicklinks li a:hover .blavatar:before, ';
-					// Menus arrows hover
-					$default .= '#wpadminbar .menupop .menupop > .ab-item:hover:before, ';
-					// Secondary menus arrows hover
-					// $default .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, ';
-					// User Info Hover
-					$default .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, #wpadminbar #wp-admin-bar-user-info:hover span, #wpadminbar #wp-admin-bar-user-info a:hover .username, #wpadminbar #wp-admin-bar-user-info a:hover span { color: #2ea2cc; } ';
-					// Toolbar items hover background
-					$default .= '#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item, #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item, #wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .menupop.focus .ab-label, ';
-					// Menus background
-					$default .= '#wpadminbar .ab-sub-wrapper > ul { background-color: #333333; } ';
-					// Secondary menus background
-					$default .= '#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu { background-color: #4b4b4b; } ';
-					update_option( 'wpst_tech_default_style_to_header', $default );
-				}
 			}
 			
 			// Hidden Tab - CSS
@@ -1628,7 +1596,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper .ab-sub-wrapper { top:26px; } ';								// Force back submenus to their original location relatively to parent menu
 			
 			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item, #wpadminbar #wp-toolbar > ul > li > .ab-item span, ';
-			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item:before, #wpadminbar #wp-toolbar > ul > li > .ab-item span:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-icon, #wpadminbar .ab-item:before { line-height: '.$height.'px; } ';
+			$style_saved .= '#wpadminbar #wp-toolbar > ul > li > .ab-item:before, #wpadminbar #wp-toolbar > ul > li > .ab-item span.ab-label:before,  #wpadminbar #wp-toolbar > ul > li > .ab-item span.ab-icon:before, #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-icon, #wpadminbar .ab-item:before { line-height: '.$height.'px; } ';
 			$style_saved .= '#wpadminbar .quicklinks > ul > li > a, #wpadminbar .quicklinks > ul > li > .ab-item, #wpadminbar .quicklinks > ul > li > a span, #wpadminbar .quicklinks > ul > li > .ab-item span, #wpadminbar #wp-admin-bar-wp-logo > .ab-item span { height: '.$height.'px; } ';
 			$style_saved .= '} ';
 		}
@@ -1834,7 +1802,8 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		
 		// Add font attributes to non-icons labels
 		if ( $style_chunk != "" ) {
-			$style_saved .= '#wpadminbar a.ab-item, #wpadminbar div.ab-item, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon { ' . $style_chunk . '} ';
+			// $style_saved .= '#wpadminbar > #wp-toolbar span.noticon, ';
+			$style_saved .= '#wpadminbar a.ab-item, #wpadminbar div.ab-item, #wpadminbar #wp-admin-bar-user-info span, #wpadminbar > #wp-toolbar span.ab-label { ' . $style_chunk . '} ';
 			$style_chunk = "";
 		}
 		
@@ -1869,7 +1838,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 				
 				// Add icon size to Toolbar fonticons
 				if ( get_option( 'wpst_toolbar_wp_logo', array() ) != array() ) $style_saved .= '#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, ';
-				$style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar li > .ab-item > .ab-icon:before { font-size: '.$wpst_style_tb_current['icon_size'].'px; } ';
+				$style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-item span.ab-icon:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar li > .ab-item > .ab-icon:before { font-size: '.$wpst_style_tb_current['icon_size'].'px; } ';
 				
 				// Add icon size to Search icon with "Important" in it
 				if ( get_option( 'wpst_toolbar_search_field', array() ) != array() ) {
@@ -1960,7 +1929,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			// Add WPS icons top margin
 			$comma = '';
 			$style_chunk = "";
-			if ( get_option( 'wpst_toolbar_new_content', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before'; $comma = ', '; }
+			if ( get_option( 'wpst_wps_admin_menu', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before'; $comma = ', '; }
 			if ( get_option( 'wpst_wps_notification_friendship', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before'; $comma = ', '; }
 			if ( get_option( 'wpst_wps_notification_mail', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before'; }
 			if ( $style_chunk != "" ) $style_saved .= $style_chunk.' { top: '.$icon_S_margin_top.'px; } ';
@@ -1968,6 +1937,18 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			// $style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { margin-top: -2px; } ';
 			
 			$style_saved .= '} ';
+		
+		} else {
+			$comma = '';
+			$style_chunk = "";
+			if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
+			if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
+			if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
+			if ( $style_chunk != "" ) {
+			$style_saved .= '@media screen and ( min-width: 783px ) { ';
+			$style_saved .= $style_chunk.$comma.'#wpadminbar .ab-top-menu > li > a:before { top: 2px; } ';
+			$style_saved .= '} ';
+			}
 		}
 	}
 	
@@ -2000,6 +1981,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	if ( $jetpack_is_active ) {
 		if ( $padding_top > 0 ) $style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-stats a, #wpadminbar .quicklinks li#wp-admin-bar-notes .ab-item { padding-top: '.$padding_top.'px !Important; } '; 
 		$style_saved .= '#wpadminbar li#wp-admin-bar-notes { padding-right: 0px !Important; } '; 
+		$style_saved .= '#wpadminbar li#wp-admin-bar-notes .ab-item { height: '.$height.'px; } '; 
+		$style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-stats a div { height: '.($height - 4).'px; } '; 
+		$style_saved .= '#wpadminbar .quicklinks li#wp-admin-bar-stats a img { height: '.($height - 8).'px; } '; 
 	}
 	
 	

@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2013  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+/*  Copyright 2013-2014 Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
@@ -155,10 +155,6 @@ function symposium_toolbar_add_styles() {
 			if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 			
 			if ( ( get_option( 'wpst_style_tb_in_admin', '' ) == 'on' ) || ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
-				
-				// Use WP default color scheme in backend if admin chooses to do so, and at the Styles tab in preview
-				if ( get_option( 'wpst_tech_default_style_to_header', '' ) != '' )
-					echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_default_style_to_header', '' ) ) . '</style>';
 				
 				// Shows in backend if admin chooses to do so, and at the Styles tab in preview
 				if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )

@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.26.0
-Version: 0.26.42
+Version: 0.26.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, correct menu font colors for display and user names
 * Bugfix: WP 3.8, Styles, improve vertical centering of icons on Toolbar, as well as Search field
 * Bugfix: security, strip tags from Import feature
+* Bugfix: WPMS, Styles, default CSS now loaded at all subsites so that the Toolbar reflects the default admin color scheme
 
 = 0.26.0. =
 

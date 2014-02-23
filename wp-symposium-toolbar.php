@@ -10,7 +10,7 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8
 Stable tag: 0.26.0
-Version: 0.26.42
+Version: 0.26.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2642;
+$wpst_buildnr = 2645;
 
 
 // Exit if accessed directly
@@ -117,6 +117,37 @@ function symposium_toolbar_init() {
 		if ( file_exists($adminStyleFile) ) {
 				// wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
 				wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array(), $wpst_buildnr );
+		}
+	}
+	
+	// Get screen tab ID
+	$wpst_active_tab = '';
+	if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
+	if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
+	if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
+	
+	if ( $wpst_active_tab != '' ) {
+		
+		// Up to WP 3.7.1, load preview at all tabs of this page
+		if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
+		
+		// For WP 3.8+, load preview and default CSS at 'Styles' tab solely...
+		// Dep on 'colors' to ensure this CSS is loaded before, and erase its values with 'default'
+		} else {
+			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
+				
+				// Default CSS
+				$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
+				$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
+				if ( file_exists($adminStyleFile) ) {
+						// wp_register_style( 'wp-symposium-toolbar_default', $adminStyleUrl );
+						wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), $wpst_buildnr );
+				}
+				
+				// JS preview
+				wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
+			}
 		}
 	}
 	
@@ -321,19 +352,6 @@ function symposium_toolbar_load_settings_page() {
 		'needToConfirm' => __('You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?', 'wp-symposium-toolbar')
 	) );
 	
-	// Up to WP 3.7.1, load preview at all tabs of this page
-	if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
-		wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
-	
-	// For WP 3.8+, load preview at 'Styles' tab solely...
-	} else {
-		$wpst_active_tab = 'welcome';
-		if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
-		if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
-		if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
-		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) )
-			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
-	}
 	
 	// Init admin tabs
 	symposium_toolbar_init_admin_globals();
@@ -341,12 +359,12 @@ function symposium_toolbar_load_settings_page() {
 	// Save options
 	symposium_toolbar_save_before_render();
 }
-add_action( 'admin_head-wp-symposium_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_load_settings_page' );
+add_action( 'admin_head-wp-symposium_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_load_settings_page');
 add_action( 'admin_head-appearance_page_wp-symposium-toolbar/wp-symposium-toolbar_admin', 'symposium_toolbar_load_settings_page' );
 
 // Add styles to pages header
-add_action( 'admin_head', 'symposium_toolbar_add_styles' );
-add_action( 'wp_head', 'symposium_toolbar_add_styles' );
+add_action( 'admin_head', 'symposium_toolbar_add_styles', 20 );
+add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
 
 
 // Toolbar rendition, chronological order has importance
