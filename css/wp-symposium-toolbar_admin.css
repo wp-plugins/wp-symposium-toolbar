@@ -200,11 +200,38 @@
     padding-right: 0;
 }
 
+#wpadminbar .wpst-tb-item > .ab-item:before {
+	display: none;
+}
+
 /* Force the display of these icons, whenever screen width permits */
 @media screen and (max-width: 782px) {
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
 		display: block;
+	}
+	#wpadminbar .wpst-tb-item {
+		display: block;
+	}
+	#wpadminbar .wpst-tb-item > .ab-item {
+		text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 52px;
+		padding: 0;
+		position: relative; /* */
+	}
+	#wpadminbar .wpst-tb-item > .ab-item:before {
+		display: block;
+		font-family: WPST-icons !important;
+		content: '\e604';
+		font-size: 46px;
+		text-indent: 0;
+		text-align: center;
+		line-height: 53px;
+		height: 46px !important;
+		top: -4px;
+		width: 52px; /* */
 	}
 }
 @media screen and (max-width: 600px) {

@@ -706,7 +706,8 @@ function symposium_toolbar_save_before_render() {
 								$_POST['display_custom_menu_location'][$key],
 								( isset( $_POST['display_custom_menu_'.$key.'_roles'] ) ) ? $_POST['display_custom_menu_'.$key.'_roles'] : array(),
 								filter_var( trim ( $_POST['display_custom_menu_icon'][$key] ), FILTER_SANITIZE_URL ),
-								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network_'.$key] ) ) : false
+								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network_'.$key] ) ) : false,
+								isset( $_POST['display_custom_menu_responsive_'.$key] )
 							);
 						}
 					}
@@ -719,7 +720,8 @@ function symposium_toolbar_save_before_render() {
 						$_POST["new_custom_menu_location"],
 						( $_POST['new_custom_menu_roles'] ) ? $_POST['new_custom_menu_roles'] : array(),
 						filter_var( trim ( $_POST['new_custom_menu_icon'] ), FILTER_SANITIZE_URL ),
-						( is_multisite() && is_main_site() ) ? ( isset( $_POST['new_custom_menu_network'] ) ) : false
+						( is_multisite() && is_main_site() ) ? ( isset( $_POST['new_custom_menu_network'] ) ) : false,
+						isset( $_POST['new_custom_menu_responsive'] )
 					);
 				}
 				
@@ -1824,7 +1826,11 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			}
 		if ( $icon_color . $font_shadow != "" )
 			if ( get_option( 'wpst_toolbar_search_field', array() ) != array() ) $style_saved .= '#wpadminbar li #adminbarsearch:before, ';
-			$style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar #wp-admin-bar-top-secondary .ab-icon, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar li > .ab-item > .ab-icon:before { '.$icon_color . $font_shadow.'} ';
+			$style_saved .= '#wpadminbar .ab-item span:before, #wpadminbar .ab-item span:after,';
+			// wp-admin\css\colors\***\colors.css:176
+			$style_saved .= '#wpadminbar .ab-icon, #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar .ab-item:after { '.$icon_color . $font_shadow.'} ';
+			// $style_saved .= '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar #wp-admin-bar-top-secondary .ab-icon, #wpadminbar .ab-item span:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar li > .ab-item > .ab-icon:before { '.$icon_color . $font_shadow.'} ';
+			// TODO 
 		
 		// Add icon colour as border to Toolbar Avatar
 		if ( ( $box_shadow != '' ) || ( $icon_color != '' ) )

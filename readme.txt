@@ -150,6 +150,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
 * Bugfix: in RTL, correct display for the User Menu
 * Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used by colorpickers
+* Bugfix: Import, failed import of style leads to no CSS stored
 * Change: WP 3.8, add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
 * Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
 * Change: Styles, implement default values shown & hidden via Javascript
@@ -158,6 +159,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: WP 3.8, Styles, improve vertical centering of icons on Toolbar, as well as Search field
 * Bugfix: security, strip tags from Import feature
 * Bugfix: WPMS, Styles, default CSS now loaded at all subsites so that the Toolbar reflects the default admin color scheme
+* Change: add the option to display custom menus in responsive mode (under 783px width, instead of being hidden by WordPress
 
 = 0.26.0. =
 

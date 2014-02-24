@@ -548,8 +548,9 @@ function symposium_toolbar_edit_wp_toolbar() {
 						}
 						
 					// Any other Toplevel menu item
-					} else 
+					} else {
 						$menu_item_parent = $custom_menu[1]; // location slug
+					}
 					
 				} else {
 					// We are replacing WP Logo, and this is one of its menu items
@@ -559,6 +560,11 @@ function symposium_toolbar_edit_wp_toolbar() {
 					// Any other menu item
 					} else
 						$menu_item_parent = $menu_item['menu_item_parent'];
+				}
+				
+				if ( isset( $custom_menu[5] ) && $custom_menu[5] && in_array( $menu_item_parent, array( '', 'top-secondary' ) ) ) {
+					// $title = '<span class="ab-icon"></span><span class="ab-label">'.$title.'</span>';	// title
+					$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-tb-item' : 'wpst-tb-item';		// custom class for responsiveness
 				}
 				
 				// Add the item to the Toolbar

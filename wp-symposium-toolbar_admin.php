@@ -777,6 +777,7 @@ function symposium_toolbar_admintab_menus() {
 
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
 	global $is_wpst_network_admin;
+	global $wp_version;
 	
 	// Get data to show
 	$all_navmenus = wp_get_nav_menus();
@@ -796,23 +797,17 @@ function symposium_toolbar_admintab_menus() {
 		echo '<tr valign="top">';
 			echo '<td>';
 				
-				echo '<table class="widefat">';
-				echo '<thead><tr>';
-				echo '<th>'.__( 'Menu Name', 'wp-symposium-toolbar' ).'</th>';
-				echo '<th>'.__( 'Location', 'wp-symposium-toolbar' ).'</th>';
-				echo '<th>'.__( 'Custom Icon', 'wp-symposium-toolbar' ).'</th>';
-				echo '</tr></thead>';
-				
-				echo '<tbody>';
-				$color = $color_odd = '#FBFBFB';
-				$color_even = '#F8F8F8';
+				$color = $color_odd = '#F8F8F8';
+				$color_even = '#F0F0F0';
 				$count = 0;
 				
 				if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
+					echo '<table class="widefat" style="margin-bottom: 20px; ">';
 					echo '<tr style="background-color: '.$color.';">';
 					
 					// Draw the list of menus and select it
-					echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+						echo '<span>' . __( 'Menu Name', 'wp-symposium-toolbar' ) . '</span><br />';
 						if ( $all_navmenus ) {
 							
 							// First, generate the list of available menus, so that we can show an error message if no menu found
@@ -834,12 +829,14 @@ function symposium_toolbar_admintab_menus() {
 							echo $navmenu_options;
 							echo '</select>';
 						
-						} else 
+						} else {
 							echo '<div style="text-align:center;">'.__( 'No available NavMenu!', 'wp-symposium-toolbar' ) . '</div><span class="description"> ' . __( 'Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar' ) . '</span>';
+						}
 					echo '</td>';
 					
 					// Draw the list of locations and select it
-					echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+						echo '<span>' . __( 'Location', 'wp-symposium-toolbar' ) . '</span><br />';
 						if ( $wpst_locations ) {
 							echo '<select class="wpst-admin" id="display_custom_menu_location_'.$count.'" name="display_custom_menu_location['.$count.']">';
 							echo '<option value="remove" SELECTED>{{'.__( 'Remove from Toolbar', 'wp-symposium-toolbar' ).'}}</option>';
@@ -853,7 +850,8 @@ function symposium_toolbar_admintab_menus() {
 					echo '</td>';
 					
 					// Point to a custom icon
-					echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+						echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 						echo '<input type="text" style="min-width:170px; width:95%;" name="display_custom_menu_icon['.$count.']" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']"';
 						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo ' value="'.$custom_menu[3].'"';// site_url().'/url/to/my/icon.png"';
 						echo '/>';
@@ -862,7 +860,7 @@ function symposium_toolbar_admintab_menus() {
 					
 					// List the roles and pick the ones that can see this menu at this location
 					echo '<tr style="background-color: '.$color.';">';
-					echo '<td colspan="3" style="border-bottom-color: '.$color.'; border-top-color: '.$color.';">';
+					echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: '.$color.';">';
 						echo symposium_toolbar_add_roles_to_item( 'display_custom_menu_'.$count, $custom_menu[2], $wpst_roles_all_incl_visitor );
 					echo '</td>';
 					echo '</tr>';
@@ -870,10 +868,22 @@ function symposium_toolbar_admintab_menus() {
 					// If Multisite Main Site and network activated, option to make this menu a Network Menu
 					if ( $is_wpst_network_admin ) {
 						echo '<tr style="background-color: '.$color.';">';
-						echo '<td colspan="3" style="border-top-color: '.$color.';">';
+						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: '.$color.';">';
 							echo '<input type="checkbox" id="display_custom_menu_network_'.$count.'" name="display_custom_menu_network_'.$count.'" class="wpst-admin"';
 							if ( isset( $custom_menu[4] ) && $custom_menu[4] ) { echo ' CHECKED'; }
 							echo '><span> '.__( 'Make this menu a Network Menu', 'wp-symposium-toolbar' ).'</span>';
+						echo '</td>';
+						echo '</tr>';
+					}
+					
+					// Option to force the display of the menu icon in responsive mode
+					if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+						echo '<tr style="background-color: '.$color.';">';
+						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
+							echo '<input type="checkbox" id="display_custom_menu_responsive_'.$count.'" name="display_custom_menu_responsive_'.$count.'" class="wpst-admin"';
+							if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
+							echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
+							echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the WP User Menu"', 'wp-symposium-toolbar' ).'</span>';
 						echo '</td>';
 						echo '</tr>';
 					}
@@ -891,11 +901,15 @@ function symposium_toolbar_admintab_menus() {
 					
 					$color = ( $color == $color_odd ) ? $color_even : $color_odd;
 					$count = $count + 1;
+					
+					echo '</table>';
 				}
 				
 				// Add new menu
+				echo '<table class="widefat">';
 				echo '<tr style="background-color: '.$color.';">';
 				echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<span>' . __( 'Menu Name', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $all_navmenus ) {
 						echo '<select name="new_custom_menu_slug" class="wpst-admin">';
 						echo '<option value="empty" SELECTED>{{'.__( 'Add this menu', 'wp-symposium-toolbar' ).'...}}</option>';
@@ -907,6 +921,7 @@ function symposium_toolbar_admintab_menus() {
 						echo '<div style="text-align:center;">'.__( 'No available NavMenu !', 'wp-symposium-toolbar' ) . '</div><span class="description" > ' . __( 'Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
 				echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<span>' . __( 'Location', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $wpst_locations ) {
 						echo '<select name="new_custom_menu_location" class="wpst-admin">';
 						echo '<option value="empty" SELECTED>{{... '.__( 'To this location', 'wp-symposium-toolbar' ).'}}</option>';
@@ -917,6 +932,7 @@ function symposium_toolbar_admintab_menus() {
 					}
 				echo '</td>';
 				echo '<td style="border-bottom-color: '.$color.';">';
+					echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" style="min-width:170px; width:95%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
 				echo '</td>';
 				echo '</tr>';
@@ -937,7 +953,18 @@ function symposium_toolbar_admintab_menus() {
 					echo '</tr>';
 				}
 				
-				echo '</tbody></table>';
+				// Option to force the display of the menu icon in responsive mode
+				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+					echo '<tr style="background-color: '.$color.';">';
+					echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
+						echo '<input type="checkbox" id="new_custom_menu_responsive" name="new_custom_menu_responsive" class="wpst-admin"';
+						echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
+						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the WP User Menu"', 'wp-symposium-toolbar' ).'</span>';
+					echo '</td>';
+					echo '</tr>';
+				}
+				
+				echo '</table>';
 				
 				// Build the array of error messages when the same menu being displayed for each role on different locations
 				$role_can_see = array();
