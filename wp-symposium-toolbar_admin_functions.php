@@ -1978,7 +1978,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		else
 			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
 		$style_saved .= ' { height: '. $search_height . 'px; top: -4px; padding-left: '.$icon_size.'px; line-height: '.$height.'px; ';
-		if ( $wpst_style_tb_current['font_size'] > 0 ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
+		if ( isset( $wpst_style_tb_current['font_size'] ) && ( $wpst_style_tb_current['font_size'] > 0 ) ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
 		$style_saved .= '} ';
 		
 		// Add the font shadow to the Search field as a box-shadow
