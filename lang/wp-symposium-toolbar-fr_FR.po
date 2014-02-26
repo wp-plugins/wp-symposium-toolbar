@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WP Symposium Toolbar v0.27.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-26 11:51:01+0000\n"
+"PO-Revision-Date: 2014-02-26 20:28:09+0000\n"
 "Last-Translator: AlphaGolf <alphagolf@rocketmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,119 +58,119 @@ msgstr "Enregistrer les Modifications"
 msgid "Admin Menu"
 msgstr "Menu Admin"
 
-#: wp-symposium-toolbar_admin_functions.php:2507
+#: wp-symposium-toolbar_admin_functions.php:2515
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2508
+#: wp-symposium-toolbar_admin_functions.php:2516
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Profil"
 
-#: wp-symposium-toolbar_admin_functions.php:2509
+#: wp-symposium-toolbar_admin_functions.php:2517
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2510
+#: wp-symposium-toolbar_admin_functions.php:2518
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2511
+#: wp-symposium-toolbar_admin_functions.php:2519
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Répertoire"
 
-#: wp-symposium-toolbar_admin_functions.php:2512
+#: wp-symposium-toolbar_admin_functions.php:2520
 #: wp-symposium-toolbar_functions.php:93
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2513
+#: wp-symposium-toolbar_admin_functions.php:2521
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Groupes"
 
-#: wp-symposium-toolbar_admin_functions.php:2514
+#: wp-symposium-toolbar_admin_functions.php:2522
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galerie"
 
-#: wp-symposium-toolbar_admin_functions.php:2515
+#: wp-symposium-toolbar_admin_functions.php:2523
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertes"
 
-#: wp-symposium-toolbar_admin_functions.php:2516
+#: wp-symposium-toolbar_admin_functions.php:2524
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panneau"
 
-#: wp-symposium-toolbar_admin_functions.php:2517
+#: wp-symposium-toolbar_admin_functions.php:2525
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Évènements"
 
 #: wp-symposium-toolbar_admin.php:1141
-#: wp-symposium-toolbar_admin_functions.php:2518
+#: wp-symposium-toolbar_admin_functions.php:2526
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2519
+#: wp-symposium-toolbar_admin_functions.php:2527
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2520
+#: wp-symposium-toolbar_admin_functions.php:2528
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Réponse"
 
-#: wp-symposium-toolbar_admin_functions.php:2521
+#: wp-symposium-toolbar_admin_functions.php:2529
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salon"
 
-#: wp-symposium-toolbar_admin_functions.php:2523
+#: wp-symposium-toolbar_admin_functions.php:2531
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gérer"
 
-#: wp-symposium-toolbar_admin_functions.php:2524
+#: wp-symposium-toolbar_admin_functions.php:2532
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Paramètres"
 
-#: wp-symposium-toolbar_admin_functions.php:2526
+#: wp-symposium-toolbar_admin_functions.php:2534
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Dictionnaire"
 
-#: wp-symposium-toolbar_admin_functions.php:2527
+#: wp-symposium-toolbar_admin_functions.php:2535
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Catégories"
 
-#: wp-symposium-toolbar_admin_functions.php:2528
+#: wp-symposium-toolbar_admin_functions.php:2536
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Publications Forum"
 
-#: wp-symposium-toolbar_admin_functions.php:2529
+#: wp-symposium-toolbar_admin_functions.php:2537
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Messages Privés"
 
-#: wp-symposium-toolbar_admin_functions.php:2530
+#: wp-symposium-toolbar_admin_functions.php:2538
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Modèles"
 
-#: wp-symposium-toolbar_admin_functions.php:2531
+#: wp-symposium-toolbar_admin_functions.php:2539
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr ""
@@ -2960,7 +2960,7 @@ msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché d
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Toute autre modification que vous pourriez avoir apportée sera répliquée dans cette Barre d'Outils responsive."
 
-#: wp-symposium-toolbar_admin_functions.php:2525
+#: wp-symposium-toolbar_admin_functions.php:2533
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicités"
@@ -3319,10 +3319,10 @@ msgstr "Les autres paramètres déterminent l'aspect visuel de ces icones.  Si v
 #: wp-symposium-toolbar_help.php:82
 #@ wp-symposium-toolbar
 msgid "You may also choose to force the display of a menu in responsive mode. You should make sure your Toolbar will not get overcrowed and it has enough room for all your items."
-msgstr "Vous pouvez également choisir de forcer l'affichage d'un menu en mode responsif. Assurez-vous que votre Barre d'Outils ne sera pas surpeuplée et qu'il y a la place d'afficher tous vos éléments."
+msgstr "Vous pouvez également forcer l'affichage d'un menu en mode responsif.  Assurez-vous que votre Barre d'Outils ne sera pas surpeuplée et qu'il y a suffisamment de place pour tous les éléments à afficher."
 
 #: wp-symposium-toolbar_help.php:82
 #@ wp-symposium-toolbar
 msgid "It should be stressed that this option will apply only when your custom menu is actually connected to the Toolbar.  If it's appended to a WordPress menu, the display of that menu will be left to WordPress."
-msgstr "Veuillez noter que cette option ne s'appliquera que si votre menu personnalisé est directement connecté à la Barre d'Outils.  S'il est ajouté à un menu de WordPress, l'affichage de celui-ci sera déterminé par WordPress."
+msgstr "Il est important de noter que cette option ne s'appliquera que si votre menu personnalisé est réellement connecté à la Barre d'Outils.  S'il est ajouté à un menu WordPress, l'affichage de ce menu sera laissé à WordPress."
 

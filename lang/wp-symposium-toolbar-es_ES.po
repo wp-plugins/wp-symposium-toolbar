@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WP Symposium Toolbar v0.27.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-26 11:49:15+0000\n"
+"PO-Revision-Date: 2014-02-26 20:22:54+0000\n"
 "Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,119 +58,119 @@ msgstr "Salvar los Cambios"
 msgid "Admin Menu"
 msgstr "Menú de Administración"
 
-#: wp-symposium-toolbar_admin_functions.php:2507
+#: wp-symposium-toolbar_admin_functions.php:2515
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr "Opciones"
 
-#: wp-symposium-toolbar_admin_functions.php:2508
+#: wp-symposium-toolbar_admin_functions.php:2516
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Perfil"
 
-#: wp-symposium-toolbar_admin_functions.php:2509
+#: wp-symposium-toolbar_admin_functions.php:2517
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr "Más"
 
-#: wp-symposium-toolbar_admin_functions.php:2510
+#: wp-symposium-toolbar_admin_functions.php:2518
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr "Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2511
+#: wp-symposium-toolbar_admin_functions.php:2519
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Directorio"
 
-#: wp-symposium-toolbar_admin_functions.php:2512
+#: wp-symposium-toolbar_admin_functions.php:2520
 #: wp-symposium-toolbar_functions.php:93
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr "Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2513
+#: wp-symposium-toolbar_admin_functions.php:2521
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Grupos"
 
-#: wp-symposium-toolbar_admin_functions.php:2514
+#: wp-symposium-toolbar_admin_functions.php:2522
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galería"
 
-#: wp-symposium-toolbar_admin_functions.php:2515
+#: wp-symposium-toolbar_admin_functions.php:2523
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertas"
 
-#: wp-symposium-toolbar_admin_functions.php:2516
+#: wp-symposium-toolbar_admin_functions.php:2524
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panel"
 
-#: wp-symposium-toolbar_admin_functions.php:2517
+#: wp-symposium-toolbar_admin_functions.php:2525
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Eventos"
 
 #: wp-symposium-toolbar_admin.php:1141
-#: wp-symposium-toolbar_admin_functions.php:2518
+#: wp-symposium-toolbar_admin_functions.php:2526
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-symposium-toolbar_admin_functions.php:2519
+#: wp-symposium-toolbar_admin_functions.php:2527
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr "Móvil"
 
-#: wp-symposium-toolbar_admin_functions.php:2520
+#: wp-symposium-toolbar_admin_functions.php:2528
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Responder"
 
-#: wp-symposium-toolbar_admin_functions.php:2521
+#: wp-symposium-toolbar_admin_functions.php:2529
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salón"
 
-#: wp-symposium-toolbar_admin_functions.php:2523
+#: wp-symposium-toolbar_admin_functions.php:2531
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gestionar"
 
-#: wp-symposium-toolbar_admin_functions.php:2524
+#: wp-symposium-toolbar_admin_functions.php:2532
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Configurar"
 
-#: wp-symposium-toolbar_admin_functions.php:2526
+#: wp-symposium-toolbar_admin_functions.php:2534
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Tesauro"
 
-#: wp-symposium-toolbar_admin_functions.php:2527
+#: wp-symposium-toolbar_admin_functions.php:2535
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Categorías"
 
-#: wp-symposium-toolbar_admin_functions.php:2528
+#: wp-symposium-toolbar_admin_functions.php:2536
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Mensajes del Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2529
+#: wp-symposium-toolbar_admin_functions.php:2537
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Mensajes de Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2530
+#: wp-symposium-toolbar_admin_functions.php:2538
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Plantillas"
 
-#: wp-symposium-toolbar_admin_functions.php:2531
+#: wp-symposium-toolbar_admin_functions.php:2539
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr "Auditoría"
@@ -2960,7 +2960,7 @@ msgstr "El plugin no forzará esto, y cuando su Barra de Herramientas del sitio 
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Cualquier otro cambio de estilos que usted pueda haber realizado serán reflejados en esta Barra de Herramientas de respuesta."
 
-#: wp-symposium-toolbar_admin_functions.php:2525
+#: wp-symposium-toolbar_admin_functions.php:2533
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicidad"
