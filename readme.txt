@@ -7,8 +7,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
 Tested up to: 3.8.1
-Stable tag: 0.26.0
-Version: 0.26.45
+Stable tag: 0.27.0
+Version: 0.27.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ Now the usual bulleted list of features...
 * Redesign the WP User Menu ("My Account"), by selecting each of its default items individually and adding your own custom items
 * WP Symposium sites - Add links to WP Symposium to the WP Toolbar, providing single-click access to WP Symposium from anywhere in your WordPress site
 * WP Symposium sites - Notify your users of new mails and new friend requests, while linking to their WP Symposium mailbox and friends' list
+* Add share icons to the Toolbar, so that your members and visitors can share your site with their preferred social network
 * Style the Toolbar your way: custom colours, gradient, transparency, shadow, fonts, for the Toolbar and its menus
 * Real-time preview mode at the styling page  :-)
 * Import / export the plugin settings, ideal for backups or exchanging those settings accross your sites
@@ -118,7 +119,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 This plugin would never have been what it is without the help and/or work from the following people.
 
-First of all, my warm thanks to Louis, my friend at [Central Geek](http://centralgeek.com), for his advices in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
+First of all, Louis, my friend at [Central Geek](http://centralgeek.com), has been very helpful in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
 
 = Translations =
 
@@ -157,9 +158,9 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, preview mode, correct menu font colors in hover
 * Bugfix: Styles, correct menu font colors for display and user names
 * Bugfix: WP 3.8, Styles, improve vertical centering of icons on Toolbar, as well as Search field
-* Bugfix: security, strip tags from Import feature
+* Bugfix: security issue, strip tags from Import feature
 * Bugfix: WPMS, Styles, default CSS now loaded at all subsites so that the Toolbar reflects the default admin color scheme
-* Change: add the option to display custom menus in responsive mode (under 783px width, instead of being hidden by WordPress
+* Change: add the option to display custom menus in responsive mode (under 783px width), instead of being hidden by WordPress
 
 = 0.26.0. =
 

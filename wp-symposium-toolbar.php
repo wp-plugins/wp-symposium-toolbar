@@ -8,9 +8,9 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: WordPress 3.5
-Tested up to: 3.8
-Stable tag: 0.26.0
-Version: 0.26.46
+Tested up to: 3.8.1
+Stable tag: 0.27.0
+Version: 0.27.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2646;
+$wpst_buildnr = 2700;
 
 
 // Exit if accessed directly
@@ -106,8 +106,8 @@ function symposium_toolbar_init() {
 		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
 		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin_v22.css';
 		if ( file_exists($adminStyleFile) ) {
-				wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
-				wp_enqueue_style( 'wp-symposium-toolbar_admin' );
+			wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
+			wp_enqueue_style( 'wp-symposium-toolbar_admin' );
 		}
 	
 	// WP 3.8+ installs
@@ -115,8 +115,8 @@ function symposium_toolbar_init() {
 		$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
 		$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_admin.css';
 		if ( file_exists($adminStyleFile) ) {
-				// wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
-				wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array(), $wpst_buildnr );
+			// wp_register_style( 'wp-symposium-toolbar_admin', $adminStyleUrl );
+			wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array(), $wpst_buildnr );
 		}
 	}
 	
@@ -135,17 +135,19 @@ function symposium_toolbar_init() {
 		// For WP 3.8+, load preview and default CSS at 'Styles' tab solely...
 		// Dep on 'colors' to ensure this CSS is loaded before, and erase its values with 'default'
 		} else {
-			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
-				
-				// Default CSS
+			
+			// Default CSS
+			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
 				$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
 				$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
 				if ( file_exists($adminStyleFile) ) {
-						// wp_register_style( 'wp-symposium-toolbar_default', $adminStyleUrl );
-						wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), $wpst_buildnr );
+					// wp_register_style( 'wp-symposium-toolbar_default', $adminStyleUrl );
+					wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), $wpst_buildnr );
 				}
-				
-				// JS preview
+			}
+			
+			// JS preview
+			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
 				wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
 			}
 		}
@@ -250,7 +252,6 @@ if ( $is_wps_active ) {
 		// Nr of tabs that can be hidden incl. WPS
 		$wpst_wpms_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
 		if ( !in_array( 'wps', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'wps';
-		if ( !in_array( 'share', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'share';
 		if ( count( $wpst_wpms_hidden_tabs ) == 9 )
 			return;
 		
@@ -276,7 +277,6 @@ if ( $is_wps_active ) {
 		// Nr of tabs that can be hidden
 		$wpst_wpms_hidden_tabs = get_option( 'wpst_wpms_hidden_tabs', array() );
 		if ( !in_array( 'wps', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'wps';
-		if ( !in_array( 'share', $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs[] = 'share';
 		if ( count( $wpst_wpms_hidden_tabs ) == 9 )
 			return;
 		

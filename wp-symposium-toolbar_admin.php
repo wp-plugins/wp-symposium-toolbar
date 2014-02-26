@@ -368,8 +368,8 @@ function symposium_toolbar_admintab_sites() {
 			
 			// Parse subsites and tabs
 			if ( count( $blogs ) > 1 ) {
-				$color = $color_odd = '#FBFBFB';
-				$color_even = '#F8F8F8';
+				$color = $color_odd = '#FAFAFA';
+				$color_even = '#F5F5F5';
 				$count = 0;
 				
 				foreach ( $blogs as $blog ) if ( $blog['blog_id'] != "1" ) {
@@ -422,9 +422,9 @@ function symposium_toolbar_admintab_sites() {
 			if ( is_array( $wpst_wpms_hidden_tabs ) ) {
 				
 				// Draw the row
-				echo '<tr>';
-					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf; background-color: #ececec;"><span class="description"> New Site Default Tabs</span></td>';
-					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf; background-color: #ececec;"><div id="blog_new" class="wpst-checkboxes">';
+				echo '<tr style="background-color: #ECECEC;">';
+					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf;"><span class="description"> New Site Default Tabs</span></td>';
+					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf;"><div id="blog_new" class="wpst-checkboxes">';
 					
 					foreach ( $wpst_subsites_tabs as $key => $title ) {
 						if ( $key == 'css' ) 
@@ -797,8 +797,8 @@ function symposium_toolbar_admintab_menus() {
 		echo '<tr valign="top">';
 			echo '<td>';
 				
-				$color = $color_odd = '#F8F8F8';
-				$color_even = '#F0F0F0';
+				$color = $color_odd = '#FAFAFA';
+				$color_even = '#F5F5F5';
 				$count = 0;
 				
 				if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
@@ -904,6 +904,8 @@ function symposium_toolbar_admintab_menus() {
 					
 					echo '</table>';
 				}
+				
+				$color = '#ECECEC';
 				
 				// Add new menu
 				echo '<table class="widefat">';
@@ -1112,9 +1114,9 @@ function symposium_toolbar_admintab_share() {
 		echo '<table class="form-table wpst-form-table">';
 			
 			echo '<tr valign="top">';
-				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Social Networks', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Share', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
-					echo '<span>' . __( 'Allow members and visitors to share this site with the following networks:', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span>' . __( 'Allow members and visitors to share this site:', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="share_linkedin" id="share_linkedin" class="wpst-admin"';
 					if ( isset( $share['linkedin'] ) ) {
@@ -1177,17 +1179,23 @@ function symposium_toolbar_admintab_share() {
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Shared Content', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Which link should be actually shared?', 'wp-symposium-toolbar' ) . '</span><br />';
-					$style = ( in_array( get_option( 'wpst_share_content', '' ), array( "home", "current" ) ) ) ? "" : ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					$style = ( in_array( get_option( 'wpst_share_content', 'home' ), array( "home", "single", "current" ) ) ) ? "" : ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( $style != "" ) $error = true;
 					
 					echo '<input type="radio" name="shared_content" class="wpst-admin" value="home"';
 					echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'The Site Homepage', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '> <span class="description wpst-checkbox"> ' . __( 'The site homepage', 'wp-symposium-toolbar' ) . '</span><br />';
+					
+					echo '<input type="radio" name="shared_content" class="wpst-admin" value="single"';
+					if ( get_option( 'wpst_share_content', 'home' ) == "single" ) echo " CHECKED";
+					echo $style;
+					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page if it shows a single post, the homepage otherwise', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="radio" name="shared_content" class="wpst-admin" value="current"';
-					if ( get_option( 'wpst_share_content', '' ) == "current" ) echo " CHECKED";
+					if ( get_option( 'wpst_share_content', 'home' ) == "current" ) echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page (whichever it is)', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page, whichever it is', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
 			echo '</tr>';
 			
@@ -1195,7 +1203,8 @@ function symposium_toolbar_admintab_share() {
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Which set of icons should be used?', 'wp-symposium-toolbar' ) . '</span><br />';
-					$style = ( in_array( get_option( 'wpst_share_icons_set', '' ), array( "lightweight", "rounded", "circle" ) ) ) ? "" : ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					$style = ( in_array( get_option( 'wpst_share_icons_set', 'lightweight' ), array( "lightweight", "rounded", "circle" ) ) ) ? "" : ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					if ( $style != "" ) $error = true;
 					
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="lightweight"';
 					echo " CHECKED";
@@ -1203,12 +1212,12 @@ function symposium_toolbar_admintab_share() {
 					echo '> <span class="description wpst-checkbox"> ' . __( 'Lightweight', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="rounded"';
-					if ( get_option( 'wpst_share_icons_set', '' ) == "rounded" ) echo " CHECKED";
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "rounded" ) echo " CHECKED";
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'Rounded Corners', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="circle"';
-					if ( get_option( 'wpst_share_icons_set', '' ) == "circle" ) echo " CHECKED";
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "circle" ) echo " CHECKED";
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles', 'wp-symposium-toolbar' ) . '</span><br /><br />';
 			
@@ -1253,7 +1262,7 @@ function symposium_toolbar_admintab_share() {
 				echo '<tr valign="top">';
 					echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';
 					echo '<td colspan="2">';
-					echo '<div id="display_wps_error" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
+					echo '<div id="display_share_error" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> ';
 					echo __( 'There is an issue with the options stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' );
 					echo '</div></td>';
 				echo '</tr>';
@@ -2534,16 +2543,18 @@ function symposium_toolbar_admintab_userguide() {
 		echo '<h4><li>'.__( 'WP Symposium', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'On WP Symposium installations, the plugin adds a dedicated tab for WPS admins.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'This tab allows you to add to the Toolbar, the WPS admin menu as mirrored from the Dashboard sidebar. Obviously, only admins will see this menu.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'You may also choose to display notification icons for mail and friendship to the Toolbar. These can be added based on member\'s role.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'You may also choose to display notification icons for mail and friendship to the Toolbar. These can be added based on member\'s role.', 'wp-symposium-toolbar' ) . '  ' . __('Note that they will show only if the appropriate feature has been activated at the WPS Install page, and if a page has been properfly set up for both the Profile and the Mail features. This could serve as a replacement for the WPS Panel, however bear in mind they will need full page refreshes to reflect the actual status of new mails and friend requests.', 'wp-symposium-toolbar') . '</p>';
 			echo '<p>' . __( 'On Multisites Installs, a checkbox will allow you to share the WP Symposium features accross the whole network. These features (the WPS Profile and Mail) must be active, and a dedicated page properly defined so users can access them from anywhere on the network.', 'wp-symposium-toolbar' ).' '.__( 'If you leave this unchecked, the features of this site will be used locally only.', 'wp-symposium-toolbar' ).' '.__( 'When this checkbox is checked, the features will be shared with other sites, if no other site takes precedence.', 'wp-symposium-toolbar' ).' '.__( 'The share order is: Home Site (if activated from the "Network" tab), current site, sites in ascending ID order starting with the Main Site.', 'wp-symposium-toolbar' ).' '.__( 'In conjunction with the "Network Toolbar", this allows you to make available the features of a site-activated WPS to a whole network.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'The last checkbox at this tab will re-generate for you the WPS menus available at the NavMenus page of the WP Dashboard, which were created upon first activation of the plugin. If it ever appears that these menus weren\'t properly created, or if you\'ve modified them to the point you\'ve messed up everything, you may ask the plugin to re-generate them for you. As instructed, delete the menu you\'d like to replace, check this box, and save the options. The plugin will then re-create missing menus, without modifying the existing ones.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_share
-		if ( isset( $wpst_shown_tabs[ 'share' ] ) ) {
-		echo '<h4><li>'.__( 'Social Icons', 'wp-symposium-toolbar' ).'</li></h4>';
-			echo '<p>' . __( 'At this tab, you may choose to display some of the Social Icons, along with links to your site homepage. These icons will be displayed in the frontend only.', 'wp-symposium-toolbar' ) . '</p>';
-		}
+		// if ( isset( $wpst_shown_tabs[ 'share' ] ) ) {
+		// echo '<h4><li>'.__( 'Share Icons', 'wp-symposium-toolbar' ).'</li></h4>';
+			// echo '<p>' . __( 'At this tab, you may choose to display share icons in your Toolbar, along with links to your site. These icons will be displayed in the frontend only, to all users.', 'wp-symposium-toolbar' ) . '</p>';
+			// echo '<p>' . __( 'The first settings let you choose which means you want to make available in your Toolbar, and which URL should be shared.  Depending on your site content and privacy you will want to share the homepage or its pages individually.', 'wp-symposium-toolbar' ) . '</p>';
+			// echo '<p>' . __( 'The other settings determine how these icons will look like.  When using their brand colors, icons will not change their color on mouse hover: you may then choose other style settings on hover.', 'wp-symposium-toolbar' ) . '</p>';
+		// }
 		
 		// wpst_page_style
 		if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {

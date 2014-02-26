@@ -32,8 +32,8 @@
 	font-family: 'WPST-icons';
 	src:url('../fonts/WPST-icons.eot');
 	src:url('../fonts/WPST-icons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/WPST-icons.woff') format('woff'),
 		url('../fonts/WPST-icons.ttf') format('truetype'),
+		url('../fonts/WPST-icons.woff') format('woff'),
 		url('../fonts/WPST-icons.svg#WPST-icons') format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -195,13 +195,9 @@
 	color: #EB4924;
 }
 
-#wpadminbar .symposium-toolbar-social-icon > .ab-item {
+#wpadminbar .symposium-toolbar-share-icon > .ab-item {
     padding-left: 3px;
     padding-right: 0;
-}
-
-#wpadminbar .wpst-tb-item > .ab-item:before {
-	display: none;
 }
 
 /* Force the display of these icons, whenever screen width permits */
@@ -209,29 +205,6 @@
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-friendship {
 		display: block;
-	}
-	#wpadminbar .wpst-tb-item {
-		display: block;
-	}
-	#wpadminbar .wpst-tb-item > .ab-item {
-		text-indent: 100%;
-		white-space: nowrap;
-		overflow: hidden;
-		width: 52px;
-		padding: 0;
-		position: relative; /* */
-	}
-	#wpadminbar .wpst-tb-item > .ab-item:before {
-		display: block;
-		font-family: WPST-icons !important;
-		content: '\e604';
-		font-size: 46px;
-		text-indent: 0;
-		text-align: center;
-		line-height: 53px;
-		height: 46px !important;
-		top: -4px;
-		width: 52px; /* */
 	}
 }
 @media screen and (max-width: 600px) {
@@ -408,6 +381,7 @@
 
 /* Fix arrows height for User Menu submenus */
 @media screen and (max-width: 782px) {
+	/* this is duplicated as of WP 3.8.1, so could be removed */
 	#wpadminbar .ab-top-secondary .menupop .menupop > .ab-item:before {
 		top: 10px;
 	}
@@ -447,6 +421,40 @@
 	width: 16px;
 	height: 16px;
 	margin-top: 6px;"
+}
+
+/* caret-down in responsive */
+#wpadminbar .wpst-r-item > a:before,
+#wpadminbar .wpst-r-item > .ab-item:before {
+	display: none;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar .wpst-r-item {
+		display: block;
+	}
+	#wpadminbar .wpst-r-item > a,
+	#wpadminbar .wpst-r-item > .ab-item	{
+		text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 52px;
+		padding: 0;
+		position: relative;
+	}
+	#wpadminbar .wpst-r-item > a:before,
+	#wpadminbar .wpst-r-item > .ab-item:before {
+		display: block;
+		font-family: WPST-icons !important;
+		content: '\e604';
+		font-size: 46px;
+		text-indent: 0;
+		text-align: center;
+		line-height: 53px;
+		height: 46px !important;
+		top: -4px;
+		width: 52px; /* */
+	}
 }
 
 
@@ -524,6 +532,12 @@
 	.wpst-nav-tabs-arrow {
 		width: 24px;
 		height: 36px;
+	}
+	.wpst-nav-tabs-arrow a {
+		font-size: 25px;
+		left: 0;
+		padding: 5px 10px;
+		position: absolute;
 	}
 }
 
