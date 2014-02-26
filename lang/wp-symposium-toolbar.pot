@@ -1,0 +1,1034 @@
+# Copyright (C) 2013 WP Symposium Toolbar
+# This file is distributed under the same license as the WP Symposium Toolbar package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Symposium Toolbar 0.0.15\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-symposium-toolbar\n"
+"POT-Creation-Date: 2013-06-06 19:48:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: wp-symposium-toolbar.php:139 wp-symposium-toolbar.php:158
+#: wp-symposium-toolbar.php:159 wp-symposium-toolbar.php:173
+#: wp-symposium-toolbar_functions.php:766
+#: wp-symposium-toolbar_functions.php:772
+msgid "Toolbar"
+msgstr ""
+
+#: wp-symposium-toolbar.php:173 wp-symposium-toolbar_admin.php:52
+msgid "WPS Toolbar Options"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:21
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:36 wp-symposium-toolbar_functions.php:412
+msgid "No option to update!!"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:37
+msgid "There was an error during import..."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:39
+msgid "At least one error during import..."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:39
+msgid "Other options (if any) have been imported successfully"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:42
+msgid "Saved"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:50
+msgid "WP Symposium Toolbar Options"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:61 wp-symposium-toolbar_admin.php:73
+#: wp-symposium-toolbar_help.php:46
+msgid "WP Toolbar"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:68
+msgid ""
+"Select the roles for which the WP Toolbar itself and its default toplevel "
+"items (as well as their menu, if any) should be displayed, both for logged-"
+"in members with the appropriate rights, and visitors whenever they could "
+"access this item."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:75
+msgid ""
+"The WordPress Toolbar itself, in the frontend of the site solely, and "
+"depending on a user setting ; the WP Toolbar will always be visible in the "
+"backend."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:76
+msgid ""
+"Note: This is the main container for all the items below, it must obviously "
+"be activated for those items to show."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:82
+msgid "WP Logo"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:84
+msgid "The WordPress logo and its menu, links to WordPress help and support"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:90
+msgid "Site Name"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:92
+msgid ""
+"The site name and its menu, gives access to the site from the backend, and "
+"various dashboard pages from the frontend"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:99
+msgid "My Sites"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:101
+msgid "The list of all sites of the network"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:102
+msgid ""
+"Note: This item will show only when the user is member of at least one site "
+"of the network, or is a super admin"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:109
+msgid "Updates Icon"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:111
+msgid "The Updates icon, links to the Updates page of the dashboard"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:117
+msgid "Comments Bubble"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:119
+msgid "The Comments bubble, links to the Comments moderation page"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:125
+msgid "Add New"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:127
+msgid "The Add New menu, allows adding new content to the site"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:133
+msgid "Shortlink"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:135
+msgid "The Shortlink to the page / post being edited"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:141
+msgid "Edit Link"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:143
+msgid "The Edit link to the Edit page for the page / post being viewed"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:149 wp-symposium-toolbar_admin.php:235
+#: wp-symposium-toolbar_help.php:63
+msgid "WP User Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:151
+msgid ""
+"The WP User Menu, as well as the \"Howdy\" message and the small avatar, "
+"located in the upper right corner of the screen - customize them below, or "
+"hide them completely from here"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:157
+msgid "Search Icon"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:159
+msgid "The Search icon and field, allows searching the site from the frontend"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:162
+msgid ""
+"But move it to a location where it won't push other items when unfolding..."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:167
+msgid "Select a location"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:170
+msgid "Left of the User Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:173
+msgid "Right of the New Content menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:186 wp-symposium-toolbar_help.php:54
+msgid "WP Symposium"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:192
+msgid "Admin Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:202
+msgid "Display the WP Symposium Admin Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:203
+msgid ""
+"Important! There is an issue with the option stored in your database for "
+"this item: please check your settings, and try saving to see if it fixes the "
+"issue!"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:208
+msgid "Notifications"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:210
+msgid "Display the WP Symposium Mail notification icon"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:213
+msgid "Display the WP Symposium Friendship notification icon"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:219
+msgid "NavMenus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:222
+msgid ""
+"To re-generate the NavMenus created by WPS Toolbar for WP Symposium, delete "
+"the menu in question from the NavMenus page at "
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:223 wp-symposium-toolbar_admin.php:392
+msgid "Appearance"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:223 wp-symposium-toolbar_admin.php:392
+msgid "Menus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:224
+msgid ", check this box, and save..."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:242
+msgid ""
+"The WP User Menu, also called \"My Account\", is located at the right end of "
+"the WP Toolbar. Define what should be displayed in the Toolbar (toplevel "
+"menu item) and in the menu, underneath."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:247
+msgid "Top Level Item"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:249
+msgid ""
+"Customize the \"Howdy\" message displayed in the WP Toolbar for members, "
+"leave empty for no message"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:250 wp-symposium-toolbar_admin.php:255
+#: wp-symposium-toolbar_functions.php:528
+#: wp-symposium-toolbar_functions.php:540
+msgid "Howdy"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:251
+msgid "Available aliases:"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:254
+msgid "\"Howdy\" message for visitors"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:255 wp-symposium-toolbar_functions.php:50
+#: wp-symposium-toolbar_functions.php:540
+msgid "Visitor"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:269
+msgid "Show the small size avatar of the user in the Toolbar"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:279
+msgid "The Toolbar shows a blank avatar for visitors"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:284
+msgid "Default Menu Items"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:286
+msgid "Which of the WP User Menu default items should be displayed?"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:296
+msgid "The big size avatar of the user, in the menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:305
+msgid "The user display name"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:314
+msgid "Add the user name to the display name, if they're different"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:323
+msgid "The Edit Profile link"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:332
+msgid "The Log Out link?"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:347
+msgid "Rewrite the Edit Profile URL, to link to the WPS Profile Settings page?"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:372
+msgid ""
+"Important! There is an issue with the options stored in your database for "
+"this item: please check your settings, and try saving to see if it fixes the "
+"issue!"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:383
+msgid "WP Toolbar Custom Menus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:389
+msgid "WP NavMenus"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:391
+msgid "Create and edit your WP NavMenus at "
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:393
+msgid "and associate them to the WP Toolbar, at predefined locations"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:397
+msgid "Menu Name"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:398
+msgid "Location"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:399
+msgid "Custom Icon"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:412 wp-symposium-toolbar_admin.php:427
+msgid "Remove from Toolbar"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:422 wp-symposium-toolbar_admin.php:462
+msgid "No available NavMenu !"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:422 wp-symposium-toolbar_admin.php:462
+msgid "Please go to the NavMenus page, and create some..."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:456
+msgid "Add this menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:467
+msgid "To this location"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:489
+msgid "External Links"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:493
+msgid ""
+"Highlight the menu items that link to external sites with a specific styling"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:503
+msgid "Plugin Settings"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:509
+msgid "Import / Export"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:511
+msgid ""
+"If you would like to export or backup the above options, copy the following "
+"into your favorite text editor and save as a text file. Reciprocally, if you "
+"would like to update those settings with a previously saved set, paste into "
+"this field and click on \"Import\". It is strongly recommended that you "
+"ensure this information is up to date by saving first. Do not edit this "
+"information directly !"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:517 wp-symposium-toolbar_functions.php:306
+msgid "Import"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:525 wp-symposium-toolbar_functions.php:243
+msgid "Save Changes"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:555
+msgid "toggle all / none"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:557
+msgid ""
+"Important! There is an issue with the roles stored in your database for this "
+"item: please check your settings, and try saving to see if it fixes the "
+"issue!"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:64 wp-symposium-toolbar_functions.php:65
+#: wp-symposium-toolbar_functions.php:66 wp-symposium-toolbar_functions.php:67
+msgid "My Profile"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:64
+msgid "WPS Profile page, showing profile info"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:65
+msgid "Profile Details"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:65
+msgid "WPS Profile page, showing personal information"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:66
+msgid "Community Settings"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:66
+msgid "WPS Profile page, showing community settings"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:67
+msgid "Profile Photo"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:67
+msgid "WPS Profile page, showing avatar upload"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:68 wp-symposium-toolbar_functions.php:69
+#: wp-symposium-toolbar_functions.php:70 wp-symposium-toolbar_functions.php:71
+msgid "Activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:69
+msgid "My Activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:69 wp-symposium-toolbar_functions.php:73
+msgid "WPS Profile page, showing friends activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:70
+msgid "Friends Activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:70
+msgid "WPS Profile page, showing all activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:71
+msgid "All Activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:71
+msgid "WPS Profile page, showing member activity"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:72 wp-symposium-toolbar_functions.php:73
+#: wp-symposium-toolbar_functions.php:74 wp-symposium-toolbar_functions.php:75
+#: wp-symposium-toolbar_functions.php:76 wp-symposium-toolbar_functions.php:77
+#: wp-symposium-toolbar_functions.php:78
+msgid "Social"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:73
+msgid "My Friends"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:74
+msgid "My Groups"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:74
+msgid "WPS Profile page, showing the groups the member belongs to"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:75
+msgid "Forum @mentions"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:75
+msgid "WPS Profile page, showing where the member is @mentionned"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:76
+msgid "I am Following"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:76
+msgid "WPS Profile page, showing who the member is following"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:77
+msgid "My Followers"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:77
+msgid "WPS Profile page, showing who the member is followed by"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:78
+msgid "The Lounge"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:78
+msgid "WPS Profile page, showing the Lounge"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:79 wp-symposium-toolbar_functions.php:80
+#: wp-symposium-toolbar_functions.php:81 wp-symposium-toolbar_functions.php:82
+msgid "More"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:80
+#: wp-symposium-toolbar_functions.php:746
+msgid "Mail"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:80
+msgid "WPS Mailbox of the member"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:81
+msgid "My Events"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:81
+msgid "WPS Profile page, showing member events"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:82
+msgid "My Gallery"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:82
+msgid "WPS Profile page, showing member gallery"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:86
+msgid "Login"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:87
+msgid "Lost Password"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:88
+msgid "Register"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:95
+msgid "Append to / Replace the WP Logo menu"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:97
+msgid "Append to My Sites"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:98
+msgid "At the right of the New Content menu"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:99
+msgid "At the left of the WP User Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:100
+msgid "Append to the WP User Menu"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:337
+msgid ": at least one custom menu contained an error"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:359
+msgid ": incorrect roles"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:361
+msgid ": incorrect format, an array of roles was expected"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:380
+msgid ": incorrect value, expected values are \"\" or \"on\""
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:382
+msgid ": incorrect format, a string was expected, either \"\" or \"on\""
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:390
+msgid ""
+": incorrect value, expected values are \"\", \"empty\" or \"top-secondary\""
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:392
+msgid ""
+": incorrect format, a string was expected, either \"\", \"empty\" or \"top-"
+"secondary\""
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:401
+msgid ": incorrect format, a string was expected"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:406
+#: wp-symposium-toolbar_functions.php:408
+msgid ": option not recognized"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:590
+msgid "My Account"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:741
+msgid "Options"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:742
+msgid "Profile"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:743
+msgid "Plus"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:744
+msgid "Forum"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:745
+msgid "Directory"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:747
+msgid "Groups"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:748
+msgid "Gallery"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:749
+msgid "Alerts"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:750
+msgid "Panel"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:751
+msgid "Events"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:752
+msgid "Facebook"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:753
+msgid "Mobile"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:754
+msgid "Reply"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:755
+msgid "Lounge"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:757
+msgid "Manage"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:758
+msgid "Settings"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:759
+msgid "Thesaurus"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:760
+msgid "Categories"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:761
+msgid "Forum Posts"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:762
+msgid "Mail Messages"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:763
+msgid "Templates"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:764
+msgid "Audit"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:824
+msgid "Go to your Inbox"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:824
+msgid "unread mail"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:827
+msgid "Your Inbox"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:827
+msgid "archived"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:848
+msgid "Go to your Friends list"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:848
+msgid "new friend requests"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:851
+msgid "Your Friends list"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:851
+msgid "friends"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:886
+msgid "Search"
+msgstr ""
+
+#: wp-symposium-toolbar_functions.php:895
+msgid "Search the site..."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:30
+msgid ""
+"The WP Toolbar is the area of the screen just above a WordPress site that "
+"contains useful links to the administration part of the site, the content "
+"management, as well as the user account. It is displayed both in the backend "
+"(this dashboard) and the frontend (public part) of the site. Whenever the "
+"user scrolls down the page, the Toolbar remains visible, providing a quick "
+"access to these links."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:30
+msgid ""
+"This plugin allows you to change the default behaviour of the WP Toolbar, "
+"and customize its display. For the Toolbar itself, and most of its items, "
+"you may select roles for which the item should be displayed."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:31
+msgid "This Options page is split into several parts."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:31
+msgid ""
+"The first set of options will let you choose which of the WP default items, "
+"menus, icons and links to show to users with the appropriate rights."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:32
+msgid ""
+"The plugin adds items specific to WP Symposium, that you may show or hide "
+"from the second section."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:33
+msgid ""
+"Next section, you may change the content of the WP User Menu, and pick the "
+"items you want to display to all users, registrered and logged-in."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:34
+msgid ""
+"And last, you may add your custom menus to several predefined locations in "
+"the WP Toolbar, to both logged-in members and site visitors."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:35
+msgid ""
+"Please refer to these help tabs for a thorough description of the options "
+"and tips."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:36
+msgid ""
+"Please also refer to the help tab added to the WP NavMenus settings page, "
+"when creating your menus with WP Symposium items."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:40
+msgid "Overview"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:48
+msgid ""
+"This first set of options will let you choose which items should be "
+"displayed, for each role of your site. Items, menus, icons and links are "
+"displayed by WordPress only when the member has the appropriate rights to "
+"access them, and some will be displayed on given pages only."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:48
+msgid ""
+"The plugin allows you to restrict this behaviour: for each item, the roles "
+"listed are those that are allowed to access the corresponding feature or "
+"page on your site, based on what WordPress allows. You may choose to show or "
+"hide the item to these roles."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:49
+msgid ""
+"You may choose to hide the whole WP Toolbar, on a per-role basis. Please "
+"note however that the display of the WP Toolbar is also triggered by an "
+"option at the WP user profile page"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:49
+msgid "Show Toolbar when viewing site"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:49
+msgid ""
+"This personal choice is not overridden by the admin setting: if you choose "
+"to hide the Toolbar for particular roles, these members will not see it at "
+"all, however if you choose to display the Toolbar for these members, they "
+"may still hide it from their WP profile settings."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:56
+msgid ""
+"For admins, you may choose to add the WPS Admin Menu, for a one-click access "
+"to WP Symposium settings pages in the backend of your site."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:57
+msgid ""
+"You may also add WP Symposium notifications to the Toolbar for your members. "
+"These will warn the member of any incoming friend request or mail. When "
+"there are no new friend requests or mails, the number of friends and stored "
+"mails is displayed."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:57
+msgid ""
+"Note that they will show only if the appropriate feature has been activated "
+"at the WPS Install page. This could serve as a replacement for the WPS "
+"Panel, however bear in mind they will need full page refreshes to reflect "
+"the actual status of new mails and friend requests."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:58
+msgid ""
+"The NavMenus generated by the plugin at the Appearance > Menus page are made "
+"of \"custom links\", so if you remove them you need to recreate them as "
+"such. If you ever totally messed up one of these menus, delete it from the "
+"NavMenus page, select the option above the menu table at this page and save, "
+"that will regenerate any missing menu and save you the process of recreate "
+"menu items by hand..."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:65
+msgid ""
+"This section allows you to modify the content of the WP User Menu, and pick "
+"the items you want to display to all users, when they are registrered and "
+"logged-in."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:65
+msgid ""
+"You may also modify the toplevel item of this menu, the Howdy message and "
+"the small avatar, both for members and visitors (non-logged-in members)."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:66
+msgid ""
+"You may remove all of the items of the WP User Menu, one by one. There is "
+"currently no role management for the menu items, it is assumed that your "
+"members will share the same User Menu. However, should you need different "
+"items for your members, you may add different custom menus depending on "
+"role, see next tab."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:67
+msgid ""
+"The menu itself is not shown by WordPress to site visitors, so if you don't "
+"hide it to visitors from the first set of options, they will see a blank "
+"avatar, that you could use to hold a login menu for instance, along with a "
+"kind welcome message to your non logged-in members."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:72
+msgid "Custom Menus"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:74
+msgid ""
+"Last but not least, you may add your custom menus to a small number of "
+"predefined locations. Build your menus using the neat interface WordPress "
+"provides for NavMenus, then add them from this page. Select your menu title, "
+"the location where you want it to show, and select the roles for which it "
+"should be displayed. Optionally, you may specify a custom icon for the "
+"toplevel menu item."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:75
+msgid "A few more guidelines are available at the next tab."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:81
+msgid "Hints"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:83
+msgid "A few more guidelines, what can be done, what can't be done..."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:85
+msgid ""
+"You may add two or more menus to the same location: they will be shown only "
+"to the roles you have selected, and if more than one menu should be shown to "
+"a given role, they will be appended one to the other, in the order you have "
+"defined them."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:86
+msgid ""
+"You may use the same menu several times, however, for a given role it will "
+"be displayed only once, even if this page indicates it should be displayed "
+"more than once."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:87
+msgid ""
+"For a given role, if you choose to hide the WP Logo menu but attach a custom "
+"menu to it, your menu will replace the default menu. If you choose to show "
+"the default menu, your custom menu will be appended to it. Moreover, when "
+"replacing the WP Logo menu, it is mandatory to use a custom menu contained "
+"in one single toplevel item, otherwise all items will be flatten into one "
+"menu."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:88
+msgid ""
+"If you wish to replace the default User Menu with your own, uncheck all "
+"items of the WP User Menu at the ad hoc section instead of hiding the menu "
+"from the first section. If you hide the WP User Menu but attach a custom "
+"menu to it, none of the menus will be displayed, neither will be displayed "
+"the Howdy message and the avatar."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:89
+msgid ""
+"When using custom icons with your menus, it is recommended to use only one "
+"toplevel item, otherwise all toplevel items of your menu will be replaced "
+"with this icon. If you wish to have several icons, you should create several "
+"custom menus."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:100
+msgid ""
+"Use the information in the table hereafter to create your custom links to WP "
+"Symposium pages..."
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:103
+msgid "Menu Item Title"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:104
+msgid "URL"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:105
+msgid "Description"
+msgstr ""
+
+#: wp-symposium-toolbar_help.php:123
+msgid "WP Symposium Pages"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Symposium Toolbar"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Toolbar plugin for WP Symposium - And the WordPress Toolbar can finally be "
+"part of your Social Network site"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "AlphaGolf_fr"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://profiles.wordpress.org/AlphaGolf_fr/"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid "wp-symposium, toolbar, admin, bar"
+msgstr ""

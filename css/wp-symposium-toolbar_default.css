@@ -1,0 +1,117 @@
+/*  Copyright 2013-2014  Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as 
+	published by the Free Software Foundation.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/**
+ * Default Toolbar Style
+ */
+
+#wpadminbar,
+#wpadminbar .quicklinks,
+#wpadminbar .ab-top-secondary {
+	background: #222;
+}
+
+#wpadminbar a.ab-item,
+#wpadminbar > #wp-toolbar span.ab-label,
+#wpadminbar > #wp-toolbar span.noticon,
+#wpadminbar .quicklinks .menupop ul li .ab-item,
+#wpadminbar .quicklinks .menupop ul li a strong,
+#wpadminbar .quicklinks .menupop.hover ul li .ab-item,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item,
+#wpadminbar #wp-admin-bar-user-info .display-name,
+#wpadminbar #wp-admin-bar-user-info .username,
+#wpadminbar #wp-admin-bar-user-info span,
+#wpadminbar .ab-sub-wrapper > ul > li > .ab-item,
+#wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong,
+#wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a,
+#wpadminbar #wp-admin-bar-user-info .ab-item:hover {
+	color: #eee;
+}
+
+#wpadminbar .ab-icon,
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:before,
+#wpadminbar .ab-item:after,
+#wpadminbar #adminbarsearch:before {
+	color: #999;
+}
+
+#wpadminbar .ab-top-menu > li:hover > .ab-item:before,
+#wpadminbar .ab-top-menu > li.hover > .ab-item:before,
+#wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before,
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before,
+#wpadminbar li:hover > .ab-item > .ab-icon:before,
+#wpadminbar li.hover > .ab-item > .ab-icon:before,
+#wpadminbar li:hover > .ab-item > .ab-label:before,
+#wpadminbar li.hover > .ab-item > .ab-label:before,
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before,
+#wpadminbar .ab-top-menu > li > .ab-item:focus,
+#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+#wpadminbar .ab-top-menu > li:hover > .ab-item,
+#wpadminbar .ab-top-menu > li.hover > .ab-item,
+#wpadminbar > #wp-toolbar li:hover span.ab-label,
+#wpadminbar > #wp-toolbar li.hover span.ab-label,
+#wpadminbar > #wp-toolbar a:focus span.ab-label,
+#wpadminbar .quicklinks .menupop ul li .ab-item:hover,
+#wpadminbar .quicklinks .menupop ul li .ab-item:hover strong,
+#wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover,
+#wpadminbar .quicklinks .menupop ul li a:hover,
+#wpadminbar .quicklinks .menupop ul li a:focus,
+#wpadminbar .quicklinks .menupop ul li a:hover strong,
+#wpadminbar .quicklinks .menupop ul li a:focus strong,
+#wpadminbar .quicklinks .menupop.hover ul li a:hover,
+#wpadminbar .quicklinks .menupop.hover ul li a:focus,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus,
+#wpadminbar li:hover .ab-icon:before,
+#wpadminbar li:hover .ab-item:before,
+#wpadminbar li a:focus .ab-icon:before,
+#wpadminbar li .ab-item:focus:before,
+#wpadminbar li.hover .ab-icon:before,
+#wpadminbar li.hover .ab-item:before,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label,
+#wpadminbar li:hover #adminbarsearch:before,
+#wpadminbar .quicklinks li a:hover .blavatar,
+#wpadminbar .quicklinks li a:hover .blavatar:before,
+#wpadminbar .menupop .menupop > .ab-item:hover:before,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username,
+#wpadminbar #wp-admin-bar-user-info:hover span,
+#wpadminbar #wp-admin-bar-user-info a:hover .username,
+#wpadminbar #wp-admin-bar-user-info a:hover span {
+	color: #2ea2cc;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper,
+#wpadminbar .ab-top-menu > li:hover > .ab-item,
+#wpadminbar .ab-top-menu > li.hover > .ab-item,
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
+#wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
+#wpadminbar .ab-top-menu > li > .ab-item:focus,
+#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+#wpadminbar .menupop.focus .ab-label {
+	background-color: #333333;
+}
+
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu,
+#wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary,
+#wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu {
+	background-color: #4b4b4b;
+}
