@@ -137,9 +137,9 @@ The set of fonticons bundled with the plugin was created using [IcoMoon](http://
 
 With my thanks for their work, I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
 
-* [IcoMoon](http://icomoon.io/#icons) by [Keyamoon](keyamoon.com), License GPL
+* [IcoMoon](http://icomoon.io/#icons) by [Keyamoon](http://keyamoon.com), License GPL
 * [Font Awesome](http://fortawesome.github.com/Font-Awesome/) by [Dave Gandy](https://github.com/davegandy), CC BY 3.0
-* [Entypo](http://www.entypo.com/) by [Daniel Bruce](danielbruce.se), CC BY-SA 3.0 
+* [Entypo](http://www.entypo.com/) by [Daniel Bruce](http://danielbruce.se), CC BY-SA 3.0 
 * [Typicons](http://typicons.com/) by [Stephen Hutchings](https://github.com/stephenhutchings), CC BY-SA 3.0
 
 Last but not least, please note that all brand icons are trademarks of their respective owners.
