@@ -1915,6 +1915,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			$style_chunk = "";
 			if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
 			if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
+			if ( get_option( 'wpst_toolbar_edit_page', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-edit > .ab-item:before'; $comma = ', '; }
 			if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
 			$style_saved .= $style_chunk.$comma.'#wpadminbar .ab-top-menu > li > a:before { top: '.$icon_sites_margin_top.'px; } ';
 			
@@ -1960,24 +1961,25 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	// Search
 	if ( get_option( 'wpst_toolbar_search_field', array() ) != array() ) {
-		
-		// Computes dimensions
 		$search_height = ( $height - 4 < $wpst_default_toolbar['search_height'] ) ? $height - 4 : $wpst_default_toolbar['search_height'];
-		$search_top = round( ( $height - $wpst_default_toolbar['height'] ) / 2 ) + 4;
-		$search_icon_top = round( ( $wpst_default_toolbar['icon_size'] - $icon_size ) /2 ) + 2;
 		
 		// Search form
+		$search_top = round( ( $height - $wpst_default_toolbar['height'] ) / 2 ) + 4;
 		$style_saved .= '#wpadminbar #wp-admin-bar-search .ab-item, #wpadminbar #adminbarsearch { height: '. $height . 'px; top: ' . $search_top . 'px; } ';
 		
 		// Search icon
-		$style_saved .= '#wpadminbar #adminbarsearch:before { height: '. $search_height . 'px; width: '. $search_height . 'px; top: ' . $search_icon_top . 'px; } ';
+		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+			$search_icon_top = round( ( $wpst_default_toolbar['icon_size'] - $icon_size ) /2 ) + 2;
+			$style_saved .= '#wpadminbar #adminbarsearch:before { height: '. $search_height . 'px; width: '. $search_height . 'px; top: ' . $search_icon_top . 'px; } ';
+		}
 		
 		// Search field
 		if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "" )
 			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
 		else
 			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
-		$style_saved .= ' { height: '. $search_height . 'px; top: -4px; padding-left: '.$icon_size.'px; line-height: '.$height.'px; ';
+		$style_saved .= ' { height: '. $search_height . 'px; top: -4px; line-height: '.$height.'px; ';
+		if ( isset( $icon_size ) ) $style_saved .= 'padding-left: '.$icon_size.'px; ';
 		if ( isset( $wpst_style_tb_current['font_size'] ) && ( $wpst_style_tb_current['font_size'] > 0 ) ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
 		$style_saved .= '} ';
 		
