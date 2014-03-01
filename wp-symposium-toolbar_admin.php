@@ -852,9 +852,16 @@ function symposium_toolbar_admintab_menus() {
 					// Point to a custom icon
 					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" style="min-width:170px; width:95%;" name="display_custom_menu_icon['.$count.']" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']"';
-						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo ' value="'.$custom_menu[3].'"';// site_url().'/url/to/my/icon.png"';
+						echo '<input type="text" style="min-width:170px; width:100%;" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']"';
+						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".stripslashes($custom_menu[3])."'";
 						echo '/>';
+						if ( version_compare( $wp_version, '3.8-alpha', '<' ) )
+							echo '<span class="description">'.__( 'Note: Full path to a custom icon file', 'wp-symposium-toolbar' ).'</span>';
+						else {
+							echo '<span class="description">';
+							printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">dashicon</a>' );
+							echo '</span>';
+						}
 					echo '</td>';
 					echo '</tr>';
 					
@@ -869,7 +876,7 @@ function symposium_toolbar_admintab_menus() {
 					if ( $is_wpst_network_admin ) {
 						echo '<tr style="background-color: '.$color.';">';
 						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: '.$color.';">';
-							echo '<input type="checkbox" id="display_custom_menu_network_'.$count.'" name="display_custom_menu_network_'.$count.'" class="wpst-admin"';
+							echo '<input type="checkbox" id="display_custom_menu_network['.$count.']" name="display_custom_menu_network['.$count.']" class="wpst-admin"';
 							if ( isset( $custom_menu[4] ) && $custom_menu[4] ) { echo ' CHECKED'; }
 							echo '><span> '.__( 'Make this menu a Network Menu', 'wp-symposium-toolbar' ).'</span>';
 						echo '</td>';
@@ -880,7 +887,7 @@ function symposium_toolbar_admintab_menus() {
 					if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 						echo '<tr style="background-color: '.$color.';">';
 						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
-							echo '<input type="checkbox" id="display_custom_menu_responsive_'.$count.'" name="display_custom_menu_responsive_'.$count.'" class="wpst-admin"';
+							echo '<input type="checkbox" id="display_custom_menu_responsive['.$count.']" name="display_custom_menu_responsive['.$count.']" class="wpst-admin"';
 							if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
 							echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
 							echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the WP User Menu"', 'wp-symposium-toolbar' ).'</span>';
@@ -914,7 +921,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '<span>' . __( 'Menu Name', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $all_navmenus ) {
 						echo '<select name="new_custom_menu_slug" class="wpst-admin">';
-						echo '<option value="empty" SELECTED>{{'.__( 'Add this menu', 'wp-symposium-toolbar' ).'...}}</option>';
+						echo '<option value="" SELECTED>{{'.__( 'Add this menu', 'wp-symposium-toolbar' ).'...}}</option>';
 						foreach ( $all_navmenus as $navmenu ) {
 							echo '<option value="'.$navmenu->slug.'">'.$navmenu->name.'</option>';
 						}
@@ -935,7 +942,14 @@ function symposium_toolbar_admintab_menus() {
 				echo '</td>';
 				echo '<td style="border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" style="min-width:170px; width:95%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
+					echo '<input type="text" style="min-width:170px; width:100%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
+					if ( version_compare( $wp_version, '3.8-alpha', '<' ) )
+						echo '<span class="description">'.__( 'Note: Full path to a custom icon file', 'wp-symposium-toolbar' ).'</span>';
+					else {
+						echo '<span class="description">';
+						printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">dashicon</a>' );
+						echo '</span>';
+					}
 				echo '</td>';
 				echo '</tr>';
 				

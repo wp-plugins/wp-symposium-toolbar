@@ -145,6 +145,10 @@ function symposium_toolbar_add_styles() {
 		if ( get_option( 'wpst_tech_avatar_to_header', '' ) != '' )
 			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_avatar_to_header', '' ) ) . '</style>';
 		
+		// Icons - Add classes to header for fonticons
+		if ( get_option( 'wpst_tech_icons_to_header', '' ) != '' )
+			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_icons_to_header', '' ) ) . '</style>';
+		
 		// Styles, both default and custom
 		// Backend - Add styles to the plugin options page only if active tab is "style"
 		// Or to the whole dashboard if admin choose to do so
@@ -161,16 +165,9 @@ function symposium_toolbar_add_styles() {
 					echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 			}
 		
-		// Frontend
-		} else {
-			// Add custom style to all frontend pages
-			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
-				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
-			
-			// Script loaded in the frontend only
-			if ( get_option( 'wpst_tech_script_to_header', '' ) != '' )
-				echo '<script type="text/javascript">' . get_option( 'wpst_tech_script_to_header', '' ) . '</script>';
-		}
+		// Frontend - Add custom style to all frontend pages
+		} elseif ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 	}
 }
 
@@ -490,6 +487,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 	}
 	
 	// Custom Menus
+	(int)$count = 0;
 	// Build all menus one by one and item after item
 	if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
 		
@@ -531,10 +529,17 @@ function symposium_toolbar_edit_wp_toolbar() {
 				// Toplevel menu item
 				if ( $menu_item['menu_item_parent'] == 0 ) {
 					
-					// Replacing the toplevel menu item title with a custom icon, while keeping the title for mouse hover
+					// Add an icon
 					if ( !empty( $custom_menu[3] ) && is_string( $custom_menu[3] ) ) {
-						$meta['title'] = $title;
-						$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
+						
+						// Replacing the toplevel menu item title with a custom icon, while keeping the title for mouse hover
+						if ( filter_var( $custom_menu[3], FILTER_VALIDATE_URL ) ) {
+							$meta['title'] = $title;
+							$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
+						
+						// Add a fonticon to the toplevel menu item
+						} else
+							$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-custom-item-'.$count : 'wpst-custom-item-'.$count;
 					}
 					
 					// We are replacing WP Logo
@@ -579,6 +584,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$wp_admin_bar->add_node( $symposium_toolbar_user_menu_item );
 			}
 		}
+	$count = $count + 1;
 	}
 	
 	// Finally, decide if WP Logo shall be removed / replaced / left untouched

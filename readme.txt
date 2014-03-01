@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.27.0
-Version: 0.27.1
+Version: 0.27.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,8 +146,9 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 == Changelog ==
 
-= 0.27.1. =
+= 0.27.2. =
 
+* Change: Option to add icons to all default toplevel menu items so that admins can iconify all the Toolbar items
 * Bugfix: Getting rid of notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
 
 = 0.27.0. =

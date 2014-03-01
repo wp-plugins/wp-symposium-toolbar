@@ -694,39 +694,49 @@ function symposium_toolbar_save_before_render() {
 			
 			// Custom Menus
 			if ( $_POST["symposium_toolbar_view"] == 'menus' ) {
-				$all_custom_menus = array ();
+				$all_custom_menus = array();
+				$all_custom_icons = "";
 				
 				// Updated menus
 				if ( isset( $_POST['display_custom_menu_slug'] ) ) {
 					$range = array_keys( $_POST['display_custom_menu_slug'] );
 					if ( $range ) foreach ( $range as $key ) {
 						if ( ( $_POST["display_custom_menu_slug"][$key] != 'remove' ) && ( $_POST["display_custom_menu_location"][$key] != 'remove' ) ) {
+							$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
+							$menu_icon = ( strstr( $display_custom_menu_icon, 'content: ' ) || filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) ? $display_custom_menu_icon : "";
 							$all_custom_menus[] = array(
 								$_POST['display_custom_menu_slug'][$key],
 								$_POST['display_custom_menu_location'][$key],
 								( isset( $_POST['display_custom_menu_'.$key.'_roles'] ) ) ? $_POST['display_custom_menu_'.$key.'_roles'] : array(),
-								filter_var( trim ( $_POST['display_custom_menu_icon'][$key] ), FILTER_SANITIZE_URL ),
-								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network_'.$key] ) ) : false,
-								isset( $_POST['display_custom_menu_responsive_'.$key] )
+								$menu_icon,
+								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network'][$key] ) ) : false,
+								isset( $_POST['display_custom_menu_responsive'][$key] )
 							);
+							if ( strstr( $menu_icon, 'content: ' ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-item-'.$key.' > .ab-item:before { font-family: dashicons !important; '.$menu_icon.'; display: block; } ';
+							if ( $display_custom_menu_icon != $menu_icon ) $wpst_failed .= $_POST['display_custom_menu_slug'][$key].', '.$_POST['display_custom_menu_location'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 						}
 					}
 				}
 				
 				// New menu, if any
-				if ( isset( $_POST["new_custom_menu_slug"] ) && ( $_POST["new_custom_menu_slug"] != 'empty' ) && isset( $_POST["new_custom_menu_location"] ) && ( $_POST["new_custom_menu_location"] != 'empty' ) ) {
+				if ( isset( $_POST["new_custom_menu_slug"] ) && ( $_POST["new_custom_menu_slug"] != '' ) && isset( $_POST["new_custom_menu_location"] ) && ( $_POST["new_custom_menu_location"] != 'empty' ) ) {
+					$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
+					$menu_icon = ( strstr( $display_custom_menu_icon, 'content: ' ) || filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) ? $display_custom_menu_icon : "";
 					$all_custom_menus[] = array(
 						$_POST["new_custom_menu_slug"],
 						$_POST["new_custom_menu_location"],
 						( $_POST['new_custom_menu_roles'] ) ? $_POST['new_custom_menu_roles'] : array(),
-						filter_var( trim ( $_POST['new_custom_menu_icon'] ), FILTER_SANITIZE_URL ),
+						$menu_icon,
 						( is_multisite() && is_main_site() ) ? ( isset( $_POST['new_custom_menu_network'] ) ) : false,
 						isset( $_POST['new_custom_menu_responsive'] )
 					);
+					if ( strstr( $menu_icon, 'content: ' ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-item-'.$key.' > .ab-item:before { font-family: dashicons !important; '.$menu_icon.'; display: block; } ';
+					if ( $display_custom_menu_icon != $menu_icon ) $wpst_failed .= $_POST['display_custom_menu_slug'][$key].', '.$_POST['display_custom_menu_location'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
-				// Now, save menus
+				// Now, save options
 				update_option( 'wpst_custom_menus', $all_custom_menus );
+				update_option( 'wpst_tech_icons_to_header', $all_custom_icons );
 			}
 			
 			// WP Symposium
