@@ -155,7 +155,7 @@ function symposium_toolbar_admin_page() {
 			echo '</div>';
 		}
 		
-		// Social Share
+		// Share
 		if ( isset( $wpst_shown_tabs[ 'share' ] ) && ( $wpst_active_tab == 'share' ) ) {
 			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="share">';
 			echo '<div id="share" class="wpst-nav-div-active">';
@@ -2561,14 +2561,6 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'On Multisites Installs, a checkbox will allow you to share the WP Symposium features accross the whole network. These features (the WPS Profile and Mail) must be active, and a dedicated page properly defined so users can access them from anywhere on the network.', 'wp-symposium-toolbar' ).' '.__( 'If you leave this unchecked, the features of this site will be used locally only.', 'wp-symposium-toolbar' ).' '.__( 'When this checkbox is checked, the features will be shared with other sites, if no other site takes precedence.', 'wp-symposium-toolbar' ).' '.__( 'The share order is: Home Site (if activated from the "Network" tab), current site, sites in ascending ID order starting with the Main Site.', 'wp-symposium-toolbar' ).' '.__( 'In conjunction with the "Network Toolbar", this allows you to make available the features of a site-activated WPS to a whole network.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'The last checkbox at this tab will re-generate for you the WPS menus available at the NavMenus page of the WP Dashboard, which were created upon first activation of the plugin. If it ever appears that these menus weren\'t properly created, or if you\'ve modified them to the point you\'ve messed up everything, you may ask the plugin to re-generate them for you. As instructed, delete the menu you\'d like to replace, check this box, and save the options. The plugin will then re-create missing menus, without modifying the existing ones.', 'wp-symposium-toolbar' ) . '</p>';
 		}
-		
-		// wpst_page_share
-		// if ( isset( $wpst_shown_tabs[ 'share' ] ) ) {
-		// echo '<h4><li>'.__( 'Share Icons', 'wp-symposium-toolbar' ).'</li></h4>';
-			// echo '<p>' . __( 'At this tab, you may choose to display share icons in your Toolbar, along with links to your site. These icons will be displayed in the frontend only, to all users.', 'wp-symposium-toolbar' ) . '</p>';
-			// echo '<p>' . __( 'The first settings let you choose which means you want to make available in your Toolbar, and which URL should be shared.  Depending on your site content and privacy you will want to share the homepage or its pages individually.', 'wp-symposium-toolbar' ) . '</p>';
-			// echo '<p>' . __( 'The other settings determine how these icons will look like.  When using their brand colors, icons will not change their color on mouse hover: you may then choose other style settings on hover.', 'wp-symposium-toolbar' ) . '</p>';
-		// }
 		
 		// wpst_page_style
 		if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {

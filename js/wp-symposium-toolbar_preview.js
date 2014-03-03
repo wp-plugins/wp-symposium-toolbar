@@ -557,7 +557,10 @@ jQuery(document).ready(function($){
 		style.innerHTML = '#wpadminbar .ab-top-menu > li > .ab-item, #wpadminbar .ab-top-menu > li.menupop > .ab-item, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item, #wpadminbar .ab-top-menu > li > .ab-item > span, #wpadminbar > #wp-toolbar li span.ab-label,   #wpadminbar .ab-top-menu > li > .ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon { text-shadow: '+tbNormalFontShadow+'; } ';
 		
 		// Fonticons
-		style.innerHTML += '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop > .ab-item:before, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar li > .ab-item > .ab-icon:before, #wpadminbar .ab-top-menu > li > .ab-item > span:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar li #adminbarsearch:before { text-shadow: '+tbNormalFontShadow+'; } ';
+		style.innerHTML += '#wpadminbar #wp-admin-bar-root-default .ab-icon, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:after, #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon, #wpadminbar .ab-top-menu > li > .ab-item > .ab-icon:before, #wpadminbar .ab-top-menu > li > .ab-item > span:before, #wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar li #adminbarsearch:before { text-shadow: '+tbNormalFontShadow+'; } ';
+		
+		// Avatar
+		style.innerHTML += '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { box-shadow: '+tbNormalFontShadow+'; -webkit-box-shadow: '+tbNormalFontShadow+'; } ';
 		
 		// Labels Hover
 		// Labels once menupop is on
@@ -566,11 +569,12 @@ jQuery(document).ready(function($){
 		style.innerHTML += '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li:hover span.ab-label, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li:hover span.ab-label, ';
 		// admin-bar.css:215
 		style.innerHTML += '#wpadminbar .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar > #wp-toolbar li:hover span.ab-label, #wpadminbar > #wp-toolbar li.hover span.ab-label, #wpadminbar > #wp-toolbar a:focus span.ab-label { text-shadow: '+tbHoverFontShadow+'; } ';
-		style.innerHTML += '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { border-color: '+tbHoverFontShadow+'; background-color: '+tbHoverFontShadow+'; } ';
 		
 		// Fonticons Hover
 		style.innerHTML += '#wpadminbar li:hover #adminbarsearch:before, #wpadminbar li:hover .ab-item span:before, #wpadminbar li.hover .ab-item span:before, #wpadminbar li.menupop:hover .ab-item span:before, #wpadminbar li.menupop.hover .ab-item span:before, #wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before, #wpadminbar #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon, #wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon, #wpadminbar #wp-admin-bar-wp-logo.menupop:hover > .ab-item .ab-icon, #wpadminbar #wp-admin-bar-wp-logo.menupop.hover > .ab-item .ab-icon, #wpadminbar li:hover > .ab-item > .ab-icon:before, #wpadminbar li.hover > .ab-item > .ab-icon:before, #wpadminbar li.menupop:hover > .ab-item > .ab-icon:before, #wpadminbar li.menupop.hover > .ab-item > .ab-icon:before { text-shadow: '+tbHoverFontShadow+'; } ';
-		style.innerHTML += '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar:hover > a img { box-shadow: '+tbHoverFontShadow+'; } ';
+		
+		// Avatar Hover
+		style.innerHTML += '#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar:hover > a img { box-shadow: '+tbHoverFontShadow+'; -webkit-box-shadow: '+tbHoverFontShadow+'; } ';
 		
 		document.getElementsByTagName('head')[0].appendChild(style);
 	}
@@ -690,7 +694,7 @@ jQuery(document).ready(function($){
 			$(this).find(".blavatar").css( "color", menuMainColorExt );
 		}});
 		
-		// Arrows
+		// Arrows & Blavatar
 		if ( document.getElementById("wpstMenuFontColour") )
 			var style = document.getElementById("wpstMenuFontColour");
 		else {
@@ -759,6 +763,20 @@ jQuery(document).ready(function($){
 		},function(){ if ( !$(this).is("focus") ) {
 			$(this).find("span").css( "text-shadow", menuNormalFontShadow );
 		} });
+		
+		// Blavatar
+		if ( document.getElementById("wpstMenuFontShadow") )
+			var style = document.getElementById("wpstMenuFontShadow");
+		else {
+			var style = document.createElement('style');
+			style.id = 'wpstMenuFontShadow';
+		}
+		
+		style.innerHTML = '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar { text-shadow: '+menuNormalFontShadow+'; } #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before { text-shadow: '+menuNormalFontShadow+'; } ';
+		
+		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar { text-shadow: '+menuHoverFontShadow+'; } #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before { text-shadow: '+menuHoverFontShadow+'; }  #wpadminbar .quicklinks li a:hover .blavatar:before { text-shadow: '+menuHoverFontShadow+'; } ';
+		
+		document.head.appendChild(style);
 	}
 	
 	function update_tb_shadow() {
