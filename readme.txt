@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.27.0
-Version: 0.27.3
+Version: 0.27.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,13 +146,19 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 == Changelog ==
 
-= 0.27.3. =
+= 0.28.0. =
 
-* Change: WP 3.8, Option to add fonticons to all default toplevel menu items so that admins can iconify all the Toolbar items
-* Bugfix: Getting rid of notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
+* Change: WP 3.8, Option to add fonticons to all default toplevel menu items (and now, admins can iconify all the Toolbar items)
+* Change: split the containers' shadow in two different settings, to reflect WP default shadow (also acts as Bugfix from WP default shadow)
+* Bugfix: get rid of notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
 * Bugfix: Styles, preview mode, correct avatar colors
-* Bugfix: WP 3.8, Styles, correct shadow colors for the W logo in My Sites, both previewed and saved
+* Bugfix: WP 3.8, Styles, correct shadow colors for the W logos in My Sites, both previewed and saved
 * Bugfix: WP 3.8, correct default icon size in responsive mode
+* Change: WP 3.9, make use of 'rel' meta added to WP_Admin_Bar::add_node() for Custom Menus relationships set from WP NavMenus page
+* Bugfix: get rid of PHP notices when a gradient is set without a background color
+* Bugfix: Styles, both previewed and saved, username now adheres to WP default color when no font color is set in dropdown menus
+* Bugfix: WP 3.8, Styles, make menu items' background colors transparent on hover (no default value)
+* Bugfix: WP 3.8, make sure the default CSS file is loaded at all pages when Admin chooses to style the Toolbar accross the whole dashbard
 
 = 0.27.0. =
 

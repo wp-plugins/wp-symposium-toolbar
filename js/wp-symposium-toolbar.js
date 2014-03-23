@@ -18,7 +18,6 @@ jQuery(document).ready(function($){
 
 	// SAFERS
 	
-	// Reference: http://www.4guysfromrolla.com/demos/OnBeforeUnloadDemo2.htm
 	window.onbeforeunload = confirmExit;
 	function confirmExit() {
 		if ( needToConfirm )
@@ -57,10 +56,10 @@ jQuery(document).ready(function($){
 		// Get the current screen width
 		navWidth = $( '#wpst-nav-management' ).width();
 		
-		// Recompute it in case of switch between responsive and normal
+		// Recompute the left/right arrows width in case of switch between responsive and normal
 		arrowWidth = $( '#wpst-nav-tabs-arrow-left' ).outerWidth();
 		
-		// Compute the total width of all tabs and set the container width
+		// Compute the cumulated width of all tabs and set the container width accordingly
 		tabs.last().css( "margin-right", "0px" );
 		tabsWidth = 0;
 		tabs.each( function(){
@@ -72,7 +71,7 @@ jQuery(document).ready(function($){
 		});
 		$( '#wpst-nav-tabs' ).width( tabsWidth + ( arrowWidth * 2 ) );
 		
-		// Tabs are too large, add arrows
+		// Tabs are too large for the container, add arrows
 		if ( tabsWidth > navWidth ) {
 			$( "#wpst-nav-tabs-wrapper" ).css( "padding", "0px " + arrowWidth + "px" );
 			$( "#wpst-nav-management" ).find( ".wpst-nav-tabs-arrow" ).css( "display", "inline" );
@@ -83,7 +82,7 @@ jQuery(document).ready(function($){
 			if ( isRTL ) $( '#wpst-nav-tabs' ).css( "margin-right", ( tabsShift ) + "px" );
 			else $( '#wpst-nav-tabs' ).css( "margin-left", ( tabsShift ) + "px" );
 		
-		// Tabs are smaller than container / became smaller, hide / remove arrows
+		// Tabs are smaller than container or became smaller, hide / remove arrows
 		} else {
 			$( "#wpst-nav-tabs-wrapper" ).css( "padding", "0px" );
 			$( "#wpst-nav-management" ).find( ".wpst-nav-tabs-arrow" ).css( "display", "none" );
@@ -109,9 +108,9 @@ jQuery(document).ready(function($){
 			if ( tabsShift < ( navWidth - tabsWidth - tabsRight) ) tabsShift = navWidth - tabsWidth - tabsRight;
 		}
 		
-		if ( isRTL ) {
+		if ( isRTL )
 			$( '#wpst-nav-tabs' ).animate({marginRight: tabsShift},"fast","swing");
-		} else
+		else
 			$( '#wpst-nav-tabs' ).animate({marginLeft: tabsShift},"fast","swing");
 	});
 	
@@ -140,8 +139,8 @@ jQuery(document).ready(function($){
 			$(this).css("background-color", "#FFEBE8");
 			$(this).css("border", "1px solid #CC0000");
 		} else {
-			$(this).css("background-color", "#FFFFFF");
-			$(this).css("border", "1px solid #DFDFDF");
+			$(this).css("background-color", "#ffffff");
+			$(this).css("border", "1px solid #dfdfdf");
 		}
 	});
 	
@@ -152,8 +151,8 @@ jQuery(document).ready(function($){
 			$(this).css("background-color", "#FFEBE8");
 			$(this).css("border", "1px solid #CC0000");
 		} else {
-			$(this).css("background-color", "#FFFFFF");
-			$(this).css("border", "1px solid #DFDFDF");
+			$(this).css("background-color", "#ffffff");
+			$(this).css("border", "1px solid #dfdfdf");
 		}
 	});
 	
@@ -164,8 +163,8 @@ jQuery(document).ready(function($){
 			$(this).css("background-color", "#FFEBE8");
 			$(this).css("border", "1px solid #CC0000");
 		} else {
-			$(this).css("background-color", "#FFFFFF");
-			$(this).css("border", "1px solid #DFDFDF");
+			$(this).css("background-color", "#ffffff");
+			$(this).css("border", "1px solid #dfdfdf");
 		}
 	});
 	

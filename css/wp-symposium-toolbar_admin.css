@@ -200,6 +200,10 @@
     padding-right: 0;
 }
 
+#wpadminbar .ab-top-menu > li > a:before {
+    top: 2px;
+}
+
 /* Force the display of these icons, whenever screen width permits */
 @media screen and (max-width: 782px) {
 	#wp-admin-bar-top-secondary #wp-admin-bar-symposium-toolbar-notifications-mail,
@@ -277,6 +281,11 @@
 /**
  * User Menu
  */
+
+/* Force hover color for User Info username */
+#wpadminbar #wp-admin-bar-user-info a:hover .username {
+	color: #2ea2cc;
+}
 
 /* Style the User Menu for a correct partial display */
 @media screen and (min-width: 783px) {
@@ -423,7 +432,7 @@
 	margin-top: 6px;"
 }
 
-/* caret-down in responsive */
+/* caret-down does not show by default (non-responsive) */
 #wpadminbar .wpst-r-item > a:before,
 #wpadminbar .wpst-r-item > .ab-item:before {
 	display: none;

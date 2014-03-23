@@ -524,7 +524,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$menu_item = wp_parse_args( $menu_item, array( 'classes' => array(), 'title' => '', 'attr_title' => '', 'target' => '', 'xfn' => '' ) );
 				$menu_id = $menu_item['ID'];
 				$title = $menu_item['title'];
-				$meta = array( 'class' => implode( " ", $menu_item['classes'] ), 'tabindex' => -1, 'title' => $menu_item['attr_title'], 'target' => $menu_item['target'], 'xfn' => $menu_item['xfn'] );
+				$meta = array( 'class' => implode( " ", $menu_item['classes'] ), 'tabindex' => -1, 'title' => $menu_item['attr_title'], 'target' => $menu_item['target'], 'rel' => $menu_item['xfn'] );
 				
 				// Toplevel menu item
 				if ( $menu_item['menu_item_parent'] == 0 ) {
@@ -584,9 +584,37 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$wp_admin_bar->add_node( $symposium_toolbar_user_menu_item );
 			}
 		}
-	$count = $count + 1;
+		$count = $count + 1;
 	}
 	
+	// $symposium_toolbar_user_menu_item = array( 
+		// 'title' => '<form name="adminloginform" id="adminloginform" action="http://assire.fr/wpms-test/wp-login.php" method="post"><p class="login-username"><label for="user_login">Identifiant</label><input type="text" name="log" id="user_login" class="input" value="" size="20"></p><p class="login-password"><label for="user_pass">Mot de passe</label><input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></p><p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Se souvenir de moi</label></p><p class="login-submit"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Se connecter"><input type="hidden" name="redirect_to" value="http://assire.fr/wpms-test/"></p></form>',
+		// 'href' => '',
+		// 'id' => '999',
+		// 'parent' => 'my-account',
+		// 'meta' => array( 'class' => 'wpst_loginform' )
+	// );
+	// $wp_admin_bar->add_node( $symposium_toolbar_user_menu_item );
+	
+	// <form name="adminloginform" id="adminloginform" action="http://assire.fr/wpms-test/wp-login.php" method="post">
+			
+			// <p class="login-username">
+				// <label for="user_login">Identifiant</label>
+				// <input type="text" name="log" id="user_login" class="input" value="" size="20">
+			// </p>
+			// <p class="login-password">
+				// <label for="user_pass">Mot de passe</label>
+				// <input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+			// </p>
+			
+			// <p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Se souvenir de moi</label></p>
+			// <p class="login-submit">
+				// <input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Se connecter">
+				// <input type="hidden" name="redirect_to" value="http://assire.fr/wpms-test/">
+			// </p>
+			
+		// </form>
+		
 	// Finally, decide if WP Logo shall be removed / replaced / left untouched
 	if ( is_array( get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {
 		if ( ! array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {

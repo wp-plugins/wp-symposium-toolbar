@@ -21,7 +21,8 @@
 #wpadminbar,
 #wpadminbar .quicklinks,
 #wpadminbar .ab-top-secondary {
-	background: #222;
+	background: #222222;
+	color: #cccccc;
 }
 
 #wpadminbar a.ab-item,
@@ -32,21 +33,30 @@
 #wpadminbar .quicklinks .menupop.hover ul li .ab-item,
 #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item,
 #wpadminbar #wp-admin-bar-user-info .display-name,
-#wpadminbar #wp-admin-bar-user-info .username,
 #wpadminbar #wp-admin-bar-user-info span,
 #wpadminbar .ab-sub-wrapper > ul > li > .ab-item,
 #wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong,
 #wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a,
 #wpadminbar #wp-admin-bar-user-info .ab-item:hover {
-	color: #eee;
+	color: #eeeeee;
 }
 
+#wpadminbar #wp-admin-bar-user-info .username,
 #wpadminbar .ab-icon,
 #wpadminbar .ab-icon:before,
 #wpadminbar .ab-item:before,
 #wpadminbar .ab-item:after,
+#wpadminbar .ab-item span:before,
+#wpadminbar .ab-item span:after,
+#wpadminbar .ab-top-menu > li > .ab-item:before,
+#wpadminbar .ab-top-menu > li > .ab-item:after,
 #wpadminbar #adminbarsearch:before {
-	color: #999;
+	color: #999999;
+}
+
+#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+	border-color: #999999;
+	background-color: #999999;
 }
 
 #wpadminbar .ab-top-menu > li:hover > .ab-item:before,
@@ -91,11 +101,14 @@
 #wpadminbar .quicklinks li a:hover .blavatar:before,
 #wpadminbar .menupop .menupop > .ab-item:hover:before,
 #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name,
-#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username,
 #wpadminbar #wp-admin-bar-user-info:hover span,
-#wpadminbar #wp-admin-bar-user-info a:hover .username,
 #wpadminbar #wp-admin-bar-user-info a:hover span {
-	color: #2ea2cc;
+	color: #2EA2CC;
+}
+
+#wpadminbar #wp-admin-bar-user-info:hover span.username,
+#wpadminbar #wp-admin-bar-user-info a:hover span.username {
+	color: #999999;
 }
 
 #wpadminbar .menupop .ab-sub-wrapper,
@@ -113,5 +126,5 @@
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu,
 #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary,
 #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu {
-	background-color: #4b4b4b;
+	background-color: #4B4B4B;
 }

@@ -10,7 +10,7 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.5
 Tested up to: 3.8.1
 Stable tag: 0.27.0
-Version: 0.27.3
+Version: 0.27.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2703;
+$wpst_buildnr = 2712;
 
 
 // Exit if accessed directly
@@ -124,29 +124,28 @@ function symposium_toolbar_init() {
 	if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
 	if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 	
-	if ( $wpst_active_tab != '' ) {
+	if ( is_admin() ) if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 		
 		// Up to WP 3.7.1, load preview at all tabs of this page
-		if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+		if ( $wpst_active_tab != '' ) {
 			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
+		}
+	
+	} else {
 		
-		// For WP 3.8+, load preview and default CSS at 'Styles' tab solely...
+		// Default CSS - for WP 3.8+, load at 'Styles'/'CSS' tabs solely, unless Admin chooses the whole admin dashboard...
 		// Dep on 'colors' to ensure this CSS is loaded before, and erase its values with 'default'
-		} else {
-			
-			// Default CSS
-			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
-				$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
-				$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
-				if ( file_exists($adminStyleFile) ) {
-					wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), $wpst_buildnr );
-				}
+		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
+			$adminStyleUrl = WP_PLUGIN_URL . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
+			$adminStyleFile = WP_PLUGIN_DIR . '/wp-symposium-toolbar/css/wp-symposium-toolbar_default.css';
+			if ( file_exists($adminStyleFile) ) {
+				wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), $wpst_buildnr );
 			}
-			
-			// JS preview
-			if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
-				wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
-			}
+		}
+		
+		// JS preview - load preview at 'Styles'/'CSS' tabs solely
+		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
+			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
 		}
 	}
 	

@@ -16,10 +16,6 @@
 */
 
 /**
- * Functions used in the WP Dashboard only
- */
-
-/**
  * Initializes several global variables for use in the WP Dashboard options page solely
  *
  * @since O.23.0
@@ -79,64 +75,86 @@ function symposium_toolbar_init_admin_globals() {
  * @param  none
  * @return (array)$wpst_default_toolbar
  */
- function symposium_toolbar_init_default_toolbar() {
+function symposium_toolbar_init_default_toolbar( $wp_version ) {
 
-	global $wp_version;
-	
 	// Build the array of default values for the Toolbar, based on WP Version
 	$wpst_default_toolbar = array();
 	if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+		
 		$wpst_default_toolbar['height'] = "28";
 		$wpst_default_toolbar['search_height'] = "24";
 		$wpst_default_toolbar['subwrapper_top'] = "26px";
 		$wpst_default_toolbar['tablet_toolbar_height'] = "28";
+		$wpst_default_toolbar['transparency'] = "100";
+		$wpst_default_toolbar['h_shadow'] = "0";
+		$wpst_default_toolbar['v_shadow'] = "0";
+		$wpst_default_toolbar['shadow_blur'] = "0";
+		$wpst_default_toolbar['shadow_spread'] = "0";
+		$wpst_default_toolbar['shadow_colour'] = "#ffffff";
+		$wpst_default_toolbar['shadow_transparency'] = "100";
+		
 		$wpst_default_toolbar['border_width'] = "1";
 		$wpst_default_toolbar['border_style'] = "solid";
 		$wpst_default_toolbar['border_left_colour'] = "#555555";
 		$wpst_default_toolbar['border_right_colour'] = "#333333";
 		$wpst_default_toolbar['background_colour'] = "#464646";
+		$wpst_default_toolbar['empty_gradient_length'] = "0";
 		$wpst_default_toolbar['font_size'] = "13";
-		$wpst_default_toolbar['font_colour'] = "#CCCCCC";
+		$wpst_default_toolbar['font_colour'] = "#cccccc";
 		$wpst_default_toolbar['font_h_shadow'] = "0";
 		$wpst_default_toolbar['font_v_shadow'] = "-1";
 		$wpst_default_toolbar['font_shadow_blur'] = "0";
 		$wpst_default_toolbar['font_shadow_colour'] = "#444444";
 		
 		$wpst_default_toolbar['hover_background_colour'] = "#222222"; // Menupop: #ffffff
-		$wpst_default_toolbar['hover_font_colour'] = "#CCCCCC"; // Menupop: #333333
+		$wpst_default_toolbar['hover_font_colour'] = "#cccccc"; // Menupop: #333333
 		$wpst_default_toolbar['hover_font_h_shadow'] = "0";
 		$wpst_default_toolbar['hover_font_v_shadow'] = "0";
 		$wpst_default_toolbar['hover_font_shadow_blur'] = "0";
 		
-		$wpst_default_toolbar['menu_background_colour'] = "#FFFFFF";
-		$wpst_default_toolbar['menu_ext_background_colour'] = "#EEEEEE";
-		$wpst_default_toolbar['menu_font_colour'] = "#21759B";
-		$wpst_default_toolbar['menu_ext_font_colour'] = "#21759B";  // TBC
+		$wpst_default_toolbar['menu_background_colour'] = "#ffffff";
+		$wpst_default_toolbar['menu_ext_background_colour'] = "#eeeeee";
+		$wpst_default_toolbar['menu_h_shadow'] = "0";
+		$wpst_default_toolbar['menu_v_shadow'] = "4";
+		$wpst_default_toolbar['menu_shadow_blur'] = "4";
+		$wpst_default_toolbar['menu_shadow_spread'] = "0";
+		$wpst_default_toolbar['menu_shadow_colour'] = "#000000";
+		$wpst_default_toolbar['menu_shadow_transparency'] = "20";  // means 20% opacity
+		
+		$wpst_default_toolbar['menu_font_colour'] = "#21759b";
+		$wpst_default_toolbar['menu_ext_font_colour'] = "#21759b";  // TBC
 		$wpst_default_toolbar['menu_font_h_shadow'] = "0";
 		$wpst_default_toolbar['menu_font_v_shadow'] = "0";
 		$wpst_default_toolbar['menu_font_shadow_blur'] = "0";
+		
 		$wpst_default_toolbar['menu_hover_font_h_shadow'] = "0";
 		$wpst_default_toolbar['menu_hover_font_v_shadow'] = "0";
 		$wpst_default_toolbar['menu_hover_font_shadow_blur'] = "0";
-		$wpst_default_toolbar['menu_hover_background_colour'] = "#EAF2FA";
-		$wpst_default_toolbar['menu_hover_ext_background_colour'] = "#DFDFDF";
-		$wpst_default_toolbar['menu_hover_font_colour'] = "#21759B";  // TBC
-		$wpst_default_toolbar['menu_hover_ext_font_colour'] = "#21759B";  // TBC
+		$wpst_default_toolbar['menu_hover_background_colour'] = "#eaf2fa";
+		$wpst_default_toolbar['menu_hover_ext_background_colour'] = "#dfdfdf";
+		$wpst_default_toolbar['menu_hover_font_colour'] = "#21759b";  // TBC
+		$wpst_default_toolbar['menu_hover_ext_font_colour'] = "#21759b";  // TBC
 		
+	} else {
+		
+		// Toolbar
+		$wpst_default_toolbar['height'] = "32";
+		$wpst_default_toolbar['search_height'] = "24";
+		$wpst_default_toolbar['subwrapper_top'] = "30px";
+		$wpst_default_toolbar['tablet_toolbar_height'] = "46";
 		$wpst_default_toolbar['transparency'] = "100";
 		$wpst_default_toolbar['h_shadow'] = "0";
 		$wpst_default_toolbar['v_shadow'] = "0";
 		$wpst_default_toolbar['shadow_blur'] = "0";
 		$wpst_default_toolbar['shadow_spread'] = "0";
+		$wpst_default_toolbar['shadow_colour'] = "#cccccc";
+		$wpst_default_toolbar['shadow_transparency'] = "100";
 		
-	} else {
-		$wpst_default_toolbar['height'] = "32";
-		$wpst_default_toolbar['search_height'] = "24";
-		$wpst_default_toolbar['subwrapper_top'] = "30px";
-		$wpst_default_toolbar['tablet_toolbar_height'] = "46";
+		// Toolbar Items
 		$wpst_default_toolbar['border_width'] = "0";
 		$wpst_default_toolbar['border_style'] = "none";
 		$wpst_default_toolbar['background_colour'] = "#222222";
+		$wpst_default_toolbar['empty_gradient_length'] = "0";
 		$wpst_default_toolbar['icon_size'] = "20";
 		$wpst_default_toolbar['icon_colour'] = "#999999";
 		$wpst_default_toolbar['font_size'] = "13";
@@ -145,6 +163,7 @@ function symposium_toolbar_init_admin_globals() {
 		$wpst_default_toolbar['font_v_shadow'] = "0";
 		$wpst_default_toolbar['font_shadow_blur'] = "0";
 		
+		// Toolbar Items Hover / Focus
 		$wpst_default_toolbar['hover_background_colour'] = "#333333";
 		$wpst_default_toolbar['hover_icon_colour'] = "#2ea2cc";
 		$wpst_default_toolbar['hover_font_colour'] = "#2ea2cc";
@@ -152,6 +171,16 @@ function symposium_toolbar_init_admin_globals() {
 		$wpst_default_toolbar['hover_font_v_shadow'] = "0";
 		$wpst_default_toolbar['hover_font_shadow_blur'] = "0";
 		
+		// Dropdown Menus
+		// ab-sub-wrappers have a box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+		$wpst_default_toolbar['menu_h_shadow'] = "0";
+		$wpst_default_toolbar['menu_v_shadow'] = "3";
+		$wpst_default_toolbar['menu_shadow_blur'] = "5";
+		$wpst_default_toolbar['menu_shadow_spread'] = "0";
+		$wpst_default_toolbar['menu_shadow_colour'] = "#cccccc"; // #000000
+		$wpst_default_toolbar['menu_shadow_transparency'] = "20";  // means 20% opacity
+		
+		// Dropdown Menus Items
 		$wpst_default_toolbar['menu_background_colour'] = "#333333";
 		$wpst_default_toolbar['menu_ext_background_colour'] = "#4b4b4b";
 		$wpst_default_toolbar['menu_font_colour'] = "#eeeeee";
@@ -159,19 +188,16 @@ function symposium_toolbar_init_admin_globals() {
 		$wpst_default_toolbar['menu_font_h_shadow'] = "0";
 		$wpst_default_toolbar['menu_font_v_shadow'] = "0";
 		$wpst_default_toolbar['menu_font_shadow_blur'] = "0";
+		
+		// Dropdown Menus Items Hover / Focus
+		// We need the first two for compliancy with pre-3.8
+		$wpst_default_toolbar['menu_hover_background_colour'] = ""; // #333333
+		$wpst_default_toolbar['menu_hover_ext_background_colour'] = ""; // #4b4b4b
+		$wpst_default_toolbar['menu_hover_font_colour'] = "#2ea2cc";
+		$wpst_default_toolbar['menu_hover_ext_font_colour'] = "#2ea2cc";
 		$wpst_default_toolbar['menu_hover_font_h_shadow'] = "0";
 		$wpst_default_toolbar['menu_hover_font_v_shadow'] = "0";
 		$wpst_default_toolbar['menu_hover_font_shadow_blur'] = "0";
-		$wpst_default_toolbar['menu_hover_background_colour'] = "#333333";
-		$wpst_default_toolbar['menu_hover_ext_background_colour'] = "#4b4b4b";
-		$wpst_default_toolbar['menu_hover_font_colour'] = "#2ea2cc";
-		$wpst_default_toolbar['menu_hover_ext_font_colour'] = "#2ea2cc";
-		
-		$wpst_default_toolbar['transparency'] = "100";
-		$wpst_default_toolbar['h_shadow'] = "0";
-		$wpst_default_toolbar['v_shadow'] = "0";
-		$wpst_default_toolbar['shadow_blur'] = "0";
-		$wpst_default_toolbar['shadow_spread'] = "0";
 	}
 	
 	return $wpst_default_toolbar;
@@ -308,16 +334,16 @@ function symposium_toolbar_update() {
 		delete_option( 'wpst_tech_style_social_icons' );
 	}
 	
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2642 ) {
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2643 ) {
+		
+		delete_option( 'wpst_tech_default_style_to_header' );
+	}
+	
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2707 ) {
 		
 		// Update CSS based on stored styles and installed plugins
 		$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
 		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
-	}
-	
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2643 ) {
-		
-		delete_option( 'wpst_tech_default_style_to_header' );
 	}
 	
 	// Store build nr
@@ -466,7 +492,7 @@ function symposium_toolbar_save_before_render() {
 		return;
 	
 	// Init default Toolbar style
-	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar();
+	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar( $wp_version );
 	
 	// Check for activated/deactivated WPS features, the $_POST['__wps__installation_update'] means WPS is activated
 	if ( isset( $_POST['__wps__installation_update'] ) && $_POST['__wps__installation_update'] == 'Y' ) {
@@ -771,10 +797,9 @@ function symposium_toolbar_save_before_render() {
 				// update_option( 'wpst_share_icons_hover_color', isset( $_POST["icons_hover_color"] ) ? 'on' : '' );
 			}
 			
-			// Styles and CSS
+			// Styles
 			if ( $_POST["symposium_toolbar_view"] == 'style' ) {
 				
-				// Fifth set of options - Styles
 				$wpst_style_tb_current = array();
 				
 				// Toolbar Normal Style
@@ -785,6 +810,14 @@ function symposium_toolbar_save_before_render() {
 					else $wpst_failed .= __( 'Toolbar Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
+				// Opacity
+				$wpst_transparency = ( isset( $_POST['wpst_transparency'] ) && ( $_POST['wpst_transparency'] != '' ) ) ? $_POST['wpst_transparency'] : $wpst_default_toolbar['transparency'];
+				if ( isset( $_POST['wpst_transparency'] ) && ( $_POST['wpst_transparency'] != '' ) && ( $_POST['wpst_transparency'] != $wpst_default_toolbar['transparency'] ) ) {
+					if ( $_POST['wpst_transparency'] == filter_var( $_POST['wpst_transparency'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 100 ) ) ) )
+						$wpst_style_tb_current['transparency'] = $_POST['wpst_transparency'];
+					else $wpst_failed .= __( 'Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
 				// Background Colour
 				if ( isset( $_POST['wpst_background_colour'] ) && ( $_POST['wpst_background_colour'] != '' ) && ( $_POST['wpst_background_colour'] != $wpst_default_toolbar['background_colour'] ) ) {
 					if ( ctype_xdigit( trim( $_POST['wpst_background_colour'], "#" ) ) ) $wpst_style_tb_current['background_colour'] = "#".trim( $_POST['wpst_background_colour'], "#" );
@@ -792,7 +825,7 @@ function symposium_toolbar_save_before_render() {
 				}
 				
 				// Gradient
-				if ( isset( $_POST['wpst_top_gradient'] ) && ( $_POST['wpst_top_gradient'] != '' ) ) {
+				if ( isset( $_POST['wpst_top_gradient'] ) && ( $_POST['wpst_top_gradient'] != '' ) && ( $_POST['wpst_top_gradient'] != $wpst_default_toolbar['empty_gradient_length'] ) ) {
 					if ( $_POST['wpst_top_gradient'] == filter_var( $_POST['wpst_top_gradient'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) 
 						$wpst_style_tb_current['top_gradient'] = $_POST['wpst_top_gradient'];
 					else $wpst_failed .= __( 'Toolbar Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
@@ -803,7 +836,7 @@ function symposium_toolbar_save_before_render() {
 					else $wpst_failed .= __( 'Toolbar Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
-				if ( isset( $_POST['wpst_bottom_gradient'] ) && ( $_POST['wpst_bottom_gradient'] != '' ) ) {
+				if ( isset( $_POST['wpst_bottom_gradient'] ) && ( $_POST['wpst_bottom_gradient'] != '' ) && ( $_POST['wpst_bottom_gradient'] != $wpst_default_toolbar['empty_gradient_length'] ) ) {
 					if ( $_POST['wpst_bottom_gradient'] == filter_var( $_POST['wpst_bottom_gradient'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) 
 						$wpst_style_tb_current['bottom_gradient'] = $_POST['wpst_bottom_gradient'];
 					else $wpst_failed .= __( 'Toolbar Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
@@ -812,6 +845,42 @@ function symposium_toolbar_save_before_render() {
 				if ( isset( $_POST['wpst_bottom_colour'] ) && ( $_POST['wpst_bottom_colour'] != '' ) ) {
 					if ( ctype_xdigit( trim( $_POST['wpst_bottom_colour'], "#" ) ) ) $wpst_style_tb_current['bottom_colour'] = "#".trim( $_POST['wpst_bottom_colour'], "#" );
 					else $wpst_failed .= __( 'Toolbar Gradient Bottom Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				// Toolbar Shadow
+				if ( isset( $_POST['wpst_h_shadow'] ) && ( $_POST['wpst_h_shadow'] != '' ) && ( $_POST['wpst_h_shadow'] != $wpst_default_toolbar['h_shadow'] ) ) {
+					if ( $_POST['wpst_h_shadow'] == filter_var( $_POST['wpst_h_shadow'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['h_shadow'] = $_POST['wpst_h_shadow'];
+					else $wpst_failed .= __( 'Toolbar Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_v_shadow'] ) && ( $_POST['wpst_v_shadow'] != '' ) && ( $_POST['wpst_v_shadow'] != $wpst_default_toolbar['v_shadow'] ) ) {
+					if ( $_POST['wpst_v_shadow'] == filter_var( $_POST['wpst_v_shadow'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['v_shadow'] = $_POST['wpst_v_shadow'];
+					else $wpst_failed .= __( 'Toolbar Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_shadow_blur'] ) && ( $_POST['wpst_shadow_blur'] != '' ) && ( $_POST['wpst_shadow_blur'] != $wpst_default_toolbar['shadow_blur'] ) ) {
+					if ( $_POST['wpst_shadow_blur'] == filter_var( $_POST['wpst_shadow_blur'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
+						$wpst_style_tb_current['shadow_blur'] = $_POST['wpst_shadow_blur'];
+					else $wpst_failed .= __( 'Toolbar Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_shadow_spread'] ) && ( $_POST['wpst_shadow_spread'] != '' ) && ( $_POST['wpst_shadow_spread'] != $wpst_default_toolbar['shadow_spread'] ) ) {
+					if ( $_POST['wpst_shadow_spread'] == filter_var( $_POST['wpst_shadow_spread'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['shadow_spread'] = $_POST['wpst_shadow_spread'];
+					else $wpst_failed .= __( 'Toolbar Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_shadow_colour'] ) && ( $_POST['wpst_shadow_colour'] != '' ) && ( $_POST['wpst_shadow_colour'] != $wpst_default_toolbar['shadow_colour'] ) ) {
+					if ( ctype_xdigit( trim( $_POST['wpst_shadow_colour'], "#" ) ) ) $wpst_style_tb_current['shadow_colour'] = "#".trim( $_POST['wpst_shadow_colour'], "#" );
+					else $wpst_failed .= __( 'Toolbar Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_shadow_transparency'] ) && ( $_POST['wpst_shadow_transparency'] != '' ) && ( $_POST['wpst_shadow_transparency'] != $wpst_default_toolbar['shadow_transparency'] ) ) {
+					if ( $_POST['wpst_shadow_transparency'] == filter_var( $_POST['wpst_shadow_transparency'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 100 ) ) ) )
+						$wpst_style_tb_current['shadow_transparency'] = $_POST['wpst_shadow_transparency'];
+					else $wpst_failed .= __( 'Toolbar Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
 				// Borders
@@ -835,6 +904,7 @@ function symposium_toolbar_save_before_render() {
 				
 				// Icon
 				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+					
 					$wpst_icon_size = ( isset( $_POST['wpst_icon_size'] ) && ( $_POST['wpst_icon_size'] != '' ) ) ? $_POST['wpst_icon_size'] : $wpst_default_toolbar['icon_size'];
 					if ( isset( $_POST['wpst_icon_size'] ) && ( $_POST['wpst_icon_size'] != '' ) && ( $_POST['wpst_icon_size'] != $wpst_default_toolbar['icon_size'] ) ) {
 						if ( $_POST['wpst_icon_size'] == filter_var(  $_POST['wpst_icon_size'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
@@ -902,7 +972,7 @@ function symposium_toolbar_save_before_render() {
 				}
 				
 				// Hover Gradient
-				if ( isset( $_POST['wpst_hover_top_gradient'] ) && ( $_POST['wpst_hover_top_gradient'] != '' ) ) {
+				if ( isset( $_POST['wpst_hover_top_gradient'] ) && ( $_POST['wpst_hover_top_gradient'] != '' ) && ( $_POST['wpst_hover_top_gradient'] != $wpst_default_toolbar['empty_gradient_length'] ) ) {
 					if ( $_POST['wpst_hover_top_gradient'] == filter_var( $_POST['wpst_hover_top_gradient'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) 
 						$wpst_style_tb_current['hover_top_gradient'] = $_POST['wpst_hover_top_gradient'];
 					else $wpst_failed .= __( 'Toolbar Hover Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
@@ -913,7 +983,7 @@ function symposium_toolbar_save_before_render() {
 					else $wpst_failed .= __( 'Toolbar Hover Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
-				if ( isset( $_POST['wpst_hover_bottom_gradient'] ) && ( $_POST['wpst_hover_bottom_gradient'] != '' ) ) {
+				if ( isset( $_POST['wpst_hover_bottom_gradient'] ) && ( $_POST['wpst_hover_bottom_gradient'] != '' ) && ( $_POST['wpst_hover_bottom_gradient'] != $wpst_default_toolbar['empty_gradient_length'] ) ) {
 					if ( $_POST['wpst_hover_bottom_gradient'] == filter_var( $_POST['wpst_hover_bottom_gradient'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) 
 						$wpst_style_tb_current['hover_bottom_gradient'] = $_POST['wpst_hover_bottom_gradient'];
 					else $wpst_failed .= __( 'Toolbar Hover Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
@@ -982,6 +1052,7 @@ function symposium_toolbar_save_before_render() {
 				}
 				
 				
+				// Dropdown Menus
 				// Dropdown Menus Background Color
 				if ( isset( $_POST['wpst_menu_background_colour'] ) && ( $_POST['wpst_menu_background_colour'] != '' ) && ( $_POST['wpst_menu_background_colour'] != $wpst_default_toolbar['menu_background_colour'] ) ) {
 					if ( ctype_xdigit( trim( $_POST['wpst_menu_background_colour'], "#" ) ) ) $wpst_style_tb_current['menu_background_colour'] = "#".trim( $_POST['wpst_menu_background_colour'], "#" );
@@ -991,6 +1062,42 @@ function symposium_toolbar_save_before_render() {
 				if ( isset( $_POST['wpst_menu_ext_background_colour'] ) && ( $_POST['wpst_menu_ext_background_colour'] != '' ) && ( $_POST['wpst_menu_ext_background_colour'] != $wpst_default_toolbar['menu_ext_background_colour'] ) ) {
 					if ( ctype_xdigit( trim( $_POST['wpst_menu_ext_background_colour'], "#" ) ) ) $wpst_style_tb_current['menu_ext_background_colour'] = "#".trim( $_POST['wpst_menu_ext_background_colour'], "#" );
 					else $wpst_failed .= __( 'Dropdown Menus Background Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				// Dropdown Menus Shadow
+				if ( isset( $_POST['wpst_menu_h_shadow'] ) && ( $_POST['wpst_menu_h_shadow'] != '' ) && ( $_POST['wpst_menu_h_shadow'] != $wpst_default_toolbar['menu_h_shadow'] ) ) {
+					if ( $_POST['wpst_menu_h_shadow'] == filter_var( $_POST['wpst_menu_h_shadow'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['menu_h_shadow'] = $_POST['wpst_menu_h_shadow'];
+					else $wpst_failed .= __( 'Dropdown Menus Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_menu_v_shadow'] ) && ( $_POST['wpst_menu_v_shadow'] != '' ) && ( $_POST['wpst_menu_v_shadow'] != $wpst_default_toolbar['menu_v_shadow'] ) ) {
+					if ( $_POST['wpst_menu_v_shadow'] == filter_var( $_POST['wpst_menu_v_shadow'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['menu_v_shadow'] = $_POST['wpst_menu_v_shadow'];
+					else $wpst_failed .= __( 'Dropdown Menus Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_menu_shadow_blur'] ) && ( $_POST['wpst_menu_shadow_blur'] != '' ) && ( $_POST['wpst_menu_shadow_blur'] != $wpst_default_toolbar['menu_shadow_blur'] ) ) {
+					if ( $_POST['wpst_menu_shadow_blur'] == filter_var( $_POST['wpst_menu_shadow_blur'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
+						$wpst_style_tb_current['menu_shadow_blur'] = $_POST['wpst_menu_shadow_blur'];
+					else $wpst_failed .= __( 'Dropdown Menus Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_menu_shadow_spread'] ) && ( $_POST['wpst_menu_shadow_spread'] != '' ) && ( $_POST['wpst_menu_shadow_spread'] != $wpst_default_toolbar['menu_shadow_spread'] ) ) {
+					if ( $_POST['wpst_menu_shadow_spread'] == filter_var( $_POST['wpst_menu_shadow_spread'], FILTER_VALIDATE_INT ) )
+						$wpst_style_tb_current['menu_shadow_spread'] = $_POST['wpst_menu_shadow_spread'];
+					else $wpst_failed .= __( 'Dropdown Menus Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_menu_shadow_colour'] ) && ( $_POST['wpst_menu_shadow_colour'] != '' ) && ( $_POST['wpst_menu_shadow_colour'] != $wpst_default_toolbar['menu_shadow_colour'] ) ) {
+					if ( ctype_xdigit( trim( $_POST['wpst_menu_shadow_colour'], "#" ) ) ) $wpst_style_tb_current['menu_shadow_colour'] = "#".trim( $_POST['wpst_menu_shadow_colour'], "#" );
+					else $wpst_failed .= __( 'Dropdown Menus Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+				}
+				
+				if ( isset( $_POST['wpst_menu_shadow_transparency'] ) && ( $_POST['wpst_menu_shadow_transparency'] != '' ) && ( $_POST['wpst_menu_shadow_transparency'] != $wpst_default_toolbar['menu_shadow_transparency'] ) ) {
+					if ( $_POST['wpst_menu_shadow_transparency'] == filter_var( $_POST['wpst_menu_shadow_transparency'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 100 ) ) ) )
+						$wpst_style_tb_current['menu_shadow_transparency'] = $_POST['wpst_menu_shadow_transparency'];
+					else $wpst_failed .= __( 'Dropdown Menus Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
 				// Dropdown Menus Font Color
@@ -1097,42 +1204,6 @@ function symposium_toolbar_save_before_render() {
 					else $wpst_failed .= __( 'Dropdown Menus Hover Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
-				// Transparency
-				if ( isset( $_POST['wpst_transparency'] ) && ( $_POST['wpst_transparency'] != '' ) && ( $_POST['wpst_transparency'] != $wpst_default_toolbar['transparency'] ) ) {
-					if ( $_POST['wpst_transparency'] == filter_var( $_POST['wpst_transparency'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 100 ) ) ) )
-						$wpst_style_tb_current['transparency'] = $_POST['wpst_transparency'];
-					else $wpst_failed .= __( 'Transparency', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
-				}
-				
-				// Toolbar Shadow
-				if ( isset( $_POST['wpst_h_shadow'] ) && ( $_POST['wpst_h_shadow'] != '' ) && ( $_POST['wpst_h_shadow'] != $wpst_default_toolbar['h_shadow'] ) ) {
-					if ( $_POST['wpst_h_shadow'] == filter_var( $_POST['wpst_h_shadow'], FILTER_VALIDATE_INT ) )
-						$wpst_style_tb_current['h_shadow'] = $_POST['wpst_h_shadow'];
-					else $wpst_failed .= __( 'Toolbar and Dropdown Menus Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
-				}
-				
-				if ( isset( $_POST['wpst_v_shadow'] ) && ( $_POST['wpst_v_shadow'] != '' ) && ( $_POST['wpst_v_shadow'] != $wpst_default_toolbar['v_shadow'] ) ) {
-					if ( $_POST['wpst_v_shadow'] == filter_var( $_POST['wpst_v_shadow'], FILTER_VALIDATE_INT ) )
-						$wpst_style_tb_current['v_shadow'] = $_POST['wpst_v_shadow'];
-					else $wpst_failed .= __( 'Toolbar and Dropdown Menus Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
-				}
-				
-				if ( isset( $_POST['wpst_shadow_blur'] ) && ( $_POST['wpst_shadow_blur'] != '' ) && ( $_POST['wpst_shadow_blur'] != $wpst_default_toolbar['shadow_blur'] ) ) {
-					if ( $_POST['wpst_shadow_blur'] == filter_var( $_POST['wpst_shadow_blur'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
-						$wpst_style_tb_current['shadow_blur'] = $_POST['wpst_shadow_blur'];
-					else $wpst_failed .= __( 'Toolbar and Dropdown Menus Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
-				}
-				
-				if ( isset( $_POST['wpst_shadow_spread'] ) && ( $_POST['wpst_shadow_spread'] != '' ) && ( $_POST['wpst_shadow_spread'] != $wpst_default_toolbar['shadow_spread'] ) ) {
-					if ( $_POST['wpst_shadow_spread'] == filter_var( $_POST['wpst_shadow_spread'], FILTER_VALIDATE_INT ) )
-						$wpst_style_tb_current['shadow_spread'] = $_POST['wpst_shadow_spread'];
-					else $wpst_failed .= __( 'Toolbar and Dropdown Menus Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
-				}
-				
-				if ( isset( $_POST['wpst_shadow_colour'] ) && ( $_POST['wpst_shadow_colour'] != '' ) ) {
-					if ( ctype_xdigit( trim( $_POST['wpst_shadow_colour'], "#" ) ) ) $wpst_style_tb_current['shadow_colour'] = "#".trim( $_POST['wpst_shadow_colour'], "#" );
-					else $wpst_failed .= __( 'Toolbar and Dropdown Menus Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
-				}
 				
 				// Sanity check - remove any default values
 				$wpst_style_tb_current = array_diff_assoc( $wpst_style_tb_current, $wpst_default_toolbar );
@@ -1575,7 +1646,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	(bool)$has_gradient = false;
 	
 	// Init default Toolbar style
-	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar();
+	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar( $wp_version );
 	
 	// Toolbar Height
 	$height = ( isset( $wpst_style_tb_current['height'] ) ) ? $wpst_style_tb_current['height'] : $wpst_default_toolbar['height'] ;
@@ -1614,6 +1685,37 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		}
 	
 	}
+	
+	// Toolbar - Opacity
+	$transparency = '';
+	if ( isset( $wpst_style_tb_current['transparency'] ) && ( $wpst_style_tb_current['transparency'] != '' ) && ( $wpst_style_tb_current['transparency'] != $wpst_default_toolbar['transparency'] ) ) {
+		$transparency = 'filter:alpha( opacity='.$wpst_style_tb_current['transparency'].' ); opacity:'.( $wpst_style_tb_current['transparency']/100 ).'; ';
+		// No transparency on tablets
+	}
+	
+	// Toolbar Shadow
+	$shadow = '';
+	$wpst_style_tb_current = array_merge( array( 'h_shadow' => $wpst_default_toolbar['h_shadow'], 'v_shadow' => $wpst_default_toolbar['v_shadow'], 'shadow_blur' => $wpst_default_toolbar['shadow_blur'] ), $wpst_style_tb_current );
+	
+	if ( ( $wpst_style_tb_current['h_shadow'] == '0' ) && ( $wpst_style_tb_current['v_shadow'] == '0' ) && ( $wpst_style_tb_current['shadow_blur'] == '0' ) && ( !isset( $wpst_style_tb_current['shadow_spread'] ) ) && ( !isset( $wpst_style_tb_current['shadow_colour'] ) ) && ( !isset( $wpst_style_tb_current['shadow_transparency'] ) ) ) {
+		// If box-shadow: 0 0 0 is not default, force it to none
+		if ( ( $wpst_style_tb_current['h_shadow'] != $wpst_default_toolbar['h_shadow'] ) || ( $wpst_style_tb_current['v_shadow'] != $wpst_default_toolbar['v_shadow'] ) || ( $wpst_style_tb_current['shadow_blur'] != $wpst_default_toolbar['shadow_blur'] ) )
+			$shadow = 'none';
+	} else {
+		if ( ( $wpst_style_tb_current['h_shadow'] != $wpst_default_toolbar['h_shadow'] ) || ( $wpst_style_tb_current['v_shadow'] != $wpst_default_toolbar['v_shadow'] ) || ( $wpst_style_tb_current['shadow_blur'] != $wpst_default_toolbar['shadow_blur'] ) || ( isset( $wpst_style_tb_current['shadow_spread'] ) ) || ( isset( $wpst_style_tb_current['shadow_colour'] ) ) ) {
+			$shadow = $wpst_style_tb_current['h_shadow'].'px '.$wpst_style_tb_current['v_shadow'].'px '.$wpst_style_tb_current['shadow_blur'].'px ';
+			if ( isset( $wpst_style_tb_current['shadow_spread'] ) ) $shadow .= $wpst_style_tb_current['shadow_spread'].'px ';
+			if ( isset( $wpst_style_tb_current['shadow_colour'] ) || isset( $wpst_style_tb_current['shadow_transparency'] ) ) {
+				$shadow_colour = ( isset( $wpst_style_tb_current['shadow_colour'] ) ) ? symposium_toolbar_hex_to_rgb( $wpst_style_tb_current['shadow_colour'] ) : symposium_toolbar_hex_to_rgb( $wpst_default_toolbar['shadow_colour'] );
+				$shadow_transparency = ( isset( $wpst_style_tb_current['shadow_transparency'] ) ) ? ( $wpst_style_tb_current['shadow_transparency'] /100 ) : ( $wpst_default_toolbar['shadow_transparency'] /100 );
+				$shadow .= 'rgba( '.$shadow_colour['r'].', '.$shadow_colour['g'].', '.$shadow_colour['b'].', '.$shadow_transparency.' )';
+			}
+		}
+	}
+	if ( $shadow != '' ) $shadow = '-webkit-box-shadow: ' . $shadow . '; box-shadow: ' . $shadow . '; ';
+	
+	// Add transparency and shadow to the Toolbar (and only the Toolbar)
+	if ( $transparency . $shadow != '' ) $style_saved .= '@media screen and ( min-width: 783px ) { #wpadminbar { ' . $transparency . $shadow .  '} } ';
 	
 	// Toolbar - Background
 	// We'll also create the Tablet Mode Gradient Background, 46px height
@@ -1669,13 +1771,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk_tablet .= "background-image: -webkit-linear-gradient( center bottom".$tablet_linear_gradient." ); ";
 		$style_chunk_tablet .= "background-image: -ms-linear-gradient( center bottom".$tablet_linear_gradient." ); ";
 		$style_chunk_tablet .= "background-image: -webkit-gradient( linear, left bottom, left top".$tablet_webkit_gradient." ); ";
-	}
-	
-	// Toolbar - Transparency
-	if ( isset( $wpst_style_tb_current['transparency'] ) && ( $wpst_style_tb_current['transparency'] != '' ) && ( $wpst_style_tb_current['transparency'] != $wpst_default_toolbar['transparency'] ) ) {
-		$style_chunk .= 'filter:alpha( opacity='.$wpst_style_tb_current['transparency'].' ); opacity:'.( $wpst_style_tb_current['transparency']/100 ).'; ';
-		// No transparency on tablets
-		// $style_chunk_tablet .= 'filter:alpha( opacity='.$wpst_style_tb_current['transparency'].' ); opacity:'.( $wpst_style_tb_current['transparency']/100 ).'; ';
 	}
 	
 	// Add height, background and transparency to the Toolbar
@@ -1838,13 +1933,14 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 				$border_color = 'border-'.$icon_color;
 				$background_color = 'background-'.$icon_color;
 			}
-		if ( $icon_color . $font_shadow != "" )
+		if ( $icon_color . $font_shadow != "" ) {
 			if ( get_option( 'wpst_toolbar_search_field', array() ) != array() ) $style_saved .= '#wpadminbar li #adminbarsearch:before, ';
 			$style_saved .= '#wpadminbar .ab-item span:before, #wpadminbar .ab-item span:after, ';
 			$style_saved .= '#wpadminbar .ab-top-menu > li > .ab-item:before, #wpadminbar .ab-top-menu > li > .ab-item:after, ';
 			// wp-admin\css\colors\***\colors.css:176
 			// $style_saved .= '#wpadminbar .ab-item:before, #wpadminbar .ab-item:after, ';
 			$style_saved .= '#wpadminbar .ab-icon, #wpadminbar .ab-icon:before { '.$icon_color . $font_shadow.'} ';
+		}
 		
 		// Add icon colour as border to Toolbar Avatar
 		if ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) if ( ( $box_shadow != '' ) || ( $icon_color != '' ) )
@@ -1963,37 +2059,42 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
 			if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
 			if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
-			if ( $style_chunk != "" ) {
-				$style_saved .= '@media screen and ( min-width: 783px ) { ';
-				$style_saved .= $style_chunk.$comma.'#wpadminbar .ab-top-menu > li > a:before { top: 2px; } ';
-				$style_saved .= '} ';
-			}
+			
+			// if ( $style_chunk != "" ) {
+				// $style_saved .= '@media screen and ( min-width: 783px ) { ';
+				// $style_saved .= $style_chunk.$comma.'#wpadminbar .ab-top-menu > li > a:before { top: 2px; } ';
+				// $style_saved .= '} ';
+			// }
 		}
 	}
 	
 	// Search
 	if ( get_option( 'wpst_toolbar_search_field', array() ) != array() ) {
-		$search_height = ( $height - 4 < $wpst_default_toolbar['search_height'] ) ? $height - 4 : $wpst_default_toolbar['search_height'];
 		
-		// Search form
-		$search_top = round( ( $height - $wpst_default_toolbar['height'] ) / 2 ) + 4;
-		$style_saved .= '#wpadminbar #wp-admin-bar-search .ab-item, #wpadminbar #adminbarsearch { height: '. $height . 'px; top: ' . $search_top . 'px; } ';
-		
-		// Search icon
-		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-			$search_icon_top = round( ( $wpst_default_toolbar['icon_size'] - $icon_size ) /2 ) + 2;
-			$style_saved .= '#wpadminbar #adminbarsearch:before { height: '. $search_height . 'px; width: '. $search_height . 'px; top: ' . $search_icon_top . 'px; } ';
+		// Set heights if different from WP default
+		if ( $height != $wpst_default_toolbar['height'] ) {
+			$search_height = ( $height - 4 < $wpst_default_toolbar['search_height'] ) ? $height - 4 : $wpst_default_toolbar['search_height'];
+			
+			// Search form
+			$search_top = round( ( $height - $wpst_default_toolbar['height'] ) / 2 ) + 4;
+			$style_saved .= '#wpadminbar #wp-admin-bar-search .ab-item, #wpadminbar #adminbarsearch { height: '. $height . 'px; top: ' . $search_top . 'px; } ';
+			
+			// Search icon
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+				$search_icon_top = round( ( $wpst_default_toolbar['icon_size'] - $icon_size ) /2 ) + 2;
+				$style_saved .= '#wpadminbar #adminbarsearch:before { height: '. $search_height . 'px; width: '. $search_height . 'px; top: ' . $search_icon_top . 'px; } ';
+			}
+			
+			// Search field
+			if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "" )
+				$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
+			else
+				$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
+			$style_saved .= ' { height: '. $search_height . 'px; top: -4px; line-height: '.$height.'px; ';
+			if ( isset( $icon_size ) ) $style_saved .= 'padding-left: '.$icon_size.'px; ';
+			if ( isset( $wpst_style_tb_current['font_size'] ) && ( $wpst_style_tb_current['font_size'] > 0 ) ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
+			$style_saved .= '} ';
 		}
-		
-		// Search field
-		if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "" )
-			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
-		else
-			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
-		$style_saved .= ' { height: '. $search_height . 'px; top: -4px; line-height: '.$height.'px; ';
-		if ( isset( $icon_size ) ) $style_saved .= 'padding-left: '.$icon_size.'px; ';
-		if ( isset( $wpst_style_tb_current['font_size'] ) && ( $wpst_style_tb_current['font_size'] > 0 ) ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
-		$style_saved .= '} ';
 		
 		// Add the font shadow to the Search field as a box-shadow
 		if ( $box_shadow != '' )
@@ -2026,11 +2127,11 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	if ( isset( $wpst_style_tb_current['hover_bottom_colour'] ) && ( $wpst_style_tb_current['hover_bottom_colour'] != '' ) )
 		if ( isset( $wpst_style_tb_current['hover_bottom_gradient'] ) && ( $wpst_style_tb_current['hover_bottom_gradient'] != '' ) ) {
 		
-			$webkit_gradient .= ", color-stop( 0, ".$wpst_style_tb_current['hover_bottom_colour']." ), color-stop( ".round( 100*$wpst_style_tb_current['hover_bottom_gradient']/$height )."%, ".$wpst_style_tb_current['hover_background_colour']." )";
-			$linear_gradient .= ", ".$wpst_style_tb_current['hover_bottom_colour']." 0, ".$wpst_style_tb_current['hover_background_colour']." ".$wpst_style_tb_current['hover_bottom_gradient']."px";
+			$webkit_gradient .= ", color-stop( 0, ".$wpst_style_tb_current['hover_bottom_colour']." ), color-stop( ".round( 100*$wpst_style_tb_current['hover_bottom_gradient']/$height )."%, ".$background_colour." )";
+			$linear_gradient .= ", ".$wpst_style_tb_current['hover_bottom_colour']." 0, ".$background_colour." ".$wpst_style_tb_current['hover_bottom_gradient']."px";
 			
-			$tablet_webkit_gradient .= ", color-stop( 0, ".$wpst_style_tb_current['hover_bottom_colour']." ), color-stop( ".round( 100*$wpst_style_tb_current['hover_bottom_gradient']/$wpst_default_toolbar['tablet_toolbar_height'] )."%, ".$wpst_style_tb_current['hover_background_colour']." )";
-			$tablet_linear_gradient .= ", ".$wpst_style_tb_current['hover_bottom_colour']." 0, ".$wpst_style_tb_current['hover_background_colour']." ".$wpst_style_tb_current['hover_bottom_gradient']."px";
+			$tablet_webkit_gradient .= ", color-stop( 0, ".$wpst_style_tb_current['hover_bottom_colour']." ), color-stop( ".round( 100*$wpst_style_tb_current['hover_bottom_gradient']/$wpst_default_toolbar['tablet_toolbar_height'] )."%, ".$background_colour." )";
+			$tablet_linear_gradient .= ", ".$wpst_style_tb_current['hover_bottom_colour']." 0, ".$background_colour." ".$wpst_style_tb_current['hover_bottom_gradient']."px";
 			
 			$has_gradient = true;
 		}
@@ -2039,11 +2140,11 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	if ( isset( $wpst_style_tb_current['hover_top_colour'] ) && ( $wpst_style_tb_current['hover_top_colour'] != '' ) )
 		if ( isset( $wpst_style_tb_current['hover_top_gradient'] ) && ( $wpst_style_tb_current['hover_top_gradient'] != '' ) ) {
 			
-			$webkit_gradient .= ", color-stop( ".round( 100*( $height - $wpst_style_tb_current['hover_top_gradient'] )/$height )."%, ".$wpst_style_tb_current['hover_background_colour']." ), color-stop( 100%, ".$wpst_style_tb_current['hover_top_colour']." )";
-			$linear_gradient .= ", ".$wpst_style_tb_current['hover_background_colour']." ".( $height-$wpst_style_tb_current['hover_top_gradient'] )."px, ".$wpst_style_tb_current['hover_top_colour']." ".$height."px";
+			$webkit_gradient .= ", color-stop( ".round( 100*( $height - $wpst_style_tb_current['hover_top_gradient'] )/$height )."%, ".$background_colour." ), color-stop( 100%, ".$wpst_style_tb_current['hover_top_colour']." )";
+			$linear_gradient .= ", ".$background_colour." ".( $height-$wpst_style_tb_current['hover_top_gradient'] )."px, ".$wpst_style_tb_current['hover_top_colour']." ".$height."px";
 			
-			$tablet_webkit_gradient .= ", color-stop( ".round( 100*( $wpst_default_toolbar['tablet_toolbar_height'] - $wpst_style_tb_current['hover_top_gradient'] )/$wpst_default_toolbar['tablet_toolbar_height'] )."%, ".$wpst_style_tb_current['hover_background_colour']." ), color-stop( 100%, ".$wpst_style_tb_current['hover_top_colour']." )";
-			$tablet_linear_gradient .= ", ".$wpst_style_tb_current['hover_background_colour']." ".( $wpst_default_toolbar['tablet_toolbar_height'] - $wpst_style_tb_current['hover_top_gradient'] )."px, ".$wpst_style_tb_current['hover_top_colour']." ".$wpst_default_toolbar['tablet_toolbar_height']."px";
+			$tablet_webkit_gradient .= ", color-stop( ".round( 100*( $wpst_default_toolbar['tablet_toolbar_height'] - $wpst_style_tb_current['hover_top_gradient'] )/$wpst_default_toolbar['tablet_toolbar_height'] )."%, ".$background_colour." ), color-stop( 100%, ".$wpst_style_tb_current['hover_top_colour']." )";
+			$tablet_linear_gradient .= ", ".$background_colour." ".( $wpst_default_toolbar['tablet_toolbar_height'] - $wpst_style_tb_current['hover_top_gradient'] )."px, ".$wpst_style_tb_current['hover_top_colour']." ".$wpst_default_toolbar['tablet_toolbar_height']."px";
 			
 			$has_gradient = true;
 		}
@@ -2207,6 +2308,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	
 	// Dropdown Menus
+	
 	// Background colour
 	if ( isset( $wpst_style_tb_current['menu_background_colour'] ) && $wpst_style_tb_current['menu_background_colour'] != '' ) {
 		$style_chunk = 'background-color: ' . $wpst_style_tb_current['menu_background_colour'] . '; ';
@@ -2218,12 +2320,30 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk_ext = 'background-color: ' . $wpst_style_tb_current['menu_ext_background_colour'] . '; ';
 	}
 	
-	// Add the Background colour to the Dropdown Menus
-	if ( $style_chunk_ext != '' ) {
+	// Add the Background colours and Opacity to the Dropdown Menus
+	if ( $style_chunk_ext != $style_chunk ) {
 		$style_saved .= '#wpadminbar .ab-sub-wrapper > ul { '.$style_chunk.'} ';
 		$style_saved .= '#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu { ' . $style_chunk_ext . '} ';
-	} else
-		if ( $style_chunk != '' ) $style_saved .= '#wpadminbar .ab-sub-wrapper > ul, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary { '.$style_chunk.'} ';
+	} else {
+		if ( $style_chunk != '' ) $style_saved .= '#wpadminbar .ab-sub-wrapper > ul, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary, #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu { '.$style_chunk.'} ';
+	}
+	
+	// Menu Shadow
+	$shadow = '';
+	$wpst_style_tb_current = array_merge( array( 'menu_h_shadow' => $wpst_default_toolbar['menu_h_shadow'], 'menu_v_shadow' => $wpst_default_toolbar['menu_v_shadow'], 'menu_shadow_blur' => $wpst_default_toolbar['menu_shadow_blur'] ), $wpst_style_tb_current );
+	
+	if ( ( $wpst_style_tb_current['menu_h_shadow'] == '0' ) && ( $wpst_style_tb_current['menu_v_shadow'] == '0' ) && ( $wpst_style_tb_current['menu_shadow_blur'] == '0' ) && ( !isset( $wpst_style_tb_current['menu_shadow_spread'] ) ) && ( !isset( $wpst_style_tb_current['menu_shadow_colour'] ) ) ) {
+		// If box-shadow: 0 0 0 is not default, force it to none
+		if ( ( $wpst_style_tb_current['menu_h_shadow'] != $wpst_default_toolbar['menu_h_shadow'] ) || ( $wpst_style_tb_current['menu_v_shadow'] != $wpst_default_toolbar['menu_v_shadow'] ) || ( $wpst_style_tb_current['menu_shadow_blur'] != $wpst_default_toolbar['menu_shadow_blur'] ) )
+			$shadow = 'none';
+	} else {
+		if ( ( $wpst_style_tb_current['menu_h_shadow'] != $wpst_default_toolbar['menu_h_shadow'] ) || ( $wpst_style_tb_current['menu_v_shadow'] != $wpst_default_toolbar['menu_v_shadow'] ) || ( $wpst_style_tb_current['menu_shadow_blur'] != $wpst_default_toolbar['menu_shadow_blur'] ) || ( isset( $wpst_style_tb_current['menu_shadow_spread'] ) ) || ( isset( $wpst_style_tb_current['menu_shadow_colour'] ) ) ) {
+			$shadow = $wpst_style_tb_current['menu_h_shadow'].'px '.$wpst_style_tb_current['menu_v_shadow'].'px '.$wpst_style_tb_current['menu_shadow_blur'].'px ';
+			if ( isset( $wpst_style_tb_current['menu_shadow_spread'] ) ) $shadow .= $wpst_style_tb_current['menu_shadow_spread'].'px ';
+			if ( isset( $wpst_style_tb_current['menu_shadow_colour'] ) ) $shadow .= $wpst_style_tb_current['menu_shadow_colour'];
+		}
+	}
+	if ( $shadow != '' ) $style_saved .= '#wpadminbar .menupop > .ab-sub-wrapper { -webkit-box-shadow: ' . $shadow . '; box-shadow: ' . $shadow . '; } ';
 	
 	// Menus - Font
 	$style_chunk = "";
@@ -2331,41 +2451,47 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		}
 	}
 	
-	// Colors - We'll set variables now so they're used lower...
-	// If no color was defined for secondary items but one color was defined for ul li a, force back secondary to WP default color
+	// Font Colors - We'll set some variables...
+	// If a color was defined, force Highlighted Items back to WP default color
 	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) $menu_ext_font_colour = $wpst_default_toolbar['menu_ext_font_colour'];
 	
-	// If a color is set for secondary, use it
+	// If a color is set for Highlighted Items, use it
 	if ( isset( $wpst_style_tb_current['menu_ext_font_colour'] ) ) $menu_ext_font_colour = $wpst_style_tb_current['menu_ext_font_colour'];
 	
-	// If no color was defined for hover items but one color was defined for ul li a, force back to WP default hover colors
-	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) {
-		$menu_hover_font_colour = $wpst_default_toolbar['menu_hover_font_colour'];
-		$menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
-	}
-	// If colors are set for hover, use these
+	// If a color was defined for normal, force back hover color to WP default hover color
+	if ( isset( $wpst_style_tb_current['menu_font_colour'] ) ) $menu_hover_font_colour = $wpst_default_toolbar['menu_hover_font_colour'];
+	if ( isset( $wpst_style_tb_current['menu_ext_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
+	
+	// If a color was defined for non- Highlighted Items hover, force back hover color to WP default for Highlighted Items
+	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
+	
+	// If colors are set for items hover, use these
 	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) $menu_hover_font_colour = $wpst_style_tb_current['menu_hover_font_colour'];
 	if ( isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_style_tb_current['menu_hover_ext_font_colour'];
 	
-	// Menu Font color for secondary menus and submenus
+	// Menu Font color for Highlighted Items
 	if ( isset( $menu_ext_font_colour ) ) {
 		// Non-icons items
 		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a, ';
 		// "W" icons in My Sites dropdown menu
 		$style_saved .= '#wpadminbar .quicklinks li .blavatar, #wpadminbar .quicklinks li .blavatar:before, ';
-		$style_saved .= '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before, ';
+		$style_saved .= '#wpadminbar .quicklinks li a .blavatar, ';
+		// $style_saved .= '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before, ';
 		// Arrows
 		$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:before ';
 		$style_saved .= '{ color: '.$menu_ext_font_colour.'; } ';
 	}
 	
+	
 	// Dropdown Menus Hover
+	
 	// Background colour
 	if ( isset( $wpst_style_tb_current['menu_hover_background_colour'] ) && $wpst_style_tb_current['menu_hover_background_colour'] != '' ) {
 		$style_chunk = 'background-color: ' . $wpst_style_tb_current['menu_hover_background_colour'] . '; ';
-		$style_chunk_ext = 'background-color: ' . $wpst_default_toolbar['menu_hover_ext_background_colour'] . '; ';
+		// $style_chunk_ext = 'background-color: ' . $wpst_default_toolbar['menu_hover_ext_background_colour'] . '; ';
 		
-		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover, #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus';
+		$style_saved .= '#wpadminbar .menupop li:hover, #wpadminbar .menupop li.hover';
+		// $style_saved .= ', #wpadminbar .quicklinks .menupop .ab-item:focus, #wpadminbar .quicklinks .ab-top-menu .menupop .ab-item:focus';
 	}
 	
 	if ( ( get_option( 'wpst_myaccount_display_name', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_username', 'on' ) == "" ) && ( get_option( 'wpst_myaccount_role', '' ) == "" ) ) {
@@ -2375,13 +2501,20 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		if ( $style_chunk ) $style_saved .= ', #wpadminbar #wp-admin-bar-user-info .ab-item:hover { '.$style_chunk.'} ';
 	}
 	
-	// Background colour for Highlighted Items
-	if ( isset( $wpst_style_tb_current['menu_hover_ext_background_colour'] ) && $wpst_style_tb_current['menu_hover_ext_background_colour'] != '' ) {
-		$style_chunk_ext = 'background-color: ' . $wpst_style_tb_current['menu_hover_ext_background_colour'] . '; ';
-		
+	// Hover Background colour for Highlighted Items
+	if ( isset( $wpst_style_tb_current['menu_hover_ext_background_colour'] ) && ( $wpst_style_tb_current['menu_hover_ext_background_colour'] != '' ) ) {
+		if ( ( isset( $wpst_style_tb_current['menu_hover_background_colour'] ) && $wpst_style_tb_current['menu_hover_background_colour'] != $wpst_style_tb_current['menu_hover_ext_background_colour'] ) || !isset( $wpst_style_tb_current['menu_hover_background_colour'] ) )
+			$style_chunk_ext = 'background-color: ' . $wpst_style_tb_current['menu_hover_ext_background_colour'] . '; ';
+	} else {
+		if ( ( isset( $wpst_style_tb_current['menu_hover_background_colour'] ) && $wpst_style_tb_current['menu_hover_background_colour'] != $wpst_style_tb_current['menu_hover_ext_background_colour'] ) )
+			$style_chunk_ext = 'background-color: transparent; ';
+	}
+	
+	if ( $style_chunk_ext !== "" ) {
 		$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover';
 		$style_saved .= ' { ' . $style_chunk_ext . '} ';
 	}
+	
 	$style_chunk = "";
 	$style_chunk_ext = "";
 	
@@ -2420,27 +2553,36 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		// If text-shadow: 0 0 0 is not default, force it to none
 		if ( ( $wpst_style_tb_current['menu_hover_font_h_shadow'] != $wpst_default_toolbar['menu_hover_font_h_shadow'] ) || ( $wpst_style_tb_current['menu_hover_font_v_shadow'] != $wpst_default_toolbar['menu_hover_font_v_shadow'] ) || ( $wpst_style_tb_current['menu_hover_font_shadow_blur'] != $wpst_default_toolbar['menu_hover_font_shadow_blur'] ) ) {
 			$style_chunk .= 'text-shadow: none';
-			$style_chunk_ext .= 'text-shadow: none';
+			// $style_chunk_ext .= 'text-shadow: none';
 		}
 	} else {
 		$style_chunk_shadow = 'text-shadow: '.$wpst_style_tb_current['menu_hover_font_h_shadow'].'px '.$wpst_style_tb_current['menu_hover_font_v_shadow'].'px ';
 		if ( isset( $wpst_style_tb_current['menu_hover_font_shadow_blur'] ) ) $style_chunk_shadow .= $wpst_style_tb_current['menu_hover_font_shadow_blur'].'px ';
 		if ( isset( $wpst_style_tb_current['menu_hover_font_shadow_colour'] ) ) $style_chunk_shadow .= $wpst_style_tb_current['menu_hover_font_shadow_colour'];
 		$style_chunk .= $style_chunk_shadow . '; ';
-		$style_chunk_ext .= $style_chunk_shadow . '; ';
+		// $style_chunk_ext .= $style_chunk_shadow . '; ';
 	}
 	
 	if ( $style_chunk != "" ) {
 		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+			
 			// Labels in dropdown menus
-			// Style the non-a ab-items
-			$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .quicklinks .menupop ul li .ab-item:hover strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover, #wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, ';
-			// admin-bar.css:274
-			$style_saved .= '#wpadminbar .quicklinks .menupop ul li a:hover, #wpadminbar .quicklinks .menupop ul li a:hover strong, #wpadminbar .quicklinks .menupop.hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, #wpadminbar #wp-admin-bar-user-info:hover span, ';
-			// Other User Info Hover
-			$style_saved .= '#wpadminbar #wp-admin-bar-user-info a:hover .username, #wpadminbar #wp-admin-bar-user-info a:hover span ';
+			if ( $style_chunk != 'color: '.$wpst_default_toolbar['menu_hover_font_colour'].'; ' ) {
+				// Style the non-a ab-items
+				$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .quicklinks .menupop ul li .ab-item:hover strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover, #wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, ';
+				// admin-bar.css:274
+				$style_saved .= '#wpadminbar .quicklinks .menupop ul li a:hover, #wpadminbar .quicklinks .menupop ul li a:hover strong, #wpadminbar .quicklinks .menupop.hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, ';
+			}
+			// admin-bar.css:274  cont'd
+			$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name, #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.username, ';
+			// Other User Info
+			$style_saved .= '#wpadminbar #wp-admin-bar-user-info:hover span, #wpadminbar #wp-admin-bar-user-info a:hover span, ';
+			// Add focus to default hover
+			$style_saved .= '#wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus ';
+			
 			$style_saved .= '{ ' . $style_chunk . '} ';
-			// Arrows
+			
+			// Arrows - add only the font color
 			if ( isset( $menu_hover_font_colour ) ) $style_saved .= '#wpadminbar .menupop li.menupop.hover > .ab-item:before, #wpadminbar .menupop li.menupop:hover > .ab-item:before { color: '.$menu_hover_font_colour.'; } ';
 			
 		} else
@@ -2448,52 +2590,29 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk = "";
 	}
 	
-	// Menu Hover Font color for secondary menus and submenus
+	// Menu Hover Font color for Highlighted Items
 	if ( $style_chunk_ext !== "" ) {
 		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-			// Labels in dropdown menus
-			$style_saved .= '#wpadminbar .quicklinks .menupop.hover .ab-sub-secondary li a:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover > .ab-item, ';
+			
+			if ( ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) && $wpst_style_tb_current['menu_hover_font_colour'] != $menu_hover_ext_font_colour ) || !isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) {
+				// Labels in dropdown menus
+				$style_saved .= '#wpadminbar .quicklinks .menupop.hover .ab-sub-secondary li a:hover, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover > .ab-item, ';
+				$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover, ';
+				// Arrows
+				$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before, ';
+				$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, ';
+			}
+			
 			// "W" icons in My Sites dropdown menu
-			$style_saved .= '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before, ';
+			$style_saved .= '#wpadminbar .quicklinks li.hover > a > .blavatar, #wpadminbar .quicklinks li.hover > a > .blavatar:before, ';
 			// "W" icons - admin-bar.css:486
-			$style_saved .= '#wpadminbar .quicklinks li a:hover .blavatar, #wpadminbar .quicklinks li a:hover .blavatar:before, ';
-			// Arrows
-			$style_saved .= '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before ';
+			$style_saved .= '#wpadminbar .quicklinks li a:hover .blavatar, #wpadminbar .quicklinks li a:hover .blavatar:before ';
+			
 			$style_saved .= '{ ' . $style_chunk_ext . '} ';
-		
+			
 		} else
 			$style_saved .= '#wpadminbar .quicklinks .menupop .ab-sub-secondary > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-sub-secondary > li .ab-item:focus, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li:hover > .ab-item, #wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary > li .ab-sub-wrapper li.hover > .ab-item { ' . $style_chunk_ext . '} ';
 		$style_chunk_ext = "";
-	}
-	
-	
-	// Toolbar - Shadow
-	$wpst_style_tb_current = array_merge( array( 'h_shadow' => $wpst_default_toolbar['h_shadow'], 'v_shadow' => $wpst_default_toolbar['v_shadow'], 'shadow_blur' => $wpst_default_toolbar['shadow_blur'] ), $wpst_style_tb_current );
-	
-	// Remove the default shadow
-	if ( ( $wpst_style_tb_current['h_shadow'] == '0' ) && ( $wpst_style_tb_current['v_shadow'] == '0' ) && ( $wpst_style_tb_current['shadow_blur'] == '0' ) ) {
-		// If text-shadow: 0 0 0 is not default, force it to none
-		if ( ( $wpst_style_tb_current['h_shadow'] != $wpst_default_toolbar['h_shadow'] ) || ( $wpst_style_tb_current['v_shadow'] != $wpst_default_toolbar['v_shadow'] ) || ( $wpst_style_tb_current['shadow_blur'] != $wpst_default_toolbar['shadow_blur'] ) ) {
-			$style_saved .= '#wpadminbar, '; // Toolbar shadow
-			$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper '; // Menus shadow
-			$style_saved .= '{ -webkit-box-shadow: none; box-shadow: none; } ';
-		}
-	} else {
-		$shadow_webkit = '-webkit-box-shadow: '.$wpst_style_tb_current['h_shadow'].'px '.$wpst_style_tb_current['v_shadow'].'px '.$wpst_style_tb_current['shadow_blur'].'px ';
-		$shadow = 'box-shadow: '.$wpst_style_tb_current['h_shadow'].'px '.$wpst_style_tb_current['v_shadow'].'px '.$wpst_style_tb_current['shadow_blur'].'px ';
-		
-		if ( isset( $wpst_style_tb_current['shadow_spread'] ) ) {
-			$shadow_webkit .= $wpst_style_tb_current['shadow_spread'].'px ';
-			$shadow .= $wpst_style_tb_current['shadow_spread'].'px ';
-		}
-		if ( isset( $wpst_style_tb_current['shadow_colour'] ) ) {
-			$shadow_webkit .= $wpst_style_tb_current['shadow_colour'];
-			$shadow .= $wpst_style_tb_current['shadow_colour'];
-		}
-		
-		$style_saved .= '#wpadminbar, '; // Toolbar shadow
-		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper { '; // Menus shadow
-		$style_saved .= $shadow_webkit . '; ' . $shadow . '; } ';
 	}
 	
 	
@@ -2625,22 +2744,21 @@ function symposium_toolbar_hex_to_rgb( $hex ) {
 
 	$color = trim( $hex, "#" );
 	
+	// 6-digit hex color
 	if ( preg_match( "/^([0-9a-fA-F]{6})$/", $color ) ) {
-		$hex_R = substr( $color, 0, 2 );
-		$hex_G = substr( $color, 2, 2 );
-		$hex_B = substr( $color, 4, 2 );
-		$rgb = hexdec( $hex_R ).",".hexdec( $hex_G ).",".hexdec( $hex_B );
-		
-		return $rgb;
+		$r = hexdec( substr( $color, 0, 2 ) );
+		$g = hexdec( substr( $color, 2, 2 ) );
+		$b = hexdec( substr( $color, 4, 2 ) );
+		return array('r' => $r, 'g' => $g, 'b' => $b);
 	
+	// 3-digit hex color
 	} elseif ( preg_match( "/^([0-9a-fA-F]{3})$/", $color ) ) {
-		$hex_R = substr( $color, 0, 1 );
-		$hex_G = substr( $color, 1, 1 );
-		$hex_B = substr( $color, 2, 1 );
-		$rgb = hexdec( $hex_R.$hex_R ).",".hexdec( $hex_G.$hex_G ).",".hexdec( $hex_B.$hex_B );
+		$r = hexdec( substr( $color, 0, 1 ) );
+		$g = hexdec( substr( $color, 1, 1 ) );
+		$b = hexdec( substr( $color, 2, 1 ) );
+		return array('r' => $r, 'g' => $g, 'b' => $b);
 		
-		return $rgb;
-	
+	// Anything else
 	} else
 		return false;
 }
