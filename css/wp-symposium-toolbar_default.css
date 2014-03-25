@@ -106,11 +106,6 @@
 	color: #2EA2CC;
 }
 
-#wpadminbar #wp-admin-bar-user-info:hover span.username,
-#wpadminbar #wp-admin-bar-user-info a:hover span.username {
-	color: #999999;
-}
-
 #wpadminbar .menupop .ab-sub-wrapper,
 #wpadminbar .ab-top-menu > li:hover > .ab-item,
 #wpadminbar .ab-top-menu > li.hover > .ab-item,

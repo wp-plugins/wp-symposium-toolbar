@@ -282,11 +282,6 @@
  * User Menu
  */
 
-/* Force hover color for User Info username */
-#wpadminbar #wp-admin-bar-user-info a:hover .username {
-	color: #2ea2cc;
-}
-
 /* Style the User Menu for a correct partial display */
 @media screen and (min-width: 783px) {
 	#wpadminbar .ab-top-menu > .menupop > .ab-sub-wrapper {

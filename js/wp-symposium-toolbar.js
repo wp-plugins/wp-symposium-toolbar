@@ -136,8 +136,8 @@ jQuery(document).ready(function($){
 	$(".wpst-int").keyup(function() {
 	
 		if ( ( $(this).val() != "" ) && ( $(this).val() != "-" ) && ( parseInt($(this).val()) != $(this).val() ) ) {
-			$(this).css("background-color", "#FFEBE8");
-			$(this).css("border", "1px solid #CC0000");
+			$(this).css("background-color", "#ffebe8");
+			$(this).css("border", "1px solid #cc0000");
 		} else {
 			$(this).css("background-color", "#ffffff");
 			$(this).css("border", "1px solid #dfdfdf");

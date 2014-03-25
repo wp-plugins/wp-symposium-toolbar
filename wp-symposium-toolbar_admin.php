@@ -1536,7 +1536,9 @@ function symposium_toolbar_admintab_styles() {
 				echo '</td>';
 				echo '<td>';
 					echo '<span>' . __( 'Border Style', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<select name="wpst_border_style" id="wpst_border_style" class="wpst-admin wpst_border wpst-default wpst-has-default">';
+					echo '<select name="wpst_border_style" id="wpst_border_style" class="wpst-admin wpst_border wpst-default';
+					if ( $wpst_border_style == $wpst_default_toolbar['border_style'] ) echo ' wpst-has-default';
+					echo '">';
 					foreach ( $wpst_all_borders as $wpst_border ) {
 						echo '<option value="'.$wpst_border.'"';
 						if ( $wpst_border == $wpst_border_style ) echo ' SELECTED';
@@ -1783,7 +1785,6 @@ function symposium_toolbar_admintab_styles() {
 				echo '<td scope="row" style="width:15%; border-top:none;"><span>&nbsp;</span></td>';
 				echo '<td style="border-top:none;">';
 					echo '<span>' . __( 'Top Gradient Length', 'wp-symposium-toolbar' ) . '</span><br />';
-	$wpst_hover_bottom_gradient = ( isset( $wpst_style_tb_current['hover_bottom_gradient'] ) ) ? $wpst_style_tb_current['hover_bottom_gradient'] : '';
 					echo '<input type="text" name="wpst_hover_top_gradient" id="wpst_hover_top_gradient" ';
 					if ( isset( $wpst_style_tb_current['hover_top_gradient'] ) )
 						echo 'class="wpst-admin wpst-default wpst-positive-int wpst_background" value="'.$wpst_style_tb_current['hover_top_gradient'];
@@ -2637,16 +2638,18 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Style Inheritance', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'It should be stressed here that the plugin uses the native inheritance mechanism of CSS (Cascading Style Sheets), so that its impact on page load is limited to the only elements you want to re-style. This means that if you don\'t define a given attribute it\'ll be inherited from either WordPress Toolbar default attributes, your theme, any other plugin or custom modification you may have made, or, of course, other settings you will make in WPS Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'My advice here, is to proceed from top to bottom, so that you see the results of settings that were changed \'above\' a given element, otherwise you might add unneeded CSS to your page headers. It is better to \'play nicely\' with the existing style than fight against it....', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<h4 style="font-size: 11px;"><li>' . __( 'What is the difference between "default" and "none" (or "no", etc.) ?', 'wp-symposium-toolbar' ) . '</li></h4>';
+			echo '<h4 style="font-size: 11px;"><li>' . __( 'What is the difference between "default" and "none"?', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Every time you fill a value somewhere in this tab, the plugin will add a little something to your page header. For dropdown lists, the empty value is "default", and if you select this value, it won\'t add anything, leaving WordPress and your theme decide which value shall be taken into account. Any other choice will force the page to adopt that value for that style, including "none" which will force the style to drop an other value that might have been added by your theme.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'If you\'re unsure which of these two values you should select and you can\'t see any difference in the preview, it is probably a good idea to keep the "default".', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'As a reciprocal from the above, if you want to remove a default setting, you will need to input something in the relevant field of this tab.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<h4 style="font-size: 11px;"><li>' . __( 'Hover or focus ?', 'wp-symposium-toolbar' ) . '</li></h4>';
+			echo '<p>' . __( 'By default, WordPress does not focus dropdown menu items, while it does focus Toolbar items when a menu opens underneath.  After hesitating on what the best user experience would be, I finally decided to adopt the following behaviour for focussed items.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'As long as you don\'t change any of the settings in the box "Dropdown Menus Items Hover & Focus", WordPress default will apply for dropdown menu items, which will not be focussed, and WordPress hover font color will be used only for the hovered item.', 'wp-symposium-toolbar' ) . '  ' . __( 'As soon as you change one of these settings, dropdown menu items will be focussed, with the font color you may have set, or WordPress default hover font color if you have set anything else in this box.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Monochrom dividers or two-colours borders ?', 'wp-symposium-toolbar' ) . '</li></h4>';
-			echo '<p>' . __( 'The plugin allows you to define two-colour borders, or monochrom dividers when the second colour is not set. WPS Toolbar will then adjust those settings so that it displays nice dividers on either side of your Toolbar items.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'Older versions of WordPress were using borders on Toolbar items.', 'wp-symposium-toolbar' ) . '  ' . __( 'The plugin allows you to define two-colour borders, or monochrom dividers when the second colour is not set. WPS Toolbar will then adjust those settings so that it displays nice dividers on either side of your Toolbar items.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Tablet Mode', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar, of a fixed height of 46px and a content made of textless icons. Dropdown menus have a larger font and line height, ending up in tapable menu items.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account.', 'wp-symposium-toolbar' ).' '.__( 'Any other style changes you may have performed will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Icons-Only Toolbar', 'wp-symposium-toolbar' ) . '</li></h4>';
-			echo '<p>' . __( 'WordPress 3.8 now uses so-called fonticons, icons made fonts that can be styled and resized ad libitum.  This plugin allows you to style Toolbar icons separately from labels.  If you\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish.  You will also need to force the menu font size back to a non-null value.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'As of its version 3.8, WordPress uses so-called fonticons, icons made fonts that can be styled and resized ad libitum.', 'wp-symposium-toolbar' ) . '  ' . __( 'This plugin allows you to style Toolbar icons separately from labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'If you\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish.', 'wp-symposium-toolbar' ) . '  ' . __( 'You will also need to force the menu font size back to a non-null value.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
 		}
 		
