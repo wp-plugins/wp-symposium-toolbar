@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Symposium Toolbar v0.27.13\n"
+"Project-Id-Version: WP Symposium Toolbar v0.27.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-24 21:22:30+0000\n"
+"PO-Revision-Date: 2014-03-25 20:29:55+0000\n"
 "Last-Translator: AlphaGolf <alphagolf@rocketmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,119 +58,119 @@ msgstr "Enregistrer les Modifications"
 msgid "Admin Menu"
 msgstr "Menu Admin"
 
-#: wp-symposium-toolbar_admin_functions.php:2666
+#: wp-symposium-toolbar_admin_functions.php:2694
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2667
+#: wp-symposium-toolbar_admin_functions.php:2695
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Profil"
 
-#: wp-symposium-toolbar_admin_functions.php:2668
+#: wp-symposium-toolbar_admin_functions.php:2696
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2669
+#: wp-symposium-toolbar_admin_functions.php:2697
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2670
+#: wp-symposium-toolbar_admin_functions.php:2698
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Répertoire"
 
-#: wp-symposium-toolbar_admin_functions.php:2671
+#: wp-symposium-toolbar_admin_functions.php:2699
 #: wp-symposium-toolbar_functions.php:93
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2672
+#: wp-symposium-toolbar_admin_functions.php:2700
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Groupes"
 
-#: wp-symposium-toolbar_admin_functions.php:2673
+#: wp-symposium-toolbar_admin_functions.php:2701
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galerie"
 
-#: wp-symposium-toolbar_admin_functions.php:2674
+#: wp-symposium-toolbar_admin_functions.php:2702
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertes"
 
-#: wp-symposium-toolbar_admin_functions.php:2675
+#: wp-symposium-toolbar_admin_functions.php:2703
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panneau"
 
-#: wp-symposium-toolbar_admin_functions.php:2676
+#: wp-symposium-toolbar_admin_functions.php:2704
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Évènements"
 
 #: wp-symposium-toolbar_admin.php:1155
-#: wp-symposium-toolbar_admin_functions.php:2677
+#: wp-symposium-toolbar_admin_functions.php:2705
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2678
+#: wp-symposium-toolbar_admin_functions.php:2706
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:2679
+#: wp-symposium-toolbar_admin_functions.php:2707
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Réponse"
 
-#: wp-symposium-toolbar_admin_functions.php:2680
+#: wp-symposium-toolbar_admin_functions.php:2708
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salon"
 
-#: wp-symposium-toolbar_admin_functions.php:2682
+#: wp-symposium-toolbar_admin_functions.php:2710
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gérer"
 
-#: wp-symposium-toolbar_admin_functions.php:2683
+#: wp-symposium-toolbar_admin_functions.php:2711
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Paramètres"
 
-#: wp-symposium-toolbar_admin_functions.php:2685
+#: wp-symposium-toolbar_admin_functions.php:2713
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Dictionnaire"
 
-#: wp-symposium-toolbar_admin_functions.php:2686
+#: wp-symposium-toolbar_admin_functions.php:2714
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Catégories"
 
-#: wp-symposium-toolbar_admin_functions.php:2687
+#: wp-symposium-toolbar_admin_functions.php:2715
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Publications Forum"
 
-#: wp-symposium-toolbar_admin_functions.php:2688
+#: wp-symposium-toolbar_admin_functions.php:2716
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Messages Privés"
 
-#: wp-symposium-toolbar_admin_functions.php:2689
+#: wp-symposium-toolbar_admin_functions.php:2717
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Modèles"
 
-#: wp-symposium-toolbar_admin_functions.php:2690
+#: wp-symposium-toolbar_admin_functions.php:2718
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr ""
@@ -2784,7 +2784,7 @@ msgstr "Accessible par les Administrateurs Site, la dernière fonctionnalité es
 msgid "Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the \"Home Site\" feature is activated as well, in which case users will be able to choose which site they want as a home site."
 msgstr "De plus, si plusieurs instances de WP Symposium sont actives sur le réseau, elles seront cherchées dans l'ordre qui suit : site courant, Site Principal, Sous-sites en ordre ascendant d'identifiant. Si bien qu'un site donné ne sera pas forcément sur la liste et les liens et les icônes WPS pourraient ne pas pointer vers ce site, sauf si la fonctionnalité \"Site Maison\" est activée auquel cas les utilisateurs pourront choisir quel site sert de site maison."
 
-#. translators: if you want your name under mine at the bottom of the User Guide, translate this word, and add your name/email/website. Leave untranslated otherwise. HTML allowed, use br and ahref.
+#. translators: if you want your name under mine at the bottom of the User Guide, translate this word, and add your name/email/website. Leave untranslated otherwise. HTML allowed, use br and ahref. 
 #: wp-symposium-toolbar_admin.php:2682
 #@ wp-symposium-toolbar
 msgid "translation:"
@@ -2915,7 +2915,7 @@ msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché d
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Toute autre modification que vous pourriez avoir apportée sera répliquée dans cette Barre d'Outils responsive."
 
-#: wp-symposium-toolbar_admin_functions.php:2684
+#: wp-symposium-toolbar_admin_functions.php:2712
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicités"
@@ -3175,7 +3175,7 @@ msgstr "Partager sur LinkedIn"
 msgid "Share this on Facebook"
 msgstr "Partager sur Facebook"
 
-#. translators: alternatively, this could be translated with "share this on Twitter
+#. translators: alternatively, this could be translated with "share this on Twitter" 
 #: wp-symposium-toolbar_functions.php:913
 #@ wp-symposium-toolbar
 msgid "Tweet this"

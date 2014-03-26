@@ -100,9 +100,7 @@
 #wpadminbar .quicklinks li a:hover .blavatar,
 #wpadminbar .quicklinks li a:hover .blavatar:before,
 #wpadminbar .menupop .menupop > .ab-item:hover:before,
-#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name,
-#wpadminbar #wp-admin-bar-user-info:hover span,
-#wpadminbar #wp-admin-bar-user-info a:hover span {
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name {
 	color: #2EA2CC;
 }
 

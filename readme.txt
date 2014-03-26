@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: 0.27.0
-Version: 0.27.14
+Version: 0.27.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,9 +154,9 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, preview mode, correct avatar colors
 * Bugfix: WP 3.8, Styles, correct shadow colors for the W logos in My Sites, both previewed and saved
 * Bugfix: WP 3.8, correct default icon size in responsive mode
-* Change: WP 3.9, make use of 'rel' meta added to WP_Admin_Bar::add_node() for Custom Menus relationships set from WP NavMenus page
+* Change: WP 3.9, make use of 'rel' meta added to WP_Admin_Bar::add_node() for Custom Menus relationships set from WP NavMenus page (requires at least WP 3.9)
 * Bugfix: get rid of PHP notices when a gradient is set without a background color
-* Bugfix: Styles, both previewed and saved, username now adheres to WP default color when no font color is set in dropdown menus
+* Bugfix: Styles, both previewed and saved, username now adheres to WP default color when no font color is set in dropdown menus, likewise on hover
 * Bugfix: WP 3.8, Styles, make menu items' background colors transparent on hover (no default value)
 * Bugfix: WP 3.8, make sure the default CSS file is loaded at all pages when Admin chooses to style the Toolbar accross the whole dashbard
 

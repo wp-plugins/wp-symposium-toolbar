@@ -2591,7 +2591,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 			
 			// Labels in dropdown menus
-			if ( isset( $menu_hover_font_colour ) && ( $style_chunk != 'color: '.$menu_hover_font_colour.'; ' ) ) {
+			if ( $style_chunk != 'color: '.$wpst_default_toolbar['menu_hover_font_colour'].'; ' ) {
 				// Style the non-a ab-items
 				$style_saved .= '#wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .quicklinks .menupop ul li .ab-item:hover strong, #wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover, #wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover, #wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, ';
 				// admin-bar.css:274

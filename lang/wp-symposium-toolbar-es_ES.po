@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Symposium Toolbar v0.28.0\n"
+"Project-Id-Version: WP Symposium Toolbar v0.27.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-24 15:32:15+0000\n"
+"PO-Revision-Date: 2014-03-25 20:29:50+0000\n"
 "Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,119 +58,119 @@ msgstr "Salvar los Cambios"
 msgid "Admin Menu"
 msgstr "Menú de Administración"
 
-#: wp-symposium-toolbar_admin_functions.php:2662
+#: wp-symposium-toolbar_admin_functions.php:2694
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr "Opciones"
 
-#: wp-symposium-toolbar_admin_functions.php:2663
+#: wp-symposium-toolbar_admin_functions.php:2695
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Perfil"
 
-#: wp-symposium-toolbar_admin_functions.php:2664
+#: wp-symposium-toolbar_admin_functions.php:2696
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr "Más"
 
-#: wp-symposium-toolbar_admin_functions.php:2665
+#: wp-symposium-toolbar_admin_functions.php:2697
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr "Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2666
+#: wp-symposium-toolbar_admin_functions.php:2698
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Directorio"
 
-#: wp-symposium-toolbar_admin_functions.php:2667
+#: wp-symposium-toolbar_admin_functions.php:2699
 #: wp-symposium-toolbar_functions.php:93
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr "Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2668
+#: wp-symposium-toolbar_admin_functions.php:2700
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Grupos"
 
-#: wp-symposium-toolbar_admin_functions.php:2669
+#: wp-symposium-toolbar_admin_functions.php:2701
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galería"
 
-#: wp-symposium-toolbar_admin_functions.php:2670
+#: wp-symposium-toolbar_admin_functions.php:2702
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertas"
 
-#: wp-symposium-toolbar_admin_functions.php:2671
+#: wp-symposium-toolbar_admin_functions.php:2703
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panel"
 
-#: wp-symposium-toolbar_admin_functions.php:2672
+#: wp-symposium-toolbar_admin_functions.php:2704
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Eventos"
 
 #: wp-symposium-toolbar_admin.php:1155
-#: wp-symposium-toolbar_admin_functions.php:2673
+#: wp-symposium-toolbar_admin_functions.php:2705
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-symposium-toolbar_admin_functions.php:2674
+#: wp-symposium-toolbar_admin_functions.php:2706
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr "Móvil"
 
-#: wp-symposium-toolbar_admin_functions.php:2675
+#: wp-symposium-toolbar_admin_functions.php:2707
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Responder"
 
-#: wp-symposium-toolbar_admin_functions.php:2676
+#: wp-symposium-toolbar_admin_functions.php:2708
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salón"
 
-#: wp-symposium-toolbar_admin_functions.php:2678
+#: wp-symposium-toolbar_admin_functions.php:2710
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gestionar"
 
-#: wp-symposium-toolbar_admin_functions.php:2679
+#: wp-symposium-toolbar_admin_functions.php:2711
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Configurar"
 
-#: wp-symposium-toolbar_admin_functions.php:2681
+#: wp-symposium-toolbar_admin_functions.php:2713
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Tesauro"
 
-#: wp-symposium-toolbar_admin_functions.php:2682
+#: wp-symposium-toolbar_admin_functions.php:2714
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Categorías"
 
-#: wp-symposium-toolbar_admin_functions.php:2683
+#: wp-symposium-toolbar_admin_functions.php:2715
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Mensajes del Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2684
+#: wp-symposium-toolbar_admin_functions.php:2716
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Mensajes de Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2685
+#: wp-symposium-toolbar_admin_functions.php:2717
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Plantillas"
 
-#: wp-symposium-toolbar_admin_functions.php:2686
+#: wp-symposium-toolbar_admin_functions.php:2718
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr "Auditoría"
@@ -2915,7 +2915,7 @@ msgstr "El plugin no forzará esto, y cuando su Barra de Herramientas del sitio 
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Cualquier otro cambio de estilos que usted pueda haber realizado serán reflejados en esta Barra de Herramientas de respuesta."
 
-#: wp-symposium-toolbar_admin_functions.php:2680
+#: wp-symposium-toolbar_admin_functions.php:2712
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicidad"
@@ -3132,11 +3132,6 @@ msgstr ""
 #: wp-symposium-toolbar_admin.php:2651
 #@ wp-symposium-toolbar
 msgid "Icons-Only Toolbar"
-msgstr ""
-
-#: wp-symposium-toolbar_admin.php:2652
-#@ wp-symposium-toolbar
-msgid "WordPress 3.8 now uses so-called fonticons, icons made fonts that can be styled and resized ad libitum.  This plugin allows you to style Toolbar icons separately from labels.  If you\\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish.  You will also need to force the menu font size back to a non-null value."
 msgstr ""
 
 #: wp-symposium-toolbar_admin_functions.php:1005
@@ -3418,5 +3413,30 @@ msgstr ""
 #: wp-symposium-toolbar_admin.php:2646
 #@ wp-symposium-toolbar
 msgid "As soon as you change one of these settings, dropdown menu items will be focussed, with the font color you may have set, or WordPress default hover font color if you have set anything else in this box."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2648
+#@ wp-symposium-toolbar
+msgid "Older versions of WordPress were using borders on Toolbar items."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2652
+#@ wp-symposium-toolbar
+msgid "As of its version 3.8, WordPress uses so-called fonticons, icons made fonts that can be styled and resized ad libitum."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2652
+#@ wp-symposium-toolbar
+msgid "This plugin allows you to style Toolbar icons separately from labels."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2652
+#@ wp-symposium-toolbar
+msgid "If you\\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:2652
+#@ wp-symposium-toolbar
+msgid "You will also need to force the menu font size back to a non-null value."
 msgstr ""
 
