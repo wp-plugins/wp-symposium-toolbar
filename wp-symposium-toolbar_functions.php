@@ -849,6 +849,7 @@ function symposium_toolbar_social_icons() {
 	$share = get_option( 'wpst_share_icons', array() );
 	$blog_name = get_bloginfo('name');
 	$parent = get_option( 'wpst_share_icons_position', '' );
+	$http_prefix = ( is_ssl() ) ? "https://" : "http://";
 	$class = get_option( 'wpst_share_icons_set', 'lightweight' );
 	if ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) $class .= ' brand';
 	
@@ -884,7 +885,7 @@ function symposium_toolbar_social_icons() {
 			'id' => 'symposium-toolbar-share-linkedin',
 			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://www.linkedin.com/shareArticle?mini=true&url=' . $shared_url,
+			'href' => $http_prefix . 'www.linkedin.com/shareArticle?mini=true&url=' . $shared_url,
 			'meta' => array( 'title' => __( "Share this on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-linkedin '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -896,7 +897,7 @@ function symposium_toolbar_social_icons() {
 			'id' => 'symposium-toolbar-share-facebook',
 			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://www.facebook.com/sharer.php?u=' . $shared_url,
+			'href' => $http_prefix . 'www.facebook.com/sharer.php?u=' . $shared_url,
 			'meta' => array( 'title' => __( "Share this on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -908,7 +909,7 @@ function symposium_toolbar_social_icons() {
 			'id' => 'symposium-toolbar-share-twitter',
 			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://twitter.com/share?url=' . $shared_url . '&text=' . $blog_name,
+			'href' => $http_prefix . 'twitter.com/share?url=' . $shared_url . '&text=' . $blog_name,
 			/* translators: alternatively, this could be translated with "share this on Twitter" */
 			'meta' => array( 'title' => __( "Tweet this", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
 		);
@@ -921,7 +922,7 @@ function symposium_toolbar_social_icons() {
 			'id' => 'symposium-toolbar-share-google-plus',
 			'parent' => $parent,
 			'title' => '',
-			'href' => 'https://plus.google.com/share?url=' . $shared_url,
+			'href' => $http_prefix . 'plus.google.com/share?url=' . $shared_url,
 			'meta' => array( 'title' => __( "Share this on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-google-plus '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -933,7 +934,7 @@ function symposium_toolbar_social_icons() {
 			'id' => 'symposium-toolbar-share-stumbleupon',
 			'parent' => $parent,
 			'title' => '',
-			'href' => 'http://www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
+			'href' => $http_prefix . 'www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
 			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );

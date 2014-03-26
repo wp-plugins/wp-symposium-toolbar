@@ -2575,6 +2575,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	// If a hover color was defined for non-Highlighted Items, force back hover color to WP default for Highlighted Items
 	if ( isset( $wpst_style_tb_current['menu_hover_font_colour'] ) ) $menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
+	if ( isset( $menu_hover_font_colour ) ) $menu_hover_ext_font_colour = $wpst_default_toolbar['menu_hover_ext_font_colour'];
 	
 	// If a hover color was defined for Highlighted Items, force hover/focus color to WP default for non-Highlighted Items
 	if ( isset( $wpst_style_tb_current['menu_hover_ext_font_colour'] ) ) $menu_hover_font_colour = $wpst_default_toolbar['menu_hover_font_colour'];
@@ -2614,7 +2615,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 			
 		} else
 			$style_saved .= '#wpadminbar .quicklinks .menupop .ab-submenu > li:hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li.hover > .ab-item, #wpadminbar .quicklinks .menupop .ab-submenu > li .ab-item:focus, #wpadminbar #wp-admin-bar-user-info .ab-item:hover, #wpadminbar #wp-admin-bar-user-info .ab-item:hover span { ' . $style_chunk . '} ';
-		$style_chunk = "";
 	}
 	
 	// Menu Hover Font color for Highlighted Items
@@ -2638,6 +2638,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	
 	// Menu Hover for Blavatars
 	if ( is_multisite() && version_compare( $wp_version, '3.8-alpha', '>' ) ) {
+		
+		// Force it
+		// if ( $style_chunk_ext == "" ) $style_chunk_ext = $style_chunk;
 		
 		// "W" icons in My Sites dropdown menu - add font color and shadow, not the attributes
 		if ( $style_chunk_ext . $style_chunk_shadow !== "" ) {
