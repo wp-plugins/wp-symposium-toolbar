@@ -2639,9 +2639,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	// Menu Hover for Blavatars
 	if ( is_multisite() && version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 		
-		// Force it
-		// if ( $style_chunk_ext == "" ) $style_chunk_ext = $style_chunk;
-		
 		// "W" icons in My Sites dropdown menu - add font color and shadow, not the attributes
 		if ( $style_chunk_ext . $style_chunk_shadow !== "" ) {
 			// On focus
