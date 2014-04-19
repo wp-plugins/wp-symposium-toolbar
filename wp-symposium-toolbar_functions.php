@@ -65,8 +65,8 @@ function symposium_toolbar_init_globals() {
 	// Menus
 	$wpst_menus = array();
 	if ( $is_wps_active ) {
-		$profile_url = __wps__get_url( 'profile' );
-		$profile_query_string = symposium_toolbar_string_query( $profile_url );
+		$profile_url = remove_query_arg( 'view',  __wps__get_url( 'profile' ) );
+		$profile_query_string = ( strpos( $profile_url, '?' ) !== FALSE ) ? "&" : "?";
 		$mail_url = __wps__get_url( 'mail' );
 			
 		// NavMenus
@@ -587,34 +587,6 @@ function symposium_toolbar_edit_wp_toolbar() {
 		$count = $count + 1;
 	}
 	
-	// $symposium_toolbar_user_menu_item = array( 
-		// 'title' => '<form name="adminloginform" id="adminloginform" action="http://assire.fr/wpms-test/wp-login.php" method="post"><p class="login-username"><label for="user_login">Identifiant</label><input type="text" name="log" id="user_login" class="input" value="" size="20"></p><p class="login-password"><label for="user_pass">Mot de passe</label><input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></p><p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Se souvenir de moi</label></p><p class="login-submit"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Se connecter"><input type="hidden" name="redirect_to" value="http://assire.fr/wpms-test/"></p></form>',
-		// 'href' => '',
-		// 'id' => '999',
-		// 'parent' => 'my-account',
-		// 'meta' => array( 'class' => 'wpst_loginform' )
-	// );
-	// $wp_admin_bar->add_node( $symposium_toolbar_user_menu_item );
-	
-	// <form name="adminloginform" id="adminloginform" action="http://assire.fr/wpms-test/wp-login.php" method="post">
-			
-			// <p class="login-username">
-				// <label for="user_login">Identifiant</label>
-				// <input type="text" name="log" id="user_login" class="input" value="" size="20">
-			// </p>
-			// <p class="login-password">
-				// <label for="user_pass">Mot de passe</label>
-				// <input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
-			// </p>
-			
-			// <p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Se souvenir de moi</label></p>
-			// <p class="login-submit">
-				// <input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Se connecter">
-				// <input type="hidden" name="redirect_to" value="http://assire.fr/wpms-test/">
-			// </p>
-			
-		// </form>
-		
 	// Finally, decide if WP Logo shall be removed / replaced / left untouched
 	if ( is_array( get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {
 		if ( ! array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {
@@ -650,10 +622,9 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 	
 		// Is Home Site in the array of WPS Profile pages ?
 		if ( isset( $profile_url_arr[ $home_id ] ) ) {
-			$profile_url = array_shift( $profile_url_arr );
-			$url = $profile_url . symposium_toolbar_string_query( $profile_url ) . "view=personal";
+			$url = add_query_arg( array('view' => 'personal' ), $profile_url_arr[ $home_id ] );
 		
-		// No WPS Profile found on the Home Site, fallback to WP Profile page
+		// No WPS Profile found on the Home Site, fallback to its WP Profile page
 		} else {
 			$blog_details = get_blog_details( $home_id );
 			$url = trim( $blog_details->siteurl, '/' ).'/wp-admin/profile.php';
@@ -664,8 +635,7 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 		
 		// Shall we rewrite the Edit Profile with WPS Profile page ?
 		if ( ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) && !empty( $profile_url_arr ) ) {
-			$profile_url = array_shift( $profile_url_arr );
-			$url = $profile_url . symposium_toolbar_string_query( $profile_url ) . "view=personal";
+			$url = add_query_arg( array('view' => 'personal' ), array_shift( $profile_url_arr ) );
 		
 		// Shall we rewrite the Edit Profile with a link to any other page ?
 		} elseif ( ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) != '%symposium_profile%' ) && ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) != '' ) ) {
@@ -866,18 +836,6 @@ function symposium_toolbar_social_icons() {
 		case 'current' :
 			$shared_url = htmlentities( home_url( add_query_arg( array(), $wp->request ) ) );
 	}
-	
-	// Add Group
-/*	if ( !empty( $share ) ) {
-		$args = array(
-			'id' => 'symposium-toolbar-share',
-			'parent' => $parent,
-			'title' => '',
-			'meta' => array( 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share' )
-		);
-		$wp_admin_bar->add_group( $args );
-		$parent = 'symposium-toolbar-share';
-	} /* */
 	
 	// LinkedIn
 	if ( isset( $share['linkedin'] ) && ( $share['linkedin'] == "on" ) ) {
@@ -1092,7 +1050,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					// Get the site URL and the WPS page slug on this site
 					$site_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", 'siteurl' ), ARRAY_A );
 					$page_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", WPS_OPTIONS_PREFIX.'_'.$feature.'_url' ), ARRAY_A );
-					// var_dump( array( $blog['blog_id'] => trim( $site_url["option_value"], "/" ) . "/" . trim( $page_url["option_value"], "/" ) ) );
 					
 					// If the feature is active on this site and the page can be found, store the page URL in the array
 					if ( $page_url["option_value"] != "" ) {
@@ -1108,7 +1065,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					}
 				}
 			}
-			// var_dump( $feature, $blog['blog_id'], $wps_network_activated, $wps_activated, $feature_activated, $feature_url ); echo '<br />';
 		}
 	
 	// Single site
@@ -1122,7 +1078,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		if ( $is_wps_active && ( "1" == $feature_activated ) && ( trim( $page_url["option_value"], "/" ) != "" ) )
 			$feature_url["1"] = trim( site_url(), "/" ) . "/" . trim( $page_url["option_value"], "/" );
 	}
-	// echo '/!\  ';var_dump( $feature, $feature_url ); echo '<br />';
 	
 	// Hook to do anything with the array of URLs for a given feature
 	return apply_filters( 'symposium_toolbar_wps_url_for_feature', $feature_url, $feature );
@@ -1187,12 +1142,6 @@ function symposium_toolbar_custom_profile_option( $profileuser ) {
 		}
 		echo '</td></tr></table>';
 	}
-}
-
-// Work out query extension
-function symposium_toolbar_string_query( $p ) {
-	
-	return ( strpos( $p, '?' ) !== FALSE ) ? "&" : "?";
 }
 
 ?>

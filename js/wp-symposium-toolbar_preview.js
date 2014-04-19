@@ -85,9 +85,9 @@ jQuery(document).ready(function($){
 	var wpstMenuExtFontHoverEmptyColor = "#2ea2cc";
 	var wpstMenuExtFontHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
 	
-	var wpstFontSizeEmpty = "13px";
-	var wpstIconSizeEmpty = 20;
-	var wpstFontSizeSmallEmpty = "11px";
+	var wpstFontSizeEmpty = "13";
+	var wpstIconSizeEmpty = "20";
+	var wpstFontSizeSmallEmpty = "11";
 	var wpstFontNormal = "normal";
 	var wpstFontNone = "none";
 	
@@ -469,7 +469,7 @@ jQuery(document).ready(function($){
 		$("#wpadminbar").find(".ab-item").css( "font-size", tbFontSize + "px" );
 		$("#wpadminbar").find(".ab-item > span.ab-label").css( "font-size", tbFontSize + "px" );
 		$("#wpadminbar").find(".ab-submenu *").css( "font-size", menuFontSize + "px" );
-		$("#wpadminbar").find("#wp-admin-bar-user-info > .ab-item > span").css( "font-size", menuFontSizeSmall + "px" );
+		$("#wpadminbar").find("#wp-admin-bar-user-info > .ab-item > span.username").css( "font-size", menuFontSizeSmall + "px" );
 		
 		// Hover
 		$("#wpadminbar").find(".ab-top-menu > li").hover(function(){
@@ -964,10 +964,13 @@ jQuery(document).ready(function($){
 	
 	$("#wpst_font_size").blur(function() {
 		
-		if ( $( "#wpst_hover_font_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_hover_font_size").val( $(this).val() );
-		$("#wpst_hover_font_size_default").val( $(this).val() );
-		if ( $( "#wpst_menu_font_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_menu_font_size").val( $(this).val() );
-		$("#wpst_menu_font_size_default").val( $(this).val() );
+		var tbFontSize = ( $(this).val() !== "" ) ? $(this).val() : wpstFontSizeEmpty;
+		
+		if ( $( "#wpst_hover_font_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_hover_font_size").val( tbFontSize );
+		$("#wpst_hover_font_size_default").val( tbFontSize );
+		if ( $( "#wpst_menu_font_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_menu_font_size").val( tbFontSize );
+		$("#wpst_menu_font_size_default").val( tbFontSize );
+		
 		update_tb_font_size();
 	});
 	
@@ -984,8 +987,11 @@ jQuery(document).ready(function($){
 	
 	$("#wpst_icon_size").blur(function() {
 		
-		if ( $( "#wpst_hover_icon_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_hover_icon_size").val( $(this).val() );
-		$("#wpst_hover_icon_size_default").val( $(this).val() );
+		var tbIconSize = ( $(this).val() !== "" ) ? $(this).val() : wpstIconSizeEmpty;
+		
+		if ( $( "#wpst_hover_icon_size" ).hasClass( "wpst-has-default" ) ) $("#wpst_hover_icon_size").val( tbIconSize );
+		$("#wpst_hover_icon_size_default").val( tbIconSize );
+		
 		update_tb_icon_size();
 	});
 	

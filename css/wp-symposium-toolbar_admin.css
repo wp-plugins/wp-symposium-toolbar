@@ -396,11 +396,6 @@
 	}
 }
 
-/* Add hover / focus to non-a's ab-items, such as the div's in WPS Profile */
-#wpadminbar .quicklinks .menupop ul li .ab-item:hover {
-	color: #2EA2CC;
-}
-
 /**
  * Site Name Menu
  */

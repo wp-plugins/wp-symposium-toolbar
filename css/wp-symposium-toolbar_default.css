@@ -18,68 +18,89 @@
  * Default Toolbar Style
  */
 
+/* admin-bar.css:72 */
 #wpadminbar,
-#wpadminbar .quicklinks,
+
 #wpadminbar .ab-top-secondary {
-	background: #222222;
-	color: #cccccc;
+	color: #ccc;
+	background: #222;
 }
 
+#wpadminbar .ab-item, 
+
+/* admin-bar.css:30 */
 #wpadminbar a.ab-item,
 #wpadminbar > #wp-toolbar span.ab-label,
 #wpadminbar > #wp-toolbar span.noticon,
-#wpadminbar .quicklinks .menupop ul li .ab-item,
+
+/* admin-bar.css:263 */
+#wpadminbar .ab-submenu .ab-item,
+
+/* admin-bar.css:267 */
+#wpadminbar .quicklinks .menupop ul li a,
 #wpadminbar .quicklinks .menupop ul li a strong,
-#wpadminbar .quicklinks .menupop.hover ul li .ab-item,
-#wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item,
-#wpadminbar #wp-admin-bar-user-info .display-name,
-#wpadminbar #wp-admin-bar-user-info span,
-#wpadminbar .ab-sub-wrapper > ul > li > .ab-item,
-#wpadminbar .ab-sub-wrapper > ul > li > .ab-item strong,
-#wpadminbar .quicklinks .menupop .ab-sub-wrapper .ab-sub-secondary li a,
-#wpadminbar #wp-admin-bar-user-info .ab-item:hover {
-	color: #eeeeee;
+#wpadminbar .quicklinks .menupop.hover ul li a,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a,
+
+/* admin-bar.css:477 */
+#wpadminbar .quicklinks li .blavatar,
+
+/* wp-admin\css\colors\***\colors.css:199 */
+#wpadminbar .menupop .menupop > .ab-item:before,
+
+/* wp-admin\css\colors\***\colors.css:237 */
+#wpadminbar #wp-admin-bar-user-info .display-name {
+	color: #eee;
 }
 
-#wpadminbar #wp-admin-bar-user-info .username,
-#wpadminbar .ab-icon,
+/* admin-bar.css:243 */
 #wpadminbar .ab-icon:before,
 #wpadminbar .ab-item:before,
-#wpadminbar .ab-item:after,
-#wpadminbar .ab-item span:before,
-#wpadminbar .ab-item span:after,
-#wpadminbar .ab-top-menu > li > .ab-item:before,
-#wpadminbar .ab-top-menu > li > .ab-item:after,
-#wpadminbar #adminbarsearch:before {
-	color: #999999;
+#wpadminbar #adminbarsearch:before,
+
+/* admin-bar.css:437 */
+#wpadminbar #wp-admin-bar-user-info .username,
+
+/* wp-admin\css\colors\***\colors.css:176 */
+#wpadminbar .ab-icon,
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:before, 
+#wpadminbar .ab-item:after {
+	color: #999;
 }
 
+/* admin-bar.css:442 */
 #wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
-	border-color: #999999;
-	background-color: #999999;
+	border: 1px solid #888;
+	background: #999;
 }
 
-#wpadminbar .ab-top-menu > li:hover > .ab-item:before,
-#wpadminbar .ab-top-menu > li.hover > .ab-item:before,
-#wpadminbar .ab-top-menu > li.menupop:hover > .ab-item:before,
-#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before,
-#wpadminbar li:hover > .ab-item > .ab-icon:before,
-#wpadminbar li.hover > .ab-item > .ab-icon:before,
-#wpadminbar li:hover > .ab-item > .ab-label:before,
-#wpadminbar li.hover > .ab-item > .ab-label:before,
-#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
-#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item:before,
+/* admin-bar.css:333 */
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+	background: #4b4b4b;
+}
+
+/* admin-bar.css:215 */
 #wpadminbar .ab-top-menu > li > .ab-item:focus,
 #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
 #wpadminbar .ab-top-menu > li:hover > .ab-item,
 #wpadminbar .ab-top-menu > li.hover > .ab-item,
+
+/* wp-admin\css\colors\***\colors.css:179 */
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
+#wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
+#wpadminbar .menupop.focus .ab-label {
+	color: #2ea2cc;
+	background: #333;
+}
+
+/* admin-bar.css:223 */
 #wpadminbar > #wp-toolbar li:hover span.ab-label,
 #wpadminbar > #wp-toolbar li.hover span.ab-label,
 #wpadminbar > #wp-toolbar a:focus span.ab-label,
-#wpadminbar .quicklinks .menupop ul li .ab-item:hover,
-#wpadminbar .quicklinks .menupop ul li .ab-item:hover strong,
-#wpadminbar .quicklinks .menupop.hover ul li .ab-item:hover,
-#wpadminbar.nojs .quicklinks .menupop:hover ul li .ab-item:hover,
+
+/* admin-bar.css:274 */
 #wpadminbar .quicklinks .menupop ul li a:hover,
 #wpadminbar .quicklinks .menupop ul li a:focus,
 #wpadminbar .quicklinks .menupop ul li a:hover strong,
@@ -94,30 +115,58 @@
 #wpadminbar li .ab-item:focus:before,
 #wpadminbar li.hover .ab-icon:before,
 #wpadminbar li.hover .ab-item:before,
-#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li.menupop:hover span.ab-label,
-#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.menupop:hover span.ab-label,
 #wpadminbar li:hover #adminbarsearch:before,
+
+/* admin-bar.css:338 */
+#wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover,
+#wpadminbar .quicklinks .menupop .ab-sub-secondary > li .ab-item:focus,
+
+/* admin-bar.css:486 */
 #wpadminbar .quicklinks li a:hover .blavatar,
-#wpadminbar .quicklinks li a:hover .blavatar:before,
+
+/* wp-admin\css\colors\***\colors.css:205 */
 #wpadminbar .menupop .menupop > .ab-item:hover:before,
-#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary a:hover span.display-name {
-	color: #2EA2CC;
+
+/* wp-admin\css\colors\***\colors.css:240 */
+#wpadminbar #wp-admin-bar-user-info a:hover .display-name ,
+
+/* wp-admin\css\colors\***\colors.css:307 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li:hover span.ab-label,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.hover span.ab-label {
+	color: #2ea2cc;
 }
 
-#wpadminbar .menupop .ab-sub-wrapper,
-#wpadminbar .ab-top-menu > li:hover > .ab-item,
-#wpadminbar .ab-top-menu > li.hover > .ab-item,
-#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
-#wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
-#wpadminbar .ab-top-menu > li > .ab-item:focus,
-#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
-#wpadminbar .menupop.focus .ab-label {
-	background-color: #333333;
+/* admin-bar.css:139 */
+#wpadminbar .menupop .ab-sub-wrapper {
+	background-color: #333;
 }
 
-#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
-#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu,
-#wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary,
-#wpadminbar .ab-sub-wrapper > ul.ab-sub-secondary .ab-submenu {
-	background-color: #4B4B4B;
+/* The following needed for JetPack when Search icon in backend */
+
+/* admin-bar.css:577 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	color: #ccc;
+	background-color: rgba( 255, 255, 255, 0 );
+}
+
+/* admin-bar.css:610 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	color: #000;
+	background-color: rgba( 255, 255, 255, 0.9 );
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	background-color: #464646;
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	background-color: #fff;
+}
+
+/* admin-bar.css:633 */
+#wpadminbar #adminbarsearch .adminbar-input::-webkit-input-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input:-moz-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input::-moz-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input:-ms-input-placeholder {
+	color: #999;
 }

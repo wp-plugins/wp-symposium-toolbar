@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.5
-Tested up to: 3.8.1
-Stable tag: 0.28.0
-Version: 0.28.0
+Tested up to: 3.9
+Stable tag: 0.29.0
+Version: 0.29.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,11 +146,20 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 == Changelog ==
 
+= 0.29.0. =
+
+* Change: make use of plugins_url() instead of WP_PLUGIN_URL so that the plugin supports SSL certificates
+* Bugfix: WP 3.8+, fix hover color on some of the labels in the frontend when no hover colour is set
+* Bugfix: Styles, preview mode, correct default font size, default icon size, username font size
+* Bugfix: WPMS, WPS Profile link not always picking the Home Site
+* Bugfix: Styles, menu shadow transparency was not used
+* Cleanup in the CSS selectors for Toolbar items, for WP3.8
+
 = 0.28.0. =
 
-* Change: WP 3.8, Option to add fonticons to all default toplevel menu items (and now, admins can iconify all the Toolbar items)
+* Change: WP 3.8, Option to add fonticons to all default toplevel menu items (and now, admins can iconify all the Toolbar items at all screen sizes)
 * Change: split the containers' shadow in two different settings, to reflect WP default shadow (also acts as Bugfix from WP default shadow)
-* Bugfix: get rid of notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
+* Bugfix: get rid of PHP notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
 * Bugfix: Styles, preview mode, correct avatar colors
 * Bugfix: WP 3.8, Styles, correct shadow colors for the W logos in My Sites, both previewed and saved
 * Bugfix: WP 3.8, correct default icon size in responsive mode
@@ -159,7 +168,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, username now adheres to WP default color when no font color is set in dropdown menus, likewise on hover
 * Bugfix: WP 3.8, Styles, make menu items' background colors transparent on hover (no default value)
 * Bugfix: WP 3.8, make sure the default CSS file is loaded at all pages when Admin chooses to style the Toolbar accross the whole dashbard
-* Bugfix: WP 3.8, use SSL on the URL over the share icons when SSL is active
+* Bugfix: WP 3.8, use SSL on the URL over the share icons when SSL is active on the server
 
 = 0.27.0. =
 

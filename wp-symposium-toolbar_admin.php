@@ -1248,8 +1248,6 @@ function symposium_toolbar_admintab_share() {
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'At the left of the WP User Menu', 'wp-symposium-toolbar' ) . '</span><br /><br />';
 			
-					// echo '<span>' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
-					
 					echo '<input type="checkbox" name="icons_color" class="wpst-admin"';
 					if ( get_option( 'wpst_share_icons_color', '' ) == "on" )
 						echo " CHECKED";
@@ -1258,15 +1256,6 @@ function symposium_toolbar_admintab_share() {
 						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
 					}
 					echo '/><span class="wpst-checkbox"> ' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
-					
-					// echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin"';
-					// if ( get_option( 'wpst_share_icons_hover_color', '' ) == "on" )
-						// echo " CHECKED";
-					// elseif ( get_option( 'wpst_share_icons_hover_color', '' ) != "" ) {
-						// $error = true;
-						// echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
-					// }
-					// echo '/><span class="description wpst-checkbox"> ' . __( 'On hover', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<span class="description">' . __( 'Note: if unchecked, the icons will adhere to the same style as the other icons ; if checked, you will still be able to add background and shadow colours to these icons', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
@@ -2562,6 +2551,7 @@ function symposium_toolbar_admintab_themes() {
 function symposium_toolbar_admintab_userguide() {
 
 	global $is_wps_active, $wpst_shown_tabs, $is_wpst_network_admin;
+	global $wp_version;
 	
 	echo '<div class="postbox"><div class="inside wpst-inside-guide">';
 		
@@ -2606,7 +2596,7 @@ function symposium_toolbar_admintab_userguide() {
 		echo '<h4><li>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'From this tab, customize the content of the User Menu.', 'wp-symposium-toolbar' ).' '.__( 'These options should be relatively straightforward : the first set of options deal with the menu toplevel item in the Toolbar, while the second set of options describes how this menu should look like. The last option allows you to add extra information to this menu.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'If interrested in populating this menu with custom information, advanced users may refer to the Developers\' Guide available from this page, and check out the hooks proposed by the plugin.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page "User Menu" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed.', 'wp-symposium-toolbar' ).' '.__( 'Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page "User Menu" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed.', 'wp-symposium-toolbar' ).' '.__( 'Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_menus
@@ -2615,8 +2605,11 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'Create your WordPress NavMenus from the Appearance > Menus page, before visiting this plugin options tab to create Custom Menus. Select the menu you wish to place in the Toolbar from the dropdown list of menus, the location from the dropdown list of locations and check the box(s) for the roles you wish to see that particular menu.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may add two or more menus to the same location: they will be shown only to the roles you have selected. If more than one menu should be shown to a given role at a given location, they will be appended one to the other, in the order you have defined them.', 'wp-symposium-toolbar' ) . ' ' . __( 'This can be used to display different menu items to different roles: one main menu for all, and additional items for higher roles. Or, different menus for different roles. Your choice.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may use the same menu several times, however, for a given role it will be displayed only once, so this page will list the menus that won\'t be displayed since you attempt to show them several times to the same roles.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'You may choose to display your custom icon to the toplevel of this menu. Upload it somewhere on your server, either via FTP or using the WP Media Manager, and enter its URL into the corresponding field.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be replaced with this icon. If you wish to have several icons, you should create several custom menus.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'You may choose to display your custom icon to the toplevel of this menu. Upload it somewhere on your server, either via FTP or using the WP Media Manager, and enter its URL into the corresponding field.', 'wp-symposium-toolbar' );
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '  ' . __( 'You may also choose to display a dashicon, an icon from the set used in WordPress dashboard: all you need to do is to copy/paste here the CSS content for the selected icon, from the page which opens to list these fonticons.', 'wp-symposium-toolbar' );
+			echo '</p>';
+			echo '<p>' . __( 'When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be affected by this icon. If you wish to have several icons, you should create several custom menus.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'Last but not least, for screens of smaller sizes, WordPress will switch into a so-called responsive mode, where most of the Toolbar items will be hidden, as well as their labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'For each of your custom menus, you will have the option to force its display in responsive mode, if it is attached directly to the Toolbar.  Whenever the menu is appended to a default menu, the rule for the display of that menu will apply.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_wps
@@ -2646,8 +2639,8 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'As long as you don\'t change any of the settings in the box "Dropdown Menus Items Hover & Focus", WordPress default will apply for dropdown menu items, which will not be focussed, and WordPress hover font color will be used only for the hovered item.', 'wp-symposium-toolbar' ) . '  ' . __( 'As soon as you change one of these settings, dropdown menu items will be focussed, with the font color you may have set, or WordPress default hover font color if you have set anything else in this box.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Monochrom dividers or two-colours borders ?', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Older versions of WordPress were using borders on Toolbar items.', 'wp-symposium-toolbar' ) . '  ' . __( 'The plugin allows you to define two-colour borders, or monochrom dividers when the second colour is not set. WPS Toolbar will then adjust those settings so that it displays nice dividers on either side of your Toolbar items.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<h4 style="font-size: 11px;"><li>' . __( 'Tablet Mode', 'wp-symposium-toolbar' ) . '</li></h4>';
-			echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar, of a fixed height of 46px and a content made of textless icons. Dropdown menus have a larger font and line height, ending up in tapable menu items.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account.', 'wp-symposium-toolbar' ).' '.__( 'Any other style changes you may have performed will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<h4 style="font-size: 11px;"><li>' . __( 'Tablet Mode', 'wp-symposium-toolbar' ) . '</li></h4>';
+			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'For screens of smaller sizes, WordPress will display a responsive Toolbar, of a fixed height of 46px and a content made of icons without labels. Dropdown menus have a larger font and line height, ending up in tapable menu items.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account.', 'wp-symposium-toolbar' ).' '.__( 'Any other style changes you may have performed will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Icons-Only Toolbar', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'As of its version 3.8, WordPress uses so-called fonticons, icons made fonts that can be styled and resized ad libitum.', 'wp-symposium-toolbar' ) . '  ' . __( 'This plugin allows you to style Toolbar icons separately from labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'If you\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish.', 'wp-symposium-toolbar' ) . '  ' . __( 'You will also need to force the menu font size back to a non-null value.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
