@@ -5,10 +5,10 @@ Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
-Requires at least: 3.5
+Requires at least: 3.7
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.0
+Version: 0.29.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,17 +45,9 @@ Now the usual bulleted list of features...
 
 = Installing the plugin =
 
-Use the WordPress feature to install the plugin from the WP Dashboard, Plugins > Add New.
-
-Alternatively, download the ZIP file from wordpress.org, extract its content and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.
+Use the WordPress feature to install the plugin from the WP Dashboard, Plugins > Add New.  Search for the plugin by its name, or alternatively, upload the plugin as a ZIP file downloaded from wordpress.org.
 
 A WP Symposium Toolbar plugin should then be available in the 'Plugins' menu in WordPress: activate the plugin.
-
-= Upgrading the plugin =
-
-Use the WordPress feature to upgrade the plugin from the WP Dashboard.
-
-Alternatively, download the zip file and extract its content locally. Deactivate the previous version to avoid any warning due to changes, and upload the folder wp-symposium-toolbar via FTP in your path-to/wp-content/plugins folder.  Re-activate the plugin.
 
 = Configuring the plugin for your site =
 
@@ -145,6 +137,14 @@ With my thanks for their work, I'm happy to attribute these fonts as follows.  M
 Last but not least, please note that all brand icons are trademarks of their respective owners.
 
 == Changelog ==
+
+= 0.30.0. =
+
+* Bugfix: Import, less restrictive validation for strings: allow quotes etc.
+* Bugfix: WPMS, remove the condition that the Home Site shall not be active on the network, to define a custom profile link on a site
+* Change: WPMS, make use of WP 3.7 function 'wp_get_sites()', hence increasing the "requires at least" to WP 3.7
+* Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is checked for display
+* Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
 
 = 0.29.0. =
 

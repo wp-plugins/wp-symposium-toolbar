@@ -73,7 +73,7 @@ function symposium_toolbar_admin_page() {
  	// Tab Select dropdown for non JS users
 	echo '<div id="wpst-nav-management-if-no-js" class="nav-tabs hide-if-js">'; // hide-if-js
 	echo '<form id="wpst-select-nav-menu" method="post" action="">';
-		wp_nonce_field( 'wpst_save_options','wpst_save_options_nonce_field' );
+		wp_nonce_field( 'wpst_save_options', 'wpst_save_options_nonce_field' );
 		
 		echo '<strong><label for="select-nav-menu">'.__( 'Select Page:', 'wp-symposium-toolbar' ).'</label></strong>';
 		echo '<select class="select-nav-menu" name="symposium_toolbar_view_no_js">';
@@ -113,7 +113,7 @@ function symposium_toolbar_admin_page() {
 	
 	// Settings page Content
 	echo '<div id="wpst-nav-div-wrapper"><form id="wpst-form" method="post" action="">';
-		wp_nonce_field( 'wpst_save_options','wpst_save_options_nonce_field' );
+		wp_nonce_field( 'wpst_save_options', 'wpst_save_options_nonce_field' );
 		
 		// Plugin Welcome Page
 		if ( $wpst_active_tab == 'welcome' ) {
@@ -347,7 +347,7 @@ function symposium_toolbar_admintab_sites() {
 	global $wpst_shown_tabs, $wpst_subsites_tabs, $is_wps_available;
 	
 	// All Sites
-	$blogs = $wpdb->get_results( "SELECT blog_id,domain,path FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id", ARRAY_A );
+	$blogs = wp_get_sites();
 	
 	echo '<div class="postbox"><div class="inside">';
 	echo '<div><table class="form-table wpst-form-table">';
@@ -592,7 +592,7 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '><option value="empty" SELECTED>{{'.__( 'Select a location', 'wp-symposium-toolbar' ).'}}</option>';
 				echo '<option value="top-secondary"';
 				if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "top-secondary" ) echo ' SELECTED';
-				echo '>'.__( 'Left of the User Menu', 'wp-symposium-toolbar' ).'</option>';
+				echo '>'.__( 'At the left of the User Menu', 'wp-symposium-toolbar' ).'</option>';
 				echo '<option value=""';
 				if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "" ) echo ' SELECTED';
 				echo '>'.__( 'Right of the New Content menu', 'wp-symposium-toolbar' ).'</option>';
@@ -714,22 +714,20 @@ function symposium_toolbar_admintab_myaccount() {
 			echo '</td>';
 		echo '</tr>';
 		
-		if ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) {
-			echo '<tr valign="top">';
-				echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
-				echo '<td colspan="2">';
-					echo '<span>' . __( 'Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" class="wpst-admin wpst-wps-item" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" style="width:250px; ';
-					if ( !$is_wps_profile_active && get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) {
-						$no_wps = true;
-						echo 'outline:1px solid #CC0000;" onkeydown="this.style.outline = \'none\';" onchange="if ( document.getElementById( \'rewrite_edit_link\' ).value == \'%symposium_profile%\' ) { this.style.outline = \'1px solid #CC0000\'; }';
-					}
-					echo '" /><br /><span class="description"> ' . __( 'Absolute path to a page, available aliases:', 'wp-symposium-toolbar' ) . ' %login%, %uid%';
-					if ( $is_wps_available ) echo '<br />'.__( 'Autodetect the full path to the WPS Profile page with', 'wp-symposium-toolbar' ) . ' %symposium_profile%';
-					echo '</span><br />';
-				echo '</td>';
-			echo '</tr>';
-		}
+		echo '<tr valign="top">';
+			echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
+			echo '<td colspan="2">';
+				echo '<span>' . __( 'Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection', 'wp-symposium-toolbar' ) . '</span><br />';
+				echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" class="wpst-admin wpst-wps-item" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" style="width:250px; ';
+				if ( !$is_wps_profile_active && get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) {
+					$no_wps = true;
+					echo 'outline:1px solid #CC0000;" onkeydown="this.style.outline = \'none\';" onchange="if ( document.getElementById( \'rewrite_edit_link\' ).value == \'%symposium_profile%\' ) { this.style.outline = \'1px solid #CC0000\'; }';
+				}
+				echo '" /><br /><span class="description"> ' . __( 'Absolute path to a page, available aliases:', 'wp-symposium-toolbar' ) . ' %login%, %uid%';
+				if ( $is_wps_available ) echo '<br />'.__( 'Autodetect the full path to the WPS Profile page with', 'wp-symposium-toolbar' ) . ' %symposium_profile%';
+				echo '</span><br />';
+			echo '</td>';
+		echo '</tr>';
 		
 		echo '<tr valign="top">';
 			echo '<td scope="row" class="wpst-form-item-title"><span>' . __( 'Additional Menu Items', 'wp-symposium-toolbar' ) . '</span></td>';
@@ -806,7 +804,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '<tr style="background-color: '.$color.';">';
 					
 					// Draw the list of menus and select it
-					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Menu Name', 'wp-symposium-toolbar' ) . '</span><br />';
 						if ( $all_navmenus ) {
 							
@@ -835,7 +833,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '</td>';
 					
 					// Draw the list of locations and select it
-					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Location', 'wp-symposium-toolbar' ) . '</span><br />';
 						if ( $wpst_locations ) {
 							echo '<select class="wpst-admin" id="display_custom_menu_location_'.$count.'" name="display_custom_menu_location['.$count.']">';
@@ -850,7 +848,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '</td>';
 					
 					// Point to a custom icon
-					echo '<td style="border-top-color: 555555; border-bottom-color: '.$color.';">';
+					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 						echo '<input type="text" style="min-width:170px; width:100%;" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']"';
 						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".stripslashes($custom_menu[3])."'";
@@ -890,7 +888,7 @@ function symposium_toolbar_admintab_menus() {
 							echo '<input type="checkbox" id="display_custom_menu_responsive['.$count.']" name="display_custom_menu_responsive['.$count.']" class="wpst-admin"';
 							if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
 							echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-							echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the WP User Menu"', 'wp-symposium-toolbar' ).'</span>';
+							echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
 						echo '</td>';
 						echo '</tr>';
 					}
@@ -917,7 +915,7 @@ function symposium_toolbar_admintab_menus() {
 				// Add new menu
 				echo '<table class="widefat">';
 				echo '<tr style="background-color: '.$color.';">';
-				echo '<td style="border-bottom-color: '.$color.';">';
+				echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Menu Name', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $all_navmenus ) {
 						echo '<select name="new_custom_menu_slug" class="wpst-admin">';
@@ -929,7 +927,7 @@ function symposium_toolbar_admintab_menus() {
 					} else
 						echo '<div style="text-align:center;">'.__( 'No available NavMenu !', 'wp-symposium-toolbar' ) . '</div><span class="description" > ' . __( 'Please go to the NavMenus page, and create some...', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
-				echo '<td style="border-bottom-color: '.$color.';">';
+				echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Location', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $wpst_locations ) {
 						echo '<select name="new_custom_menu_location" class="wpst-admin">';
@@ -940,7 +938,7 @@ function symposium_toolbar_admintab_menus() {
 						echo '</select>';
 					}
 				echo '</td>';
-				echo '<td style="border-bottom-color: '.$color.';">';
+				echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" style="min-width:170px; width:100%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
 					if ( version_compare( $wp_version, '3.8-alpha', '<' ) )
@@ -975,7 +973,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
 						echo '<input type="checkbox" id="new_custom_menu_responsive" name="new_custom_menu_responsive" class="wpst-admin"';
 						echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the WP User Menu"', 'wp-symposium-toolbar' ).'</span>';
+						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
 					echo '</td>';
 					echo '</tr>';
 				}
@@ -1246,8 +1244,10 @@ function symposium_toolbar_admintab_share() {
 					echo '<input type="radio" name="icons_position" class="wpst-admin" value="top-secondary"';
 					if ( get_option( 'wpst_share_icons_position', '' ) == "top-secondary" ) echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'At the left of the WP User Menu', 'wp-symposium-toolbar' ) . '</span><br /><br />';
-			
+					echo '> <span class="description wpst-checkbox"> ' . __( 'At the left of the User Menu', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					
+					// echo '<span>' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
+					
 					echo '<input type="checkbox" name="icons_color" class="wpst-admin"';
 					if ( get_option( 'wpst_share_icons_color', '' ) == "on" )
 						echo " CHECKED";
@@ -1256,6 +1256,15 @@ function symposium_toolbar_admintab_share() {
 						echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
 					}
 					echo '/><span class="wpst-checkbox"> ' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
+					
+					// echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin"';
+					// if ( get_option( 'wpst_share_icons_hover_color', '' ) == "on" )
+						// echo " CHECKED";
+					// elseif ( get_option( 'wpst_share_icons_hover_color', '' ) != "" ) {
+						// $error = true;
+						// echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
+					// }
+					// echo '/><span class="description wpst-checkbox"> ' . __( 'On hover', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<span class="description">' . __( 'Note: if unchecked, the icons will adhere to the same style as the other icons ; if checked, you will still be able to add background and shadow colours to these icons', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
@@ -1295,17 +1304,12 @@ function symposium_toolbar_admintab_styles() {
 	// Get current style
 	$wpst_style_tb_current = maybe_unserialize( get_option( 'wpst_style_tb_current', array() ) );
 	
-	$wpst_top_colour = ( isset( $wpst_style_tb_current['top_colour'] ) ) ? $wpst_style_tb_current['top_colour'] : '';
-	$wpst_bottom_colour = ( isset( $wpst_style_tb_current['bottom_colour'] ) ) ? $wpst_style_tb_current['bottom_colour'] : '';
-	$wpst_border_style = ( isset( $wpst_style_tb_current['border_style'] ) ) ? $wpst_style_tb_current['border_style'] : $wpst_default_toolbar['border_style'];
 	$wpst_font = ( isset( $wpst_style_tb_current['font'] ) ) ? addslashes( stripslashes( $wpst_style_tb_current['font'] ) ) : '';
 	$wpst_font_style = ( isset( $wpst_style_tb_current['font_style'] ) ) ? $wpst_style_tb_current['font_style'] : '';
 	$wpst_font_weight = ( isset( $wpst_style_tb_current['font_weight'] ) ) ? $wpst_style_tb_current['font_weight'] : '';
 	$wpst_font_line = ( isset( $wpst_style_tb_current['font_line'] ) ) ? $wpst_style_tb_current['font_line'] : '';
 	$wpst_font_case = ( isset( $wpst_style_tb_current['font_case'] ) ) ? $wpst_style_tb_current['font_case'] : '';
 	
-	$wpst_hover_top_colour = ( isset( $wpst_style_tb_current['hover_top_colour'] ) ) ? $wpst_style_tb_current['hover_top_colour'] : '';
-	$wpst_hover_bottom_colour = ( isset( $wpst_style_tb_current['hover_bottom_colour'] ) ) ? $wpst_style_tb_current['hover_bottom_colour'] : '';
 	$wpst_hover_font_style = ( isset( $wpst_style_tb_current['hover_font_style'] ) ) ? $wpst_style_tb_current['hover_font_style'] : '';
 	$wpst_hover_font_weight = ( isset( $wpst_style_tb_current['hover_font_weight'] ) ) ? $wpst_style_tb_current['hover_font_weight'] : '';
 	$wpst_hover_font_line = ( isset( $wpst_style_tb_current['hover_font_line'] ) ) ? $wpst_style_tb_current['hover_font_line'] : '';
@@ -1416,7 +1420,9 @@ function symposium_toolbar_admintab_styles() {
 				echo '</td>';
 				echo '<td colspan="2" style="width:28%; border-top:none;">';
 					echo '<span>' . __( 'Top Gradient Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="wpst_top_colour" id="wpst_top_colour" class="wpst-admin wpst_background_colour" value="'.$wpst_top_colour.'" />';
+					echo '<input type="text" name="wpst_top_colour" id="wpst_top_colour" class="wpst-admin wpst_background_colour" value="';
+					if ( isset( $wpst_style_tb_current['top_colour'] ) ) echo $wpst_style_tb_current['top_colour'];
+					echo '" />';
 				echo '</td>';
 				echo '<td style="border-top:none;">';
 					echo '<span>' . __( 'Bottom Gradient Length', 'wp-symposium-toolbar' ) . '</span><br />';
@@ -1429,7 +1435,9 @@ function symposium_toolbar_admintab_styles() {
 				echo '</td>';
 				echo '<td colspan="2" style="width:28%; border-top:none;">';
 					echo '<span>' . __( 'Bottom Gradient Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="wpst_bottom_colour" id="wpst_bottom_colour" class="wpst-admin wpst_background_colour" value="'.$wpst_bottom_colour.'" />';
+					echo '<input type="text" name="wpst_bottom_colour" id="wpst_bottom_colour" class="wpst-admin wpst_background_colour" value="';
+					if ( isset( $wpst_style_tb_current['bottom_colour'] ) ) echo $wpst_style_tb_current['bottom_colour'];
+					echo '" />';
 				echo '</td>';
 			echo '</tr>';
 			
@@ -1511,6 +1519,18 @@ function symposium_toolbar_admintab_styles() {
 		
 		echo '<table id="wp_toolbar_items_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
+			// Max-Width
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%; "><span>'.__( 'Max Width', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td colspan="6">';
+					echo '<span>' . __( 'Limit Items Width in Frontend pages', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_max_width" id="wpst_max_width" ';
+					echo 'class="wpst-admin wpst-default wpst-positive-int" value="';
+					if ( isset( $wpst_style_tb_current['max_width'] ) ) echo $wpst_style_tb_current['max_width'];
+					echo '" />px';
+				echo '</td>';
+			echo '</tr>';
+			
 			// Items Borders
 			echo '<tr valign="top">';
 				echo '<td scope="row"><span>'.__( 'Borders', 'wp-symposium-toolbar' ).'</span></td>';
@@ -1526,6 +1546,7 @@ function symposium_toolbar_admintab_styles() {
 				echo '<td>';
 					echo '<span>' . __( 'Border Style', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<select name="wpst_border_style" id="wpst_border_style" class="wpst-admin wpst_border wpst-default';
+					$wpst_border_style = ( isset( $wpst_style_tb_current['border_style'] ) ) ? $wpst_style_tb_current['border_style'] : $wpst_default_toolbar['border_style'];
 					if ( $wpst_border_style == $wpst_default_toolbar['border_style'] ) echo ' wpst-has-default';
 					echo '">';
 					foreach ( $wpst_all_borders as $wpst_border ) {
@@ -1783,7 +1804,9 @@ function symposium_toolbar_admintab_styles() {
 				echo '</td>';
 				echo '<td colspan="2" style="width:28%; border-top:none;">';
 					echo '<span>' . __( 'Top Gradient Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="wpst_hover_top_colour" id="wpst_hover_top_colour" class="wpst-admin wpst_background_colour" value="'.$wpst_hover_top_colour.'" />';
+					echo '<input type="text" name="wpst_hover_top_colour" id="wpst_hover_top_colour" class="wpst-admin wpst_background_colour" value="';
+					if ( isset( $wpst_style_tb_current['hover_top_colour'] ) ) echo $wpst_style_tb_current['hover_top_colour'];
+					echo '" />';
 				echo '</td>';
 				echo '<td style="border-top:none;">';
 					echo '<span>' . __( 'Bottom Gradient Length', 'wp-symposium-toolbar' ) . '</span><br />';
@@ -1796,7 +1819,9 @@ function symposium_toolbar_admintab_styles() {
 				echo '</td>';
 				echo '<td colspan="2" style="width:28%; border-top:none;">';
 					echo '<span>' . __( 'Bottom Gradient Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="wpst_hover_bottom_colour" id="wpst_hover_bottom_colour" class="wpst-admin wpst_background_colour" value="'.$wpst_hover_bottom_colour.'" />';
+					echo '<input type="text" name="wpst_hover_bottom_colour" id="wpst_hover_bottom_colour" class="wpst-admin wpst_background_colour" value="';
+					if ( isset( $wpst_style_tb_current['hover_bottom_colour'] ) ) echo $wpst_style_tb_current['hover_bottom_colour'];
+					echo '" />';
 				echo '</td>';
 			echo '</tr>';
 			

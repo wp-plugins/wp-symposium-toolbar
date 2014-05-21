@@ -108,8 +108,8 @@ function symposium_toolbar_init_globals() {
 	$wpst_locations['wp-logo'] = __( 'Append to / Replace the WP Logo menu', 'wp-symposium-toolbar' );
 	if ( is_multisite() ) $wpst_locations['my-sites'] = __( 'Append to My Sites', 'wp-symposium-toolbar' );
 	$wpst_locations[''] = __( 'At the right of the New Content menu', 'wp-symposium-toolbar' );
-	$wpst_locations['top-secondary'] = __( 'At the left of the WP User Menu', 'wp-symposium-toolbar' );
-	$wpst_locations['my-account'] = __( 'Append to the WP User Menu', 'wp-symposium-toolbar' );
+	$wpst_locations['top-secondary'] = __( 'At the left of the User Menu', 'wp-symposium-toolbar' );
+	$wpst_locations['my-account'] = __( 'Append to the User Menu', 'wp-symposium-toolbar' );
 	
 	// Hook to do anything further to this init
 	do_action ( 'symposium_toolbar_init_globals_done' );
@@ -166,8 +166,14 @@ function symposium_toolbar_add_styles() {
 			}
 		
 		// Frontend - Add custom style to all frontend pages
-		} elseif ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
-			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+		} else {
+			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+			
+			// Align Toolbar items with page content
+			if ( get_option( 'wpst_tech_align_to_header', '' ) != '' )
+				echo '<style type="text/css">' . get_option( 'wpst_tech_align_to_header', '' ) . '</style>';
+		}
 	}
 }
 
@@ -657,7 +663,7 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
  */
 function symposium_toolbar_super_admin_menu() {
 
-	global $wpdb, $wp_admin_bar;
+	global $wp_admin_bar;
 	
 	if ( !is_admin_bar_showing() )
 		return;
@@ -666,7 +672,7 @@ function symposium_toolbar_super_admin_menu() {
 		return;
 	
 	// All Sites
-	$blogs = $wpdb->get_results( "SELECT blog_id,domain,path FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id", ARRAY_A );
+	$blogs = wp_get_sites();
 	
 	// Menu entry - Top level menu item
 	$wp_admin_bar->add_node( array (
@@ -998,7 +1004,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		(bool)$wps_network_activated = is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' );
 		(bool)$wps_activated = (bool)$feature_activated = false;
 		
-		$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs} WHERE spam = '0' AND deleted = '0' AND archived = '0' ORDER BY blog_id", ARRAY_A );
+		$blogs = wp_get_sites();
 		if ( $blogs ) foreach ( $blogs as $blog ) {
 			
 			// Check if a user_id was provided, and if so if user_id is member of this blog
@@ -1050,6 +1056,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					// Get the site URL and the WPS page slug on this site
 					$site_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", 'siteurl' ), ARRAY_A );
 					$page_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", WPS_OPTIONS_PREFIX.'_'.$feature.'_url' ), ARRAY_A );
+					// var_dump( array( $blog['blog_id'] => trim( $site_url["option_value"], "/" ) . "/" . trim( $page_url["option_value"], "/" ) ) );
 					
 					// If the feature is active on this site and the page can be found, store the page URL in the array
 					if ( $page_url["option_value"] != "" ) {
@@ -1065,6 +1072,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					}
 				}
 			}
+			// var_dump( $feature, $blog['blog_id'], $wps_network_activated, $wps_activated, $feature_activated, $feature_url ); echo '<br />';
 		}
 	
 	// Single site
@@ -1078,6 +1086,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		if ( $is_wps_active && ( "1" == $feature_activated ) && ( trim( $page_url["option_value"], "/" ) != "" ) )
 			$feature_url["1"] = trim( site_url(), "/" ) . "/" . trim( $page_url["option_value"], "/" );
 	}
+	// echo '/!\  ';var_dump( $feature, $feature_url ); echo '<br />';
 	
 	// Hook to do anything with the array of URLs for a given feature
 	return apply_filters( 'symposium_toolbar_wps_url_for_feature', $feature_url, $feature );

@@ -179,7 +179,7 @@ msgid "Select a location"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:170
-msgid "Left of the User Menu"
+msgid "At the left, after the New Content menu"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:173
@@ -580,11 +580,11 @@ msgid "Append to My Sites"
 msgstr ""
 
 #: wp-symposium-toolbar_functions.php:98
-msgid "At the right of the New Content menu"
+msgid "At the left, after the New Content menu"
 msgstr ""
 
 #: wp-symposium-toolbar_functions.php:99
-msgid "At the left of the WP User Menu"
+msgid "At the left, after the New Content menu"
 msgstr ""
 
 #: wp-symposium-toolbar_functions.php:100

@@ -606,6 +606,10 @@
 	line-height: 1.4em;
 }
 
+.wpst-form-table td {
+	vertical-align: top;
+}
+
 .wpst-widefat td {
 	padding: 9px;
 	width:14%;

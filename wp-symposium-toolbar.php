@@ -7,10 +7,10 @@ Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
-Requires at least: WordPress 3.5
+Requires at least: WordPress 3.7
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.0
+Version: 0.29.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,17 +22,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2900;
+$wpst_buildnr = 2908;
 
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-// Stop this plugin if WP < 3.3
-// Note, the 'Requires WP 3.5' above stands for the colorpicker,
-// which has no fallback, but is not as hard a constraint anyway.
+// Stop this plugin if WP < 3.7
 global $wp_version;
-if( version_compare( $wp_version, '3.3', '<' ) )
+if( version_compare( $wp_version, '3.7', '<' ) )
 	return false;
 
 // Sounds good... Now a few more checks
@@ -46,14 +44,14 @@ include_once( 'wp-symposium-toolbar_help.php' );
 // Is WP Symposium running ?
 // $is_wps_active				true when WPS active on the current site, either network activated or site activated, false otherwise
 // $is_wps_available			true when WPS is available from any site of the network, false otherwise.
+// $is_wps_profile_active		true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
 global $wpdb, $is_wps_active, $is_wps_available, $is_wps_profile_active;
 
 if ( is_multisite() ) {
 	(bool)$is_wps_active = ( is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' ) || is_plugin_active( 'wp-symposium/wp-symposium.php' ) );
 	(bool)$is_wps_available = $is_wps_active;
 	if ( !$is_wps_available ) {
-		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
-		$blogs = $wpdb->get_results( $query, ARRAY_A );
+		$blogs = wp_get_sites();
 		foreach ($blogs as $blog) {
 			$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
 			// Is WPS active on this site
@@ -73,7 +71,6 @@ if ( is_multisite() ) {
 if ( $is_wps_available ) {
 	if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
 	
-	// $is_wps_profile_active		true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
 	(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
 
 } else
@@ -101,7 +98,7 @@ function symposium_toolbar_init() {
 	// CSS
 	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
 	
-	// WP 3.7.x and older installs
+	// WP 3.7.x installs
 	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
 		$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_admin_v22.css', __FILE__ );
 		$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_admin_v22.css';
@@ -168,12 +165,10 @@ add_action( 'init', 'symposium_toolbar_init' );
 
 function symposium_toolbar_trigger_activate() {
 	
-	global $wpdb;
 	global $wpst_roles_all;
 	
 	if ( is_multisite() && is_main_site() ) {
-		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
-		$blogs = $wpdb->get_results( $query, ARRAY_A );
+		$blogs = wp_get_sites();
 		
 		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
@@ -207,8 +202,7 @@ function symposium_toolbar_uninstall() {
 	
 	// Delete all options
 	if ( is_multisite() && is_main_site() ) {
-		$query = "SELECT blog_id FROM ".$wpdb->base_prefix."blogs ORDER BY blog_id";
-		$blogs = $wpdb->get_results( $query, ARRAY_A );
+		$blogs = wp_get_sites();
 		
 		foreach ($blogs as $blog) {
 			$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
