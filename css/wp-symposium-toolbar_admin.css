@@ -599,6 +599,9 @@
 	.wpst-form-table .widefat > thead {
 		display: none;
 	}
+	.wpst-form-table .widefat td {
+		padding-left: 10px;
+	}
 }
 
 .wpst-widefat {

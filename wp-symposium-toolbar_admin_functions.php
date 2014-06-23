@@ -1697,6 +1697,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		// No transparency on tablets
 	}
 	
+	// Add transparency to the Toolbar (and only the Toolbar)
+	if ( $transparency != '' ) $style_saved .= '@media screen and ( min-width: 783px ) { #wpadminbar { ' . $transparency . '} } ';
+	
 	// Toolbar Shadow
 	$shadow = '';
 	$wpst_style_tb_current = array_merge( array( 'h_shadow' => $wpst_default_toolbar['h_shadow'], 'v_shadow' => $wpst_default_toolbar['v_shadow'], 'shadow_blur' => $wpst_default_toolbar['shadow_blur'] ), $wpst_style_tb_current );
@@ -1718,8 +1721,8 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	}
 	if ( $shadow != '' ) $shadow = '-webkit-box-shadow: ' . $shadow . '; box-shadow: ' . $shadow . '; ';
 	
-	// Add transparency and shadow to the Toolbar (and only the Toolbar)
-	if ( $transparency . $shadow != '' ) $style_saved .= '@media screen and ( min-width: 783px ) { #wpadminbar { ' . $transparency . $shadow .  '} } ';
+	// Add shadow to the Toolbar (and only the Toolbar)
+	if ( $shadow != '' ) $style_saved .= '#wpadminbar { ' . $shadow . '} ';
 	
 	// Toolbar - Background
 	// We'll also create the Tablet Mode Gradient Background, 46px height
@@ -1777,7 +1780,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk_tablet .= "background-image: -webkit-gradient( linear, left bottom, left top".$tablet_webkit_gradient." ); ";
 	}
 	
-	// Add height, background and transparency to the Toolbar
+	// Add height and background to the Toolbar
 	if ( $style_chunk != "" ) {
 		
 		if ( version_compare( $wp_version, '3.8-alpha', '>' ) && ( $linear_gradient != '' ) && ( $height != $wpst_default_toolbar['tablet_toolbar_height'] ) )

@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.7
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.8
+Version: 0.29.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,12 +111,9 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 This plugin would never have been what it is without the help and/or work from the following people.
 
+= Specs & Tests =
+
 First of all, Louis, my friend at [Central Geek](http://centralgeek.com), has been very helpful in specifying the plugin, and his many tests, pushing the plugin to its limits.  If you haven't done already, you should definitely visit Central Geek and drop a line there.  He's a MultiSite Guru as well, so if you're running WordPress in multisite, just get in touch with him, you'll surely having plenty of things to share.
-
-= Translations =
-
-* French translation by the author
-* Spanish translation by Maria Ramos at WebHostingHub
 
 = Icons =
 
@@ -136,6 +133,11 @@ With my thanks for their work, I'm happy to attribute these fonts as follows.  M
 
 Last but not least, please note that all brand icons are trademarks of their respective owners.
 
+= Translations =
+
+* French translation by the author
+* Spanish translation by Maria Ramos at WebHostingHub
+
 == Changelog ==
 
 = 0.30.0. =
@@ -143,8 +145,9 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Import, less restrictive validation for strings: allow quotes etc.
 * Bugfix: WPMS, remove the condition that the Home Site shall not be active on the network, to define a custom profile link on a site
 * Change: WPMS, make use of WP 3.7 function 'wp_get_sites()', hence increasing the "requires at least" to WP 3.7
-* Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is checked for display
+* Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
 * Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
+* Bugfix: Styles, missing Toolbar shadow in responsive mode
 
 = 0.29.0. =
 
@@ -153,7 +156,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, preview mode, correct default font size, default icon size, username font size
 * Bugfix: WPMS, WPS Profile link not always picking the Home Site
 * Bugfix: Styles, menu shadow transparency was not used
-* Cleanup in the CSS selectors for Toolbar items, for WP3.8
+* Cleanup in the CSS selectors for Toolbar items, for WP3.8+
 
 = 0.28.0. =
 
