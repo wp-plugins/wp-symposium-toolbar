@@ -1554,9 +1554,9 @@ function symposium_toolbar_save_before_render() {
 					}
 				}
 				
-				// Go through all blogs and u^date network menus locally
+				// Go through all blogs and update network menus locally
 				$blogs = wp_get_sites();
-				foreach ( (array) $blogs as $blog ) {
+				foreach ( (array) $blogs as $blog ) if ( !is_main_site( $blog['blog_id'] ) ) {
 					switch_to_blog( $blog['blog_id'] );
 					update_option( 'wpst_tech_network_menus', $network_menus );					
 					restore_current_blog();
