@@ -4,13 +4,13 @@ Plugin Name: WP Symposium Toolbar
 Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your Social Network site
 Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
-Contributors: AlphaGolf_fr
+Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
-Requires at least: WordPress 3.7
+Requires at least: WordPress 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.9
+Version: 0.29.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,15 +22,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2908;
+$wpst_buildnr = 2910;
 
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-// Stop this plugin if WP < 3.7
+// Stop this plugin if WP < 3.8
 global $wp_version;
-if( version_compare( $wp_version, '3.7', '<' ) )
+if( version_compare( $wp_version, '3.8', '<' ) )
 	return false;
 
 // Sounds good... Now a few more checks
@@ -55,7 +55,7 @@ if ( is_multisite() ) {
 		foreach ($blogs as $blog) {
 			$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
 			// Is WPS active on this site
-			$search_wps = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", 'active_plugins' ), ARRAY_A );
+			$search_wps = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s'", 'active_plugins' ), ARRAY_A );
 			$is_wps_available = ( !is_null( $search_wps ) ) ? is_string( strstr ( $search_wps["option_value"], "wp-symposium/wp-symposium.php" ) ) : false;
 			// Break if found at least one site where WPS is activated
 			if ( $is_wps_available ) break;
@@ -67,10 +67,9 @@ if ( is_multisite() ) {
 	(bool)$is_wps_available = $is_wps_active;
 }
 
-// WPMS - Needed for WPS icons and paths when WPS is activated on the net<work but not the current site
+// WPMS - Needed for WPS icons and paths when WPS is activated on the network but not the current site
 if ( $is_wps_available ) {
 	if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
-	
 	(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
 
 } else
@@ -93,26 +92,15 @@ function symposium_toolbar_main() {
 
 function symposium_toolbar_init() {
 	
-	global $wp_version, $wpst_roles_all, $wpst_buildnr;
+	global $wpst_roles_all, $wpst_buildnr;
 	
 	// CSS
 	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
 	
-	// WP 3.7.x installs
-	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
-		$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_admin_v22.css', __FILE__ );
-		$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_admin_v22.css';
-		if ( file_exists($adminStyleFile) ) {
-			wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array(), $wpst_buildnr );
-		}
-	
-	// WP 3.8+ installs
-	} else {
-		$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_admin.css', __FILE__ );
-		$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_admin.css';
-		if ( file_exists($adminStyleFile) ) {
-			wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array('dashicons'), $wpst_buildnr );
-		}
+	$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_admin.css', __FILE__ );
+	$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_admin.css';
+	if ( file_exists($adminStyleFile) ) {
+		wp_enqueue_style( 'wp-symposium-toolbar_admin', $adminStyleUrl, array('dashicons'), $wpst_buildnr );
 	}
 	
 	// Get screen tab ID
@@ -121,17 +109,10 @@ function symposium_toolbar_init() {
 	if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
 	if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 	
-	if ( is_admin() ) if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+	if ( is_admin() ) {
 		
-		// Up to WP 3.7.1, load preview at all tabs of this page
-		if ( $wpst_active_tab != '' ) {
-			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview_v22.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), $wpst_buildnr );
-		}
-	
-	} else {
-		
-		// Default CSS - for WP 3.8+, load at 'Styles'/'CSS' tabs solely, unless Admin chooses the whole admin dashboard...
-		// Dep on 'colors' to ensure this CSS is loaded before, and erase its values with 'default'
+		// Default CSS - load at 'Styles'/'CSS' tabs solely, unless Admin chooses to style the whole admin dashboard...
+		// Dep on 'colors' to ensure this CSS is loaded before, and override its values with 'default'
 		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
 			$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_default.css', __FILE__ );
 			$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_default.css';
@@ -283,7 +264,7 @@ if ( $is_wps_active ) {
 
 if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
 	
-	// Add default tabs to subsites
+	// Add default tabs to new subsites
 	function symposium_toolbar_new_site_default( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 		
 		// Hidden tabs
@@ -312,7 +293,7 @@ if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-sy
 		update_option( 'wpst_wpms_hidden_tabs', $hidden_tabs );
 		update_option( 'wpst_wpms_network_superadmin_menu', $wpst_wpms_network_superadmin_menu );
 		
-		// Update CSS based on stored styles and installed plugins
+		// Update CSS based on stored styles and settings, as well as other plugins
 		update_option( 'wpst_tech_style_to_header', symposium_toolbar_update_styles( $wpst_style_tb_current ) );
 		
 		restore_current_blog();

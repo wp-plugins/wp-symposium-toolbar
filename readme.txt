@@ -2,13 +2,13 @@
 Plugin Name: WP Symposium Toolbar
 Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your site.
 Author: AlphaGolf_fr
-Contributors: AlphaGolf_fr
+Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
-Requires at least: 3.7
+Requires at least: 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.9
+Version: 0.29.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,10 +144,11 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 * Bugfix: Import, less restrictive validation for strings: allow quotes etc.
 * Bugfix: WPMS, remove the condition that the Home Site shall not be active on the network, to define a custom profile link on a site
-* Change: WPMS, make use of WP 3.7 function 'wp_get_sites()', hence increasing the "requires at least" to WP 3.7
+* Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of function 'wp_get_sites()'  in WPMS
 * Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
 * Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
 * Bugfix: Styles, missing Toolbar shadow in responsive mode
+* Change: code improvement, simplify the way avatars are removed from Toolbar
 
 = 0.29.0. =
 

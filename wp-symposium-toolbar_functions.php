@@ -129,51 +129,40 @@ function symposium_toolbar_init_globals() {
  */
 function symposium_toolbar_add_styles() {
 
-	global $wp_version;
+	// Avatar - Hide them from all pages Toolbar, when admin chooses to do so
+	$avatar = "";
+	if ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == '' ) $avatar .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-user > .ab-item > img { display: none; } ';
+	if ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == '' ) $avatar .= '#wpadminbar #wp-toolbar .ab-top-secondary > li.wpst-visitor > .ab-item > img { display: none; } ';
+	if ( $avatar != "" ) echo '<style type="text/css">@media screen and (min-width: 783px) { ' . $avatar . '} </style>';
 	
-	// WP 3.7.1-
-	if( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+	// Icons - Add classes to header for fonticons
+	if ( get_option( 'wpst_tech_icons_to_header', '' ) != '' )
+		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_icons_to_header', '' ) ) . '</style>';
+	
+	// Styles, both default and custom
+	// Backend - Add styles to the plugin options page only if active tab is "style"
+	// Or to the whole dashboard if admin choose to do so
+	if ( is_admin() ) {
+		$wpst_active_tab = '';
+		if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
+		if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
+		if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 		
-		// Add custom style to the dashboard pages for up to WP 3.7.1
+		if ( ( get_option( 'wpst_style_tb_in_admin', '' ) == 'on' ) || ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
+			
+			// Shows in backend if admin chooses to do so, and at the Styles tab in preview
+			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
+				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
+		}
+		
+	// Frontend - Add custom style to all frontend pages
+	} else {
 		if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
 			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
 		
-	// WP 3.8+
-	} else {
-		
-		// Avatar - Hide them from all pages Toolbar, when admin chooses to do so
-		if ( get_option( 'wpst_tech_avatar_to_header', '' ) != '' )
-			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_avatar_to_header', '' ) ) . '</style>';
-		
-		// Icons - Add classes to header for fonticons
-		if ( get_option( 'wpst_tech_icons_to_header', '' ) != '' )
-			echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_icons_to_header', '' ) ) . '</style>';
-		
-		// Styles, both default and custom
-		// Backend - Add styles to the plugin options page only if active tab is "style"
-		// Or to the whole dashboard if admin choose to do so
-		if ( is_admin() ) {
-			$wpst_active_tab = '';
-			if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
-			if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
-			if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
-			
-			if ( ( get_option( 'wpst_style_tb_in_admin', '' ) == 'on' ) || ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) ) {
-				
-				// Shows in backend if admin chooses to do so, and at the Styles tab in preview
-				if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
-					echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
-			}
-		
-		// Frontend - Add custom style to all frontend pages
-		} else {
-			if ( get_option( 'wpst_tech_style_to_header', '' ) != '' )
-				echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_style_to_header', '' ) ) . '</style>';
-			
-			// Align Toolbar items with page content
-			if ( get_option( 'wpst_tech_align_to_header', '' ) != '' )
-				echo '<style type="text/css">' . get_option( 'wpst_tech_align_to_header', '' ) . '</style>';
-		}
+		// Align Toolbar items with page content
+		if ( get_option( 'wpst_tech_align_to_header', '' ) != '' )
+			echo '<style type="text/css">' . get_option( 'wpst_tech_align_to_header', '' ) . '</style>';
 	}
 }
 
@@ -247,7 +236,7 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
  */
 function symposium_toolbar_edit_wp_toolbar() {
 
-	global $wpdb, $wp_admin_bar, $current_user, $wp_version;
+	global $wpdb, $wp_admin_bar, $current_user;
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
 	
 	// If WP Toolbar shows, edit it for selected roles incl visitor that are allowed to see it
@@ -282,12 +271,11 @@ function symposium_toolbar_edit_wp_toolbar() {
 	// Array of all custom menus to attach to the Toolbar for this site (if tab not hidden)
 	$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
 	
-	// If Multisite subsite and network activated, add network menus to subsite menus
-	if ( is_multisite() && !is_main_site() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
-		$sql = "SELECT option_value FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_tech_network_menus'";
-		$all_network_menus = $wpdb->get_results( $sql, ARRAY_A );
-		if ( $all_network_menus ) {
-			$all_network_menus = maybe_unserialize( $all_network_menus[0]['option_value'] );
+	// If Multisite and network activated, add network menus to custom menus
+	if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
+		$all_network_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_tech_network_menus', array() ) : array();
+		if ( $all_network_menus != array() ) {
+			$all_network_menus = maybe_unserialize( $all_network_menus );
 			$all_custom_menus = array_merge( $all_network_menus, $all_custom_menus );
 		}
 	}
@@ -360,11 +348,8 @@ function symposium_toolbar_edit_wp_toolbar() {
 				$howdy = str_replace( "%display_name%", $current_user->display_name, $howdy );
 				$howdy = str_replace( "%role%", $current_role_title, $howdy );
 			}
-			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
-				$avatar_small = ( get_option( 'wpst_myaccount_avatar_small', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';
-			else
-				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_styles()
-				$avatar_small = get_avatar( $user_id, 26 );
+			// Since WP 3.8+ this display is managed via CSS by the function symposium_toolbar_add_styles()
+			$avatar_small = get_avatar( $user_id, 26 );
 			
 			// User Info that goes on top of the menu
 			$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
@@ -402,20 +387,15 @@ function symposium_toolbar_edit_wp_toolbar() {
 		
 		} else {
 			$howdy  = stripslashes( get_option( 'wpst_myaccount_howdy_visitor', __( 'Howdy', 'wp-symposium-toolbar' ).", ".__( 'Visitor', 'wp-symposium-toolbar' ) ) );
-			if( version_compare( $wp_version, '3.8-alpha', '<' ) )
-				$avatar_small = ( get_option( 'wpst_myaccount_avatar_visitor', 'on' ) == "on" ) ? get_avatar( $user_id, 16 ) : '';  // Get a blank avatar
-			else
-				// For WP 3.8+ this display is triggered by the function symposium_toolbar_add_styles()
-				$avatar_small = get_avatar( $user_id, 26 );  // Get a blank avatar
+			// Since WP 3.8+ this display is managed via CSS by the function symposium_toolbar_add_styles()
+			$avatar_small = get_avatar( $user_id, 26 );  // Get a blank avatar
 		}
 		
 		// Classes
-		$my_account_class = ( $user_id > 0 ) ? 'wpst-user' : 'wpst-visitor';
+		$my_account_class = ( $user_id > 0 ) ? 'wpst-user with-avatar' : 'wpst-visitor with-avatar';
 		if ( $avatar_large && $user_info_collected ) {
-			$my_account_class .= ' with-avatar';
 			$user_info_class  = '';
 		} else {
-			$my_account_class .= ( version_compare( $wp_version, '3.8-alpha', '>' ) ) ? ' with-avatar' : '';
 			$user_info_class  = ( $avatar_large ) ? 'wpst-user-info wpst-with-avatar' : '';
 			$avatar_large = str_replace( "avatar-64", "avatar-64 wpst-avatar", $avatar_large );
 		}
@@ -740,7 +720,7 @@ function symposium_toolbar_symposium_admin() {
  */
 function symposium_toolbar_symposium_notifications() {
 
-	global $wpdb, $current_user, $wp_admin_bar, $wp_version;
+	global $wpdb, $current_user, $wp_admin_bar;
 	
 	if ( !is_admin_bar_showing() || !is_user_logged_in() )
 		return;
@@ -753,9 +733,7 @@ function symposium_toolbar_symposium_notifications() {
 		$total_mail = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_mail WHERE mail_to = %d AND mail_in_deleted != 'on'", $current_user->ID ) );
 		
 		if ( $unread_mail > 0 ) {
-			$inbox = '<span class="ab-icon ab-icon-new-mail"></span><span class="ab-label ab-label-new-mail">';
-			if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $inbox .= '+';
-			$inbox .= $unread_mail.'</span>';
+			$inbox = '<span class="ab-icon ab-icon-new-mail"></span><span class="ab-label ab-label-new-mail">+'.$unread_mail.'</span>';
 			$title = __( "Go to your Inbox", 'wp-symposium-toolbar' ).': '.$unread_mail.' '.__( "unread mail", 'wp-symposium-toolbar' );
 		} elseif ( get_option( 'wpst_wps_notification_alert_mode', '' ) == "" ) {
 			$inbox = '<span class="ab-icon ab-icon-mail"></span><span class="ab-label ab-label-mail">'.$total_mail.'</span>';
@@ -782,9 +760,7 @@ function symposium_toolbar_symposium_notifications() {
 		$current_friends = $wpdb->get_var( $wpdb->prepare( "SELECT count( * ) FROM ".$wpdb->base_prefix."symposium_friends WHERE friend_to = %d AND friend_accepted = 'on'", $current_user->ID ) );
 		
 		if ( $friend_requests > 0 ) {
-			$friends = '<span class="ab-icon ab-icon-new-friendship"></span><span class="ab-label ab-label-new-friendship">';
-			if( version_compare( $wp_version, '3.8-alpha', '>' ) ) $friends .= '+';
-			$friends .= $friend_requests.'</span>';
+			$friends = '<span class="ab-icon ab-icon-new-friendship"></span><span class="ab-label ab-label-new-friendship">+'.$friend_requests.'</span>';
 			$title = __( "Go to your Friends list", 'wp-symposium-toolbar' ).': '.$friend_requests.' '.__( "new friend requests", 'wp-symposium-toolbar' );
 		} elseif ( get_option( 'wpst_wps_notification_alert_mode', '' ) == "" ) {
 			$friends = '<span class="ab-icon ab-icon-friendship"></span><span class="ab-label ab-label-friendship">'.$current_friends.'</span>';

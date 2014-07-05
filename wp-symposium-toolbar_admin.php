@@ -24,7 +24,6 @@ function symposium_toolbar_admin_page() {
 	global $is_wps_active;
 	global $wpst_failed, $wpst_notices;
 	global $wpst_shown_tabs;
-	global $wp_version;
 	
 	echo '<div class="wrap">';
 	
@@ -372,7 +371,7 @@ function symposium_toolbar_admintab_sites() {
 				$color_even = '#F5F5F5';
 				$count = 0;
 				
-				foreach ( $blogs as $blog ) if ( $blog['blog_id'] != "1" ) {
+				foreach ( $blogs as $blog ) if ( !is_main_site( $blog['blog_id'] ) ) {
 					// Get blog details for this subsite
 					$blog_details = get_blog_details($blog['blog_id']);
 					
@@ -775,7 +774,6 @@ function symposium_toolbar_admintab_menus() {
 
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
 	global $is_wpst_network_admin;
-	global $wp_version;
 	
 	// Get data to show
 	$all_navmenus = wp_get_nav_menus();
@@ -853,13 +851,9 @@ function symposium_toolbar_admintab_menus() {
 						echo '<input type="text" style="min-width:170px; width:100%;" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']"';
 						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".stripslashes($custom_menu[3])."'";
 						echo '/>';
-						if ( version_compare( $wp_version, '3.8-alpha', '<' ) )
-							echo '<span class="description">'.__( 'Note: Full path to a custom icon file', 'wp-symposium-toolbar' ).'</span>';
-						else {
-							echo '<span class="description">';
-							printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">'.__( 'WP dashicon', 'wp-symposium-toolbar' ).'</a>' );
-							echo '</span>';
-						}
+						echo '<span class="description">';
+						printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">'.__( 'WP dashicon', 'wp-symposium-toolbar' ).'</a>' );
+						echo '</span>';
 					echo '</td>';
 					echo '</tr>';
 					
@@ -882,16 +876,14 @@ function symposium_toolbar_admintab_menus() {
 					}
 					
 					// Option to force the display of the menu icon in responsive mode
-					if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-						echo '<tr style="background-color: '.$color.';">';
-						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
-							echo '<input type="checkbox" id="display_custom_menu_responsive['.$count.']" name="display_custom_menu_responsive['.$count.']" class="wpst-admin"';
-							if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
-							echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-							echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
-						echo '</td>';
-						echo '</tr>';
-					}
+					echo '<tr style="background-color: '.$color.';">';
+					echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
+						echo '<input type="checkbox" id="display_custom_menu_responsive['.$count.']" name="display_custom_menu_responsive['.$count.']" class="wpst-admin"';
+						if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
+						echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
+						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
+					echo '</td>';
+					echo '</tr>';
 					
 					// Add the error message underneath
 					if ( ! $found_menu ) {
@@ -941,13 +933,9 @@ function symposium_toolbar_admintab_menus() {
 				echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" style="min-width:170px; width:100%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
-					if ( version_compare( $wp_version, '3.8-alpha', '<' ) )
-						echo '<span class="description">'.__( 'Note: Full path to a custom icon file', 'wp-symposium-toolbar' ).'</span>';
-					else {
-						echo '<span class="description">';
-						printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">dashicon</a>' );
-						echo '</span>';
-					}
+					echo '<span class="description">';
+					printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">dashicon</a>' );
+					echo '</span>';
 				echo '</td>';
 				echo '</tr>';
 				
@@ -968,15 +956,13 @@ function symposium_toolbar_admintab_menus() {
 				}
 				
 				// Option to force the display of the menu icon in responsive mode
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-					echo '<tr style="background-color: '.$color.';">';
-					echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
-						echo '<input type="checkbox" id="new_custom_menu_responsive" name="new_custom_menu_responsive" class="wpst-admin"';
-						echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
-					echo '</td>';
-					echo '</tr>';
-				}
+				echo '<tr style="background-color: '.$color.';">';
+				echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
+					echo '<input type="checkbox" id="new_custom_menu_responsive" name="new_custom_menu_responsive" class="wpst-admin"';
+					echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
+					echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
+				echo '</td>';
+				echo '</tr>';
 				
 				echo '</table>';
 				
@@ -1582,38 +1568,33 @@ function symposium_toolbar_admintab_styles() {
 			echo '</tr>';
 			
 			// Icon
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-				echo '<tr valign="top">';
-					echo '<td scope="row" style="width:15%;"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
-					echo '<td>';
-						echo '<span>' . __( 'Icon Size', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" name="wpst_icon_size" id="wpst_icon_size" ';
-						if ( isset( $wpst_style_tb_current['icon_size'] ) )
-							echo 'class="wpst-admin wpst-default wpst-positive-int wpst_icon_size" value="'.$wpst_style_tb_current['icon_size'];
-						else
-							echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_icon_size" value="'.$wpst_default_toolbar['icon_size'];
-						echo '" />px<input type="hidden" id="wpst_icon_size_default" value="'.$wpst_default_toolbar['icon_size'].'" />';
-						$wpst_icon_size = ( isset( $wpst_style_tb_current['icon_size'] ) ) ? $wpst_style_tb_current['icon_size'] : $wpst_default_toolbar['icon_size'];
-					echo '</td>';
-					echo '<td colspan="2" style="width:28%;">';
-						echo '<span>' . __( 'Icon Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" name="wpst_icon_colour" id="wpst_icon_colour" class="wpst-admin wpst_font_colour" data-default-color="'.$wpst_default_toolbar['icon_colour'].'" ';
-						if ( isset( $wpst_style_tb_current['icon_colour'] ) )
-							echo 'value="'.$wpst_style_tb_current['icon_colour'].'"';
-						else
-							echo 'value="'.$wpst_default_toolbar['icon_colour'].'"';
-						echo ' />';
-					echo '</td>';
-					echo '<td colspan="3"></td>';
-				echo '</tr>';
-			}
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td>';
+					echo '<span>' . __( 'Icon Size', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_icon_size" id="wpst_icon_size" ';
+					if ( isset( $wpst_style_tb_current['icon_size'] ) )
+						echo 'class="wpst-admin wpst-default wpst-positive-int wpst_icon_size" value="'.$wpst_style_tb_current['icon_size'];
+					else
+						echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_icon_size" value="'.$wpst_default_toolbar['icon_size'];
+					echo '" />px<input type="hidden" id="wpst_icon_size_default" value="'.$wpst_default_toolbar['icon_size'].'" />';
+					$wpst_icon_size = ( isset( $wpst_style_tb_current['icon_size'] ) ) ? $wpst_style_tb_current['icon_size'] : $wpst_default_toolbar['icon_size'];
+				echo '</td>';
+				echo '<td colspan="2" style="width:28%;">';
+					echo '<span>' . __( 'Icon Colour', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_icon_colour" id="wpst_icon_colour" class="wpst-admin wpst_font_colour" data-default-color="'.$wpst_default_toolbar['icon_colour'].'" ';
+					if ( isset( $wpst_style_tb_current['icon_colour'] ) )
+						echo 'value="'.$wpst_style_tb_current['icon_colour'].'"';
+					else
+						echo 'value="'.$wpst_default_toolbar['icon_colour'].'"';
+					echo ' />';
+				echo '</td>';
+				echo '<td colspan="3"></td>';
+			echo '</tr>';
 			
 			// Font
 			echo '<tr valign="top">';
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) )
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
-				else
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Font', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2" style="width:28%; border-bottom:none;">';
 					echo '<span>' . __( 'Font Family', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<select name="wpst_font" id="wpst_font" class="wpst-admin wpst_select wpst_font" style="width: 95%;">';
@@ -1826,46 +1807,41 @@ function symposium_toolbar_admintab_styles() {
 			echo '</tr>';
 			
 			// Hover Icon
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-				echo '<tr valign="top">';
-					echo '<td scope="row" style="width:15%;"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
-					echo '<td>';
-						echo '<span>' . __( 'Icon Size', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" name="wpst_hover_icon_size" id="wpst_hover_icon_size" ';
-						if ( isset( $wpst_style_tb_current['hover_icon_size'] ) )
-							echo 'class="wpst-admin wpst-default wpst-positive-int wpst_icon_size" value="'.$wpst_style_tb_current['hover_icon_size'];
-						else
-							echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_icon_size" value="'.$wpst_icon_size;
-						echo '" />px<input type="hidden" id="wpst_hover_icon_size_default" value="'.$wpst_icon_size.'" />';
-					echo '</td>';
-					echo '<td colspan="2" style="width:28%;">';
-						echo '<span>' . __( 'Icon Colour', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" name="wpst_hover_icon_colour" id="wpst_hover_icon_colour" class="wpst-admin wpst_font_colour" data-default-color="'.$wpst_default_toolbar['hover_font_colour'].'" ';
-						if ( isset( $wpst_style_tb_current['hover_icon_colour'] ) )
-							echo 'value="'.$wpst_style_tb_current['hover_icon_colour'].'"';
-						else
-							echo 'value="'.$wpst_default_toolbar['hover_font_colour'].'"';
-						echo ' />';
-					echo '</td>';
-					echo '<td colspan="3"></td>';
-				echo '</tr>';
-			}
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%;"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td>';
+					echo '<span>' . __( 'Icon Size', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_hover_icon_size" id="wpst_hover_icon_size" ';
+					if ( isset( $wpst_style_tb_current['hover_icon_size'] ) )
+						echo 'class="wpst-admin wpst-default wpst-positive-int wpst_icon_size" value="'.$wpst_style_tb_current['hover_icon_size'];
+					else
+						echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_icon_size" value="'.$wpst_icon_size;
+					echo '" />px<input type="hidden" id="wpst_hover_icon_size_default" value="'.$wpst_icon_size.'" />';
+				echo '</td>';
+				echo '<td colspan="2" style="width:28%;">';
+					echo '<span>' . __( 'Icon Colour', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_hover_icon_colour" id="wpst_hover_icon_colour" class="wpst-admin wpst_font_colour" data-default-color="'.$wpst_default_toolbar['hover_font_colour'].'" ';
+					if ( isset( $wpst_style_tb_current['hover_icon_colour'] ) )
+						echo 'value="'.$wpst_style_tb_current['hover_icon_colour'].'"';
+					else
+						echo 'value="'.$wpst_default_toolbar['hover_font_colour'].'"';
+					echo ' />';
+				echo '</td>';
+				echo '<td colspan="3"></td>';
+			echo '</tr>';
 			
 			// Hover Font Size and Colour
 			echo '<tr valign="top">';
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
-					echo '<td style="border-bottom:none;">';
-						echo '<span>' . __( 'Font Size', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" name="wpst_hover_font_size" id="wpst_hover_font_size" ';
-						if ( isset( $wpst_style_tb_current['hover_font_size'] ) && ( $wpst_style_tb_current['hover_font_size'] != $wpst_font_size ) )
-							echo 'class="wpst-admin wpst-default wpst-positive-int wpst_font_size" value="'.$wpst_style_tb_current['hover_font_size'];
-						else
-							echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_font_size" value="'.$wpst_font_size;
-						echo '" />px<input type="hidden" id="wpst_hover_font_size_default" value="'.$wpst_font_size.'" />';
-					echo '</td>';
-				} else
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Font', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td style="border-bottom:none;">';
+					echo '<span>' . __( 'Font Size', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_hover_font_size" id="wpst_hover_font_size" ';
+					if ( isset( $wpst_style_tb_current['hover_font_size'] ) && ( $wpst_style_tb_current['hover_font_size'] != $wpst_font_size ) )
+						echo 'class="wpst-admin wpst-default wpst-positive-int wpst_font_size" value="'.$wpst_style_tb_current['hover_font_size'];
+					else
+						echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_font_size" value="'.$wpst_font_size;
+					echo '" />px<input type="hidden" id="wpst_hover_font_size_default" value="'.$wpst_font_size.'" />';
+				echo '</td>';
 				echo '<td colspan="2" style="width:28%; border-bottom:none;">';
 					echo '<span>' . __( 'Font Colour', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="wpst_hover_font_colour" id="wpst_hover_font_colour" class="wpst-admin wpst_font_colour" data-default-color="'.$wpst_default_toolbar['hover_font_colour'].'" ';
@@ -1878,7 +1854,6 @@ function symposium_toolbar_admintab_styles() {
 				echo '<td style="border-bottom:none;"></td>';
 				echo '<td style="border-bottom:none;"></td>';
 				echo '<td style="border-bottom:none;"></td>';
-				if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) echo '<td style="border-bottom:none;"></td>';
 			echo '</tr>';
 			
 			// Hover Font
@@ -2105,10 +2080,7 @@ function symposium_toolbar_admintab_styles() {
 			
 			// Menus Items Font
 			echo '<tr valign="top">';
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) )
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
-				else
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Font', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2" style="width:28%; border-bottom:none;">';
 					echo '<span>' . __( 'Font Family', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<select name="wpst_menu_font" id="wpst_menu_font" class="wpst-admin wpst_select wpst_font" style="width: 95%;">';
@@ -2276,9 +2248,7 @@ function symposium_toolbar_admintab_styles() {
 		echo '<table id="wp_toolbar_menus_items_hover_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
 			
 			// Menus Items Hover Background
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-				$wpst_default_toolbar['menu_hover_background_colour'] = $wpst_default_toolbar['menu_hover_ext_background_colour'] = '';
-			}
+			$wpst_default_toolbar['menu_hover_background_colour'] = $wpst_default_toolbar['menu_hover_ext_background_colour'] = '';
 			echo '<tr valign="top">';
 				echo '<td scope="row" style="width:15%;"><span>'.__( 'Background', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2" style="width:28%;">';
@@ -2305,10 +2275,7 @@ function symposium_toolbar_admintab_styles() {
 			
 			// Menus Items Hover Font Colour
 			echo '<tr valign="top">';
-				if ( version_compare( $wp_version, '3.8-alpha', '>' ) )
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
-				else
-					echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Font', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td scope="row" style="width:15%; border-bottom:none;"><span>'.__( 'Labels', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2" style="width:28%; border-bottom:none;">';
 					echo '<span>' . __( 'Font Colour', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="wpst_menu_hover_font_colour" id="wpst_menu_hover_font_colour" class="wpst-admin wpst_menu_font_colour" data-default-color="'.$wpst_default_toolbar['menu_hover_font_colour'].'" ';
@@ -2440,20 +2407,18 @@ function symposium_toolbar_admintab_styles() {
 		echo '</tbody></table></div>';  // wp_toolbar_menus_items_hover_inside
 		
 		
-		if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
-			echo '<input type="checkbox" name="display_style_tb_in_admin" id="display_style_tb_in_admin" class="wpst-admin"';
-			(bool)$error = false;
-			if ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" )
-				echo " CHECKED";
-			elseif ( get_option( 'wpst_style_tb_in_admin', '' ) != '' ) {
-				$error = true;
-				echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
-			}
-			echo '/><span> ' . __( 'Make the Toolbar look the same in the backend as it does in the site frontend', 'wp-symposium-toolbar' ) . '</span>';
-			echo '<br /><span class="description"> ' . __( 'Note:', 'wp-symposium-toolbar' ) . ' ';
-			echo __( 'In the Admin Dashboard, the style set above will apply to all pages, for all users ; unset values will default to WP default color scheme, as it will in the frontend.', 'wp-symposium-toolbar' ) . ' ';
-			echo __( 'If unchecked, this style will apply only at this tab as a preview mode ; anywhere else in the backend, the Toolbar will pick colors from the color scheme chosen by the user from the WP Profile page.', 'wp-symposium-toolbar' ) . '</span>';
+		echo '<input type="checkbox" name="display_style_tb_in_admin" id="display_style_tb_in_admin" class="wpst-admin"';
+		(bool)$error = false;
+		if ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" )
+			echo " CHECKED";
+		elseif ( get_option( 'wpst_style_tb_in_admin', '' ) != '' ) {
+			$error = true;
+			echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
 		}
+		echo '/><span> ' . __( 'Make the Toolbar look the same in the backend as it does in the site frontend', 'wp-symposium-toolbar' ) . '</span>';
+		echo '<br /><span class="description"> ' . __( 'Note:', 'wp-symposium-toolbar' ) . ' ';
+		echo __( 'In the Admin Dashboard, the style set above will apply to all pages, for all users ; unset values will default to WP default color scheme, as it will in the frontend.', 'wp-symposium-toolbar' ) . ' ';
+		echo __( 'If unchecked, this style will apply only at this tab as a preview mode ; anywhere else in the backend, the Toolbar will pick colors from the color scheme chosen by the user from the WP Profile page.', 'wp-symposium-toolbar' ) . '</span>';
 		
 		echo '<p class="submit" style="min-width: 16%;margin-left:6px;">';
 		echo '<input type="submit" name="Submit" class="button-primary wpst-save" style="min-width: 16%;" value="'.__( 'Save Changes', 'wp-symposium-toolbar' ).'" />';
@@ -2576,7 +2541,6 @@ function symposium_toolbar_admintab_themes() {
 function symposium_toolbar_admintab_userguide() {
 
 	global $is_wps_active, $wpst_shown_tabs, $is_wpst_network_admin;
-	global $wp_version;
 	
 	echo '<div class="postbox"><div class="inside wpst-inside-guide">';
 		
@@ -2621,7 +2585,7 @@ function symposium_toolbar_admintab_userguide() {
 		echo '<h4><li>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'From this tab, customize the content of the User Menu.', 'wp-symposium-toolbar' ).' '.__( 'These options should be relatively straightforward : the first set of options deal with the menu toplevel item in the Toolbar, while the second set of options describes how this menu should look like. The last option allows you to add extra information to this menu.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'If interrested in populating this menu with custom information, advanced users may refer to the Developers\' Guide available from this page, and check out the hooks proposed by the plugin.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page "User Menu" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed.', 'wp-symposium-toolbar' ).' '.__( 'Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page "User Menu" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed.', 'wp-symposium-toolbar' ).' '.__( 'Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_menus
@@ -2631,10 +2595,10 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'You may add two or more menus to the same location: they will be shown only to the roles you have selected. If more than one menu should be shown to a given role at a given location, they will be appended one to the other, in the order you have defined them.', 'wp-symposium-toolbar' ) . ' ' . __( 'This can be used to display different menu items to different roles: one main menu for all, and additional items for higher roles. Or, different menus for different roles. Your choice.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may use the same menu several times, however, for a given role it will be displayed only once, so this page will list the menus that won\'t be displayed since you attempt to show them several times to the same roles.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may choose to display your custom icon to the toplevel of this menu. Upload it somewhere on your server, either via FTP or using the WP Media Manager, and enter its URL into the corresponding field.', 'wp-symposium-toolbar' );
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '  ' . __( 'You may also choose to display a dashicon, an icon from the set used in WordPress dashboard: all you need to do is to copy/paste here the CSS content for the selected icon, from the page which opens to list these fonticons.', 'wp-symposium-toolbar' );
+			echo '  ' . __( 'You may also choose to display a dashicon, an icon from the set used in WordPress dashboard: all you need to do is to copy/paste here the CSS content for the selected icon, from the page which opens to list these fonticons.', 'wp-symposium-toolbar' );
 			echo '</p>';
 			echo '<p>' . __( 'When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be affected by this icon. If you wish to have several icons, you should create several custom menus.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'Last but not least, for screens of smaller sizes, WordPress will switch into a so-called responsive mode, where most of the Toolbar items will be hidden, as well as their labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'For each of your custom menus, you will have the option to force its display in responsive mode, if it is attached directly to the Toolbar.  Whenever the menu is appended to a default menu, the rule for the display of that menu will apply.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'Last but not least, for screens of smaller sizes, WordPress will switch into a so-called responsive mode, where most of the Toolbar items will be hidden, as well as their labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'For each of your custom menus, you will have the option to force its display in responsive mode, if it is attached directly to the Toolbar.  Whenever the menu is appended to a default menu, the rule for the display of that menu will apply.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_wps
@@ -2664,8 +2628,8 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'As long as you don\'t change any of the settings in the box "Dropdown Menus Items Hover & Focus", WordPress default will apply for dropdown menu items, which will not be focussed, and WordPress hover font color will be used only for the hovered item.', 'wp-symposium-toolbar' ) . '  ' . __( 'As soon as you change one of these settings, dropdown menu items will be focussed, with the font color you may have set, or WordPress default hover font color if you have set anything else in this box.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Monochrom dividers or two-colours borders ?', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Older versions of WordPress were using borders on Toolbar items.', 'wp-symposium-toolbar' ) . '  ' . __( 'The plugin allows you to define two-colour borders, or monochrom dividers when the second colour is not set. WPS Toolbar will then adjust those settings so that it displays nice dividers on either side of your Toolbar items.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<h4 style="font-size: 11px;"><li>' . __( 'Tablet Mode', 'wp-symposium-toolbar' ) . '</li></h4>';
-			if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) echo '<p>' . __( 'For screens of smaller sizes, WordPress will display a responsive Toolbar, of a fixed height of 46px and a content made of icons without labels. Dropdown menus have a larger font and line height, ending up in tapable menu items.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account.', 'wp-symposium-toolbar' ).' '.__( 'Any other style changes you may have performed will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<h4 style="font-size: 11px;"><li>' . __( 'Tablet Mode', 'wp-symposium-toolbar' ) . '</li></h4>';
+			echo '<p>' . __( 'For screens of smaller sizes, WordPress will display a responsive Toolbar, of a fixed height of 46px and a content made of icons without labels. Dropdown menus have a larger font and line height, ending up in tapable menu items.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account.', 'wp-symposium-toolbar' ).' '.__( 'Any other style changes you may have performed will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Icons-Only Toolbar', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'As of its version 3.8, WordPress uses so-called fonticons, icons made fonts that can be styled and resized ad libitum.', 'wp-symposium-toolbar' ) . '  ' . __( 'This plugin allows you to style Toolbar icons separately from labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'If you\d like to hide those labels and leave only icons in your Toolbar, you may set the labels font size to 0 and the icons size to any value you wish.', 'wp-symposium-toolbar' ) . '  ' . __( 'You will also need to force the menu font size back to a non-null value.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
