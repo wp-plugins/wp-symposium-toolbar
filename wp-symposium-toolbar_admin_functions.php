@@ -1529,7 +1529,9 @@ function symposium_toolbar_save_before_render() {
 						
 						// Get post data for these items, and add nav_menu_item data
 						if ( $items ) {
-							$sql = "SELECT * FROM ".$wpdb->base_prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
+							global $blog_id;
+							$wpdb_prefix = ( $blog_id == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog_id."_";
+							$sql = "SELECT * FROM ".$wpdb_prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
 							$menu_items = array_map( 'wp_setup_nav_menu_item', $wpdb->get_results( $sql ) );
 						}
 						
