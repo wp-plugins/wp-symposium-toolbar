@@ -678,7 +678,7 @@ function symposium_toolbar_save_before_render() {
 				
 				// New menu, if any
 				if ( isset( $_POST["new_custom_menu_slug"] ) && ( $_POST["new_custom_menu_slug"] != '' ) && isset( $_POST["new_custom_menu_location"] ) && ( $_POST["new_custom_menu_location"] != 'empty' ) ) {
-					$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
+					$display_custom_menu_icon = ( is_string( $_POST['new_custom_menu_icon'] ) ) ? strip_tags( trim( $_POST['new_custom_menu_icon'] ) ) : "";
 					$menu_icon = ( strstr( $display_custom_menu_icon, 'content: ' ) || filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) ? $display_custom_menu_icon : "";
 					$all_custom_menus[] = array(
 						$_POST["new_custom_menu_slug"],
@@ -688,6 +688,7 @@ function symposium_toolbar_save_before_render() {
 						( is_multisite() && is_main_site() ) ? ( isset( $_POST['new_custom_menu_network'] ) ) : false,
 						isset( $_POST['new_custom_menu_responsive'] )
 					);
+					if ( !isset( $key) ) { $key = 0; } else { $key = $key + 1; }
 					if ( strstr( $menu_icon, 'content: ' ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-item-'.$key.' > .ab-item:before { font-family: dashicons !important; '.$menu_icon.'; display: block; } ';
 					if ( $display_custom_menu_icon != $menu_icon ) $wpst_failed .= $_POST['display_custom_menu_slug'][$key].', '.$_POST['display_custom_menu_location'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 				}

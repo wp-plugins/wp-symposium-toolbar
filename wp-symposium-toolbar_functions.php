@@ -272,7 +272,7 @@ function symposium_toolbar_edit_wp_toolbar() {
 	$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
 	
 	// If Multisite and network activated, add network menus to custom menus
-	if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
+	if ( is_multisite() && !is_main_site() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
 		$all_network_menus = get_option( 'wpst_tech_network_menus', array() );
 		if ( $all_network_menus != array() ) {
 			$all_network_menus = maybe_unserialize( $all_network_menus );

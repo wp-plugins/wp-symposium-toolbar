@@ -1066,7 +1066,7 @@ function symposium_toolbar_admintab_wps() {
 							$error = true;
 							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
 						}
-						echo '/><span> ' . __( 'Display the notification icons accross the whole network to this site\'s users (if unchecked, this site\'s features will be displayed only on this site\'s Toolbar)', 'wp-symposium-toolbar' ) . '</span>';
+						echo '/><span> ' . __( 'Share WP Symposium features of this site (notification icons and Profile page URL) accross the whole network for this site\'s users (if unchecked, this site\'s features will be displayed only on this site\'s Toolbar)', 'wp-symposium-toolbar' ) . '</span>';
 						echo '<br /><span class="description"> ' . __( 'Note: WPS features must be activated and correctly set up from the WPS Install page', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '</td>';
 				echo '</tr>';

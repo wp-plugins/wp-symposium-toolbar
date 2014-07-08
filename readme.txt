@@ -148,7 +148,8 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
 * Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
 * Bugfix: Styles, missing Toolbar shadow in responsive mode
-* Change: code improvement, simplify the way avatars are removed from Toolbar
+* Change: code improvement, simplify the way avatars are hidden from Toolbar
+* Bugfix: Custom Menus, get rid of PHP notices when adding a new menu and no menu exists already
 
 = 0.29.0. =
 
