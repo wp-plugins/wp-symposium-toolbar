@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.12
+Version: 0.29.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
