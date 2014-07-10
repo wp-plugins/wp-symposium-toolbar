@@ -364,40 +364,44 @@ function symposium_toolbar_create_custom_menus() {
  *			$tab, the tab slug to be updated in whole
  * @return none
  */
-function symposium_toolbar_update_tab( $blog_id, $tab ) {
+function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 	
 	global $wpdb;
 	
 	$wpst_main_site_options = array();
 	$wpst_subsite_tab = array();
 	
+	// Get target site db prefix from blog id
+	$wpdb_prefix = ( $subsite_id == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$subsite_id."_";
+	
 	if ( $tab == 'menus' ) {
 		// Get the option from Main Site tab, as an array of option_name => option_value
-		$wpst_main_site_select = $wpdb->get_row( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
+		$wpst_main_site_select = $wpdb->get_row( "SELECT option_value FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
 		
 		// Get only non-network menus
 		$non_network_custom_menus = array();
 		$unserialized_custom_menus = maybe_unserialize( $wpst_main_site_select["option_value"] );
-		if ( is_array( $unserialized_custom_menus ) ) foreach ( $unserialized_custom_menus as $menu ) {
-			if ( isset( $custom_menu[4] ) && $custom_menu[4] ) $non_network_custom_menus[] = $menu;
+		if ( is_array( $unserialized_custom_menus ) ) foreach ( $unserialized_custom_menus as $custom_menu ) {
+			if ( !isset( $custom_menu[4] ) || ( $custom_menu[4] == false ) ) $non_network_custom_menus[] = $custom_menu;
+			// var_dump($non_network_custom_menus, $custom_menu);
 		}
 		$wpst_main_site_options[ "wpst_custom_menus" ] = serialize( $non_network_custom_menus );
 		
 		// Get the options from the target subsite for this tab
-		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog_id."_options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
-		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $subsite_option ) {
-			$wpst_subsite_tab[ $subsite_option[ 'option_name' ] ] = $subsite_option[ 'option_value' ];
+		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value FROM ".$wpdb_prefix."options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
+		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $option ) {
+			$wpst_subsite_tab[ $option[ 'option_name' ] ] = $option[ 'option_value' ];
 		}
 		
 	} else {
 		// Get the options from Main Site tab, as an array of option_name => option_value
-		$wpst_main_site_select = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
+		$wpst_main_site_select = $wpdb->get_results( "SELECT option_name,option_value FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
 		if ( $wpst_main_site_select ) foreach( $wpst_main_site_select as $select ) {
 			$wpst_main_site_options[ $select[ 'option_name' ] ] = $select[ 'option_value' ];
 		}
 		
 		// Get the options from the target subsite for this tab
-		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value,autoload FROM ".$wpdb->base_prefix.$blog_id."_options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
+		$wpst_subsite_options = $wpdb->get_results( "SELECT option_name,option_value FROM ".$wpdb_prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
 		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $option ) {
 			$wpst_subsite_tab[ $option[ 'option_name' ] ] = $option[ 'option_value' ];
 		}
@@ -407,7 +411,7 @@ function symposium_toolbar_update_tab( $blog_id, $tab ) {
 	foreach ( $wpst_main_site_options as $option_name => $option_value ) {
 		if ( ( !isset( $wpst_subsite_tab[ $option_name ] ) ) ||
 			 ( isset( $wpst_subsite_tab[ $option_name ] ) && ( $option_value != $wpst_subsite_tab[ $option_name ] ) ) )
-			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog_id."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option_name, $option_value, 'yes' ) );
+			$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb_prefix."options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option_name, $option_value, 'yes' ) );
 	}
 }
 
@@ -547,7 +551,8 @@ function symposium_toolbar_save_before_render() {
 					
 					// Update local option with the list of hidden tabs
 					// (used to actually display tabs)
-					$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb->base_prefix.$blog['blog_id']."_options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", 'wpst_wpms_hidden_tabs', maybe_serialize( $wpst_wpms_hidden_tabs ), 'yes' ) );
+					$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
+					$ret = $wpdb->query( $wpdb->prepare( "INSERT INTO `".$wpdb_prefix."options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", 'wpst_wpms_hidden_tabs', maybe_serialize( $wpst_wpms_hidden_tabs ), 'yes' ) );
 					$wpst_wpms_hidden_tabs_all[ $blog['blog_id'] ] = $wpst_wpms_hidden_tabs;
 				}
 				

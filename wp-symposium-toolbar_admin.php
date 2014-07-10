@@ -372,11 +372,15 @@ function symposium_toolbar_admintab_sites() {
 				$count = 0;
 				
 				foreach ( $blogs as $blog ) if ( !is_main_site( $blog['blog_id'] ) ) {
+					
 					// Get blog details for this subsite
 					$blog_details = get_blog_details($blog['blog_id']);
 					
+					// Get target site db prefix from blog id
+					$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
+					
 					// Get the stored option from subsite for this row
-					$wpst_wpms_hidden_tabs = $wpdb->get_row( "SELECT option_value FROM ".$wpdb->base_prefix.$blog['blog_id']."_options WHERE option_name LIKE 'wpst_wpms_hidden_tabs' LIMIT 1", ARRAY_A );
+					$wpst_wpms_hidden_tabs = $wpdb->get_row( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name LIKE 'wpst_wpms_hidden_tabs' LIMIT 1", ARRAY_A );
 					$wpst_wpms_hidden_tabs = maybe_unserialize( $wpst_wpms_hidden_tabs['option_value'] );
 					if ( !isset( $wpst_wpms_hidden_tabs ) || empty( $wpst_wpms_hidden_tabs ) ) $wpst_wpms_hidden_tabs = array();
 					
@@ -2635,7 +2639,7 @@ function symposium_toolbar_admintab_userguide() {
 			echo '</ol>';
 		}
 		
-		if ( is_multisite() && is_super_admin() ) {
+		if ( is_multisite() && is_main_site() ) {
 		echo '<h4><li>'.__( 'Multisites', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'On Multisite installations, when the plugin is network activated it adds a few features, that are described hereafter.', 'wp-symposium-toolbar' ) . ' ' . __( 'These options will only be shown to Super Admins, from the two dedicated tabs, as well as mixed with other, standard options.', 'wp-symposium-toolbar' ) . ' ' . __( 'The features at the "Network" tab will also hide some of the options at the other tabs, as described under each feature.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<ol>';

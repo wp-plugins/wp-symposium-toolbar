@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.13
+Version: 0.29.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: Styles, missing Toolbar shadow in responsive mode
 * Change: code improvement, simplify the way avatars are hidden from Toolbar
 * Bugfix: Custom Menus, get rid of PHP notices when adding a new menu and no menu exists already
+* Bugfix: WPMS, propagate non-network custom menus from the main site to subsites where the "Custom Menus" tab is hidden
 
 = 0.29.0. =
 
