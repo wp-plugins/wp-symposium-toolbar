@@ -56,7 +56,7 @@ function symposium_toolbar_init_admin_globals() {
 	unset( $wpst_subsites_tabs['network'] );
 	unset( $wpst_subsites_tabs['tabs'] );
 	
-	// Tabs that are displayed on this site's admin page
+	// Tabs that are displayed on this site's admin page - must be a subsite
 	// This holds both the key and the value for display in the admin page
 	// Keys of hidden tabs are stored as get_option( 'wpst_wpms_hidden_tabs' )
 	$wpst_shown_tabs = $wpst_all_tabs;
@@ -314,6 +314,9 @@ function symposium_toolbar_update_walker() {
 			
 			restore_current_blog();
 		}
+		
+		// Sanity check
+		update_option( 'wpst_wpms_hidden_tabs', array() );
 	
 	} else {
 		symposium_toolbar_update();
@@ -383,7 +386,6 @@ function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 		$unserialized_custom_menus = maybe_unserialize( $wpst_main_site_select["option_value"] );
 		if ( is_array( $unserialized_custom_menus ) ) foreach ( $unserialized_custom_menus as $custom_menu ) {
 			if ( !isset( $custom_menu[4] ) || ( $custom_menu[4] == false ) ) $non_network_custom_menus[] = $custom_menu;
-			// var_dump($non_network_custom_menus, $custom_menu);
 		}
 		$wpst_main_site_options[ "wpst_custom_menus" ] = serialize( $non_network_custom_menus );
 		

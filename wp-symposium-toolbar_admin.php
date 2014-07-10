@@ -263,7 +263,7 @@ function symposium_toolbar_admintab_features() {
 	
 	echo '<tr valign="top">';
 		echo '<td colspan="2">';
-			echo '<span>' . __( 'From this tab, activate some of the network features provided by the plugin.', 'wp-symposium-toolbar') . ' ' . __( 'Please note that these options will affect the display of some of the other options tabs, both on this site and the other sites of your network, as described hereafter.', 'wp-symposium-toolbar') . '</span>';
+			echo '<span>' . __( 'From this tab, activate the network features provided by the plugin.', 'wp-symposium-toolbar') . ' ' . __( 'Please note that these options will affect the display of some of the other options tabs, both on this site and the other sites of your network, as described hereafter.', 'wp-symposium-toolbar') . '</span>';
 		echo '</td>';
 	echo '</tr>';
 		
@@ -280,7 +280,7 @@ function symposium_toolbar_admintab_features() {
 			}
 			echo '/><span> ' . __( 'Activate the "Network Toolbar"', 'wp-symposium-toolbar' ) . '</span>';
 			echo '<br /><span class="description"> ' . __( 'Note: This feature will force the display of the WP Toolbar on all sites of the network, for selected roles.', 'wp-symposium-toolbar' ) . '  ' . __( 'More precisely, it will:', 'wp-symposium-toolbar' );
-			echo '<br />1. ' . __( 'Forcibly display the Toolbar in the frontend on all sites of the network, to all selected roles', 'wp-symposium-toolbar' );
+			echo '<br />1. ' . __( 'Display the Toolbar in the frontend on all sites of the network, to all selected roles', 'wp-symposium-toolbar' );
 			echo '<br />2. ' . __( 'Remove the option to show / hide the Toolbar to selected roles from the "Toolbar" tab of the plugin options page, of all sites except the Main Site', 'wp-symposium-toolbar' );
 			echo '<br />3. ' . __( 'Remove the option to force the display of the Toolbar on a site only, from the "Toolbar" tab of the plugin options page, of all sites', 'wp-symposium-toolbar' );
 			echo '<br />4. ' . __( 'Remove the WP user option to show / hide the Toolbar on the frontend, from the WP Profile page', 'wp-symposium-toolbar' );
@@ -304,8 +304,7 @@ function symposium_toolbar_admintab_features() {
 			echo '/><span> ' . __( 'Activate the "Home Site" for users', 'wp-symposium-toolbar' ) . '</span>';
 			echo '<br /><span class="description"> ' . __( 'Note: This feature will allow users to select their "Home Site".', 'wp-symposium-toolbar' ) . '  ' . __( 'More precisely, it will:', 'wp-symposium-toolbar' );
 			echo '<br />1. ' . __( 'Add a checkbox to WP Profile pages so that users can select the current site as their "Home Site"', 'wp-symposium-toolbar' );
-			echo '<br />2. ' . __( 'Link the Edit Profile URL, located over the Howdy and the WP User Menu, to the WP Profile page on the selected site', 'wp-symposium-toolbar' );
-			echo '<br />3. ' . __( 'Remove the option to rewrite the Edit Profile URL from the "WP User Menu" tab of the plugin options page, on all sites, to avoid any conflict with the above', 'wp-symposium-toolbar' );
+			echo '<br />2. ' . __( 'When the user has selected a Home Site, link the Edit Profile URL, located over the Howdy and the WP User Menu, to the WP Profile page on the selected site', 'wp-symposium-toolbar' );
 			if ( $is_wps_available ) echo '<br />4. ' . __( 'On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above', 'wp-symposium-toolbar' );
 			if ( $is_wps_available ) echo '<br />5. ' . __( 'On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the "Network Share" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden', 'wp-symposium-toolbar' );
 			echo '</span>';
@@ -1070,7 +1069,7 @@ function symposium_toolbar_admintab_wps() {
 							$error = true;
 							echo ' style="outline:1px solid #CC0000;" onclick="this.style.outline = \'none\';"';
 						}
-						echo '/><span> ' . __( 'Share WP Symposium features of this site (notification icons and Profile page URL) accross the whole network for this site\'s users (if unchecked, this site\'s features will be displayed only on this site\'s Toolbar)', 'wp-symposium-toolbar' ) . '</span>';
+						echo '/><span> ' . __( 'Display WP Symposium features of this site (notification icons and Profile page URL) accross the whole network for this site\'s users (if unchecked, this site\'s features will be displayed only on this site\'s Toolbar)', 'wp-symposium-toolbar' ) . '</span>';
 						echo '<br /><span class="description"> ' . __( 'Note: WPS features must be activated and correctly set up from the WPS Install page', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '</td>';
 				echo '</tr>';
