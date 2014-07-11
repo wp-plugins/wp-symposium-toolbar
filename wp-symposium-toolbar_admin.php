@@ -63,6 +63,10 @@ function symposium_toolbar_admin_page() {
 		}
 	}
 	
+	// Sanity check - make sure all tabs are displayed on the Main Site of a WPMS install
+	if ( is_multisite() && is_main_site() && get_option( 'wpst_wpms_hidden_tabs', array() ) !=  array() )
+		update_option( 'wpst_wpms_hidden_tabs', array() );
+	
 	// Which tab should be displayed ?
 	if ( !isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = 'welcome';
 	if ( isset( $_GET["tab"] ) && in_array( $_GET["tab"], array_keys( $wpst_shown_tabs ) ) ) $wpst_active_tab = $_GET["tab"];
@@ -119,6 +123,22 @@ function symposium_toolbar_admin_page() {
 			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="welcome">';
 			echo '<div id="welcome" class="wpst-nav-div-active">';
 			symposium_toolbar_admintab_welcome();
+			echo '</div>';
+		}
+		
+		// WPMS, network-activated, superadmin only Features Page
+		if ( isset( $wpst_shown_tabs[ 'network' ] ) && ( $wpst_active_tab == 'network' ) ) {
+			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="network">';
+			echo '<div id="network" class="wpst-nav-div-active">';
+			symposium_toolbar_admintab_features();
+			echo '</div>';
+		}
+		
+		// WPMS, network-acivated, superadmin only Tabs Page
+		if ( isset( $wpst_shown_tabs[ 'tabs' ] ) && ( $wpst_active_tab == 'tabs' ) ) {
+			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="tabs">';
+			echo '<div id="tabs" class="wpst-nav-div-active">';
+			symposium_toolbar_admintab_sites();
 			echo '</div>';
 		}
 		
@@ -184,22 +204,6 @@ function symposium_toolbar_admin_page() {
 			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="themes">';
 			echo '<div id="themes" class="wpst-nav-div-active">';
 			symposium_toolbar_admintab_themes();
-			echo '</div>';
-		}
-		
-		// WPMS, network-activated, superadmin only Features Page
-		if ( isset( $wpst_shown_tabs[ 'network' ] ) && ( $wpst_active_tab == 'network' ) ) {
-			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="network">';
-			echo '<div id="network" class="wpst-nav-div-active">';
-			symposium_toolbar_admintab_features();
-			echo '</div>';
-		}
-		
-		// WPMS, network-acivated, superadmin only Tabs Page
-		if ( isset( $wpst_shown_tabs[ 'tabs' ] ) && ( $wpst_active_tab == 'tabs' ) ) {
-			echo '<input type="hidden" id="symposium_toolbar_view" name="symposium_toolbar_view" value="tabs">';
-			echo '<div id="tabs" class="wpst-nav-div-active">';
-			symposium_toolbar_admintab_sites();
 			echo '</div>';
 		}
 		
@@ -305,8 +309,8 @@ function symposium_toolbar_admintab_features() {
 			echo '<br /><span class="description"> ' . __( 'Note: This feature will allow users to select their "Home Site".', 'wp-symposium-toolbar' ) . '  ' . __( 'More precisely, it will:', 'wp-symposium-toolbar' );
 			echo '<br />1. ' . __( 'Add a checkbox to WP Profile pages so that users can select the current site as their "Home Site"', 'wp-symposium-toolbar' );
 			echo '<br />2. ' . __( 'When the user has selected a Home Site, link the Edit Profile URL, located over the Howdy and the WP User Menu, to the WP Profile page on the selected site', 'wp-symposium-toolbar' );
-			if ( $is_wps_available ) echo '<br />4. ' . __( 'On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above', 'wp-symposium-toolbar' );
-			if ( $is_wps_available ) echo '<br />5. ' . __( 'On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the "Network Share" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden', 'wp-symposium-toolbar' );
+			if ( $is_wps_available ) echo '<br />3. ' . __( 'On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above', 'wp-symposium-toolbar' );
+			if ( $is_wps_available ) echo '<br />4. ' . __( 'On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the "Network Share" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden', 'wp-symposium-toolbar' );
 			echo '</span>';
 			if ( $error ) echo '<div id="display_activate_network_toolbar" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 		echo '</td>';
@@ -352,7 +356,8 @@ function symposium_toolbar_admintab_sites() {
 	
 	echo '<tr valign="top">';
 		echo '<td>';
-			echo '<span>' . __('Select the tabs that should be displayed on the WP Symposium Toolbar options page of each of the subsites of the network.', 'wp-symposium-toolbar') . '  ' . __('Unchecking a given tab will deactivate it and hide it on the subsite.', 'wp-symposium-toolbar') . '  ' . __('The corresponding settings will then be propagated from the Main Site to the subsite, both upon saving from this screen and for any update of the Main Site settings onwards.', 'wp-symposium-toolbar') . '  ' . __('Unchecking all tabs of a given subsite will hide its options page altogether.', 'wp-symposium-toolbar') . '  ' . __('Tabs left checked will be displayed on the plugin options page of the corresponding subsite, where the settings will apply.', 'wp-symposium-toolbar') . '</span><br /><br />';
+			echo '<span>' . __('Select the tabs that should be displayed on the WP Symposium Toolbar options page of each of the subsites of the network.', 'wp-symposium-toolbar') . '</span><br />';
+			echo '<span class="description">' . __('Note : Unchecking a given tab will deactivate it and hide it from the subsite.', 'wp-symposium-toolbar') . '  ' . __('With the exception of Custom Menus that would need to be redefined locally to each subsite, the corresponding settings will then be propagated from the Main Site to the subsite, both upon saving from this screen, and for any update of the Main Site settings onwards.', 'wp-symposium-toolbar') . '  ' . __('Tabs left checked will be displayed on the plugin options page of the corresponding subsite, where the settings will apply.', 'wp-symposium-toolbar') . '</span><br /><br />';
 			echo '<span>' . __('It should be stressed that saving from the button on this page will immediately copy settings from the Main Site to the subsites where checkboxes are unchecked, while re-checking these checkboxes will not restore previous settings. You should therefore think twice before saving!', 'wp-symposium-toolbar') . '</span><br /><br />';
 			
 			echo '<table class="widefat">';

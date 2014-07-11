@@ -314,9 +314,6 @@ function symposium_toolbar_update_walker() {
 			
 			restore_current_blog();
 		}
-		
-		// Sanity check
-		update_option( 'wpst_wpms_hidden_tabs', array() );
 	
 	} else {
 		symposium_toolbar_update();
@@ -377,8 +374,8 @@ function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 	// Get target site db prefix from blog id
 	$wpdb_prefix = ( $subsite_id == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$subsite_id."_";
 	
-	if ( $tab == 'menus' ) {
-		// Get the option from Main Site tab, as an array of option_name => option_value
+	if ( $tab == 'menus' ) return; //{
+	/*	// Get the option from Main Site tab, as an array of option_name => option_value
 		$wpst_main_site_select = $wpdb->get_row( "SELECT option_value FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_custom_menus'", ARRAY_A );
 		
 		// Get only non-network menus
@@ -395,7 +392,7 @@ function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 			$wpst_subsite_tab[ $option[ 'option_name' ] ] = $option[ 'option_value' ];
 		}
 		
-	} else {
+	} else { */
 		// Get the options from Main Site tab, as an array of option_name => option_value
 		$wpst_main_site_select = $wpdb->get_results( "SELECT option_name,option_value FROM ".$wpdb->prefix."options WHERE option_name LIKE 'wpst_".$tab."%'", ARRAY_A );
 		if ( $wpst_main_site_select ) foreach( $wpst_main_site_select as $select ) {
@@ -407,7 +404,7 @@ function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 		if ( $wpst_subsite_options ) foreach ( $wpst_subsite_options as $option ) {
 			$wpst_subsite_tab[ $option[ 'option_name' ] ] = $option[ 'option_value' ];
 		}
-	}
+	// }
 	
 	// Check Main Site options and propagate to subsite if needed
 	foreach ( $wpst_main_site_options as $option_name => $option_value ) {
