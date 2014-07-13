@@ -214,7 +214,7 @@ function symposium_toolbar_update() {
 		if ( !is_array( get_option( 'wpst_toolbar_updates_icon', '' ) ) ) update_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) );
 		if ( !is_array( get_option( 'wpst_toolbar_comments_bubble', '' ) ) ) update_option( 'wpst_toolbar_comments_bubble', array_keys( $wpst_roles_comment ) );
 		if ( !is_array( get_option( 'wpst_toolbar_new_content', '' ) ) ) update_option( 'wpst_toolbar_new_content', array_keys( $wpst_roles_new_content ) );
-		if ( !is_array( get_option( 'wpst_toolbar_get_shortlink', '' ) ) ) update_option( 'wpst_toolbar_get_shortlink', array_keys( $wpst_roles_author ) );
+		if ( !is_array( get_option( 'wpst_toolbar_view_page', '' ) ) ) update_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) );
 		if ( !is_array( get_option( 'wpst_toolbar_edit_page', '' ) ) ) update_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) );
 		if ( !is_array( get_option( 'wpst_toolbar_user_menu', '' ) ) ) update_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all_incl_visitor ) );
 		if ( !is_array( get_option( 'wpst_toolbar_search_field', '' ) ) ) update_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) );
@@ -287,6 +287,12 @@ function symposium_toolbar_update() {
 	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2909 ) {
 		
 		delete_option( 'wpst_tech_avatar_to_header' );
+	}
+	
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2926 ) {
+		
+		update_option( 'wpst_toolbar_view_page', get_option( 'wpst_toolbar_get_shortlink', array_keys( $wpst_roles_author ) ) );
+		delete_option( 'wpst_toolbar_get_shortlink' );
 	}
 	
 	// Store build nr
@@ -591,7 +597,7 @@ function symposium_toolbar_save_before_render() {
 				if ( is_multisite() ) update_option( 'wpst_toolbar_my_sites', ( isset( $_POST["display_my_sites_roles"] ) && is_array( $_POST["display_my_sites_roles"] ) ) ? $_POST["display_my_sites_roles"] : array() );
 				update_option( 'wpst_toolbar_updates_icon', ( isset( $_POST["display_updates_icon_roles"] ) && is_array( $_POST["display_updates_icon_roles"] ) ) ? $_POST["display_updates_icon_roles"] : array() );
 				update_option( 'wpst_toolbar_comments_bubble', ( isset( $_POST["display_comments_bubble_roles"] ) && is_array( $_POST["display_comments_bubble_roles"] ) ) ? $_POST["display_comments_bubble_roles"] : array() );
-				update_option( 'wpst_toolbar_get_shortlink', ( isset( $_POST["display_get_shortlink_roles"] ) && is_array( $_POST["display_get_shortlink_roles"] ) ) ? $_POST["display_get_shortlink_roles"] : array() );
+				update_option( 'wpst_toolbar_view_page', ( isset( $_POST["display_view_page_roles"] ) && is_array( $_POST["display_view_page_roles"] ) ) ? $_POST["display_view_page_roles"] : array() );
 				update_option( 'wpst_toolbar_new_content', ( isset( $_POST["display_new_content_roles"] ) && is_array( $_POST["display_new_content_roles"] ) ) ? $_POST["display_new_content_roles"] : array() );
 				update_option( 'wpst_toolbar_edit_page', ( isset( $_POST["display_edit_page_roles"] ) && is_array( $_POST["display_edit_page_roles"] ) ) ? $_POST["display_edit_page_roles"] : array() );
 				update_option( 'wpst_toolbar_user_menu', ( isset( $_POST["display_user_menu_roles"] ) && is_array( $_POST["display_user_menu_roles"] ) ) ? $_POST["display_user_menu_roles"] : array() );
@@ -618,7 +624,7 @@ function symposium_toolbar_save_before_render() {
 				update_option( 'wpst_myaccount_logout_link', isset( $_POST["display_logout_link"] ) ? 'on' : '' );
 				update_option( 'wpst_myaccount_role', isset( $_POST["display_wp_role"] ) ? 'on' : '' );
 				
-				if ( isset( $_POST['rewrite_edit_link'] ) ) {
+				if ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) if ( isset( $_POST['rewrite_edit_link'] ) ) {
 					
 					// Empty field - no redirect
 					if ( $_POST['rewrite_edit_link'] == "" )

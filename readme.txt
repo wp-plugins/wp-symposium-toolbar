@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.17
+Version: 0.29.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,13 +144,15 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 * Bugfix: Import, less restrictive validation for strings: allow quotes etc.
 * Bugfix: WPMS, remove the condition that the Home Site shall not be active on the network, to define a custom profile link on a site
-* Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of function 'wp_get_sites()'  in WPMS
+* Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of function 'wp_get_sites()' in WPMS
 * Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
 * Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
 * Bugfix: Styles, missing Toolbar shadow in responsive mode
 * Change: code improvement, simplify the way avatars are hidden from Toolbar
 * Bugfix: Custom Menus, get rid of PHP notices when adding a new menu and no menu exists already
-* Bugfix: WPMS, propagate non-network custom menus from the main site to subsites where the "Custom Menus" tab is hidden
+* Bugfix: WPMS in RTL, remove extra "float:right;" in admin tabs for correct display of subsites
+* Change: code improvement, Admin page, move all Javascript code a to dedicated file
+* Change: Toolbar, removed "Shortlink" setting, added "View Link" setting
 
 = 0.29.0. =
 

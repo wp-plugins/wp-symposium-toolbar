@@ -120,6 +120,18 @@ jQuery(document).ready(function($){
 	// Close all Style boxes by default
 	$(".wpst-style-widefat").hide();
 	
+	// When a Style h3 is clicked, open / close the box underneath
+	$(".wpst-hndle").click(function() {
+		
+		var item = document.getElementById( this.id+'_inside' );
+		
+		if ( item.style.display !== 'none' ) {
+			item.style.display = 'none';
+		} else {
+			item.style.display = 'table';
+		}
+	});
+	
 	// Data was edited, user needs to confirm when leaving page
 	$(".wpst-admin").change(function() {
 		
@@ -130,6 +142,57 @@ jQuery(document).ready(function($){
 	$(".wpst-save").click(function() {
 		
 		needToConfirm = false;
+	});
+	
+	// Toggle checkboxes ticks to all/none
+	$(".wpst-all-none").click(function() {
+		
+		var items = document.getElementById( this.id+'_row' ).getElementsByTagName( 'input' );
+		var checked = items[0].checked;
+		
+		for( var i in items ) items[i].checked = !checked;
+		for( var i in items ) {
+			if ( items[i].style !== undefined ) items[i].style.outline = 'none';
+		}
+		
+		needToConfirm = true;
+	});
+	
+	// Erase the error outline around a checkbox when it is clicked
+	$(".wpst-admin").click(function() {
+		
+		this.style.outline = 'none';
+	});
+	
+	// Erase the error outline for multiple checkboxes when one is clicked
+	$(".wpst-all-none").click(function() {
+		
+		var items = document.getElementById( this.id+'_row' ).getElementsByTagName( 'input' );
+		var checked = items[0].checked;
+		
+		for( var i in items ) {
+			if ( items[i].style !== undefined ) items[i].style.outline = 'none';
+		}
+		
+		needToConfirm = true;
+	});
+	
+	// Erase the error outline around a select when it is clicked
+	$(".wpst-select-menu.wpst-error").change(function() {
+		
+		this.style.outline = 'none';
+	});
+	
+	// Erase the error outline around the input#rewrite_edit_link
+	$("#rewrite_edit_link.wpst-error").keydown(function() {
+		
+		this.style.outline = 'none';
+	});
+	
+	// Put the error outline back around the input#rewrite_edit_link in case field is still incorrect
+	$("#rewrite_edit_link.wpst-no-wps").blur(function() {
+		
+		if ( $(this).val() == '%symposium_profile%' ) { this.style.outline = '1px solid #CC0000'; }
 	});
 	
 	// In such fields, User shall input an integer

@@ -321,9 +321,10 @@ function symposium_toolbar_edit_wp_toolbar() {
 		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_new_content', array_keys( $wpst_roles_new_content ) ) ) )
 			$wp_admin_bar->remove_node( 'new-content' );
 	
-	if ( is_array( get_option( 'wpst_toolbar_get_shortlink', array_keys( $wpst_roles_author ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_get_shortlink', array_keys( $wpst_roles_author ) ) ) )
-			$wp_admin_bar->remove_node( 'get-shortlink' );
+	if ( is_array( get_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) ) ) )
+		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) ) ) )
+			$wp_admin_bar->remove_node( 'view' );
+			// $wp_admin_bar->remove_node( 'get-shortlink' );
 	
 	if ( is_array( get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ) ) )
 		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ) ) )
@@ -1032,7 +1033,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					// Get the site URL and the WPS page slug on this site
 					$site_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", 'siteurl' ), ARRAY_A );
 					$page_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb_prefix."options WHERE option_name = '%s' LIMIT 1", WPS_OPTIONS_PREFIX.'_'.$feature.'_url' ), ARRAY_A );
-					// var_dump( array( $blog['blog_id'] => trim( $site_url["option_value"], "/" ) . "/" . trim( $page_url["option_value"], "/" ) ) );
 					
 					// If the feature is active on this site and the page can be found, store the page URL in the array
 					if ( $page_url["option_value"] != "" ) {
@@ -1048,7 +1048,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 					}
 				}
 			}
-			// var_dump( $feature, $blog['blog_id'], $wps_network_activated, $wps_activated, $feature_activated, $feature_url ); echo '<br />';
 		}
 	
 	// Single site
@@ -1062,7 +1061,6 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		if ( $is_wps_active && ( "1" == $feature_activated ) && ( trim( $page_url["option_value"], "/" ) != "" ) )
 			$feature_url["1"] = trim( site_url(), "/" ) . "/" . trim( $page_url["option_value"], "/" );
 	}
-	// echo '/!\  ';var_dump( $feature, $feature_url ); echo '<br />';
 	
 	// Hook to do anything with the array of URLs for a given feature
 	return apply_filters( 'symposium_toolbar_wps_url_for_feature', $feature_url, $feature );

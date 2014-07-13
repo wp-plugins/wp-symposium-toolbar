@@ -10,7 +10,7 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.17
+Version: 0.29.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 // Increase Build nr at each version
 global $wpst_buildnr;
-$wpst_buildnr = 2917;
+$wpst_buildnr = 2926;
 
 
 // Exit if accessed directly
@@ -339,6 +339,7 @@ add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
 
 
 // Toolbar rendition, chronological order has importance
+// add_admin_bar_menus vs. wp_before_admin_bar_render
 
 // Triggers the display ot WP Toolbar in the frontend - always shown in the backend
 add_filter( 'show_admin_bar', 'symposium_toolbar_show_admin_bar', 10, 1 );
