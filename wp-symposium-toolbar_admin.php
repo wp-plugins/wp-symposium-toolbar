@@ -633,7 +633,7 @@ function symposium_toolbar_admintab_myaccount() {
 
 	global $is_wps_available, $is_wps_profile_active;
 	(bool)$error = false;
-	(bool)$no_wps = false;
+	(bool)$error_no_wps = false;
 	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table wpst-form-table">';
@@ -761,7 +761,6 @@ function symposium_toolbar_admintab_myaccount() {
 					echo '<span>' . __( 'Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" class="wpst-admin';
 					if ( !$is_wps_profile_active ) {
-						$no_wps = true;
 						echo ' wpst-no-wps';
 						if ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) echo ' wpst-error';
 					}
@@ -800,7 +799,7 @@ function symposium_toolbar_admintab_myaccount() {
 				echo '</div></td>';
 			echo '</tr>';
 		}
-		if ( $no_wps ) {
+		if ( ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) && !$is_wps_profile_active && ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) ) {
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
