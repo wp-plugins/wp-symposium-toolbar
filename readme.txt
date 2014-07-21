@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.8
 Tested up to: 3.9
 Stable tag: 0.29.0
-Version: 0.29.27
+Version: 0.29.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,6 +153,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: WPMS in RTL, remove extra "float:right;" in admin tabs for correct display of subsites
 * Change: code improvement, Admin page, move all Javascript code a to dedicated file
 * Change: Toolbar, removed "Shortlink" setting, added "View Link" setting
+* Change: make use of add_theme_support() to bump frontend page content to the correct offset according to Toolbar height setting
 
 = 0.29.0. =
 

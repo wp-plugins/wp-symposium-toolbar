@@ -633,7 +633,6 @@ function symposium_toolbar_admintab_myaccount() {
 
 	global $is_wps_available, $is_wps_profile_active;
 	(bool)$error = false;
-	(bool)$error_no_wps = false;
 	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table wpst-form-table">';
