@@ -159,28 +159,25 @@ jQuery(document).ready(function($){
 	});
 	
 	// Erase the error outline around a checkbox when it is clicked
-	$(".wpst-admin").click(function() {
+	$("input.wpst-error").click(function() {
 		
-		this.style.outline = 'none';
+		$(this).removeClass( "wpst-error" );
 	});
 	
 	// Erase the error outline for multiple checkboxes when one is clicked
-	$(".wpst-all-none").click(function() {
+	$(".wpst-checkboxes").click(function() {
 		
-		var items = document.getElementById( this.id+'_row' ).getElementsByTagName( 'input' );
-		var checked = items[0].checked;
+		var items = document.getElementById( this.id ).getElementsByTagName( 'input' );
 		
 		for( var i in items ) {
-			if ( items[i].style !== undefined ) items[i].style.outline = 'none';
+			$( items[i] ).removeClass( "wpst-error" );
 		}
-		
-		needToConfirm = true;
 	});
 	
-	// Erase the error outline around a select when it is clicked
-	$(".wpst-select-menu.wpst-error").change(function() {
+	// Erase the error outline around a select when it is changed
+	$("select.wpst-error").change(function() {
 		
-		this.style.outline = 'none';
+		$(this).removeClass( "wpst-error" );
 	});
 	
 	// Erase the error outline around the input#rewrite_edit_link

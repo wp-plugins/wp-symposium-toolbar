@@ -27,15 +27,12 @@ function symposium_toolbar_init_globals() {
 
 	global $wp_roles, $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	global $wpst_menus, $wpst_locations;
-	global $is_wps_active;
 	
 	// Roles
-	$wpst_roles_all = array();
-	$wpst_roles_author = array();
-	$wpst_roles_new_content = array();
-	$wpst_roles_comment = array();
-	$wpst_roles_updates = array();
-	$wpst_roles_administrator = array();
+	if ( is_multisite() )
+		$wpst_roles_all = $wpst_roles_author = $wpst_roles_new_content = $wpst_roles_comment = $wpst_roles_updates = $wpst_roles_administrator = array( 'wpst_superadmin' => __( 'Super Admin' ) );
+	else
+		$wpst_roles_all = $wpst_roles_author = $wpst_roles_new_content = $wpst_roles_comment = $wpst_roles_updates = $wpst_roles_administrator = array();
 	
 	$cpts = (array) get_post_types( array( 'show_in_admin_bar' => true ), 'objects' );
 	$create_posts = ( isset( $cpts['post'] ) ? $cpts['post']->cap->create_posts : "edit_posts" );
@@ -58,13 +55,13 @@ function symposium_toolbar_init_globals() {
 		if ( isset( $role['capabilities']['manage_options'] ) ) $wpst_roles_administrator[$key] = $role_name;
 	}
 	$wpst_roles_all_incl_user = $wpst_roles_all;
-	if ( is_multisite() ) $wpst_roles_all_incl_user['wpst_user'] = __('User', 'wp-symposium-toolbar');
+	if ( is_multisite() ) $wpst_roles_all_incl_user['wpst_user'] = __( 'User', 'wp-symposium-toolbar' );
 	$wpst_roles_all_incl_visitor = $wpst_roles_all_incl_user;
-	$wpst_roles_all_incl_visitor['wpst_visitor'] = __('Visitor', 'wp-symposium-toolbar');
+	$wpst_roles_all_incl_visitor['wpst_visitor'] = __( 'Visitor', 'wp-symposium-toolbar' );
 	
 	// Menus
 	$wpst_menus = array();
-	if ( $is_wps_active ) {
+	if ( WPST_IS_WPS_ACTIVE ) {
 		$profile_url = remove_query_arg( 'view',  __wps__get_url( 'profile' ) );
 		$profile_query_string = ( strpos( $profile_url, '?' ) !== FALSE ) ? "&" : "?";
 		$mail_url = __wps__get_url( 'mail' );
@@ -105,11 +102,13 @@ function symposium_toolbar_init_globals() {
 	// Format:  $wpst_locations['parent-slug'] = "description"
 	// the parent slug will be used directly to add_node the menu to the Toolbar, this is why '' is a location
 	$wpst_locations = array();
-	$wpst_locations['wp-logo'] = __( 'Append to / Replace the WP Logo menu', 'wp-symposium-toolbar' );
+	$wpst_locations['left'] = __( 'At the left of the WP Logo menu', 'wp-symposium-toolbar' );
+	$wpst_locations['wp-logo'] = __( 'Append to the WP Logo menu', 'wp-symposium-toolbar' );
 	if ( is_multisite() ) $wpst_locations['my-sites'] = __( 'Append to My Sites', 'wp-symposium-toolbar' );
 	$wpst_locations[''] = __( 'At the right of the New Content menu', 'wp-symposium-toolbar' );
 	$wpst_locations['top-secondary'] = __( 'At the left of the User Menu', 'wp-symposium-toolbar' );
 	$wpst_locations['my-account'] = __( 'Append to the User Menu', 'wp-symposium-toolbar' );
+	$wpst_locations['right'] = __( 'At the right of the User Menu', 'wp-symposium-toolbar' );
 	
 	// Hook to do anything further to this init
 	do_action ( 'symposium_toolbar_init_globals_done' );
@@ -296,17 +295,8 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 	
 	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
-	if ( is_user_logged_in() ) {
-		// WPMS:
-		// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
-		// - Superadmins are made administrators of the site
-		if ( !empty($current_user->roles) )
-			$current_role = $current_user->roles;
-		else
-			$current_role = ( is_super_admin() ) ? array( "administrator" ) : array( "wpst_user" );
-		
-	} else
-		$current_role = array( "wpst_visitor" );
+	// Get current user's role and other values
+	$current_role = symposium_toolbar_get_current_role( $current_user->ID );
 	
 	// Network Toolbar setting on WPMS
 	if ( get_option( 'wpst_wpms_network_toolbar', '' ) == "on" ) {
@@ -315,11 +305,12 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 	
 	// Site settings apply
 	} elseif ( is_array( get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) ) {
+		
 		// Role is allowed to see the Toolbar
 		if ( array_intersect( $current_role, get_option( 'wpst_toolbar_wp_toolbar', array_keys( $wpst_roles_all ) ) ) ) {
-			// If role has a role on the current site, ie. not a visitor nor a network user,
-			// it has a WP Profile page on this site with the checkbox "Show Toolbar"
-			// that we take into account, unless the Toolbar display was forced on this site
+			// If current user has a role on the current site, ie. not a visitor nor a network user,
+			// Take into account the checkbox "Show Toolbar" on the WP Profile page on this site
+			// Unless the Toolbar display was forcibly displayed on this site
 			if ( !empty( $current_user->roles ) ) {
 				$ret = ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) == "on" ) ? true : $show_admin_bar;
 			} else
@@ -334,368 +325,6 @@ function symposium_toolbar_show_admin_bar( $show_admin_bar ) {
 		$ret = $show_admin_bar;
 	
 	return $ret;
-}
-
-/**
- * Called on top of each page through the hook 'wp_before_admin_bar_render'
- * Edit the WP Toolbar generic toplevel items and menus, as well as add custom menus, according to plugin settings
- * This is the core function of the plugin
- *
- * @since 0.0.10, replaced function symposium_toolbar_edit_profile_info()
- *
- * @param  none
- * @return none
- */
-function symposium_toolbar_edit_wp_toolbar() {
-
-	global $wpdb, $wp_admin_bar, $current_user;
-	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
-	
-	// If WP Toolbar shows, edit it for selected roles incl visitor that are allowed to see it
-	if ( !is_admin_bar_showing() )
-		return;
-	
-	// get_currentuserinfo();
-	if ( is_user_logged_in() ) {
-		// WPMS:
-		// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
-		// - Superadmins are made administrators of the site
-		if ( !empty( $current_user->roles ) )
-			$current_role = $current_user->roles;
-		else
-			$current_role = ( is_super_admin() ) ? array( "administrator" ) : array( "wpst_user" );
-		
-		$user_id = $current_user->data->ID;
-		$profile_url = get_edit_profile_url( $user_id );
-	} else {
-		$current_role = array( "wpst_visitor" );
-		$user_id = 0;
-		$profile_url = site_url();
-	}
-	
-	if ( isset( $current_role[0] ) ) {
-		$current_role_slug = $current_role[0];
-		$current_role_title = $wpst_roles_all_incl_visitor[ $current_role_slug ];
-	} else {
-		$current_role_slug = $current_role_title = "";
-	}
-	
-	// Array of all custom menus to attach to the Toolbar for this site (if tab not hidden)
-	$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
-	
-	// If Multisite and network activated, add network menus to custom menus
-	if ( is_multisite() && !is_main_site() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
-		$all_network_menus = get_option( 'wpst_tech_network_menus', array() );
-		if ( $all_network_menus != array() ) {
-			$all_network_menus = maybe_unserialize( $all_network_menus );
-			$all_custom_menus = array_merge( $all_network_menus, $all_custom_menus );
-		}
-	}
-	
-	// Site related.
-	// For now, check if the WP logo has a custom menu attached to it for the user's role
-	(bool)$has_custom_menu_on_wp_logo = false; // True if there's a custom menu defined at this location
-	(bool)$has_navmenu_on_custom_menu = false; // True if the NavMenu actually exists for the custom menu
-	if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
-		if ( is_array( $custom_menu[2] ) )
-			if ( ( $custom_menu[1] == 'wp-logo' ) && array_intersect( $current_role, $custom_menu[2] ) )
-				$has_custom_menu_on_wp_logo = true;
-	}
-	// Lower below, we'll check if the NavMenu the custom menu points to, actually exists
-	// Depending on result we'll hide the whole node, or only its menu items while keeping the node for the custom menu
-	// Re-adding a removed node would put it at the inner end of the quicklinks and this is not what we want  :)
-	
-	if ( is_array( get_option( 'wpst_toolbar_my_sites', array_keys( $wpst_roles_administrator ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_my_sites', array_keys( $wpst_roles_administrator ) ) ) )
-			$wp_admin_bar->remove_menu( 'my-sites' );
-	
-	if ( is_array( get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_site_name', array_keys( $wpst_roles_all ) ) ) )
-			$wp_admin_bar->remove_menu( 'site-name' );
-	
-	if ( is_array( get_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_updates_icon', array_keys( $wpst_roles_updates ) ) ) )
-			$wp_admin_bar->remove_node( 'updates' );
-	
-	// Content related.
-	if ( is_array( get_option( 'wpst_toolbar_comments_bubble', array_keys( $wpst_roles_comment ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_comments_bubble', array_keys( $wpst_roles_comment ) ) ) )
-			$wp_admin_bar->remove_node( 'comments' );
-		else
-			$wp_admin_bar->add_node( array( 
-			'id'     => 'comments',
-			'meta'   => array( 
-				'class'  => "menupop"
-				)
-			) );
-	
-	if ( is_array( get_option( 'wpst_toolbar_new_content', array_keys( $wpst_roles_new_content ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_new_content', array_keys( $wpst_roles_new_content ) ) ) )
-			$wp_admin_bar->remove_node( 'new-content' );
-	
-	if ( is_array( get_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) ) ) )
-			$wp_admin_bar->remove_node( 'view' );
-			// $wp_admin_bar->remove_node( 'get-shortlink' );
-	
-	if ( is_array( get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ) ) )
-		if ( !array_intersect( $current_role, get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ) ) )
-			$wp_admin_bar->remove_node( 'edit' );
-	
-	// User related, aligned right.
-	// Search - see symposium_toolbar_modify_search_menu() below, hooked later in the process
-	
-	// My Account - Either edit or remove completely
-	if ( is_array( get_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all ) ) ) ) if ( array_intersect( $current_role, get_option( 'wpst_toolbar_user_menu', array_keys( $wpst_roles_all ) ) ) ) {
-		
-		$avatar_large = $user_info_collected = "";
-		if ( is_user_logged_in() ) {
-			
-			// Howdy and Avatar in the Toolbar
-			if ( $howdy = stripslashes( get_option( 'wpst_myaccount_howdy', __( 'Howdy', 'wp-symposium-toolbar' ).', %display_name%' ) ) ) {
-				$howdy = str_replace( "%login%", $current_user->user_login, $howdy );
-				$howdy = str_replace( "%name%", $current_user->user_name, $howdy );
-				$howdy = str_replace( "%nice_name%", $current_user->user_nicename, $howdy );
-				$howdy = str_replace( "%first_name%", $current_user->user_firstname, $howdy );
-				$howdy = str_replace( "%last_name%", $current_user->user_lastname, $howdy );
-				$howdy = str_replace( "%display_name%", $current_user->display_name, $howdy );
-				$howdy = str_replace( "%role%", $current_role_title, $howdy );
-			}
-			// Since WP 3.8+ this display is managed via CSS by the function symposium_toolbar_add_styles()
-			$avatar_small = get_avatar( $user_id, 26 );
-			
-			// User Info that goes on top of the menu
-			$user_info = $wp_admin_bar->get_node( 'user-info' )->title;
-			$user_info_arr = explode( "><", $user_info );
-			
-			if ( is_array( $user_info_arr ) && !empty( $user_info_arr ) ) {
-				foreach ( $user_info_arr as $user_info_element ) {
-					$user_info_element = '<' . trim( $user_info_element , "<>" ) . '>';
-					
-					// The Avatar
-					if ( strstr ( $user_info_element, "avatar" ) ) {
-						if ( get_option( 'wpst_myaccount_avatar', 'on' ) == "on" )
-							$avatar_large = $user_info_element;
-					// The Display Name
-					} elseif ( strstr ( $user_info_element, "display-name" ) ) {
-						if ( get_option( 'wpst_myaccount_display_name', 'on' ) == "on" )
-							// Hook to modify the display name and eventually replace it with any other user info
-							$user_info_collected .= apply_filters( 'symposium_toolbar_custom_display_name', $user_info_element );
-					// The User Name
-					} elseif ( strstr ( $user_info_element, "username" ) ) {
-						if ( ( get_option( 'wpst_myaccount_username', 'on' ) == "on" ) && ( get_option( 'wpst_myaccount_display_name', 'on' ) == "on" ) )
-							$user_info_collected .= $user_info_element;
-					// Anything else, possibly add_noded by other plugins or theme's functions.php, in doubt we keep it
-					} else 
-						$user_info_collected .= $user_info_element;
-				}
-			}
-			
-			// Option to add the role to the user info
-			if ( $current_role_slug && ( get_option( 'wpst_myaccount_role', '' ) == "on" ) )
-				$user_info_collected .= "<span class='username wpst-role wpst-role-".$current_role_slug."'>".$current_role_title."</span>";
-			
-			// Hook to add any HTML item to the user info
-			$user_info_collected = apply_filters( 'symposium_toolbar_custom_user_info', $user_info_collected );
-		
-		} else {
-			$howdy  = stripslashes( get_option( 'wpst_myaccount_howdy_visitor', __( 'Howdy', 'wp-symposium-toolbar' ).", ".__( 'Visitor', 'wp-symposium-toolbar' ) ) );
-			// Since WP 3.8+ this display is managed via CSS by the function symposium_toolbar_add_styles()
-			$avatar_small = get_avatar( $user_id, 26 );  // Get a blank avatar
-		}
-		
-		// Classes
-		$my_account_class = ( $user_id > 0 ) ? 'wpst-user with-avatar' : 'wpst-visitor with-avatar';
-		if ( $avatar_large && $user_info_collected ) {
-			$user_info_class  = '';
-		} else {
-			$user_info_class  = ( $avatar_large ) ? 'wpst-user-info wpst-with-avatar' : '';
-			$avatar_large = str_replace( "avatar-64", "avatar-64 wpst-avatar", $avatar_large );
-		}
-		$user_actions_class = ( $avatar_large ) ? 'wpst-user-actions' : '';
-		if ( ! $avatar_large || ! $user_info_collected ) $user_actions_class .= ' wpst-user-actions-narrow';
-		
-		// Update My Account and menu with above data
-		// Below, hook to modify the profile link on top of the User Menu, next to "Howdy"
-		$wp_admin_bar->add_menu( array( 
-			'id'     => 'my-account',
-			'parent' => 'top-secondary',
-			'title'  => $howdy . $avatar_small,
-			'href'   => esc_url( apply_filters( 'symposium_toolbar_my_account_url_update', $profile_url ) ),
-			'meta'   => array( 
-				'class'  => $my_account_class,
-				'title'  => __( 'My Account' )
-			)
-		) );
-		if ( $user_actions_class )
-			$wp_admin_bar->add_group( array( 
-				'id'     => 'user-actions',
-				'parent' => 'my-account',
-				'meta'   => array( 
-					'class'  => $user_actions_class )
-			) );
-		// Below, hook to modify the profile link in the WP User Info
-		if ( $avatar_large . $user_info_collected ) {
-			(bool)$has_user_info = true;
-			$wp_admin_bar->add_menu( array( 
-				'id'     => 'user-info',
-				'parent' => 'user-actions',
-				'title'  => $avatar_large . $user_info_collected,
-				'href'   => esc_url( apply_filters( 'symposium_toolbar_user_info_url_update', $profile_url ) ),
-				'meta'   => array( 
-					'class'  => $user_info_class,
-					'style'  => 'min-height: 64px;' )
-			) );
-		
-		} else
-			(bool)$has_user_info = false;
-		
-		// Hook to add anything to the User Actions
-		if ( $user_id > 0 ) if ( is_array( $added_info = apply_filters( 'symposium_toolbar_add_user_action', $user_id ) ) ) {
-			(int)$i = 1;
-			// added_info should be an array of arrays in case there would be more than one item to add...
-			foreach ( $added_info as $added_info_row ) {
-				// added_info items must be made of a title and a URL: array( 'title' => title, 'url' => url )
-				if ( is_array( $added_info_row ) ) if ( is_string( $added_info_row['title'] ) && filter_var( $added_info_row['url'], FILTER_VALIDATE_URL ) ) {
-					$wp_admin_bar->add_menu( array( 
-						'id'     => 'wpst-added-info-'.$i,
-						'parent' => 'user-actions',
-						'title'  => $added_info_row['title'],
-						'href'   => esc_url( $added_info_row['url'] )
-					) );
-					$i=$i+1;
-					// (bool)$has_user_info = true;
-				}
-			}
-		}
-		
-		// Remove the user info item if there's nothing to put in it
-		if ( ! $has_user_info )
-			$wp_admin_bar->remove_node( 'user-info' );
-		
-		if ( get_option( 'wpst_myaccount_edit_link' ) != "on" )
-			$wp_admin_bar->remove_node( 'edit-profile' );
-		
-		if ( get_option( 'wpst_myaccount_logout_link', 'on' ) != "on" )
-			$wp_admin_bar->remove_node( 'logout' );
-		
-	} else {
-		// Remove My Account since the current user cannot access it
-		$wp_admin_bar->remove_node( 'user-actions' );
-		$wp_admin_bar->remove_node( 'my-account' );
-	}
-	
-	// Custom Menus
-	(int)$count = 0;
-	// Build all menus one by one and item after item
-	if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
-		
-		// This menu is made of:
-		//  $custom_menu[0] = menu slug
-		//  $custom_menu[1] = location slug
-		//  $custom_menu[2] = array of selected roles for this menu
-		//  $custom_menu[3] = URL to a custom icon that will replace the toplevel menu item title
-		//  $custom_menu[4] = if a WPMS Network menu, true / the array of its menu items, false otherwise
-		//  $custom_menu[5] = boolean, force display of menu in responsive mode
-		if ( is_array( $custom_menu[2] ) ) if ( array_intersect( $current_role, $custom_menu[2] ) ) {
-			
-			$menu_items = array();
-			if ( isset( $custom_menu[4] ) && is_array( $custom_menu[4] ) ) {
-				$menu_items = $custom_menu[4];
-			
-			} else {
-				$items = $menu_items = false;
-				
-				// Get IDs of the items populating this menu
-				$menu_obj = wp_get_nav_menu_object( $custom_menu[0] );
-				if ( $menu_obj ) $items = get_objects_in_term( $menu_obj->term_id, 'nav_menu' );
-				
-				// Get post data for these items, and add nav_menu_item data
-				if ( $items ) {
-					$sql="SELECT * FROM ".$wpdb->prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
-					$menu_items = array_map( 'wp_setup_nav_menu_item', $wpdb->get_results( $sql ) );
-				}
-			}
-			
-			// Create the menu, item by item
-			if ( $menu_items ) foreach ( $menu_items as $menu_item ) {
-				
-				$menu_item = wp_parse_args( $menu_item, array( 'classes' => array(), 'title' => '', 'attr_title' => '', 'target' => '', 'xfn' => '' ) );
-				$menu_id = $menu_item['ID'];
-				$title = $menu_item['title'];
-				$meta = array( 'class' => implode( " ", $menu_item['classes'] ), 'tabindex' => -1, 'title' => $menu_item['attr_title'], 'target' => $menu_item['target'], 'rel' => $menu_item['xfn'] );
-				
-				// Toplevel menu item
-				if ( $menu_item['menu_item_parent'] == 0 ) {
-					
-					// Add an icon
-					if ( !empty( $custom_menu[3] ) && is_string( $custom_menu[3] ) ) {
-						
-						// Replacing the toplevel menu item title with a custom icon, while keeping the title for mouse hover
-						if ( filter_var( $custom_menu[3], FILTER_VALIDATE_URL ) ) {
-							$meta['title'] = $title;
-							$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
-						
-						// Add a fonticon to the toplevel menu item
-						} else
-							$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-custom-item-'.$count : 'wpst-custom-item-'.$count;
-					}
-					
-					// We are replacing WP Logo
-					if ( ( $custom_menu[1] == 'wp-logo' ) && ( !array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', $wpst_roles_all_incl_visitor ) ) ) ) {
-						if ( !$has_navmenu_on_custom_menu ) {
-							$menu_id = 'wp-logo';
-							$menu_item_parent = false;
-							$old_menu_id = $menu_item['ID'];
-							$has_navmenu_on_custom_menu = true;
-						} else {
-							$menu_item_parent = 'wp-logo';
-						}
-						
-					// Any other Toplevel menu item
-					} else {
-						$menu_item_parent = $custom_menu[1]; // location slug
-					}
-					
-				} else {
-					// We are replacing WP Logo, and this is one of its menu items
-					if ( ( $custom_menu[1] == 'wp-logo' ) && ( !array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', $wpst_roles_all_incl_visitor ) ) ) && ( $menu_item['menu_item_parent'] == $old_menu_id ) ) {
-						$menu_item_parent = 'wp-logo'; // parent slug
-					
-					// Any other menu item
-					} else
-						$menu_item_parent = $menu_item['menu_item_parent'];
-				}
-				
-				// Add a custom class for responsiveness
-				if ( isset( $custom_menu[5] ) && $custom_menu[5] && in_array( $menu_item_parent, array( '', 'top-secondary' ) ) ) {
-					$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-r-item' : 'wpst-r-item';
-				}
-				
-				// Add the item to the Toolbar
-				$symposium_toolbar_user_menu_item = array( 
-					'title' => $title,
-					'href' => $menu_item['url'],
-					'id' => $menu_id,
-					'parent' => $menu_item_parent,
-					'meta' => $meta
-				);
-				$wp_admin_bar->add_node( $symposium_toolbar_user_menu_item );
-			}
-		}
-		$count = $count + 1;
-	}
-	
-	// Finally, decide if WP Logo shall be removed / replaced / left untouched
-	if ( is_array( get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {
-		if ( ! array_intersect( $current_role, get_option( 'wpst_toolbar_wp_logo', array_keys( $wpst_roles_all_incl_visitor ) ) ) ) {
-			if ( $has_custom_menu_on_wp_logo && $has_navmenu_on_custom_menu ) {
-				$wp_admin_bar->remove_node( 'about' );
-				$wp_admin_bar->remove_node( 'wp-logo-external' );
-			} else
-				$wp_admin_bar->remove_menu( 'wp-logo' );
-		}
-	}
 }
 
 /**
@@ -747,6 +376,409 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
 }
 
 /**
+ * Add the "My Account" item.
+ *
+ * @since WPST 0.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_my_account_item( $wp_admin_bar ) {
+	
+	global $wpst_roles_all_incl_visitor;
+	
+	// Get current user's role
+	$current_user = wp_get_current_user();
+	$current_role = symposium_toolbar_get_current_role( $current_user->ID );
+	
+	// Get user's other data
+	if ( is_user_logged_in() ) {
+		$user_id = $current_user->data->ID;
+		$profile_url = get_edit_profile_url( $user_id );
+		
+		$howdy = stripslashes( get_option( 'wpst_myaccount_howdy', __( 'Howdy', 'wp-symposium-toolbar' ).', %display_name%' ) );
+		$howdy = str_replace( "%login%", $current_user->user_login, $howdy );
+		$howdy = str_replace( "%name%", $current_user->user_name, $howdy );
+		$howdy = str_replace( "%nice_name%", $current_user->user_nicename, $howdy );
+		$howdy = str_replace( "%first_name%", $current_user->user_firstname, $howdy );
+		$howdy = str_replace( "%last_name%", $current_user->user_lastname, $howdy );
+		$howdy = str_replace( "%display_name%", $current_user->display_name, $howdy );
+		if ( isset( $wpst_roles_all_incl_visitor[ $current_role[0] ] ) ) $howdy = str_replace( "%role%", $wpst_roles_all_incl_visitor[ $current_role[0] ], $howdy );
+		$avatar = get_avatar( $user_id, 26 );
+		$class = 'wpst-user with-avatar';
+		
+	} else {
+		$user_id = 0;
+		$profile_url = site_url();
+		
+		$howdy  = stripslashes( get_option( 'wpst_myaccount_howdy_visitor', __( 'Howdy', 'wp-symposium-toolbar' ).", ".__( 'Visitor', 'wp-symposium-toolbar' ) ) );
+		$avatar = get_avatar( $user_id, 26 );  // Get a blank avatar for visitors
+		$class = 'wpst-visitor with-avatar';
+	}
+	
+	// Below, hook to modify the profile link on top of the User Menu, next to "Howdy"
+	$wp_admin_bar->add_menu( array(
+		'id'        => 'my-account',
+		'parent'    => 'top-secondary',
+		'title'     => $howdy . $avatar,
+		'href'      => esc_url( apply_filters( 'symposium_toolbar_my_account_url_update', $profile_url ) ),
+		'meta'      => array(
+			'class'     => $class,
+			'title'     => __('My Account'),
+		),
+	) );
+}
+
+/**
+ * Add the "My Account" submenu items.
+ *
+ * @since WPST 0.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_my_account_menu( $wp_admin_bar ) {
+
+	global $wpst_roles_all_incl_visitor, $wpst_roles_all;
+	
+	if ( !is_user_logged_in() )
+		return;
+	
+	// Get current user's role
+	$current_user = wp_get_current_user();
+	$current_role = symposium_toolbar_get_current_role( $current_user->ID );
+	
+	// Get user's other data
+	if ( is_user_logged_in() ) {
+		$user_id = $current_user->data->ID;
+		$profile_url = get_edit_profile_url( $user_id );
+	} else {
+		$user_id = 0;
+		$profile_url = site_url();
+	}
+	
+	// Build the User Info item by item
+	$avatar = $user_info = "";
+	
+	// The Avatar
+	if ( get_option( 'wpst_myaccount_avatar', 'on' ) == "on" )
+		$avatar = get_avatar( $user_id, 64 );
+	
+	// The Display Name
+	if ( get_option( 'wpst_myaccount_display_name', 'on' ) == "on" )
+		// Hook to modify the display name and eventually replace it with any other user info
+		$user_info .= "<span class='display-name'>".apply_filters( 'symposium_toolbar_custom_display_name', $current_user->display_name)."</span>";
+	
+	// The User Name
+	if ( $current_user->display_name !== $current_user->user_login )
+		if ( ( get_option( 'wpst_myaccount_username', 'on' ) == "on" ) && ( get_option( 'wpst_myaccount_display_name', 'on' ) == "on" ) )
+			$user_info .= "<span class='username'>".$current_user->user_login."</span>";
+	
+	// Option to add the role to the user info
+	if ( get_option( 'wpst_myaccount_role', '' ) == "on" ) {
+		$current_role = apply_filters( 'symposium_toolbar_user_info_role', array( $current_role[0] ), $current_role );
+		if ( is_array( $current_role ) && ( count( $current_role ) > 0 ) ) {
+			foreach ( $current_role as $role ) {
+				$current_role_title = ( isset( $wpst_roles_all_incl_visitor[ $role ] ) ) ? $wpst_roles_all_incl_visitor[ $role ] : $role;
+				$user_info .= "<span class='username wpst-role wpst-role-".$role."'>".$current_role_title."</span>";
+			}
+		}
+	}
+/* 
+	if ( get_option( 'wpst_myaccount_role', '' ) == "on" ) {
+		if ( count( $current_role ) > 0 ) {
+			$current_role_slug = $current_role_title = "";
+			$comma = "";
+			foreach ( $current_role as $role ) {
+				$current_role_slug .= " wpst-role-".$role;
+				$current_role_title .= $comma.$wpst_roles_all_incl_visitor[ $role ];
+				$comma = ", ";
+			}
+			$user_info .= "<span class='username wpst-role".$current_role_slug."'>".$current_role_title."</span>";
+		}
+	}
+ */			
+	// Hook to add any HTML item to the user info
+	$user_info = apply_filters( 'symposium_toolbar_custom_user_info', $user_info );
+	
+	// Classes
+	if ( $avatar && $user_info ) {
+		$user_info_class  = '';
+	} else {
+		$user_info_class  = ( $avatar ) ? 'wpst-user-info wpst-with-avatar' : '';
+		$avatar = str_replace( "avatar-64", "avatar-64 wpst-avatar", $avatar );
+	}
+	$user_actions_class = ( $avatar ) ? 'wpst-user-actions' : '';
+	if ( ! $avatar || ! $user_info ) $user_actions_class .= ' wpst-user-actions-narrow';
+	
+	// Add items to the Toolbar
+	$wp_admin_bar->add_group( array(
+		'parent' => 'my-account',
+		'id'     => 'user-actions',
+		'meta'   => array(
+			'class'  => $user_actions_class
+		)
+	) );
+	
+	if ( $avatar . $user_info )
+		$wp_admin_bar->add_menu( array(
+			'id'     => 'user-info',
+			'parent' => 'user-actions',
+			'title'  => $avatar . $user_info,
+			'href'   => esc_url( apply_filters( 'symposium_toolbar_user_info_url_update', $profile_url ) ),
+			'meta'   => array(
+				'class'  => $user_info_class,
+				'style'  => 'min-height: 64px;',
+				'tabindex' => -1
+			)
+		) );
+	
+	if ( get_option( 'wpst_myaccount_edit_link' ) == "on" )
+		$wp_admin_bar->add_menu( array(
+			'parent' => 'user-actions',
+			'id'     => 'edit-profile',
+			'title'  => __( 'Edit My Profile' ),
+			'href' => esc_url( apply_filters( 'symposium_toolbar_edit_profile_url_update', $profile_url ) ),
+		) );
+	
+	if ( get_option( 'wpst_myaccount_logout_link', 'on' ) == "on" )
+		$wp_admin_bar->add_menu( array(
+			'parent' => 'user-actions',
+			'id'     => 'logout',
+			'title'  => __( 'Log Out' ),
+			'href'   => wp_logout_url(),
+		) );
+	
+	// Hook to add anything to the User Actions
+	if ( $user_id > 0 ) if ( is_array( $added_info = apply_filters( 'symposium_toolbar_add_user_action', $user_id ) ) ) {
+		(int)$i = 1;
+		// added_info should be an array of arrays in case there would be more than one item to add...
+		foreach ( $added_info as $added_info_row ) {
+			// added_info items must be made of a title and a URL: array( 'title' => title, 'url' => url )
+			if ( is_array( $added_info_row ) ) if ( is_string( $added_info_row['title'] ) && filter_var( $added_info_row['url'], FILTER_VALIDATE_URL ) ) {
+				$wp_admin_bar->add_menu( array( 
+					'id'     => 'wpst-added-info-'.$i,
+					'parent' => 'user-actions',
+					'title'  => $added_info_row['title'],
+					'href'   => esc_url( $added_info_row['url'] )
+				) );
+				$i=$i+1;
+			}
+		}
+	}
+}
+
+/**
+ * Add search form
+ *
+ * @since 0.0.12, under the name symposium_toolbar_add_search_menu(), then symposium_toolbar_modify_search_menu()
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_search_menu( $wp_admin_bar ) {
+	
+	if ( is_admin() )
+		return;
+
+	$form  = '<form action="' . esc_url( home_url( '/' ) ) . '" method="get" id="adminbarsearch">';
+	$form .= '<input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" />';
+	$form .= '<input type="submit" class="adminbar-button" value="' . __('Search') . '"/>';
+	$form .= '</form>';
+	
+	$location = get_option( 'wpst_toolbar_move_search_field' );
+	if ( $location == 'empty' ) $location = 'top-secondary';
+	
+	$wp_admin_bar->add_menu( array(
+		'parent' => $location,
+		'id'     => 'search',
+		'title'  => $form,
+		'meta'   => array(
+			'class'    => 'admin-bar-search',
+			'tabindex' => -1,
+		)
+	) );
+}
+
+/**
+ * Display the Custom Menus at both ends of the Toolbar
+ *
+ * @since O.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_custom_outer( $wp_admin_bar ) {
+	
+	// Get current user's role
+	$current_user = wp_get_current_user();
+	$current_role = symposium_toolbar_get_current_role( $current_user->ID );
+	
+	// Array of all custom menus to attach to the Toolbar for this site (if tab not hidden)
+	$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
+	
+	// If Multisite and network activated, add network menus to those defined locally
+	if ( is_multisite() && !is_main_site() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
+		$all_network_menus = get_option( 'wpst_tech_network_menus', array() );
+		if ( $all_network_menus != array() ) {
+			$all_network_menus = maybe_unserialize( $all_network_menus );
+			$all_custom_menus = array_merge( $all_network_menus, $all_custom_menus );
+		}
+	}
+	
+	if ( $all_custom_menus ) foreach ( $all_custom_menus as $key => $custom_menu ) {
+		if ( ( ( $custom_menu[1] == 'left' ) || ( $custom_menu[1] == 'right' ) ) && array_intersect( $current_role, $custom_menu[2] ) ) {
+			if ( $custom_menu[1] == 'left' ) $custom_menu[1] = '';
+			if ( $custom_menu[1] == 'right' ) $custom_menu[1] = 'top-secondary';
+			call_user_func( 'symposium_toolbar_custom_menu_walker', $wp_admin_bar, $custom_menu, $current_role, $key );
+		}
+	}
+}
+
+/**
+ * Display the Custom Menus attached to any given location different Toolbar ends
+ *
+ * @since O.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_custom_menus( $wp_admin_bar ) {
+	
+	// Get current user's role
+	$current_user = wp_get_current_user();
+	$current_role = symposium_toolbar_get_current_role( $current_user->ID );
+	
+	// Array of all custom menus to attach to the Toolbar for this site (if tab not hidden)
+	$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
+	
+	// If Multisite and network activated, add network menus to those defined locally
+	if ( is_multisite() && !is_main_site() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) ) {
+		$all_network_menus = get_option( 'wpst_tech_network_menus', array() );
+		if ( $all_network_menus != array() ) {
+			$all_network_menus = maybe_unserialize( $all_network_menus );
+			$all_custom_menus = array_merge( $all_network_menus, $all_custom_menus );
+		}
+	}
+	
+	if ( $all_custom_menus ) foreach ( $all_custom_menus as $key => $custom_menu ) {
+		if ( ( $custom_menu[1] != 'left' ) && ( $custom_menu[1] != 'right' ) && array_intersect( $current_role, $custom_menu[2] ) ) {
+			call_user_func( 'symposium_toolbar_custom_menu_walker', $wp_admin_bar, $custom_menu, $current_role, $key );
+		}
+	}
+}
+
+/**
+ * Add the Custom Menu passed in param to the Toolbar
+ *
+ * @since O.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ * @param $custom_menu, an array made of:
+ *  $custom_menu[0] = menu slug
+ *  $custom_menu[1] = location slug
+ *  $custom_menu[2] = array of selected roles for this menu
+ *  $custom_menu[3] = URL to a custom icon that will replace the toplevel menu item title
+ *  $custom_menu[4] = if a WPMS Network menu, true / the array of its menu items, false otherwise
+ *  $custom_menu[5] = boolean, force display of menu in responsive mode
+ * @param $current_role, an array of roles
+ */
+function symposium_toolbar_custom_menu_walker( $wp_admin_bar, $custom_menu, $current_role, $count ) {
+	
+	global $wpdb;
+	
+	if ( is_array( $custom_menu[2] ) ) if ( array_intersect( $current_role, $custom_menu[2] ) ) {
+		
+		$menu_items = array();
+		if ( isset( $custom_menu[4] ) && is_array( $custom_menu[4] ) ) {
+			$menu_items = $custom_menu[4];
+		
+		} else {
+			$items = $menu_items = false;
+			
+			// Get IDs of the items populating this menu
+			$menu_obj = wp_get_nav_menu_object( $custom_menu[0] );
+			if ( $menu_obj ) $items = get_objects_in_term( $menu_obj->term_id, 'nav_menu' );
+			
+			// Get post data for these items, and add nav_menu_item data
+			if ( $items ) {
+				$sql="SELECT * FROM ".$wpdb->prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
+				$menu_items = array_map( 'wp_setup_nav_menu_item', $wpdb->get_results( $sql ) );
+			}
+		}
+		
+		// Create the menu, item by item
+		if ( $menu_items ) foreach ( $menu_items as $menu_item ) {
+			
+			$menu_item = wp_parse_args( $menu_item, array( 'classes' => array(), 'title' => '', 'attr_title' => '', 'target' => '', 'xfn' => '' ) );
+			$menu_item = apply_filters( 'wpst_custome_menu_item_array', $menu_item );
+			$title = apply_filters( 'wpst_custome_menu_item_title', $menu_item['title'] );
+			$title = apply_filters( 'wpst_custome_menu_item_title_'.$custom_menu[0], $title );
+			$meta = array( 'class' => implode( " ", $menu_item['classes'] ), 'tabindex' => -1, 'title' => $menu_item['attr_title'], 'target' => $menu_item['target'], 'rel' => $menu_item['xfn'] );
+			
+			// Toplevel menu item
+			if ( $menu_item['menu_item_parent'] == 0 ) {
+				
+				$menu_item_parent = $custom_menu[1]; // location slug
+				
+				// Add the icon to toplevel menu items connected to the Toolbar
+				if ( !empty( $custom_menu[3] ) && is_string( $custom_menu[3] ) && ( ( $custom_menu[1] == "" ) || ( $custom_menu[1] == "top-secondary" ) ) ) {
+					
+					// Replacing the title with a custom icon, while keeping the title for mouse hover
+					if ( filter_var( $custom_menu[3], FILTER_VALIDATE_URL ) ) {
+						$meta['title'] = $title;
+						$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
+					
+					// Add a fonticon to the toplevel menu item
+					} else {
+						$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-custom-icon-'.$count : 'wpst-custom-icon-'.$count;
+					}
+				}
+				
+			} else {
+				$menu_item_parent = $menu_item['menu_item_parent'];
+			}
+			
+			// Add a custom class for responsiveness
+			if ( isset( $custom_menu[5] ) && $custom_menu[5] && in_array( $menu_item_parent, array( '', 'top-secondary' ) ) ) {
+				$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-r-item' : 'wpst-r-item';
+			}
+			
+			// Add the item to the Toolbar
+			$wp_admin_bar->add_node( array( 
+				'id' => $menu_item['ID'],
+				'title' => $title,
+				'href' => $menu_item['url'],
+				'parent' => $menu_item_parent,
+				'meta' => $meta
+			) );
+		}
+	}
+}
+
+/**
+ * Add the "Comments" icon with a menupop class
+ *
+ * @since WPST 0.30.0
+ *
+ * @param WP_Admin_Bar $wp_admin_bar
+ */
+function symposium_toolbar_comments_menu( $wp_admin_bar ) {
+
+	$awaiting_mod = wp_count_comments();
+	$awaiting_mod = $awaiting_mod->moderated;
+	$awaiting_title = esc_attr( sprintf( _n( '%s comment awaiting moderation', '%s comments awaiting moderation', $awaiting_mod ), number_format_i18n( $awaiting_mod ) ) );
+	
+	$icon  = '<span class="ab-icon"></span>';
+	$title = '<span id="ab-awaiting-mod" class="ab-label awaiting-mod pending-count count-' . $awaiting_mod . '">' . number_format_i18n( $awaiting_mod ) . '</span>';
+	
+	$wp_admin_bar->add_menu( array(
+		'id'    => 'comments',
+		'title' => $icon . $title,
+		'href'  => admin_url('edit-comments.php'),
+		'meta'  => array(
+			'title' => $awaiting_title,
+			'class'  => "menupop"
+		)
+	));
+}
+
+/**
  * Displays the list of sites of the network, to superadmins only, when network activated
  *
  * @since O.26.0
@@ -754,13 +786,8 @@ function symposium_toolbar_edit_profile_url( $url, $user, $scheme ) {
  * @param none
  * @return none
  */
-function symposium_toolbar_super_admin_menu() {
+function symposium_toolbar_super_admin_menu( $wp_admin_bar ) {
 
-	global $wp_admin_bar;
-	
-	if ( !is_admin_bar_showing() )
-		return;
-	
 	if ( !is_multisite() || !is_super_admin() || !is_plugin_active_for_network( 'wp-symposium-toolbar/wp-symposium-toolbar.php' ) )
 		return;
 	
@@ -792,51 +819,44 @@ function symposium_toolbar_super_admin_menu() {
 }
 
 /**
- * Called on top of each site page
- * Use the array of arrays created above for display of the Admin Menu, based on user capabilities
+ * Display the WPS Admin Menu, based on user capabilities
  *
  * @since 0.0.3 as symposium_toolbar_link_to_symposium_admin
  * @since 0.22.46 renamed symposium_toolbar_symposium_admin
  *
- * @param  none
- * @return none
+ * @param WP_Admin_Bar $wp_admin_bar
  */
-function symposium_toolbar_symposium_admin() {
+function symposium_toolbar_symposium_admin( $wp_admin_bar ) {
 	
-	global $wp_admin_bar;
+	$symposium_toolbar_admin_menu_args = get_option( 'wpst_tech_wps_admin_menu', array() );
 	
-	if ( is_admin_bar_showing() && current_user_can( 'manage_options' ) && ( get_option( 'wpst_wps_admin_menu', 'on' ) == "on" ) ) {
-	
-		$symposium_toolbar_admin_menu_args = get_option( 'wpst_tech_wps_admin_menu', array() );
-		
-		if ( $symposium_toolbar_admin_menu_args ) foreach ( $symposium_toolbar_admin_menu_args as $args ) {
-			$symposium_toolbar_admin_menu_item = array( 
-				'title' => $args[0],
-				'href' => $args[1],
-				'id' => $args[2],
-				'parent' => $args[3],
-				'meta' => $args[4]
-			);
-			$wp_admin_bar->add_node( $symposium_toolbar_admin_menu_item );
-		}
+	if ( $symposium_toolbar_admin_menu_args ) foreach ( $symposium_toolbar_admin_menu_args as $args ) {
+		$symposium_toolbar_admin_menu_item = array( 
+			'title' => $args[0],
+			'href' => $args[1],
+			'id' => $args[2],
+			'parent' => $args[3],
+			'meta' => $args[4]
+		);
+		$wp_admin_bar->add_node( $symposium_toolbar_admin_menu_item );
 	}
 }
 
 /**
- * Called on top of each site page
  * Display of new mails and friend requests
  *
  * @since 0.0.12
  *
- * @param  none
- * @return none
+ * @param WP_Admin_Bar $wp_admin_bar
  */
-function symposium_toolbar_symposium_notifications() {
+function symposium_toolbar_symposium_notifications( $wp_admin_bar ) {
 
-	global $wpdb, $current_user, $wp_admin_bar;
+	global $wpdb;
 	
-	if ( !is_admin_bar_showing() || !is_user_logged_in() )
+	if ( !is_user_logged_in() )
 		return;
+	
+	$current_user = wp_get_current_user();
 	
 	// Mail
 	$mail_url_arr = symposium_toolbar_wps_url_for( 'mail', $current_user->ID, 'wpst_wps_notification_mail' );
@@ -896,19 +916,17 @@ function symposium_toolbar_symposium_notifications() {
 }
 
 /**
- * Called on top of each site page
  * Display social share icons
  *
  * @since 0.27.0
  *
- * @param  none
- * @return none
+ * @param WP_Admin_Bar $wp_admin_bar
  */
-function symposium_toolbar_social_icons() {
+function symposium_toolbar_social_icons( $wp_admin_bar ) {
 
-	global $wp, $wp_admin_bar, $screen;
+	global $wp;
 	
-	if ( !is_admin_bar_showing() || is_admin() )
+	if ( is_admin() )
 		return;
 	
 	$share = get_option( 'wpst_share_icons', array() );
@@ -996,54 +1014,6 @@ function symposium_toolbar_social_icons() {
 }
 
 /**
- * Called on top of each site page
- * Remove and eventually re-add the Search icon and field to an alternate location
- *
- * @since 0.0.12, under the name symposium_toolbar_add_search_menu()
- *
- * @param  none
- * @return none
- */
-function symposium_toolbar_modify_search_menu() {
-	
-	global $wp_admin_bar, $current_user, $wpst_roles_all_incl_visitor;
-	
-	if ( !is_array( get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-		return;
-	
-	if ( is_user_logged_in() )
-		// WPMS:
-		// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
-		// - Superadmins are made administrators of the site
-		if ( !empty( $current_user->roles ) )
-			$current_role = $current_user->roles;
-		else
-			$current_role = ( is_super_admin() ) ? array( "administrator" ) : array( "wpst_user" );
-	else
-		$current_role = array( "wpst_visitor" );
-	
-	// Store for future use
-	$search = $wp_admin_bar->get_node( 'search' );
-	
-	// Remove search if user cannot see it, or it has to be moved somewhere else
-	if ( ( !array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-		|| ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) != "empty" ) )
-			$wp_admin_bar->remove_node( 'search' );
-	
-	// Re-add search if it has to be moved to an alternate location
-	if ( ( array_intersect( $current_role, get_option( 'wpst_toolbar_search_field', array_keys( $wpst_roles_all_incl_visitor ) ) ) )
-		&& ( in_array( get_option( 'wpst_toolbar_move_search_field', 'empty' ), array( "", "top-secondary" ) ) )
-		&& ( !empty( $search ) ) ) {
-			$wp_admin_bar->add_menu( array( 
-				'parent' => get_option( 'wpst_toolbar_move_search_field' ),
-				'id'     => $search->id,
-				'title'  => $search->title,
-				'meta'   => $search->meta
-			) );
-		}
-}
-
-/**
  * Check if a given WPS feature is activated on the site / anywhere on the network
  * And if its WP page is correctly defined at the WPS Install page
  * param: feature like 'mail', 'profile', etc
@@ -1063,25 +1033,16 @@ function symposium_toolbar_modify_search_menu() {
  */
 function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '' ) {
 	
-	global $wpdb, $blog_id, $current_user, $is_wps_active, $is_wps_available, $wpst_roles_all_incl_user;
+	global $wpdb, $blog_id, $current_user, $wpst_roles_all_incl_user;
 	
 	if ( !$feature || $user_id != filter_var( $user_id, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
 		return array();
 	
-	if ( !$is_wps_available )
+	if ( !WPST_IS_WPS_AVAILABLE )
 		return array();
 	
-	// WPMS:
-	// - caps and roles are empty in the WP_User object of a network member on a site he's not a user of
-	// - Superadmins are made administrators of the site
-	if ( $user_id > 0 ) {
-		$user_data = get_userdata( $user_id ); 	   
-		if ( !empty($user_data->roles) )
-			$current_role = ( is_array( $user_data->roles ) ) ? $user_data->roles : array();
-		else
-			$current_role = ( is_multisite() && is_super_admin() ) ? array( "administrator" ) : array( "wpst_user" );
-	} else
-		$current_role = array( "wpst_visitor" );
+	// Get current user's role
+	$current_role = symposium_toolbar_get_current_role( $user_id );
 	
 	if ( ( $option_name != '' ) && !is_array( get_option( $option_name, array_keys( $wpst_roles_all_incl_user ) ) ) )
 		return array();
@@ -1170,7 +1131,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		(bool)$feature_activated = get_option( WPS_OPTIONS_PREFIX.'__wps__'.$feature.'_activated', false);
 		
 		$page_url = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM ".$wpdb->prefix."options WHERE option_name = '%s' LIMIT 1", WPS_OPTIONS_PREFIX.'_'.$feature.'_url' ), ARRAY_A );
-		if ( $is_wps_active && ( "1" == $feature_activated ) && ( trim( $page_url["option_value"], "/" ) != "" ) )
+		if ( WPST_IS_WPS_ACTIVE && ( "1" == $feature_activated ) && ( trim( $page_url["option_value"], "/" ) != "" ) )
 			$feature_url["1"] = trim( site_url(), "/" ) . "/" . trim( $page_url["option_value"], "/" );
 	}
 	
@@ -1237,6 +1198,31 @@ function symposium_toolbar_custom_profile_option( $profileuser ) {
 		}
 		echo '</td></tr></table>';
 	}
+}
+
+/**
+ * Returns the current user's roles array
+ * In Multisite,
+ *	- caps and roles are empty in the WP_User object of a network user on a site he's not a member of, so we add 'wpst_user' instead
+ *	- Ad a dedicated role for Super Admins
+ *
+ * @since O.30.0
+ *
+ * @param $user_id, the id of the user we want the roles
+ * @return $roles, array of roles
+ */
+function symposium_toolbar_get_current_role( $user_id ) {
+	
+	if ( $user_id > 0 ) {
+		$user_data = get_userdata( $user_id );
+		$current_role = ( !empty( $user_data->roles ) ) ? $user_data->roles : array( "wpst_user" );
+	} else {
+		$current_role = array( "wpst_visitor" );
+	}
+	
+	if ( is_multisite() && is_super_admin( $user_id ) ) array_unshift( $current_role, "wpst_superadmin" );
+	
+	return $current_role;
 }
 
 ?>

@@ -334,13 +334,11 @@
     right: auto;
 }
 
-/* Add Admin Role to User Menu */
-#wpadminbar #wp-admin-bar-my-account .wpst-role {
+/* Add Role to User Menu */
+#wpadminbar #wp-admin-bar-my-account .wpst-role-wpst_superadmin,
+#wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
 	padding: 0 0 10px 15px;
 	margin: 10px 0 0 0;
-}
-
-#wpadminbar #wp-admin-bar-my-account .wpst-role-administrator {
 	border: 1px solid red;
 }
 
@@ -581,10 +579,12 @@
 /* All / none toggle */
 .wpst-float-div {
     float: left;
+	padding-left: 1px;
 }
 
 .rtl .wpst-float-div {
     float: right;
+	padding-right: 1px;
 }
 
 @media screen and (max-width: 782px) {
@@ -627,6 +627,10 @@
 }
 
 /* Error messages in the admin page */
+.wpst-error {
+	outline: 1px solid #CC0000 !Important;
+}
+
 .wpst-error-message {
 	margin-top: 12px;
 	padding: 12px;
@@ -634,6 +638,7 @@
 	border: 1px solid #CC0000;
 	vertical-align: bottom;
 	text-align: center;
+	clear: both;
 }
 
 /* Refines WP colorpicker */

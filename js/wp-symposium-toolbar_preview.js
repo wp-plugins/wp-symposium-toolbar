@@ -216,8 +216,7 @@ jQuery(document).ready(function($){
 		$("#wpadminbar.ie7").find(".shortlink-input").css( "top", tbHeight + "px" );
 		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper").css( "top", tbHeight + "px" );
 		$("#wpadminbar").find(".ab-top-menu > .menupop > .ab-sub-wrapper .ab-sub-wrapper").css( "top", wpstSubwrapperTop + "px" );
-		$('body').css( "margin-top", tbBodyMarginTop + "px" );
-		$("#wpbody").css( "margin-top", tbBodyMarginTop + "px" );
+		$("#wpwrap").css( "margin-top", tbBodyMarginTop + "px" );
 		
 		$("#wpadminbar").find(".quicklinks > ul > li > a").css( "height", tbHeight + "px" );
 		$("#wpadminbar").find(".quicklinks > ul > li > .ab-item").css( "height", tbHeight + "px" );

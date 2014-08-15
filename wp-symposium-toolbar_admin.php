@@ -21,7 +21,6 @@ function symposium_toolbar_admin_page() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	
-	global $is_wps_active;
 	global $wpst_failed, $wpst_notices;
 	global $wpst_shown_tabs;
 	
@@ -30,7 +29,7 @@ function symposium_toolbar_admin_page() {
 	// Page Title
 	echo '<div id="icon-themes" class="icon32"><br /></div>';
 	echo '<h2 style="margin-bottom: 15px;">';
-	if ( $is_wps_active )
+	if ( WPST_IS_WPS_ACTIVE )
 		echo __( 'WP Symposium Toolbar Settings', 'wp-symposium-toolbar' );
 	else 
 		echo __( 'WPS Toolbar Settings', 'wp-symposium-toolbar' );
@@ -98,9 +97,9 @@ function symposium_toolbar_admin_page() {
 		echo '<h3 id="wpst-nav-tabs" class="nav-tabs">';
 		foreach ( $wpst_shown_tabs as $tab_key => $tab_title ) {
 			if ( ( ( $tab_key != 'wps' ) && ( $tab_key != 'css' ) )
-			  || ( ( $tab_key == 'wps' ) && ( $is_wps_active ) )
+			  || ( ( $tab_key == 'wps' ) && ( WPST_IS_WPS_ACTIVE ) )
 			  || ( $tab_key == $wpst_active_tab ) ) {
-				if ( $is_wps_active )
+				if ( WPST_IS_WPS_ACTIVE )
 					echo '<a href="'.admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab='.$tab_key ).'"';
 				else
 					echo '<a href="'.admin_url( 'themes.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab='.$tab_key ).'"';
@@ -231,7 +230,7 @@ function symposium_toolbar_admin_page() {
 
 function symposium_toolbar_admintab_welcome() {
 
-	global $is_wps_active, $wpst_shown_tabs;
+	global $wpst_shown_tabs;
 	
 	echo '<div class="postbox"><div class="inside">';
 		
@@ -243,10 +242,10 @@ function symposium_toolbar_admintab_welcome() {
 			echo '<p>' . __( 'Thank you for installing WPS Toolbar. This plugin allows you to change the default behaviour of the WP Toolbar and customize its display, beyond anything that was made until now.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'At any time, you may refer to the help tabs on top of this page for a description of the options.', 'wp-symposium-toolbar' );
 			
-			if ( $is_wps_active ) echo '  ' . __( 'Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( WPST_IS_WPS_ACTIVE ) echo '  ' . __( 'Please also refer to the help tab added to the WP NavMenus settings page, when creating your menus with WP Symposium items.', 'wp-symposium-toolbar' ) . '</p>';
 			
 			if ( isset( $wpst_shown_tabs[ 'userguide' ] ) ) echo '<p>' . sprintf( __( 'You might also want to take a look at the various sections of the online %s, that will give a few hints.', 'wp-symposium-toolbar' ), '<span class="hide-if-no-js"><a href="'.admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab=userguide' ).'" style="cursor:pointer;">' . __( 'User Guide', 'wp-symposium-toolbar' ) .'</a></span><span class="hide-if-js">' . __( 'User Guide', 'wp-symposium-toolbar' ) . '</span>' ) . '</p>';
-			if ( isset( $wpst_shown_tabs[ 'devguide' ] ) ) echo '<p>' . sprintf( __( 'Should you plan to take advantage of the hooks and the CSS classes that the plugin contains, you might also be interrested in the %s', 'wp-symposium-toolbar' ), '<span class="hide-if-no-js"><a href="'.admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab=devguide' ).'" style="cursor:pointer;">' . __( 'Developers Guide', 'wp-symposium-toolbar' ) . '</a></span><span class="hide-if-js">' . __( 'Developers Guide', 'wp-symposium-toolbar' ) . '</span>' ) . '.</p>';
+			if ( isset( $wpst_shown_tabs[ 'devguide' ] ) ) echo '<p>' . sprintf( __( 'Should you plan to take advantage of the hooks / filters and the CSS classes that the plugin provides, you might also be interested in the %s', 'wp-symposium-toolbar' ), '<span class="hide-if-no-js"><a href="'.admin_url( 'admin.php?page=wp-symposium-toolbar/wp-symposium-toolbar_admin.php&tab=devguide' ).'" style="cursor:pointer;">' . __( 'Developers Guide', 'wp-symposium-toolbar' ) . '</a></span><span class="hide-if-js">' . __( 'Developers Guide', 'wp-symposium-toolbar' ) . '</span>' ) . '.</p>';
 			
 			echo '<p>' . sprintf( __( 'Bugs and issues should be reported in the %s forum, where support is ensured.', 'wp-symposium-toolbar' ), '<a href="http://wordpress.org/support/plugin/wp-symposium-toolbar">WordPress</a>' ) . '</p>';
 			
@@ -260,8 +259,6 @@ function symposium_toolbar_admintab_welcome() {
 
 function symposium_toolbar_admintab_features() {
 
-	global $is_wps_available;
-	
 	echo '<div class="postbox"><div class="inside">';
 	echo '<table class="form-table wpst-form-table">';
 	
@@ -281,7 +278,7 @@ function symposium_toolbar_admintab_features() {
 			else {
 				if ( get_option( 'wpst_wpms_network_toolbar', '' ) != '' ) {
 					$error = true;
-					echo ' wpst-error" style="outline:1px solid #CC0000;';
+					echo ' wpst-error';
 				}
 				echo '"';
 			}
@@ -307,7 +304,7 @@ function symposium_toolbar_admintab_features() {
 			else {
 				if ( get_option( 'wpst_wpms_user_home_site', '' ) != '' ) {
 					$error = true;
-					echo ' wpst-error" style="outline:1px solid #CC0000;';
+					echo ' wpst-error';
 				}
 				echo '"';
 			}
@@ -315,8 +312,8 @@ function symposium_toolbar_admintab_features() {
 			echo '<br /><span class="description"> ' . __( 'Note: This feature will allow users to select their "Home Site".', 'wp-symposium-toolbar' ) . '  ' . __( 'More precisely, it will:', 'wp-symposium-toolbar' );
 			echo '<br />1. ' . __( 'Add a checkbox to WP Profile pages so that users can select the current site as their "Home Site"', 'wp-symposium-toolbar' );
 			echo '<br />2. ' . __( 'When the user has selected a Home Site, link the Edit Profile URL, located over the Howdy and the WP User Menu, to the WP Profile page on the selected site', 'wp-symposium-toolbar' );
-			if ( $is_wps_available ) echo '<br />3. ' . __( 'On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above', 'wp-symposium-toolbar' );
-			if ( $is_wps_available ) echo '<br />4. ' . __( 'On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the "Network Share" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden', 'wp-symposium-toolbar' );
+			if ( WPST_IS_WPS_AVAILABLE ) echo '<br />3. ' . __( 'On WP Symposium installations, the Edit Profile URL will link to the WPS profile page if it can be found there ; if the WPS Profile feature is <u>not</u> correctly set on the selected site, the WP Profile page of the selected site will be used, as per above', 'wp-symposium-toolbar' );
+			if ( WPST_IS_WPS_AVAILABLE ) echo '<br />4. ' . __( 'On WP Symposium installations, the notification icons will point to the selected site if WPS profile and mail pages can be found there ; if they are <u>not</u> defined on the selected site, or the "Network Share" is <u>not</u> activated from the WPS tab at this site, icons will point to any other site where WPS features may be found and are shared ; if no other site can be found, they will be hidden', 'wp-symposium-toolbar' );
 			echo '</span>';
 			if ( $error ) echo '<div id="display_activate_network_toolbar" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 		echo '</td>';
@@ -332,7 +329,7 @@ function symposium_toolbar_admintab_features() {
 			else {
 				if ( get_option( 'wpst_wpms_network_superadmin_menu', '' ) != '' ) {
 					$error = true;
-					echo ' wpst-error" style="outline:1px solid #CC0000;';
+					echo ' wpst-error';
 				}
 				echo '"';
 			}
@@ -355,7 +352,7 @@ function symposium_toolbar_admintab_features() {
 function symposium_toolbar_admintab_sites() {
 
 	global $wpdb;
-	global $wpst_shown_tabs, $wpst_subsites_tabs, $is_wps_available;
+	global $wpst_shown_tabs, $wpst_subsites_tabs;
 	
 	// All Sites
 	$blogs = wp_get_sites();
@@ -406,7 +403,7 @@ function symposium_toolbar_admintab_sites() {
 						foreach ( $wpst_subsites_tabs as $key => $title ) {
 							if ( $key == 'css' ) 
 								echo '<input type="hidden" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="css">';
-							elseif ( ( $is_wps_available && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
+							elseif ( ( WPST_IS_WPS_AVAILABLE && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
 								echo '<div class="wpst-float-div"><input type="checkbox" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="'.$key.'" class="wpst-admin"';
 								if ( ! in_array( $key, $wpst_wpms_hidden_tabs ) ) { echo " CHECKED"; } // Display it the other way round to Network Admins
 								echo '><span class="description"> '.__( $title ).'</span></div>';
@@ -446,7 +443,7 @@ function symposium_toolbar_admintab_sites() {
 					foreach ( $wpst_subsites_tabs as $key => $title ) {
 						if ( $key == 'css' ) 
 							echo '<input type="hidden" id="blog_new[]" name="blog_new[]" value="css">';
-						elseif ( ( $is_wps_available && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
+						elseif ( ( WPST_IS_WPS_AVAILABLE && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
 							echo '<div class="wpst-float-div"><input type="checkbox" id="blog_new[]" name="blog_new[]" value="'.$key.'" class="wpst-admin"';
 							if ( ! in_array( $key, $wpst_wpms_hidden_tabs ) ) { echo " CHECKED"; } // Display it the other way round to Network Admins
 							echo '><span class="description"> '.__( $title ).'</span></div>';
@@ -513,7 +510,7 @@ function symposium_toolbar_admintab_toolbar() {
 					else {
 						if ( get_option( 'wpst_toolbar_wp_toolbar_force', '' ) != '' ) {
 							$error = true;
-							echo ' wpst-error" style="outline:1px solid #CC0000;';
+							echo ' wpst-error';
 						}
 						echo '"';
 					}
@@ -574,17 +571,9 @@ function symposium_toolbar_admintab_toolbar() {
 		echo '</tr>';
 		
 		echo '<tr valign="top">';
-			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'View Link', 'wp-symposium-toolbar' ).'</span></td>';
+			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'View / Edit Link', 'wp-symposium-toolbar' ).'</span></td>';
 			echo '<td>';
-				echo '<span>' . __( 'The View link to the page / post being edited', 'wp-symposium-toolbar' ) . '</span>';
-				echo symposium_toolbar_add_roles_to_item( 'display_view_page', get_option( 'wpst_toolbar_view_page', array_keys( $wpst_roles_author ) ), $wpst_roles_author );
-			echo '</td>';
-		echo '</tr>';
-		
-		echo '<tr valign="top">';
-			echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Edit Link', 'wp-symposium-toolbar' ).'</span></td>';
-			echo '<td>';
-				echo '<span>' . __( 'The Edit link to the Edit page for the page / post being viewed', 'wp-symposium-toolbar' ) . '</span>';
+				echo '<span>' . __( 'The Edit link to the Edit page for the page / post being viewed, and the View link to the page / post being edited', 'wp-symposium-toolbar' ) . '</span>';
 				echo symposium_toolbar_add_roles_to_item( 'display_edit_page', get_option( 'wpst_toolbar_edit_page', array_keys( $wpst_roles_author ) ), $wpst_roles_author );
 			echo '</td>';
 		echo '</tr>';
@@ -614,7 +603,7 @@ function symposium_toolbar_admintab_toolbar() {
 				echo '>'.__( 'At the left of the User Menu', 'wp-symposium-toolbar' ).'</option>';
 				echo '<option value=""';
 				if ( get_option( 'wpst_toolbar_move_search_field', 'empty' ) == "" ) echo ' SELECTED';
-				echo '>'.__( 'Right of the New Content menu', 'wp-symposium-toolbar' ).'</option>';
+				echo '>'.__( 'At the right of the New Content menu', 'wp-symposium-toolbar' ).'</option>';
 				echo '</select>';
 				
 			echo '</td>';
@@ -631,7 +620,6 @@ function symposium_toolbar_admintab_toolbar() {
 
 function symposium_toolbar_admintab_myaccount() {
 
-	global $is_wps_available, $is_wps_profile_active;
 	(bool)$error = false;
 	
 	echo '<div class="postbox"><div class="inside">';
@@ -665,7 +653,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_avatar_small', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -678,7 +666,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_avatar_visitor', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -697,7 +685,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_avatar', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -709,7 +697,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_display_name', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -721,7 +709,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_username', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -733,7 +721,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_edit_link', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -745,7 +733,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_logout_link', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -757,16 +745,16 @@ function symposium_toolbar_admintab_myaccount() {
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
-					echo '<span>' . __( 'Rewrite the Edit Profile URL, to link to the following page, leave empty for no redirection', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span>' . __( 'Rewrite the Profile URL, to link to the following page, leave empty to use WordPress default Profile page', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" class="wpst-admin';
-					if ( !$is_wps_profile_active ) {
+					if ( !WPST_IS_WPS_PROFILE_ACTIVE ) {
 						echo ' wpst-no-wps';
 						if ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) echo ' wpst-error';
 					}
 					echo '"';
-					if ( !$is_wps_profile_active && get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) echo ' style="width:250px; outline:1px solid #CC0000;"'; else echo ' style="width:250px;"';
+					if ( !WPST_IS_WPS_PROFILE_ACTIVE && get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) echo ' style="width:250px; outline:1px solid #CC0000;"'; else echo ' style="width:250px;"';
 					echo '/><br /><span class="description"> ' . __( 'Absolute path to a page, available aliases:', 'wp-symposium-toolbar' ) . ' %login%, %uid%';
-					if ( $is_wps_available ) echo '<br />'.__( 'Autodetect the full path to the WPS Profile page with', 'wp-symposium-toolbar' ) . ' %symposium_profile%';
+					if ( WPST_IS_WPS_AVAILABLE ) echo '<br />'.__( 'Autodetect the full path to the WPS Profile page with', 'wp-symposium-toolbar' ) . ' %symposium_profile%';
 					echo '</span><br />';
 				echo '</td>';
 			echo '</tr>';
@@ -781,7 +769,7 @@ function symposium_toolbar_admintab_myaccount() {
 				else {
 					if ( get_option( 'wpst_myaccount_role', '' ) != '' ) {
 						$error = true;
-						echo ' wpst-error" style="outline:1px solid #CC0000;';
+						echo ' wpst-error';
 					}
 					echo '"';
 				}
@@ -798,7 +786,7 @@ function symposium_toolbar_admintab_myaccount() {
 				echo '</div></td>';
 			echo '</tr>';
 		}
-		if ( ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) && !$is_wps_profile_active && ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) ) {
+		if ( ( get_option( 'wpst_wpms_user_home_site', '' ) == "" ) && !WPST_IS_WPS_PROFILE_ACTIVE && ( get_option( 'wpst_myaccount_rewrite_edit_link', '' ) == '%symposium_profile%' ) ) {
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
@@ -820,7 +808,6 @@ function symposium_toolbar_admintab_myaccount() {
 function symposium_toolbar_admintab_menus() {
 
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator, $wpst_locations;
-	global $is_wpst_network_admin;
 	
 	// Get data to show
 	$all_navmenus = wp_get_nav_menus();
@@ -832,7 +819,7 @@ function symposium_toolbar_admintab_menus() {
 		echo '<tr valign="top">';
 			echo '<td>';
 				echo '<span>' . sprintf( __( 'Create and edit your WP NavMenus at %s, and associate them to the WP Toolbar, at predefined locations, for the roles you wish.', 'wp-symposium-toolbar' ), '<a href="'. admin_url( 'nav-menus.php' ) . '">' . __( 'Appearance' ) . ' > ' . __( 'Menus' ) . '</a>' ) . '...';
-				if ( $is_wpst_network_admin ) echo '  '.__( 'You may make these menus Network Custom Menus, and display them accross the whole network without Site Admins being able to hide them or modify them.', 'wp-symposium-toolbar' );
+				if ( WPST_IS_NETWORK_ADMIN ) echo '  '.__( 'You may make these menus Network Custom Menus, and display them accross the whole network without Site Admins being able to hide them or modify them.', 'wp-symposium-toolbar' );
 				echo '</span><br />';
 			echo '</td>';
 		echo '</tr>';
@@ -843,7 +830,7 @@ function symposium_toolbar_admintab_menus() {
 				$color = $color_odd = '#FAFAFA';
 				$color_even = '#F5F5F5';
 				$count = 0;
-				
+	
 				if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
 					echo '<table class="widefat" style="margin-bottom: 20px; ">';
 					echo '<tr style="background-color: '.$color.';">';
@@ -912,7 +899,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '</tr>';
 					
 					// If Multisite Main Site and network activated, option to make this menu a Network Menu
-					if ( $is_wpst_network_admin ) {
+					if ( WPST_IS_NETWORK_ADMIN ) {
 						echo '<tr style="background-color: '.$color.';">';
 						echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: '.$color.';">';
 							echo '<input type="checkbox" id="display_custom_menu_network['.$count.']" name="display_custom_menu_network['.$count.']" class="wpst-admin"';
@@ -928,7 +915,7 @@ function symposium_toolbar_admintab_menus() {
 						echo '<input type="checkbox" id="display_custom_menu_responsive['.$count.']" name="display_custom_menu_responsive['.$count.']" class="wpst-admin"';
 						if ( isset( $custom_menu[5] ) && $custom_menu[5] ) { echo ' CHECKED'; }
 						echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-						echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
+						echo '<br /><span class="description">'.__( 'Note: Will not be used when appending the menu to an existing menu, as the display of the resulting menu in responsive mode will be handled separately', 'wp-symposium-toolbar' ).'</span>';
 					echo '</td>';
 					echo '</tr>';
 					
@@ -993,7 +980,7 @@ function symposium_toolbar_admintab_menus() {
 				echo '</tr>';
 				
 				// If Multisite Main Site and network activated, option to make this menu a Network Menu
-				if ( $is_wpst_network_admin ) {
+				if ( WPST_IS_NETWORK_ADMIN ) {
 					echo '<tr style="background-color: '.$color.';">';
 					echo '<td colspan="3" style="border-top-color: '.$color.';">';
 						echo '<input type="checkbox" id="new_custom_menu_network" name="new_custom_menu_network" value="" class="wpst-admin">';
@@ -1007,7 +994,7 @@ function symposium_toolbar_admintab_menus() {
 				echo '<td colspan="3" style="border-top-color: '.$color.'; border-bottom-color: #555555">';
 					echo '<input type="checkbox" id="new_custom_menu_responsive" name="new_custom_menu_responsive" class="wpst-admin"';
 					echo '><span> '.__( 'Display this menu in responsive mode (for devices with screen width smaller than 783px)', 'wp-symposium-toolbar' ).'</span>';
-					echo '<br /><span class="description">'.__( 'Note: Only for locations "At the right of the New Content menu" and "At the left of the User Menu"', 'wp-symposium-toolbar' ).'</span>';
+					echo '<br /><span class="description">'.__( 'Note: Will not be used when appending the menu to an existing menu, as the display of the resulting menu in responsive mode will be handled separately', 'wp-symposium-toolbar' ).'</span>';
 				echo '</td>';
 				echo '</tr>';
 				
@@ -1072,7 +1059,7 @@ function symposium_toolbar_admintab_wps() {
 					else {
 						if ( get_option( 'wpst_wps_admin_menu', '' ) != '' ) {
 							$error = true;
-							echo ' wpst-error" style="outline:1px solid #CC0000;';
+							echo ' wpst-error';
 						}
 						echo '"';
 					}
@@ -1100,7 +1087,7 @@ function symposium_toolbar_admintab_wps() {
 					else {
 						if ( get_option( 'wpst_wps_notification_alert_mode', '' ) != '' ) {
 							$error = true;
-							echo ' wpst-error" style="outline:1px solid #CC0000;';
+							echo ' wpst-error';
 						}
 						echo '"';
 					}
@@ -1118,7 +1105,7 @@ function symposium_toolbar_admintab_wps() {
 						else {
 							if ( get_option( 'wpst_wps_network_share', '' ) != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1179,7 +1166,7 @@ function symposium_toolbar_admintab_share() {
 						else {
 							if ( $share['linkedin'] != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1193,7 +1180,7 @@ function symposium_toolbar_admintab_share() {
 						else {
 							if ( $share['facebook'] != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1207,7 +1194,7 @@ function symposium_toolbar_admintab_share() {
 						else {
 							if ( $share['twitter'] != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1221,7 +1208,7 @@ function symposium_toolbar_admintab_share() {
 						else {
 							if ( $share['google_plus'] != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1235,7 +1222,7 @@ function symposium_toolbar_admintab_share() {
 						else {
 							if ( $share['stumbleupon'] != '' ) {
 								$error = true;
-								echo ' wpst-error" style="outline:1px solid #CC0000;';
+								echo ' wpst-error';
 							}
 							echo '"';
 						}
@@ -1311,7 +1298,7 @@ function symposium_toolbar_admintab_share() {
 					else {
 						if ( get_option( 'wpst_share_icons_color', '' ) != '' ) {
 							$error = true;
-							echo ' wpst-error" style="outline:1px solid #CC0000;';
+							echo ' wpst-error';
 						}
 						echo '"';
 					}
@@ -1323,7 +1310,7 @@ function symposium_toolbar_admintab_share() {
 					// else {
 						// if ( get_option( 'wpst_share_icons_hover_color', '' ) != '' ) {
 							// $error = true;
-							// echo ' wpst-error" style="outline:1px solid #CC0000;';
+							// echo ' wpst-error';
 						// }
 						// echo '"';
 					// }
@@ -2617,7 +2604,7 @@ function symposium_toolbar_admintab_themes() {
 
 function symposium_toolbar_admintab_userguide() {
 
-	global $is_wps_active, $wpst_shown_tabs, $is_wpst_network_admin;
+	global $wpst_shown_tabs;
 	
 	echo '<div class="postbox"><div class="inside wpst-inside-guide">';
 		
@@ -2631,27 +2618,25 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'First of all, I would like to point out a few ideas behind the roles when using WPS Toolbar. Some of the settings of the plugin are defined on a per-role basis. In addition to the roles that are defined on your site, you may find within these settings, roles that don\'t correspond to anything. They are, really, only that: pseudo-roles, used internally by the plugin, but not formally registrered as roles within your WordPress site.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'The first pseudo-role is called "Visitor". As its name states, this role is used by the plugin to qualify non-users of your site or network of sites. Use this role to show the Toolbar and some of its items, as well as your custom menus, to your site\'s visitors and non logged-in users.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'In addition to "Visitor", Multisites Admins will find checkboxes called "User". This role is used to qualify users of the network that may not be member of the browsed site, hence have no role / no capability on this site.', 'wp-symposium-toolbar' ).' '.__( 'In addition to the WP User Menu, you may display specific navigation items via custom menus, like a link to the Register page so they can subscribe to the site, or links to WP Symposium that might be activated somewhere else in the network.', 'wp-symposium-toolbar' ).' '.__( 'Of course if you haven\'t activated Multisites, you will not see this pseudo-role.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'Not really a pseudo-role, Multisites admins will find that the list of roles begins with "Super Admin".', 'wp-symposium-toolbar' ).' '.__( 'While this is documented as a role in WordPress documentation, it appears internally more as a position than a role.', 'wp-symposium-toolbar' ).' '.__( 'As such, you will find that a Super Admin will actually hold another role, as they may be Admins or anything else, depending on whether they are owner of a given subsite or not.', 'wp-symposium-toolbar' ).' '.__( 'They do have supreme control of the whole network, so you could use these checkboxes to add specific Custom Menus to the Toolbar for their tasks.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'Last but not least, with multiple roles being actually part of WordPress, you should bear in mind that a user may hold two roles (or more, as defined by other plugins) when setting roles with WPS Toolbar.', 'wp-symposium-toolbar' ) . '  ' . __( 'For a user with two roles or more, the plugin will display what each of these roles shall see.', 'wp-symposium-toolbar' ) . '</p>';
 			
 		// wpst_page_toolbar
 		if ( isset( $wpst_shown_tabs[ 'toolbar' ] ) ) {
-		echo '<h4><li>'.__( 'WP Toolbar', 'wp-symposium-toolbar' ).'</li></h4>';
+		echo '<h4><li>'.__( 'WP Toolbar tab', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<ol>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Toolbar', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'The key option of the plugin is the very first one of the tab. If your aim is to completely hide the WP Toolbar, regardless of members roles, you should probably look for another option: WPS Toolbar can do that, indeed, and will do what you ask it to do, but there are other, easier and lighter ways to hide the Toolbar without putting this whole plugin into action.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'In addition to the roles to select, you can force the display of the Toolbar for these roles. This could be needed if you put navigation menus that are nowhere else on your site, and that you don\'t want your users to hide.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'Be aware that this roles\' selection also means that those that are <u>not</u> checked here, will never be able to see the Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Logo', 'wp-symposium-toolbar' ) . '</li></h4>';
-			echo '<p>' . __( 'The WP Logo can be used as a menu location : for a given role, if you choose to hide the WP Logo menu but attach a custom menu to it, your menu will <span style="font-style: italic;">replace</span> the default WordPress menu. If you choose to show the default menu, your custom menu will be <span style="font-style: italic;">appended</span> to it.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'Moreover, when replacing the WP Logo menu, it is mandatory to use a custom menu contained in one single toplevel item that will be attached to the Toolbar, otherwise the first parentless item will be used as parent for any further parentless item. Make your own experience here...', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Comments Bubble', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'By default WordPress never hides the Comments bubble, even when there is no comment to handle. If you do know that you\'ll never receive any comments since you have deactivated those from the posts settings or replaced them with forum topics, you could hide the icon from here so that it never shows.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Author Links', 'wp-symposium-toolbar' ) . '</li></h4>';
-			echo '<p>' . __( 'By author\'s links, I mean the Add New, the Shortlink and the Modify links. If your theme provides such links lower in the page and you wish to avoid duplication, you could hide them from here.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'By author\'s links, I mean the Add New, the View and the Modify links. If your theme provides such links lower in the page and you wish to avoid duplication, you could hide them from here.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'WP User Menu', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'This menu is also called "My Account" in WordPress litterature and code, it contains information related to the member account. Its toplevel item (made of both the avatar and the Howdy) makes this menu special, so that the plugin offers different alternatives to customize it, depending on whether you want to show its toplevel item or not.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'If you wish to hide the menu as well as its toplevel item, you may hide it from the "Toolbar" tab.', 'wp-symposium-toolbar' ).' '.__( 'If you wish to replace it with your custom menu, you should then use the location "Left of User Menu" for your custom menu, that will give the desired result.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'If you wish to replace the default User Menu with your custom menu over the Howdy and / or the small avatar, you should uncheck all items from the "WP User Menu" tab.', 'wp-symposium-toolbar' ).' '.__( 'You may then append your custom menu to the User Menu and it\'ll show under the Howdy.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'The key idea I want to stress here, is that if you hide the WP User Menu but attach a custom menu to it, none of the menus will be displayed, neither will be displayed the Howdy message and the avatar in the Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'If you wish to hide the menu as well as its toplevel item, you may hide it from the "Toolbar" tab.', 'wp-symposium-toolbar' ).' '.__( 'If you wish to replace it with your custom menu, you should then use any of the locations "Left of User Menu" or "Right of User Menu" for your custom menu, that will give the desired result.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'If you wish to replace the default User Menu with your custom menu over the Howdy and / or the small avatar, you should uncheck all items from the "WP User Menu" tab, instead of hiding the User Menu from the "Toolbar" tab.', 'wp-symposium-toolbar' ).' '.__( 'You may then append your custom menu to the User Menu and it\'ll show under the Howdy.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Search Field', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Only visible on the frontend, the default WP Search icon will unfold when clicked on to reveal the search field. While unfolding, you\'ll notice that the search field pushes the WP User Menu. If, like me, you\'re concerned with menus and other items being pushed like this, rather than removing the WP Search icon, you may move it to either the right or left inner portion of the Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
@@ -2659,28 +2644,28 @@ function symposium_toolbar_admintab_userguide() {
 		
 		// wpst_page_myaccount
 		if ( isset( $wpst_shown_tabs[ 'myaccount' ] ) ) {
-		echo '<h4><li>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</li></h4>';
+		echo '<h4><li>'.__( 'WP User Menu tab', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'From this tab, customize the content of the User Menu.', 'wp-symposium-toolbar' ).' '.__( 'These options should be relatively straightforward : the first set of options deal with the menu toplevel item in the Toolbar, while the second set of options describes how this menu should look like. The last option allows you to add extra information to this menu.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>' . __( 'If interrested in populating this menu with custom information, advanced users may refer to the Developers\' Guide available from this page, and check out the hooks proposed by the plugin.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'If interested in populating this menu with custom information, advanced users may refer to the Developers\' Guide available from this page, and check out the filters proposed by the plugin.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode.', 'wp-symposium-toolbar' ).' '.__( 'The plugin will not enforce this, and when your site Toolbar is displayed in this "tablet mode", some of your settings will be dropped so as to preserve this User Menu: the two settings from the plugin options page "User Menu" that allows hiding these two avatars will not be taken into account, and likewise, your custom Howdy message will not be displayed.', 'wp-symposium-toolbar' ).' '.__( 'Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_menus
 		if ( isset( $wpst_shown_tabs[ 'menus' ] ) ) {
-		echo '<h4><li>'.__( 'Custom Menus', 'wp-symposium-toolbar' ).'</li></h4>';
+		echo '<h4><li>'.__( 'Custom Menus tab', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'Create your WordPress NavMenus from the Appearance > Menus page, before visiting this plugin options tab to create Custom Menus. Select the menu you wish to place in the Toolbar from the dropdown list of menus, the location from the dropdown list of locations and check the box(s) for the roles you wish to see that particular menu.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'If you choose to append a Custom Menu to a WordPress default menu, you will need to make sure the default menu can be seen by a given role from the "Toolbar" tab, or your Custom Menu won\'t show either.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may add two or more menus to the same location: they will be shown only to the roles you have selected. If more than one menu should be shown to a given role at a given location, they will be appended one to the other, in the order you have defined them.', 'wp-symposium-toolbar' ) . ' ' . __( 'This can be used to display different menu items to different roles: one main menu for all, and additional items for higher roles. Or, different menus for different roles. Your choice.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may use the same menu several times, however, for a given role it will be displayed only once, so this page will list the menus that won\'t be displayed since you attempt to show them several times to the same roles.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may choose to display your custom icon to the toplevel of this menu. Upload it somewhere on your server, either via FTP or using the WP Media Manager, and enter its URL into the corresponding field.', 'wp-symposium-toolbar' );
 			echo '  ' . __( 'You may also choose to display a dashicon, an icon from the set used in WordPress dashboard: all you need to do is to copy/paste here the CSS content for the selected icon, from the page which opens to list these fonticons.', 'wp-symposium-toolbar' );
-			echo '</p>';
-			echo '<p>' . __( 'When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be affected by this icon. If you wish to have several icons, you should create several custom menus.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '  ' . __( 'When using custom icons with your menus, it is recommended to use only one toplevel item, otherwise all toplevel items of your menu will be affected by this icon. If you wish to have several icons, you should create several custom menus.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'Last but not least, for screens of smaller sizes, WordPress will switch into a so-called responsive mode, where most of the Toolbar items will be hidden, as well as their labels.', 'wp-symposium-toolbar' ) . '  ' . __( 'For each of your custom menus, you will have the option to force its display in responsive mode, if it is attached directly to the Toolbar.  Whenever the menu is appended to a default menu, the rule for the display of that menu will apply.', 'wp-symposium-toolbar' ) . '</p>';
 		}
 		
 		// wpst_page_wps
-		if ( $is_wps_active && ( is_main_site() || isset( $wpst_shown_tabs[ 'wps' ] ) ) ) {
-		echo '<h4><li>'.__( 'WP Symposium', 'wp-symposium-toolbar' ).'</li></h4>';
+		if ( WPST_IS_WPS_ACTIVE && ( is_main_site() || isset( $wpst_shown_tabs[ 'wps' ] ) ) ) {
+		echo '<h4><li>'.__( 'WP Symposium tab', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'On WP Symposium installations, the plugin adds a dedicated tab for WPS admins.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'This tab allows you to add to the Toolbar, the WPS admin menu as mirrored from the Dashboard sidebar. Obviously, only admins will see this menu.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'You may also choose to display notification icons for mail and friendship to the Toolbar. These can be added based on member\'s role.', 'wp-symposium-toolbar' ) . '  ' . __('Note that they will show only if the appropriate feature has been activated at the WPS Install page, and if a page has been properfly set up for both the Profile and the Mail features. This could serve as a replacement for the WPS Panel, however bear in mind they will need full page refreshes to reflect the actual status of new mails and friend requests.', 'wp-symposium-toolbar') . '</p>';
@@ -2690,7 +2675,7 @@ function symposium_toolbar_admintab_userguide() {
 		
 		// wpst_page_style
 		if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {
-		echo '<h4><li>'.__( 'Styles', 'wp-symposium-toolbar' ).'</li></h4>';
+		echo '<h4><li>'.__( 'Styles tab', 'wp-symposium-toolbar' ).'</li></h4>';
 			echo '<p>' . __( 'At this tab, settings allow you to modify the look of the WP Toolbar. A preview mode is available, as well as a popup message to remind you to save your settings to make them permanent !', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>' . __( 'Styling settings are split accross the two main components: the Toolbar itself and its dropdown menus, each of them being addressed through settings gathered in three boxes: one for the container, one for items\'s normal style, and one for items\'s hover / focus.', 'wp-symposium-toolbar' ).' '.__( 'The hover style is used when the mouse moves over an item, and the focus style is used for an item when a submenu opens below that item and the mouse follows that menu.', 'wp-symposium-toolbar' ).' '.__( 'Each of these sections contains subsections dealing with: background, fonts, borders, shadow,...', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<ol>';
@@ -2720,10 +2705,10 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'Located at the "Network" tab of the Main Site, the feature called "Network Toolbar" allows Super Admins to force the display of the Toolbar on all sites of their network.', 'wp-symposium-toolbar' ) . ' ' . __( 'It\'s basicaly similar to the "Force Toolbar" available otherwise from the "WP Toolbar" tab of all sites, except that it moves this prerogative to the Super Admin solely, and affects the whole network.', 'wp-symposium-toolbar' ) . ' ' . __( 'The roles that shall see the Toolbar must then be defined from the "WP Toolbar" tab of the plugin options page, at the Main Site.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Home Site', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'The second feature provided at the "Network" tab is called "Home Site".', 'wp-symposium-toolbar' ) . ' ';
-			if ( $is_wps_active ) echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu and over the WPS notification icons point to this site.', 'wp-symposium-toolbar' ) . ' ';
+			if ( WPST_IS_WPS_ACTIVE ) echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu and over the WPS notification icons point to this site.', 'wp-symposium-toolbar' ) . ' ';
 			else echo __( 'Once this feature is activated, network users may choose a site as their home site, so that the links in the User Menu point to this site.', 'wp-symposium-toolbar' ) . ' ';
 			echo __( 'This feature will be useful if your network of sites is made of member pages for instance, so that they can choose their personal page as home site.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( $is_wps_active ) echo '<p>' . __( 'Please note that, if the WPS features cannot be found on the selected site for that user: the link on the Howdy and in the User Menu will revert to pointing to the WordPress Profile page on that site, whereas the icons will attempt to find WP Symposium somewhere else on the sites the user is member of, or eventually simply not be displayed.', 'wp-symposium-toolbar' ) . ' ' . __( 'So if you plan to activate this feature while using WP Symposium, you should make sure WP Symposium is available from all sites, for all users.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( WPST_IS_WPS_ACTIVE ) echo '<p>' . __( 'Please note that, if the WPS features cannot be found on the selected site for that user: the link on the Howdy and in the User Menu will revert to pointing to the WordPress Profile page on that site, whereas the icons will attempt to find WP Symposium somewhere else on the sites the user is member of, or eventually simply not be displayed.', 'wp-symposium-toolbar' ) . ' ' . __( 'So if you plan to activate this feature while using WP Symposium, you should make sure WP Symposium is available from all sites, for all users.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'All Sites menu', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'This feature will add a menu to the Toolbar, called "All Sites" and only visible to Super Admins.', 'wp-symposium-toolbar' ) . ' ' . __( 'This menu contains links to all the sites of the network, as opposed to the WordPress default menu "My Sites" which contains only links to the sites, the Super Admin is member of.', 'wp-symposium-toolbar' ) . ' ' . __( 'This allows the admin to browse the network without any restriction.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Subsites Options Tabs', 'wp-symposium-toolbar' ) . '</li></h4>';
@@ -2731,7 +2716,7 @@ function symposium_toolbar_admintab_userguide() {
 			echo '<p>' . __( 'If you activate the "Network Toolbar" and uncheck all tabs from "Subsites", you will end up with the same Toolbar accross your network of sites, with a unique options page at the Main Site, just like if it were a single site install.', 'wp-symposium-toolbar' ) . ' ' . __( 'There are many intermediate situations, when you want your Toolbar to look the same on some aspects, while keeping some flexibility for each subsites on other aspects.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h4 style="font-size: 11px;"><li>' . __( 'Network Custom Menus', 'wp-symposium-toolbar' ) . '</li></h4>';
 			echo '<p>' . __( 'Super Admins will also find at the "Custom Menus" tab of the Main Site plugin options page, checkboxes under each menu that allow them to make these menus, "Network Menus".', 'wp-symposium-toolbar' ) . ' ' . __( 'This feature is similar to the previous one, in that it\'ll help Super Admins avoid having to re-create the same menu on each subsite: the corresponding WP NavMenu needs to be defined on the Main Site only, and once the Custom Menu placed in the Toolbar on the Main Site is made a Network Menu, it\'ll be replicated on all subsites\' Toolbar, even though the WP NavMenu doesn\'t exist on subsites.', 'wp-symposium-toolbar' ) . ' ' . __( 'Whether the Custom Menus tab is showing on a subsite or not, Site Admins will not see Network Menus and won\'t be able to edit or remove them.', 'wp-symposium-toolbar' ) . '</p>';
-			if ( $is_wps_active ) echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Symposium Network Share', 'wp-symposium-toolbar' ) . '</li></h4>' . '<p>' . __( 'Accessible by all Site Admins, the last network feature is the ability for them to share their WP Symposium features network-wide, so that their site users can access their Profile page and Mail from anywhere in the network.', 'wp-symposium-toolbar' ) . ' ' . __( 'Activated by default, this feature should probably be used in conjunction with the Network Toolbar feature, to ensure the Toolbar is actually visible everywhere in the network for these site users.', 'wp-symposium-toolbar' ) . ' ' . __( 'Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the "Home Site" feature is activated as well, in which case users will be able to choose which site they want as a home site.', 'wp-symposium-toolbar' ) . '</p>';
+			if ( WPST_IS_WPS_ACTIVE ) echo '<h4 style="font-size: 11px;"><li>' . __( 'WP Symposium Network Share', 'wp-symposium-toolbar' ) . '</li></h4>' . '<p>' . __( 'Accessible by all Site Admins, the last network feature is the ability for them to share their WP Symposium features network-wide, so that their site users can access their Profile page and Mail from anywhere in the network.', 'wp-symposium-toolbar' ) . ' ' . __( 'Activated by default, this feature should probably be used in conjunction with the Network Toolbar feature, to ensure the Toolbar is actually visible everywhere in the network for these site users.', 'wp-symposium-toolbar' ) . ' ' . __( 'Moreover, if several instances of WP Symposium are activated on the network, they will be searched in the order: current site, Main Site, subsites in ascending ID order. So a given site may not be the first on the list and the WPS icons and link may not point to it, unless the "Home Site" feature is activated as well, in which case users will be able to choose which site they want as a home site.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '</ol>';
 		}
 		
@@ -2749,18 +2734,18 @@ function symposium_toolbar_admintab_devguide() {
 	
 	echo '<div class="postbox"><div class="inside wpst-inside-guide">';
 		
-		echo '<p>' . __( 'The following page helps you to go further and customize your WP Toolbar, by using the hooks and CSS classes available with the plugin.', 'wp-symposium-toolbar' ) . '</p>';
+		echo '<p>' . __( 'The following page helps you to go further and customize your WP Toolbar, by using the hooks / filters, as well as the CSS classes, that the plugin provides.', 'wp-symposium-toolbar' ) . '</p>';
 			
 		echo '<ol>';
 		
-		echo '<h4><li>'.__( 'Hooks', 'wp-symposium-toolbar' ).'</li></h4>';
-		echo '<p>' . __( 'Prerequisites: you need to understand how WordPress hooks work, know how to add code to your theme\'s functions.php, and have some PHP knowledge.', 'wp-symposium-toolbar' ) . '</p>';
+		echo '<h4><li>'.__( 'Hooks and filters', 'wp-symposium-toolbar' ).'</li></h4>';
+		echo '<p>' . __( 'Prerequisites: you need to understand how WordPress hooks and filters work, and know how to add code to your theme\'s functions.php, and have some PHP knowledge.', 'wp-symposium-toolbar' ) . '</p>';
 		
 		echo '<ol>';
 		
 		if ( isset( $wpst_shown_tabs[ 'myaccount' ] ) ) {
 		echo '<h4><li>'.__( 'WP User Menu', 'wp-symposium-toolbar' ).'</li></h4>';
-			echo '<p>' . __( 'Several hooks are available around the WP User Menu ("My Account"), used to change or add bits of information displayed for the current user. You will need to use one of the globals $current_user or $user_ID to get the user ID, and from then on, any other information you would need for that particular user.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>' . __( 'Several filters are available in the WP User Menu, that you may use to change or add bits of information displayed for the current user. You will need to use one of the WordPress global variables $current_user or $user_ID to get the user ID, and from then on, any other information you would need for that particular user.', 'wp-symposium-toolbar' ) . '</p>';
 		
 			echo '<ol>';
 			
@@ -2799,10 +2784,12 @@ function symposium_toolbar_admintab_devguide() {
 			echo 'add_filter ( \'symposium_toolbar_add_user_action\', \'symposium_toolbar_add_user_action_hook\', 10, 1 );</div></p>';
 			
 			echo '<h5><li>"symposium_toolbar_my_account_url_update"</li></h5>';
-			echo '<p>'.__( 'Modify the URL over the Howdy message and the small avatar.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'Modify the URL over the Howdy message and the small avatar, in the Toolbar.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h5><li>"symposium_toolbar_user_info_url_update"</li></h5>';
 			echo '<p>'.__( 'Modify the URL over the user info in the User Menu.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>'.__( 'Use Cases: By default, these two links point to the profile URL given by WordPress, and the site URL for visitors. The two hooks allow you to point them to different pages, from the Toolbar toplevel item and the User Menu user info, respectively.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<h5><li>"symposium_toolbar_edit_profile_url_update"</li></h5>';
+			echo '<p>'.__( 'Modify the URL over the Edit Profile in the User Menu.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'Use Cases: By default, these links point to the profile URL given by WordPress, and the site URL for visitors. These filters  allow you to point them to different pages.', 'wp-symposium-toolbar' ) . '</p>';
 			
 			echo '</ol>';
 		}
@@ -2812,18 +2799,18 @@ function symposium_toolbar_admintab_devguide() {
 			echo '<ol>';
 			
 			echo '<h5><li>"symposium_toolbar_style_search_field"</li></h5>';
-			echo '<p>'.__( 'I personally consider that the Search icon should not have borders when it\'s moved to the inner part of the Toolbar, but that\'s purely a matter of taste. So if you\'d like to remove the border-xxx: none that the plugin adds to li.admin-bar-search, you could use this hook.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'I personally consider that the Search icon should not have borders when it\'s moved to the inner part of the Toolbar, but that\'s purely a matter of taste. So if you\'d like to remove the border-xxx: none that the plugin adds to li.admin-bar-search, you could use this filter.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p><div class="wpst-devguide-function">function symposium_toolbar_remove_search_borders ( $search_border ) {<br><br>';
 			echo '&nbsp;&nbsp;&nbsp; return "";<br>';
 			echo '}<br>';
 			echo 'add_filter ( \'symposium_toolbar_style_search_field\', \'symposium_toolbar_remove_search_borders\', 10, 1 );</div></p>';
 			
 			echo '<h5><li>"symposium_toolbar_style_toolbar_hover"</li></h5>';
-			echo '<p>'.__( 'By default the plugin adds the same borders to the Toolbar items, whether they are hovered or not. Use this hook to add custom borders to those items when they are hovered.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>'.__( 'Since hover doesn\'t affect monochrom dividers, it should be stressed that this hook is triggered only when two colours are defined for borders.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'By default the plugin adds the same borders to the Toolbar items, whether they are hovered or not. Use this filter to add custom borders to those items when they are hovered.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'Since hover doesn\'t affect monochrom dividers, it should be stressed that this filter is triggered only when two colours are defined for borders.', 'wp-symposium-toolbar' ) . '</p>';
 			
 			echo '<h5><li>"symposium_toolbar_style_to_header"</li></h5>';
-			echo '<p>'.__( 'Styles collected at the tab of the same name are gathered in a string that is then stored as an option. Upon page load, this string is read from its option and sent for display. This hook is triggered right before the string is formatted and stored. Use this hook to add your own style.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'Styles collected at the tab of the same name are gathered in a string that is then stored as an option. Upon page load, this string is read from its option and sent for display. This filter is triggered right before the string is formatted and stored. Use this filter to add your own style.', 'wp-symposium-toolbar' ) . '</p>';
 			
 			echo '</ol>';
 		}
@@ -2833,13 +2820,13 @@ function symposium_toolbar_admintab_devguide() {
 			
 			if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {
 			echo '<h5><li>"symposium_toolbar_add_fonts"</li></h5>';
-			echo '<p>'.__( 'This hook can be used to add your custom font to the array of fonts that is displayed at the plugin options page. You may then select it from there, and use it for the Toolbar and / or its dropdown menus. You should always add a fallback to your font, in case the browser wouldn\'t be able to display it. Separate several font names with commas. Do not add brackets around multiword names, the plugin will deal with them automagically.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'This filter can be used to add your custom font to the array of fonts that is displayed at the plugin options page. You may then select it from there, and use it for the Toolbar and / or its dropdown menus. You should always add a fallback to your font, in case the browser wouldn\'t be able to display it. Separate several font names with commas. Do not add brackets around multiword names, the plugin will deal with them automagically.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<p>'.__( 'Example: being a little short on this one, I\'ll show how to add a font which is already proposed by default...', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p><div class="wpst-devguide-function">function symposium_toolbar_add_font_hook ( $wpst_all_fonts ) {<br><br>';
+			echo '<p><div class="wpst-devguide-function">function symposium_toolbar_add_font_filter ( $wpst_all_fonts ) {<br><br>';
 			echo '&nbsp;&nbsp;&nbsp; $wpst_all_fonts[] = "Arial Black, sans-serif";<br>';
 			echo '&nbsp;&nbsp;&nbsp; return $wpst_all_fonts;<br>';
 			echo '}<br>';
-			echo 'add_filter ( \'symposium_toolbar_add_fonts\', \'symposium_toolbar_add_font_hook\', 10, 1 );</div></p>';
+			echo 'add_filter ( \'symposium_toolbar_add_fonts\', \'symposium_toolbar_add_font_filter\', 10, 1 );</div></p>';
 			}
 			
 			echo '</ol>';
@@ -2907,7 +2894,7 @@ function symposium_toolbar_add_roles_to_item( $slug, $option, $roles ) {
 			// list roles available for this item
 			foreach ( $roles as $key => $role ) {
 				$html .= '<div class="wpst-float-div"><input type="checkbox" id="'.$slug.'_roles[]" name="'.$slug.'_roles[]" value="'.$key.'" class="wpst-admin';
-				if ( $error ) $html .= ' wpst-error" style="outline:1px solid #CC0000;';
+				if ( $error ) $html .= ' wpst-error';
 				$html .= '"';
 				if ( is_array( $ret_roles ) ) if ( in_array( $key, $ret_roles ) ) { $html .= ' CHECKED'; }
 				$html .= '><span class="description"> '.__( $role ).'</span></div>';

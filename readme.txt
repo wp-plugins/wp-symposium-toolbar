@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.29
+Version: 0.29.43
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,37 +142,39 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 = 0.30.0. =
 
-* Bugfix: Import, less restrictive validation for strings: allow quotes etc.
-* Bugfix: WPMS, remove the condition that the Home Site shall not be active on the network, to define a custom profile link on a site
-* Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of function 'wp_get_sites()' in WPMS
-* Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
-* Change: Styles, add a setting to limit the width of Toolbar items container, so admins can align Toolbar items with page content
-* Bugfix: Styles, missing Toolbar shadow in responsive mode
+* Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of wp_get_sites() in WPMS
+* Change: code improvement, instantiate a custom class that extends the WordPress default class and add nodes instead of letting WordPress create the whole Toolbar before removing nodes
+* Change: the above allows adding extra locations for custom menus, hence the feature change for "add or replace the WP Logo menu"
+* Change: WPMS, add a role for Super Admins
+* Change: code improvement, make use of add_theme_support() to bump frontend page content down to the correct offset according to Toolbar height setting
+* Change: code improvement, Admin page, move all Javascript code to a dedicated file
+* Change: Toolbar, remove "Shortlink" setting
 * Change: code improvement, simplify the way avatars are hidden from Toolbar
+* Change: Styles, add a setting to limit the width of Toolbar items container, so admins can manually align Toolbar items with page content
+* Bugfix: Import, less restrictive validation for strings: allow quotes etc.
+* Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
+* Bugfix: Styles, missing Toolbar shadow in responsive mode
 * Bugfix: Custom Menus, get rid of PHP notices when adding a new menu and no menu exists already
-* Bugfix: WPMS in RTL, remove extra "float:right;" in admin tabs for correct display of subsites
-* Change: code improvement, Admin page, move all Javascript code a to dedicated file
-* Change: Toolbar, removed "Shortlink" setting, added "View Link" setting
-* Change: make use of add_theme_support() to bump frontend page content to the correct offset according to Toolbar height setting
+* Bugfix: WPMS in RTL, remove an extra "float:right;" in admin tabs for correct display of subsites
 
 = 0.29.0. =
 
 * Change: make use of plugins_url() instead of WP_PLUGIN_URL so that the plugin supports SSL certificates
+* Change: cleanup in the CSS selectors for Toolbar items, for WP3.8+
 * Bugfix: WP 3.8+, fix hover color on some of the labels in the frontend when no hover colour is set
 * Bugfix: Styles, preview mode, correct default font size, default icon size, username font size
 * Bugfix: WPMS, WPS Profile link not always picking the Home Site
 * Bugfix: Styles, menu shadow transparency was not used
-* Cleanup in the CSS selectors for Toolbar items, for WP3.8+
 
 = 0.28.0. =
 
 * Change: WP 3.8, Option to add fonticons to all default toplevel menu items (and now, admins can iconify all the Toolbar items at all screen sizes)
 * Change: split the containers' shadow in two different settings, to reflect WP default shadow (also acts as Bugfix from WP default shadow)
+* Change: WP 3.9, make use of 'rel' meta added to WP_Admin_Bar::add_node() for Custom Menus relationships set from WP NavMenus page (requires at least WP 3.9)
 * Bugfix: get rid of PHP notices for icon size (pre-3.8 WP versions), and font size (all WP versions)
 * Bugfix: Styles, preview mode, correct avatar colors
 * Bugfix: WP 3.8, Styles, correct shadow colors for the W logos in My Sites, both previewed and saved
 * Bugfix: WP 3.8, correct default icon size in responsive mode
-* Change: WP 3.9, make use of 'rel' meta added to WP_Admin_Bar::add_node() for Custom Menus relationships set from WP NavMenus page (requires at least WP 3.9)
 * Bugfix: get rid of PHP notices when a gradient is set without a background color
 * Bugfix: Styles, username now adheres to WP default color when no font color is set in dropdown menus, likewise on hover
 * Bugfix: WP 3.8, Styles, make menu items' background colors transparent on hover (no default value)
@@ -182,35 +184,37 @@ Last but not least, please note that all brand icons are trademarks of their res
 = 0.27.0. =
 
 * Change: WP 3.8, Styles, added options to style fonticons independantly from labels: size, colour, hover colour
+* Change: WP 3.8, add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
+* Change: Styles, implement default values shown & hidden via Javascript
+* Change: add the option to display custom menus in responsive mode (under 783px width), instead of being hidden by WordPress
 * Bugfix: in RTL, correct display for the User Menu
 * Bugfix: Styles, preview doesn't like 3-digits colors that can actually be used by colorpickers
 * Bugfix: Import, failed import of style leads to no CSS stored
-* Change: WP 3.8, add the option to show social icons and share the site with: LinkedIn, Facebook, Twitter, Google Plus, Stumble Upon
 * Bugfix: add the plugin build number to CSS and JS files, to ensure that the correct version of the files is always sent to the client regardless of caching
-* Change: Styles, implement default values shown & hidden via Javascript
 * Bugfix: Styles, preview mode, correct menu font colors in hover
 * Bugfix: Styles, correct menu font colors for display and user names
 * Bugfix: WP 3.8, Styles, improve vertical centering of icons on Toolbar, as well as Search field
 * Bugfix: security issue, strip tags from Import feature
 * Bugfix: WPMS, Styles, default CSS now loaded at all subsites so that the Toolbar reflects the default admin color scheme
-* Change: add the option to display custom menus in responsive mode (under 783px width), instead of being hidden by WordPress
 
 = 0.26.0. =
 
-* Bugfix: WP 3.8, Styles, incorrect font and background colours, added default values based on WP default color scheme in case user has chosen another scheme
-* Bugfix: WP 3.8, Styles, icon not hovered when no hover color is set
 * Change: WP 3.8, Styles, added the option to choose to style the Toolbar in the whole dashboard, in addition to the plugin option page, Styles tab for the preview
-* Bugfix: make sure styles are generated upon upgrading the plugin
 * Change: WPMS, added the network feature to list All Sites in a dedicated menu for Super Admins (in addition to My Sites)
 * Change: CSS, do not duplicate background color over 782px breakpoint when not needed (no gradient,..)
 * Change: recompute gradients when browser window width changes
+* Bugfix: WP 3.8, Styles, incorrect font and background colours, added default values based on WP default color scheme in case user has chosen another scheme
+* Bugfix: WP 3.8, Styles, icon not hovered when no hover color is set
+* Bugfix: make sure styles are generated upon upgrading the plugin
 
 = 0.25.0. =
 
 * Change: add WPS icon to WPS Admin menu
+* Change: the rendering of the row for "new site settings" at the Sites tab of the plugin options page
+* Change: WPMS, add error messages to Multisite features
+* Change: error messages no longer removed upon clicking, need to reload page to get rid of them
 * Bugfix: WP 3.8, Styles, preview mode, several issues: manage default values according to WP version, Toolbar items hover missing colour, User Info not picking colour
 * Bugfix: do not go through symposium_toolbar_custom_profile_update for single sites and do not create useless users metadata
-* Change: the rendering of the row for "new site settings" at the Sites tab of the plugin options page
 * Bugfix: WP 3.8, missing avatar in responsive mode when small avatar hidden from Toolbar in plugin settings
 * Bugfix: style secondary submenus to use their parent's background color even when using WP default value
 * Bugfix: WPMS, update subsites in all cases as needed, and update style upon new site creation
@@ -220,15 +224,13 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: WP 3.8, WP Search icon had stopped folding / unfolding when on the left side of Toolbar
 * Bugfix: secure the hook 'symposium_toolbar_add_user_action' behind a test to ensure the current user is actually logged in
 * Bugfix: move 'symposium_toolbar_custom_profile_option' to the "public" part of the code so it can be found when Edit Profile is called from frontend by other plugins
-* Change: WPMS, add error messages to Multisite features
-* Change: error messages no longer removed upon clicking, need to reload page to get rid of them
 
 = 0.24.0. =
 
+* Change: WPMS, change internal name 'my_home_site' into 'wpst_my_home_site' for the field added to WP profile page
 * Bugfix: get rid of PHP warnings on get_option default values for some setups
 * Bugfix: WP 3.8, Styles tab, saved CSS, secondary-level dropdown menus no longer picking colours due to a change in WP 3.8 (submenu div vs. ul)
 * Bugfix: WP 3.8, Styles tab, preview mode, default value for icon colour
-* Change: WPMS, change internal name 'my_home_site' into 'wpst_my_home_site' for the field added to WP profile page
 * Bugfix: Styles tab, confirmation message no longer fired from the colorpickers, due to Javascript variable not shared between the splitted files
 * Bugfix: WP 3.7.1, styles not taken into account when no hover colour is selected for menus
 
