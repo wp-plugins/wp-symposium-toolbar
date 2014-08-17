@@ -1120,9 +1120,9 @@ function symposium_toolbar_save_before_render() {
 			// Generate messages from the bits collected above
 			if ( $wpst_failed ) {
 				if ( count( explode( '<br />' , trim( $wpst_failed, '<br />') ) ) > 1 )
-					$wpst_failed = __( 'Errors occured when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
+					$wpst_failed = __( 'Errors occurred when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
 				else
-					$wpst_failed = __( 'One error occured when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
+					$wpst_failed = __( 'One error occurred when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
 			}
 			if ( $wpst_notices )
 				$wpst_notices = __( 'The following settings could not be saved:', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;

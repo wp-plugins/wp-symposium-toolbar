@@ -8,7 +8,7 @@ Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, t
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.43
+Version: 0.29.44
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,7 +144,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 * Change: code improvement, increase the "requires at least" to WP 3.8, remove pre-3.8 specific and make use of wp_get_sites() in WPMS
 * Change: code improvement, instantiate a custom class that extends the WordPress default class and add nodes instead of letting WordPress create the whole Toolbar before removing nodes
-* Change: the above allows adding extra locations for custom menus, hence the feature change for "add or replace the WP Logo menu"
+* Change: the above allows extra locations for custom menus, hence the feature change for "add or replace the WP Logo menu"
 * Change: WPMS, add a role for Super Admins
 * Change: code improvement, make use of add_theme_support() to bump frontend page content down to the correct offset according to Toolbar height setting
 * Change: code improvement, Admin page, move all Javascript code to a dedicated file

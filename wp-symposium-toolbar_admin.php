@@ -53,7 +53,7 @@ function symposium_toolbar_admin_page() {
 		
 		// Put a settings updated message on the screen
 		if ( isset( $_POST["Submit"] ) && $_POST["Submit"] == __( 'Import', 'wp-symposium-toolbar' ) )
-			echo "<div class='updated slideaway'><p>".__( 'Imported Sucessfully', 'wp-symposium-toolbar' ).'</p></div>';
+			echo "<div class='updated slideaway'><p>".__( 'Imported Successfully', 'wp-symposium-toolbar' ).'</p></div>';
 		else {
 			if ( isset( $_POST["generate_symposium_toolbar_menus"] ) )
 				echo "<div class='updated'><p>".__( 'WPS Menus Generated', 'wp-symposium-toolbar' ).'</p></div>';
@@ -2789,7 +2789,7 @@ function symposium_toolbar_admintab_devguide() {
 			echo '<p>'.__( 'Modify the URL over the user info in the User Menu.', 'wp-symposium-toolbar' ) . '</p>';
 			echo '<h5><li>"symposium_toolbar_edit_profile_url_update"</li></h5>';
 			echo '<p>'.__( 'Modify the URL over the Edit Profile in the User Menu.', 'wp-symposium-toolbar' ) . '</p>';
-			echo '<p>'.__( 'Use Cases: By default, these links point to the profile URL given by WordPress, and the site URL for visitors. These filters  allow you to point them to different pages.', 'wp-symposium-toolbar' ) . '</p>';
+			echo '<p>'.__( 'Use Cases: by default, these links point to the profile URL given by WordPress, and the site URL for visitors.', 'wp-symposium-toolbar' ) . '  ' . __( 'The plugin provides a setting to rewrite these to a shared custom page, but you may find that they are then redundant, and prefer separate links.', 'wp-symposium-toolbar' ) . '  ' . __( 'These filters allow you to point them to different pages.', 'wp-symposium-toolbar' ) . '</p>';
 			
 			echo '</ol>';
 		}
@@ -2886,10 +2886,9 @@ function symposium_toolbar_add_roles_to_item( $slug, $option, $roles ) {
 		
 		if ( is_array( $roles ) ) {
 			
-			// Check if $option is an array of roles known from the site and eventually display an error message
+			// Check if $option is an array of roles known from the site to eventually display an error message
 			$ret_roles = symposium_toolbar_valid_roles( $option );
-			(bool)$error = ( !is_array( $ret_roles ) );
-			$error = $error || ( $ret_roles != $option );
+			(bool)$error = ( !is_array( $ret_roles ) || ( $ret_roles != $option ) );
 			
 			// list roles available for this item
 			foreach ( $roles as $key => $role ) {

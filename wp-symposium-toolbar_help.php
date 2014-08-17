@@ -28,14 +28,8 @@ function symposium_toolbar_add_help_text( $contextual_help, $screen_id, $screen 
 		
 		// Overview
 		$help_content = '<p>' . __('The WP Toolbar is the area of the screen just above a WordPress site that contains useful links to the administration part of the site, the content management, as well as the user account.  It is displayed both in the backend (this dashboard) and the frontend (public part) of the site.  Whenever the user scrolls down the page, the Toolbar remains visible, providing a quick access to these links.', 'wp-symposium-toolbar') . '  ' . __('This plugin allows you to change the default behaviour of the WP Toolbar, and customize its display.', 'wp-symposium-toolbar') . '</p>' .
-		$help_content .= '<p>' . __('This Options page is split into tabs.', 'wp-symposium-toolbar');
-		if ( WPST_IS_NETWORK_ADMIN ) $help_content .= '  ' . __('Only available when WPS Toolbar is network activated, the first two tabs are gathering most of the network features that the plugin provides.', 'wp-symposium-toolbar');
-		if ( !in_array( 'toolbar', $wpst_hidden_tabs ) ) $help_content .= '  ' . __('The WP Toolbar tab will let you choose which of the WP default items, menus, icons and links to show to users with the appropriate rights.', 'wp-symposium-toolbar');
-		if ( !in_array( 'myaccount', $wpst_hidden_tabs ) ) $help_content .= '  ' . __('From the User Menu tab, you may change the content of the WP User Menu, and pick the items you want to display to all users, registrered and logged-in.', 'wp-symposium-toolbar');
-		if ( !in_array( 'menus', $wpst_hidden_tabs ) ) $help_content .= '  ' . __('From the Custom Menus tab, you may add your custom menus to several predefined locations in the WP Toolbar, to both logged-in members and site visitors.', 'wp-symposium-toolbar') . '  ';
-		if ( !in_array( 'share', $wpst_hidden_tabs ) ) $help_content .= '  ' . __('From the Share tab, add share icons to your Toolbar.', 'wp-symposium-toolbar') . '  ';
-		if ( !in_array( 'wps', $wpst_hidden_tabs ) && WPST_IS_WPS_ACTIVE ) $help_content .= __('The plugin adds items specific to WP Symposium, that you may show or hide from the tab of the same name.', 'wp-symposium-toolbar') . '  ';
-		if ( !in_array( 'style', $wpst_hidden_tabs ) ) $help_content .= __('The Styles tab, not the least, will let you modify styling options of the WP Toolbar, so that it fits the look of your site.', 'wp-symposium-toolbar') . '</p>';
+		$help_content .= '<p>' . __('This Options page is split into tabs, reflecting those of the plugin settings page.', 'wp-symposium-toolbar');
+		$help_content .= '  ' .  __('For a more extended help, you may want to refer to the User Guide, available at this page.', 'wp-symposium-toolbar') . '</p>';
 		
 		get_current_screen()->add_help_tab( array(
 			'id'      => 'wpst_overview',
@@ -78,7 +72,6 @@ function symposium_toolbar_add_help_text( $contextual_help, $screen_id, $screen 
 		$help_content .= '<p>' . __('Select your menu title, the location where you want it to show, and select the roles for which it should be displayed. Optionally, you may specify a custom icon for the toplevel menu item (full URL).', 'wp-symposium-toolbar') . '</p>';
 		$help_content .= '<p>' . __('You may also choose to force the display of a menu in responsive mode. You should make sure your Toolbar will not get overcrowed and it has enough room for all your items.', 'wp-symposium-toolbar') . '  ' . __('It should be stressed that this option will apply only when your custom menu is actually connected to the Toolbar.  If it\'s appended to a WordPress menu, the display of that menu will be left to WordPress.', 'wp-symposium-toolbar') . '</p>';
 		if ( WPST_IS_NETWORK_ADMIN ) $help_content .= '<p>' . __('When the plugin is network activated, Super Admins will have the option to make a custom menu, a Network Menu, so that it is displayed accross the whole network without Site Admins being able to hide it or modify it.', 'wp-symposium-toolbar') . '</p>';
-		$help_content .= '<p>' . __('Please refer to the User Guide for advices on what can be and can\'t be done...', 'wp-symposium-toolbar') . '</p>';
 		
 		if ( !in_array( 'menus', $wpst_hidden_tabs ) ) get_current_screen()->add_help_tab( array(
 			'id'      => 'wpst_custom_menus',
