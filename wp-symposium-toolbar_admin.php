@@ -1788,9 +1788,9 @@ function symposium_toolbar_admintab_styles() {
 					echo '<span>' . __( 'Blur', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="wpst_font_shadow_blur" id="wpst_font_shadow_blur" ';
 					if ( isset( $wpst_style_tb_current['font_shadow_blur'] ) && ( $wpst_style_tb_current['font_shadow_blur'] != $wpst_default_toolbar['font_shadow_blur'] ) )
-						echo 'class="wpst-admin wpst-default wpst-int wpst_font_shadow" value="'.$wpst_style_tb_current['font_shadow_blur'];
+						echo 'class="wpst-admin wpst-default wpst-positive-int wpst_font_shadow" value="'.$wpst_style_tb_current['font_shadow_blur'];
 					else {
-						echo 'class="wpst-admin wpst-default wpst-has-default wpst-int wpst_font_shadow" value="'.$wpst_default_toolbar['font_shadow_blur'];
+						echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_font_shadow" value="'.$wpst_default_toolbar['font_shadow_blur'];
 					}
 					echo '" />px<input type="hidden" id="wpst_font_shadow_blur_default" value="'.$wpst_default_toolbar['font_shadow_blur'].'" />';
 				echo '</td>';
@@ -2014,9 +2014,9 @@ function symposium_toolbar_admintab_styles() {
 						echo '<span>' . __( 'Blur', 'wp-symposium-toolbar' ) . '</span><br />';
 						echo '<input type="text" name="wpst_hover_font_shadow_blur" id="wpst_hover_font_shadow_blur" ';
 						if ( isset( $wpst_style_tb_current['hover_font_shadow_blur'] ) && ( $wpst_style_tb_current['hover_font_shadow_blur'] != $wpst_default_toolbar['hover_font_shadow_blur'] ) )
-							echo 'class="wpst-admin wpst-default wpst-int wpst_font_shadow" value="'.$wpst_style_tb_current['hover_font_shadow_blur'];
+							echo 'class="wpst-admin wpst-default wpst-positive-int wpst_font_shadow" value="'.$wpst_style_tb_current['hover_font_shadow_blur'];
 						else
-							echo 'class="wpst-admin wpst-default wpst-has-default wpst-int wpst_font_shadow" value="'.$wpst_default_toolbar['hover_font_shadow_blur'];
+							echo 'class="wpst-admin wpst-default wpst-has-default wpst-positive-int wpst_font_shadow" value="'.$wpst_default_toolbar['hover_font_shadow_blur'];
 						echo '" />px<input type="hidden" id="wpst_hover_font_shadow_blur_default" value="'.$wpst_default_toolbar['hover_font_shadow_blur'].'" />';
 					echo '</td>';
 					echo '<td colspan="2" style="width:28%;">';

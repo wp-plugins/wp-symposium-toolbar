@@ -635,10 +635,9 @@
 	margin-top: 12px;
 	padding: 12px;
 	background: none repeat scroll 0 0 #FFFFFF;
-	border: 1px solid #DD3D36;
+	border: 1px solid #E5E5E5;
 	border-left: 4px solid #DD3D36;
 	vertical-align: bottom;
-	text-align: center;
 	clear: both;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }

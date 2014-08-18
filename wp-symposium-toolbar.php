@@ -10,7 +10,7 @@ Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, them
 Requires at least: WordPress 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.44
+Version: 0.29.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 2944 );
+define( "WPST_BUILD_NR", 2945 );
 
 
 // Exit if accessed directly
