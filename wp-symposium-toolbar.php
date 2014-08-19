@@ -6,11 +6,11 @@ Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
-Tags: wp-symposium, toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
-Requires at least: WordPress 3.8
+Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
+Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.45
+Version: 0.29.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 2945 );
+define( "WPST_BUILD_NR", 2948 );
 
 
 // Exit if accessed directly

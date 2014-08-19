@@ -4,11 +4,11 @@ Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally
 Author: AlphaGolf_fr
 Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
-Tags: wp-symposium, toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
+Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.45
+Version: 0.29.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,8 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Bugfix: WPMS in RTL, remove an extra "float:right;" in admin tabs for correct display of subsites
 * Bugfix: Styles, do not allow hex values with other than 3-digit and 6-digit for colours, upon saving
 * Bugfix: Styles, do not allow negative values for font & icon shadow blur, in preview
+* Bugfix: Import, discard unknown roles in arrays of roles
+* Bugfix: Import, make sure custom menus are imported in all cases, change the way icons are stored to avoid the clash with the backslash
 
 = 0.29.0. =
 
@@ -259,7 +261,7 @@ Now the detailed changelog entry...
 * Bugfix: removed redundant tabs in the HTML of the plugin options page
 * Bugfix: when forcing the display of the Toolbar from a subsite, remove the WP Profile option for all users
 * Bugfix: display custom rows with symposium_toolbar_add_user_action even when all the default items are removed
-* Change: added a carrousel of tabs, so that they display on one row regardless of the screen size while ensuring the active tab is always displayed
+* Change: added a carousel of tabs, so that they display on one row regardless of the screen size while ensuring the active tab is always displayed
 * Change: User Guide and Dev Guide are now integrated in the admin page, and their content is set dynamically as per selected tabs (in Multisite)
 * Change: non-Javascript friendly admin page
 * Change: WP 3.8 compliance, preview now only active on the Styles tab, responsive mode for smaller screens, etc.

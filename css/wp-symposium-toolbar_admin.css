@@ -631,6 +631,10 @@
 	outline: 1px solid #CC0000 !Important;
 }
 
+.wpst-caution {
+	border-left: 4px solid #ffba00 !Important;
+}
+
 .wpst-error-message {
 	margin-top: 12px;
 	padding: 12px;

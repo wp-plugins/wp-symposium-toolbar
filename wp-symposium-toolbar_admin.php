@@ -21,7 +21,7 @@ function symposium_toolbar_admin_page() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	
-	global $wpst_failed, $wpst_notices;
+	global $wpst_errors, $wpst_notices;
 	global $wpst_shown_tabs;
 	
 	echo '<div class="wrap">';
@@ -38,15 +38,15 @@ function symposium_toolbar_admin_page() {
 	if ( isset( $_POST["symposium_toolbar_view"] ) ) {
 	
 		// Put an error message on the screen
-		if ( $wpst_failed ) {
+		if ( $wpst_errors ) {
 			echo '<div class="error"><p><b>'.__( 'Warning', 'wp-symposium-toolbar' ).'</b><br />';
-			echo $wpst_failed;
+			echo $wpst_errors;
 			echo "</p></div>";
 		}
 		
 		// Put a notice on the screen
 		if ( $wpst_notices ) {
-			echo '<div class="error"><p><b>'.__( 'Important', 'wp-symposium-toolbar' ).'</b><br />';
+			echo '<div class="error wpst-caution"><p><b>'.__( 'Notice', 'wp-symposium-toolbar' ).'</b><br />';
 			echo $wpst_notices;
 			echo '</p></div>';
 		}
@@ -883,7 +883,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
 						echo '<input type="text" style="min-width:170px; width:100%;" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']"';
-						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".stripslashes($custom_menu[3])."'";
+						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".str_replace( ': "', ': "\\', $custom_menu[3] )."'";
 						echo '/>';
 						echo '<span class="description">';
 						printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">'.__( 'WP dashicon', 'wp-symposium-toolbar' ).'</a>' );

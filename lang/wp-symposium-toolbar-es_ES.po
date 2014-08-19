@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Symposium Toolbar v0.29.43\n"
+"Project-Id-Version: WP Symposium Toolbar v0.29.48\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-08-17 19:59:10+0000\n"
+"PO-Revision-Date: 2014-08-19 15:03:39+0000\n"
 "Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,19 @@ msgstr ""
 #: wp-symposium-toolbar.php:227
 #: wp-symposium-toolbar.php:251
 #: wp-symposium-toolbar_admin.php:1399
+#: wp-symposium-toolbar_admin_functions.php:736
+#: wp-symposium-toolbar_admin_functions.php:747
+#: wp-symposium-toolbar_admin_functions.php:757
+#: wp-symposium-toolbar_admin_functions.php:767
+#: wp-symposium-toolbar_admin_functions.php:776
+#: wp-symposium-toolbar_admin_functions.php:785
+#: wp-symposium-toolbar_admin_functions.php:794
+#: wp-symposium-toolbar_admin_functions.php:804
+#: wp-symposium-toolbar_admin_functions.php:813
+#: wp-symposium-toolbar_admin_functions.php:822
+#: wp-symposium-toolbar_admin_functions.php:831
+#: wp-symposium-toolbar_admin_functions.php:840
+#: wp-symposium-toolbar_admin_functions.php:849
 #@ wp-symposium-toolbar
 msgid "Toolbar"
 msgstr "Barra de Herramientas"
@@ -48,7 +61,7 @@ msgstr "El enlace Editar Perfil"
 #: wp-symposium-toolbar_admin.php:1336
 #: wp-symposium-toolbar_admin.php:2488
 #: wp-symposium-toolbar_admin.php:2535
-#: wp-symposium-toolbar_admin_functions.php:441
+#: wp-symposium-toolbar_admin_functions.php:448
 #@ wp-symposium-toolbar
 msgid "Save Changes"
 msgstr "Salvar los Cambios"
@@ -58,119 +71,119 @@ msgstr "Salvar los Cambios"
 msgid "Admin Menu"
 msgstr "Menú de Administración"
 
-#: wp-symposium-toolbar_admin_functions.php:2543
+#: wp-symposium-toolbar_admin_functions.php:2806
 #@ wp-symposium-toolbar
 msgid "Options"
 msgstr "Opciones"
 
-#: wp-symposium-toolbar_admin_functions.php:2544
+#: wp-symposium-toolbar_admin_functions.php:2807
 #@ wp-symposium-toolbar
 msgid "Profile"
 msgstr "Perfil"
 
-#: wp-symposium-toolbar_admin_functions.php:2545
+#: wp-symposium-toolbar_admin_functions.php:2808
 #@ wp-symposium-toolbar
 msgid "Plus"
 msgstr "Más"
 
-#: wp-symposium-toolbar_admin_functions.php:2546
+#: wp-symposium-toolbar_admin_functions.php:2809
 #@ wp-symposium-toolbar
 msgid "Forum"
 msgstr "Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2547
+#: wp-symposium-toolbar_admin_functions.php:2810
 #@ wp-symposium-toolbar
 msgid "Directory"
 msgstr "Directorio"
 
-#: wp-symposium-toolbar_admin_functions.php:2548
+#: wp-symposium-toolbar_admin_functions.php:2811
 #: wp-symposium-toolbar_functions.php:90
 #@ wp-symposium-toolbar
 msgid "Mail"
 msgstr "Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2549
+#: wp-symposium-toolbar_admin_functions.php:2812
 #@ wp-symposium-toolbar
 msgid "Groups"
 msgstr "Grupos"
 
-#: wp-symposium-toolbar_admin_functions.php:2550
+#: wp-symposium-toolbar_admin_functions.php:2813
 #@ wp-symposium-toolbar
 msgid "Gallery"
 msgstr "Galería"
 
-#: wp-symposium-toolbar_admin_functions.php:2551
+#: wp-symposium-toolbar_admin_functions.php:2814
 #@ wp-symposium-toolbar
 msgid "Alerts"
 msgstr "Alertas"
 
-#: wp-symposium-toolbar_admin_functions.php:2552
+#: wp-symposium-toolbar_admin_functions.php:2815
 #@ wp-symposium-toolbar
 msgid "Panel"
 msgstr "Panel"
 
-#: wp-symposium-toolbar_admin_functions.php:2553
+#: wp-symposium-toolbar_admin_functions.php:2816
 #@ wp-symposium-toolbar
 msgid "Events"
 msgstr "Eventos"
 
 #: wp-symposium-toolbar_admin.php:1188
-#: wp-symposium-toolbar_admin_functions.php:2554
+#: wp-symposium-toolbar_admin_functions.php:2817
 #@ wp-symposium-toolbar
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-symposium-toolbar_admin_functions.php:2555
+#: wp-symposium-toolbar_admin_functions.php:2818
 #@ wp-symposium-toolbar
 msgid "Mobile"
 msgstr "Móvil"
 
-#: wp-symposium-toolbar_admin_functions.php:2556
+#: wp-symposium-toolbar_admin_functions.php:2819
 #@ wp-symposium-toolbar
 msgid "Reply"
 msgstr "Responder"
 
-#: wp-symposium-toolbar_admin_functions.php:2557
+#: wp-symposium-toolbar_admin_functions.php:2820
 #@ wp-symposium-toolbar
 msgid "Lounge"
 msgstr "Salón"
 
-#: wp-symposium-toolbar_admin_functions.php:2559
+#: wp-symposium-toolbar_admin_functions.php:2822
 #@ wp-symposium-toolbar
 msgid "Manage"
 msgstr "Gestionar"
 
-#: wp-symposium-toolbar_admin_functions.php:2560
+#: wp-symposium-toolbar_admin_functions.php:2823
 #@ wp-symposium-toolbar
 msgid "Settings"
 msgstr "Configurar"
 
-#: wp-symposium-toolbar_admin_functions.php:2562
+#: wp-symposium-toolbar_admin_functions.php:2825
 #@ wp-symposium-toolbar
 msgid "Thesaurus"
 msgstr "Tesauro"
 
-#: wp-symposium-toolbar_admin_functions.php:2563
+#: wp-symposium-toolbar_admin_functions.php:2826
 #@ wp-symposium-toolbar
 msgid "Categories"
 msgstr "Categorías"
 
-#: wp-symposium-toolbar_admin_functions.php:2564
+#: wp-symposium-toolbar_admin_functions.php:2827
 #@ wp-symposium-toolbar
 msgid "Forum Posts"
 msgstr "Mensajes del Foro"
 
-#: wp-symposium-toolbar_admin_functions.php:2565
+#: wp-symposium-toolbar_admin_functions.php:2828
 #@ wp-symposium-toolbar
 msgid "Mail Messages"
 msgstr "Mensajes de Correo"
 
-#: wp-symposium-toolbar_admin_functions.php:2566
+#: wp-symposium-toolbar_admin_functions.php:2829
 #@ wp-symposium-toolbar
 msgid "Templates"
 msgstr "Plantillas"
 
-#: wp-symposium-toolbar_admin_functions.php:2567
+#: wp-symposium-toolbar_admin_functions.php:2830
 #@ wp-symposium-toolbar
 msgid "Audit"
 msgstr "Auditoría"
@@ -764,47 +777,47 @@ msgstr "Usted también puede modificar el elemento al nivel superior del menú, 
 msgid "No available NavMenu !"
 msgstr "¡Menú de Navegación no disponible!"
 
-#: wp-symposium-toolbar_admin_functions.php:1208
-#: wp-symposium-toolbar_admin_functions.php:1296
+#: wp-symposium-toolbar_admin_functions.php:1448
+#: wp-symposium-toolbar_admin_functions.php:1554
 #@ wp-symposium-toolbar
 msgid ": incorrect format, an array of roles was expected"
 msgstr ": formato incorrecto, un conjunto de roles se esperaban"
 
-#: wp-symposium-toolbar_admin_functions.php:1182
-#: wp-symposium-toolbar_admin_functions.php:1230
-#: wp-symposium-toolbar_admin_functions.php:1304
-#: wp-symposium-toolbar_admin_functions.php:1358
-#: wp-symposium-toolbar_admin_functions.php:1392
+#: wp-symposium-toolbar_admin_functions.php:1420
+#: wp-symposium-toolbar_admin_functions.php:1470
+#: wp-symposium-toolbar_admin_functions.php:1562
+#: wp-symposium-toolbar_admin_functions.php:1616
+#: wp-symposium-toolbar_admin_functions.php:1650
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"\" or \"on\""
 msgstr ": valor incorrecto, los valores esperados son \"\" o \"on\""
 
-#: wp-symposium-toolbar_admin_functions.php:1184
-#: wp-symposium-toolbar_admin_functions.php:1232
-#: wp-symposium-toolbar_admin_functions.php:1306
-#: wp-symposium-toolbar_admin_functions.php:1360
-#: wp-symposium-toolbar_admin_functions.php:1394
+#: wp-symposium-toolbar_admin_functions.php:1422
+#: wp-symposium-toolbar_admin_functions.php:1472
+#: wp-symposium-toolbar_admin_functions.php:1564
+#: wp-symposium-toolbar_admin_functions.php:1618
+#: wp-symposium-toolbar_admin_functions.php:1652
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\" or \"on\""
 msgstr ": formato incorrecto, se esperaba una cadena. ya sea \"\" o \"on\""
 
-#: wp-symposium-toolbar_admin_functions.php:1192
+#: wp-symposium-toolbar_admin_functions.php:1430
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"\", \"empty\" or \"top-secondary\""
 msgstr ": valor incorrecto, los valores esperados son \"\", \"empty\" or \"top-secondary\""
 
-#: wp-symposium-toolbar_admin_functions.php:1194
+#: wp-symposium-toolbar_admin_functions.php:1432
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\", \"empty\" or \"top-secondary\""
 msgstr ": formato incorrecto, se esperaba una cadena, ya sea \"\", \"empty\" or \"top-secondary\""
 
-#: wp-symposium-toolbar_admin_functions.php:1222
+#: wp-symposium-toolbar_admin_functions.php:1462
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected"
 msgstr ": formato incorrecto, se esperaba  una cadena"
 
-#: wp-symposium-toolbar_admin_functions.php:1398
-#: wp-symposium-toolbar_admin_functions.php:1403
+#: wp-symposium-toolbar_admin_functions.php:1656
+#: wp-symposium-toolbar_admin_functions.php:1661
 #@ wp-symposium-toolbar
 msgid ": option not recognized"
 msgstr ": opción no reconocida"
@@ -832,7 +845,7 @@ msgstr "Para esta ubicación"
 
 #: wp-symposium-toolbar_admin.php:418
 #: wp-symposium-toolbar_admin.php:456
-#: wp-symposium-toolbar_admin.php:2906
+#: wp-symposium-toolbar_admin.php:2905
 #@ wp-symposium-toolbar
 msgid "toggle all / none"
 msgstr "cambiar a todos/ninguno"
@@ -873,6 +886,10 @@ msgstr "Estilos"
 #: wp-symposium-toolbar_admin.php:1824
 #: wp-symposium-toolbar_admin.php:2048
 #: wp-symposium-toolbar_admin.php:2319
+#: wp-symposium-toolbar_admin_functions.php:757
+#: wp-symposium-toolbar_admin_functions.php:987
+#: wp-symposium-toolbar_admin_functions.php:1119
+#: wp-symposium-toolbar_admin_functions.php:1268
 #@ wp-symposium-toolbar
 msgid "Background Colour"
 msgstr "Color de Fondo"
@@ -899,6 +916,8 @@ msgstr "Extensión"
 #: wp-symposium-toolbar_admin.php:2109
 #: wp-symposium-toolbar_admin.php:2299
 #: wp-symposium-toolbar_admin.php:2465
+#: wp-symposium-toolbar_admin_functions.php:840
+#: wp-symposium-toolbar_admin_functions.php:1174
 #@ wp-symposium-toolbar
 msgid "Shadow Colour"
 msgstr "Color de Sombra"
@@ -912,6 +931,9 @@ msgstr "Familia de la Fuente"
 #: wp-symposium-toolbar_admin.php:1674
 #: wp-symposium-toolbar_admin.php:1901
 #: wp-symposium-toolbar_admin.php:2160
+#: wp-symposium-toolbar_admin_functions.php:922
+#: wp-symposium-toolbar_admin_functions.php:1053
+#: wp-symposium-toolbar_admin_functions.php:1214
 #@ wp-symposium-toolbar
 msgid "Font Size"
 msgstr "Tamaño de la Fuente"
@@ -920,6 +942,10 @@ msgstr "Tamaño de la Fuente"
 #: wp-symposium-toolbar_admin.php:1910
 #: wp-symposium-toolbar_admin.php:2177
 #: wp-symposium-toolbar_admin.php:2344
+#: wp-symposium-toolbar_admin_functions.php:932
+#: wp-symposium-toolbar_admin_functions.php:1063
+#: wp-symposium-toolbar_admin_functions.php:1193
+#: wp-symposium-toolbar_admin_functions.php:1287
 #@ wp-symposium-toolbar
 msgid "Font Colour"
 msgstr "Color de la Fuente"
@@ -972,8 +998,8 @@ msgstr "Minúscula"
 msgid "Small Caps"
 msgstr "Pequeña capitalización"
 
-#: wp-symposium-toolbar_admin_functions.php:1320
-#: wp-symposium-toolbar_admin_functions.php:1384
+#: wp-symposium-toolbar_admin_functions.php:1578
+#: wp-symposium-toolbar_admin_functions.php:1642
 #@ wp-symposium-toolbar
 msgid ": incorrect format, an array was expected"
 msgstr ": formato incorrecto, se esperaba un arreglo"
@@ -990,7 +1016,7 @@ msgstr "Configuración de la Barra de Herramientas WPS"
 
 #: wp-symposium-toolbar_admin.php:55
 #: wp-symposium-toolbar_admin.php:2593
-#: wp-symposium-toolbar_admin_functions.php:1135
+#: wp-symposium-toolbar_admin_functions.php:1375
 #@ wp-symposium-toolbar
 msgid "Import"
 msgstr "Importar"
@@ -1057,12 +1083,12 @@ msgid "Click to toggle"
 msgstr "Clic para intercambiar"
 
 #: wp-symposium-toolbar_admin.php:1405
+#: wp-symposium-toolbar_admin_functions.php:736
 #@ wp-symposium-toolbar
 msgid "Height"
 msgstr "Altura"
 
 #: wp-symposium-toolbar_admin.php:1407
-#: wp-symposium-toolbar_admin_functions.php:704
 #@ wp-symposium-toolbar
 msgid "Toolbar Height"
 msgstr "Altura de la Barra de Herramientas"
@@ -1100,6 +1126,7 @@ msgid "Bottom Gradient Colour"
 msgstr "Color del Gradiente Inferior"
 
 #: wp-symposium-toolbar_admin.php:1588
+#: wp-symposium-toolbar_admin_functions.php:870
 #@ wp-symposium-toolbar
 msgid "Border Width"
 msgstr "Ancho del Borde"
@@ -1132,11 +1159,13 @@ msgid "Default"
 msgstr "Por Defecto"
 
 #: wp-symposium-toolbar_admin.php:1611
+#: wp-symposium-toolbar_admin_functions.php:881
 #@ wp-symposium-toolbar
 msgid "Border Left Colour"
 msgstr "Color del Borde Izquierdo"
 
 #: wp-symposium-toolbar_admin.php:1622
+#: wp-symposium-toolbar_admin_functions.php:890
 #@ wp-symposium-toolbar
 msgid "Border Right Colour"
 msgstr "Color del Borde Derecho"
@@ -1243,12 +1272,16 @@ msgstr "Vertical"
 
 #: wp-symposium-toolbar_admin.php:2059
 #: wp-symposium-toolbar_admin.php:2330
+#: wp-symposium-toolbar_admin_functions.php:1128
+#: wp-symposium-toolbar_admin_functions.php:1277
 #@ wp-symposium-toolbar
 msgid "Background Colour for Highlighted Items"
 msgstr "Color de Fondo para los Elementos Resaltados"
 
 #: wp-symposium-toolbar_admin.php:2188
 #: wp-symposium-toolbar_admin.php:2355
+#: wp-symposium-toolbar_admin_functions.php:1202
+#: wp-symposium-toolbar_admin_functions.php:1296
 #@ wp-symposium-toolbar
 msgid "Font Colour for Highlighted Items"
 msgstr "Color de la Fuente para los Elementos Resaltados"
@@ -1265,292 +1298,101 @@ msgid "If you would like to backup the plugin settings or export them to another
 msgstr "Si usted desea hacer copia de seguridad de la configuración del plugin o exportarlo a otro sitio, copie lo siguiente en su editor de texto favorito y sálvelo como un archivo de texto. Recíprocamente, si usted quisiera actualizar esa configuración con un conjunto salvado anteriormente, péguelo en este campo y haga clic en \"Importar\" debajo. Note que este proceso va a descartar cualquier cambio que usted puede haber hecho en los otros tabs. ¡No edite esta información directamente!"
 
 #: wp-symposium-toolbar_admin.php:2598
-#: wp-symposium-toolbar_admin_functions.php:1141
+#: wp-symposium-toolbar_admin_functions.php:1381
 #@ wp-symposium-toolbar
 msgid "Import from Main Site"
 msgstr "Importar desde el Sitio Principal"
 
-#: wp-symposium-toolbar_admin_functions.php:704
-#: wp-symposium-toolbar_admin_functions.php:712
-#: wp-symposium-toolbar_admin_functions.php:725
 #: wp-symposium-toolbar_admin_functions.php:736
-#: wp-symposium-toolbar_admin_functions.php:748
-#: wp-symposium-toolbar_admin_functions.php:754
-#: wp-symposium-toolbar_admin_functions.php:760
-#: wp-symposium-toolbar_admin_functions.php:766
-#: wp-symposium-toolbar_admin_functions.php:777
-#: wp-symposium-toolbar_admin_functions.php:784
-#: wp-symposium-toolbar_admin_functions.php:791
-#: wp-symposium-toolbar_admin_functions.php:811
-#: wp-symposium-toolbar_admin_functions.php:825
-#: wp-symposium-toolbar_admin_functions.php:844
-#: wp-symposium-toolbar_admin_functions.php:850
-#: wp-symposium-toolbar_admin_functions.php:856
-#: wp-symposium-toolbar_admin_functions.php:876
-#: wp-symposium-toolbar_admin_functions.php:887
-#: wp-symposium-toolbar_admin_functions.php:899
-#: wp-symposium-toolbar_admin_functions.php:911
-#: wp-symposium-toolbar_admin_functions.php:930
-#: wp-symposium-toolbar_admin_functions.php:936
-#: wp-symposium-toolbar_admin_functions.php:942
-#: wp-symposium-toolbar_admin_functions.php:968
-#: wp-symposium-toolbar_admin_functions.php:974
-#: wp-symposium-toolbar_admin_functions.php:980
-#: wp-symposium-toolbar_admin_functions.php:986
+#: wp-symposium-toolbar_admin_functions.php:747
+#: wp-symposium-toolbar_admin_functions.php:767
+#: wp-symposium-toolbar_admin_functions.php:785
+#: wp-symposium-toolbar_admin_functions.php:804
+#: wp-symposium-toolbar_admin_functions.php:813
+#: wp-symposium-toolbar_admin_functions.php:822
+#: wp-symposium-toolbar_admin_functions.php:831
+#: wp-symposium-toolbar_admin_functions.php:849
+#: wp-symposium-toolbar_admin_functions.php:860
+#: wp-symposium-toolbar_admin_functions.php:870
+#: wp-symposium-toolbar_admin_functions.php:901
+#: wp-symposium-toolbar_admin_functions.php:922
+#: wp-symposium-toolbar_admin_functions.php:948
+#: wp-symposium-toolbar_admin_functions.php:957
+#: wp-symposium-toolbar_admin_functions.php:966
 #: wp-symposium-toolbar_admin_functions.php:997
-#: wp-symposium-toolbar_admin_functions.php:1017
-#: wp-symposium-toolbar_admin_functions.php:1030
-#: wp-symposium-toolbar_admin_functions.php:1036
-#: wp-symposium-toolbar_admin_functions.php:1042
-#: wp-symposium-toolbar_admin_functions.php:1083
-#: wp-symposium-toolbar_admin_functions.php:1089
-#: wp-symposium-toolbar_admin_functions.php:1095
+#: wp-symposium-toolbar_admin_functions.php:1015
+#: wp-symposium-toolbar_admin_functions.php:1034
+#: wp-symposium-toolbar_admin_functions.php:1053
+#: wp-symposium-toolbar_admin_functions.php:1079
+#: wp-symposium-toolbar_admin_functions.php:1088
+#: wp-symposium-toolbar_admin_functions.php:1097
+#: wp-symposium-toolbar_admin_functions.php:1138
+#: wp-symposium-toolbar_admin_functions.php:1147
+#: wp-symposium-toolbar_admin_functions.php:1156
+#: wp-symposium-toolbar_admin_functions.php:1165
+#: wp-symposium-toolbar_admin_functions.php:1183
+#: wp-symposium-toolbar_admin_functions.php:1214
+#: wp-symposium-toolbar_admin_functions.php:1230
+#: wp-symposium-toolbar_admin_functions.php:1239
+#: wp-symposium-toolbar_admin_functions.php:1248
+#: wp-symposium-toolbar_admin_functions.php:1312
+#: wp-symposium-toolbar_admin_functions.php:1321
+#: wp-symposium-toolbar_admin_functions.php:1330
 #@ wp-symposium-toolbar
 msgid "Integer value expected"
 msgstr "Valor entero esperado"
 
-#: wp-symposium-toolbar_admin_functions.php:712
-#: wp-symposium-toolbar_admin_functions.php:777
-#: wp-symposium-toolbar_admin_functions.php:997
+#: wp-symposium-toolbar_admin_functions.php:747
+#: wp-symposium-toolbar_admin_functions.php:849
+#: wp-symposium-toolbar_admin_functions.php:1183
 #@ wp-symposium-toolbar
 msgid "ranging from 0 to 100"
 msgstr "rango del 0 al 100"
 
-#: wp-symposium-toolbar_admin_functions.php:718
-#@ wp-symposium-toolbar
-msgid "Toolbar Background Colour"
-msgstr "Color de Fondo de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:718
-#: wp-symposium-toolbar_admin_functions.php:730
-#: wp-symposium-toolbar_admin_functions.php:741
-#: wp-symposium-toolbar_admin_functions.php:771
-#: wp-symposium-toolbar_admin_functions.php:798
-#: wp-symposium-toolbar_admin_functions.php:803
-#: wp-symposium-toolbar_admin_functions.php:816
-#: wp-symposium-toolbar_admin_functions.php:831
-#: wp-symposium-toolbar_admin_functions.php:861
-#: wp-symposium-toolbar_admin_functions.php:869
+#: wp-symposium-toolbar_admin_functions.php:757
+#: wp-symposium-toolbar_admin_functions.php:776
+#: wp-symposium-toolbar_admin_functions.php:794
+#: wp-symposium-toolbar_admin_functions.php:840
 #: wp-symposium-toolbar_admin_functions.php:881
-#: wp-symposium-toolbar_admin_functions.php:892
-#: wp-symposium-toolbar_admin_functions.php:904
-#: wp-symposium-toolbar_admin_functions.php:917
-#: wp-symposium-toolbar_admin_functions.php:947
-#: wp-symposium-toolbar_admin_functions.php:956
-#: wp-symposium-toolbar_admin_functions.php:961
-#: wp-symposium-toolbar_admin_functions.php:991
-#: wp-symposium-toolbar_admin_functions.php:1003
-#: wp-symposium-toolbar_admin_functions.php:1008
-#: wp-symposium-toolbar_admin_functions.php:1047
-#: wp-symposium-toolbar_admin_functions.php:1054
-#: wp-symposium-toolbar_admin_functions.php:1059
-#: wp-symposium-toolbar_admin_functions.php:1065
-#: wp-symposium-toolbar_admin_functions.php:1070
-#: wp-symposium-toolbar_admin_functions.php:1100
+#: wp-symposium-toolbar_admin_functions.php:890
+#: wp-symposium-toolbar_admin_functions.php:910
+#: wp-symposium-toolbar_admin_functions.php:932
+#: wp-symposium-toolbar_admin_functions.php:975
+#: wp-symposium-toolbar_admin_functions.php:987
+#: wp-symposium-toolbar_admin_functions.php:1006
+#: wp-symposium-toolbar_admin_functions.php:1024
+#: wp-symposium-toolbar_admin_functions.php:1043
+#: wp-symposium-toolbar_admin_functions.php:1063
+#: wp-symposium-toolbar_admin_functions.php:1106
+#: wp-symposium-toolbar_admin_functions.php:1119
+#: wp-symposium-toolbar_admin_functions.php:1128
+#: wp-symposium-toolbar_admin_functions.php:1174
+#: wp-symposium-toolbar_admin_functions.php:1193
+#: wp-symposium-toolbar_admin_functions.php:1202
+#: wp-symposium-toolbar_admin_functions.php:1257
+#: wp-symposium-toolbar_admin_functions.php:1268
+#: wp-symposium-toolbar_admin_functions.php:1277
+#: wp-symposium-toolbar_admin_functions.php:1287
+#: wp-symposium-toolbar_admin_functions.php:1296
+#: wp-symposium-toolbar_admin_functions.php:1339
 #@ wp-symposium-toolbar
 msgid "Hexadecimal value expected"
 msgstr "Valor Hexadecimal esperado"
 
-#: wp-symposium-toolbar_admin_functions.php:725
-#@ wp-symposium-toolbar
-msgid "Toolbar Gradient Top Height"
-msgstr "Altura Superior del Gradiente de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:730
-#@ wp-symposium-toolbar
-msgid "Toolbar Gradient Top Colour"
-msgstr "Color de la Parte Superior del Gradiente de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:736
-#@ wp-symposium-toolbar
-msgid "Toolbar Gradient Bottom Height"
-msgstr "Altura Inferior del Gradiente de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:741
-#@ wp-symposium-toolbar
-msgid "Toolbar Gradient Bottom Colour"
-msgstr "Color de la Parte Inferior del Gradiente de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:798
-#@ wp-symposium-toolbar
-msgid "Toolbar Border Left Colour"
-msgstr "Color de la Parte Izquierda de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:803
-#@ wp-symposium-toolbar
-msgid "Toolbar Border Right Colour"
-msgstr "Color de la Parte Derecha de la Barra de Herramientas"
-
-#: wp-symposium-toolbar_admin_functions.php:791
-#@ wp-symposium-toolbar
-msgid "Toolbar Border Width"
-msgstr "Ancho del Borde de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:825
-#: wp-symposium-toolbar_admin_functions.php:1017
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Size"
-msgstr "Tamaño de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:760
-#: wp-symposium-toolbar_admin_functions.php:811
-#: wp-symposium-toolbar_admin_functions.php:825
-#: wp-symposium-toolbar_admin_functions.php:856
-#: wp-symposium-toolbar_admin_functions.php:899
-#: wp-symposium-toolbar_admin_functions.php:911
-#: wp-symposium-toolbar_admin_functions.php:942
-#: wp-symposium-toolbar_admin_functions.php:980
-#: wp-symposium-toolbar_admin_functions.php:1017
-#: wp-symposium-toolbar_admin_functions.php:1042
-#: wp-symposium-toolbar_admin_functions.php:1095
+#: wp-symposium-toolbar_admin_functions.php:822
+#: wp-symposium-toolbar_admin_functions.php:901
+#: wp-symposium-toolbar_admin_functions.php:922
+#: wp-symposium-toolbar_admin_functions.php:966
+#: wp-symposium-toolbar_admin_functions.php:1034
+#: wp-symposium-toolbar_admin_functions.php:1053
+#: wp-symposium-toolbar_admin_functions.php:1097
+#: wp-symposium-toolbar_admin_functions.php:1156
+#: wp-symposium-toolbar_admin_functions.php:1214
+#: wp-symposium-toolbar_admin_functions.php:1248
+#: wp-symposium-toolbar_admin_functions.php:1330
 #@ wp-symposium-toolbar
 msgid "greater than 0"
 msgstr "mayor que 0"
-
-#: wp-symposium-toolbar_admin_functions.php:831
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Colour"
-msgstr "Color de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:844
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Horizontal Shadow"
-msgstr "Sombra Horizontal de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:850
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Vertical Shadow"
-msgstr "Sombra Vertical de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:856
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Blur"
-msgstr "Distorsión de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:861
-#@ wp-symposium-toolbar
-msgid "Toolbar Font Shadow Colour"
-msgstr "Color de la Sombra de la Fuente de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:869
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Background Colour"
-msgstr "Color del Fondo del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:876
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Gradient Top Height"
-msgstr "Gradiente Superior del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:881
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Gradient Top Colour"
-msgstr "Color del Gradiente Superior del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:887
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Gradient Bottom Height"
-msgstr "Gradiente Superior del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:892
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Gradient Bottom Colour"
-msgstr "Toolbar Hover Gradient Bottom Height"
-
-#: wp-symposium-toolbar_admin_functions.php:917
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Font Colour"
-msgstr "Color de la Fuente del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:930
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Font Horizontal Shadow"
-msgstr "Sombra Horizontal de la Fuente del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:936
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Font Vertical Shadow"
-msgstr "Sombra Vertical de la Fuente del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:942
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Font Blur"
-msgstr "Distorsión de la Fuente del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:947
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Font Shadow Colour"
-msgstr "Color de la Sombra de la fuente del Hover de la Barra de Herramienta"
-
-#: wp-symposium-toolbar_admin_functions.php:956
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Background Colour"
-msgstr "Color de Fondo para los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1003
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Colour"
-msgstr "Color de la Fuente del Menú Desplegable"
-
-#: wp-symposium-toolbar_admin_functions.php:1008
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Colour for Highlighted Items"
-msgstr "Color de la Fuente del Menú Desplegable para los Elementos Destacados"
-
-#: wp-symposium-toolbar_admin_functions.php:1030
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Horizontal Shadow"
-msgstr "Sombra Horizontal de la Fuente de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1036
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Vertical Shadow"
-msgstr "Sombra Vertical de la Fuente de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1042
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Blur"
-msgstr "Mancha de la Fuente de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1047
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Font Shadow Colour"
-msgstr "Color de la Sombra de la Fuente de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1054
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Background Colour"
-msgstr "Color de Fondo del Hover de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1065
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Colour"
-msgstr "Color de la Fuente del Hover de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1070
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Colour for Highlighted Items"
-msgstr "Color de la Fuente del Hover de los Menús Desplegables para Elementos Seleccionados"
-
-#: wp-symposium-toolbar_admin_functions.php:1083
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Horizontal Shadow"
-msgstr "Sombra Horizontal de la Letra del Hover de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1089
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Vertical Shadow"
-msgstr "Sombra Vertical de la Letra del Hover de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1095
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Blur"
-msgstr "Distorsión de la Letra del Hover de los Menús Desplegables"
-
-#: wp-symposium-toolbar_admin_functions.php:1100
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Font Shadow Colour"
-msgstr "Color de la Sombra de la Letra del Hover de los Menús Desplegables"
 
 #: wp-symposium-toolbar_help.php:30
 #@ wp-symposium-toolbar
@@ -1607,39 +1449,22 @@ msgstr "Utilice la vista previa para crear su estilo personalizado, y salve con 
 msgid "The Ultimate WordPress Toolbar Plugin"
 msgstr "El último Plugin de la Barra de Herramienta de WordPress"
 
-#: wp-symposium-toolbar_admin_functions.php:1128
-#@ wp-symposium-toolbar
-msgid "The following settings could not be saved:"
-msgstr "Los siguientes ajustes no pudieron salvarse:"
-
-#: wp-symposium-toolbar_admin_functions.php:1164
+#: wp-symposium-toolbar_admin_functions.php:1518
 #@ wp-symposium-toolbar
 msgid "please check the menu settings from the Custom Menu tab, and save"
 msgstr "por favor verifique la configuración del menú en la pestaña del Menú personalizado y salve"
 
-#: wp-symposium-toolbar_admin_functions.php:1165
-#@ wp-symposium-toolbar
-msgid "please check plugin settings, and save"
-msgstr "por favor revise la configuración del plugin y salve "
-
-#: wp-symposium-toolbar_admin_functions.php:1254
+#: wp-symposium-toolbar_admin_functions.php:1496
 #@ wp-symposium-toolbar
 msgid "unknown menu"
 msgstr "menú desconocido"
 
-#: wp-symposium-toolbar_admin_functions.php:1259
+#: wp-symposium-toolbar_admin_functions.php:1501
 #@ wp-symposium-toolbar
 msgid "unknown location"
 msgstr "localización desconocida"
 
-#: wp-symposium-toolbar_admin_functions.php:1201
-#: wp-symposium-toolbar_admin_functions.php:1269
-#: wp-symposium-toolbar_admin_functions.php:1289
-#@ wp-symposium-toolbar
-msgid "unknown role"
-msgstr "función desconocida"
-
-#: wp-symposium-toolbar_admin_functions.php:1415
+#: wp-symposium-toolbar_admin_functions.php:1666
 #@ wp-symposium-toolbar
 msgid "No option to import!!"
 msgstr "¡¡No hay opción para importar!!"
@@ -1648,21 +1473,6 @@ msgstr "¡¡No hay opción para importar!!"
 #@ wp-symposium-toolbar
 msgid "Warning"
 msgstr "Advertencia"
-
-#: wp-symposium-toolbar_admin.php:49
-#@ wp-symposium-toolbar
-msgid "Important"
-msgstr "Importante"
-
-#: wp-symposium-toolbar_admin_functions.php:1409
-#@ wp-symposium-toolbar
-msgid "The following errors occured during import and the corresponding options couldn't be taken into account"
-msgstr "Los siguientes errores ocurrieron durante la importación y las opciones correspondientes no pudieron tenerse en cuenta"
-
-#: wp-symposium-toolbar_admin_functions.php:1411
-#@ wp-symposium-toolbar
-msgid "The following error occured during import and the corresponding option couldn't be taken into account"
-msgstr "El siguiente error ocurrió durante la importación y la opción correspondiente no pudo ser tenida en cuenta"
 
 #: wp-symposium-toolbar_admin_functions.php:47
 #@ wp-symposium-toolbar
@@ -1704,7 +1514,7 @@ msgstr "Usuario"
 #: wp-symposium-toolbar_admin.php:1028
 #: wp-symposium-toolbar_admin.php:1132
 #: wp-symposium-toolbar_admin.php:1327
-#: wp-symposium-toolbar_admin.php:2911
+#: wp-symposium-toolbar_admin.php:2910
 #@ wp-symposium-toolbar
 msgid "Important!"
 msgstr "¡Importante!"
@@ -1735,32 +1545,51 @@ msgstr "El Menú de Navegación WP \"%s\" no pudo ser encontrado: por favor sele
 msgid "There are issues with the menus defined on your Toolbar: please check your settings!"
 msgstr "¡Existen problemas con los menús definidos en su Barra de Herramientas: por favor verifique la configuración!"
 
-#: wp-symposium-toolbar_admin.php:2911
+#: wp-symposium-toolbar_admin.php:2910
 #@ wp-symposium-toolbar
 msgid "There is an issue with the roles stored in your database for this item: please check your settings, and try saving to fix the issue!"
 msgstr "¡Existe un problema con los roles en su base de datos para este elemento: por favor verifique la configuración y trate de salvar para solucionar el problema!"
 
-#: wp-symposium-toolbar_admin_functions.php:961
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Background Colour for Highlighted Items"
-msgstr "Color de Fondo para los elementos Destacados de los Menús Desplegables."
-
-#: wp-symposium-toolbar_admin_functions.php:1059
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Hover Background Colour for Highlighted Items"
-msgstr "Color del fondo Hover para los elementos destacados de los Menús Desplegables"
-
 #: wp-symposium-toolbar_admin.php:1816
+#: wp-symposium-toolbar_admin_functions.php:987
+#: wp-symposium-toolbar_admin_functions.php:997
+#: wp-symposium-toolbar_admin_functions.php:1006
+#: wp-symposium-toolbar_admin_functions.php:1015
+#: wp-symposium-toolbar_admin_functions.php:1024
+#: wp-symposium-toolbar_admin_functions.php:1034
+#: wp-symposium-toolbar_admin_functions.php:1043
+#: wp-symposium-toolbar_admin_functions.php:1053
+#: wp-symposium-toolbar_admin_functions.php:1063
+#: wp-symposium-toolbar_admin_functions.php:1079
+#: wp-symposium-toolbar_admin_functions.php:1088
+#: wp-symposium-toolbar_admin_functions.php:1097
+#: wp-symposium-toolbar_admin_functions.php:1106
 #@ wp-symposium-toolbar
 msgid "Toolbar Items Hover & Focus"
 msgstr "Elementos de la Barra de Herramientas con Hover y Focus"
 
 #: wp-symposium-toolbar_admin.php:2040
+#: wp-symposium-toolbar_admin_functions.php:1119
+#: wp-symposium-toolbar_admin_functions.php:1128
+#: wp-symposium-toolbar_admin_functions.php:1138
+#: wp-symposium-toolbar_admin_functions.php:1147
+#: wp-symposium-toolbar_admin_functions.php:1156
+#: wp-symposium-toolbar_admin_functions.php:1165
+#: wp-symposium-toolbar_admin_functions.php:1174
+#: wp-symposium-toolbar_admin_functions.php:1183
 #@ wp-symposium-toolbar
 msgid "Dropdown Menus"
 msgstr "Menús desplegables"
 
 #: wp-symposium-toolbar_admin.php:2310
+#: wp-symposium-toolbar_admin_functions.php:1268
+#: wp-symposium-toolbar_admin_functions.php:1277
+#: wp-symposium-toolbar_admin_functions.php:1287
+#: wp-symposium-toolbar_admin_functions.php:1296
+#: wp-symposium-toolbar_admin_functions.php:1312
+#: wp-symposium-toolbar_admin_functions.php:1321
+#: wp-symposium-toolbar_admin_functions.php:1330
+#: wp-symposium-toolbar_admin_functions.php:1339
 #@ wp-symposium-toolbar
 msgid "Dropdown Menus Items Hover & Focus"
 msgstr "Menús desplegables elementos con Hover y Focus"
@@ -2074,49 +1903,37 @@ msgstr "Camino absoluto a la página, alias disponibles:"
 msgid "Autodetect the full path to the WPS Profile page with"
 msgstr "Auto detectar el camino completo a la página del Perfil con"
 
-#: wp-symposium-toolbar_admin_functions.php:587
-#: wp-symposium-toolbar_admin_functions.php:600
-#: wp-symposium-toolbar_admin_functions.php:602
+#: wp-symposium-toolbar_admin_functions.php:594
+#: wp-symposium-toolbar_admin_functions.php:607
+#: wp-symposium-toolbar_admin_functions.php:609
 #@ wp-symposium-toolbar
 msgid "Rewrite Edit Link"
 msgstr "Enlace de Edición de Reescritura"
 
-#: wp-symposium-toolbar_admin_functions.php:587
+#: wp-symposium-toolbar_admin_functions.php:594
 #@ wp-symposium-toolbar
 msgid "the alias symposium_profile shall be used alone, as a placeholder for a fully autodetected URL"
 msgstr "el alias symposium_profile debería ser utilizada sola, como un placeholder para una detección de URL completa"
 
-#: wp-symposium-toolbar_admin_functions.php:600
+#: wp-symposium-toolbar_admin_functions.php:607
 #@ wp-symposium-toolbar
 msgid "local URL expected"
 msgstr "URL local esperada"
 
-#: wp-symposium-toolbar_admin_functions.php:602
+#: wp-symposium-toolbar_admin_functions.php:609
 #@ wp-symposium-toolbar
 msgid "valid URL expected"
 msgstr "URL válida esperada"
 
-#: wp-symposium-toolbar_admin_functions.php:1123
-#: wp-symposium-toolbar_admin_functions.php:1125
-#@ wp-symposium-toolbar
-msgid "Other options were saved successfully"
-msgstr "Las otras opciones fueron salvadas satisfactoriamente"
-
-#: wp-symposium-toolbar_admin_functions.php:1212
-#: wp-symposium-toolbar_admin_functions.php:1236
-#: wp-symposium-toolbar_admin_functions.php:1279
-#: wp-symposium-toolbar_admin_functions.php:1310
-#: wp-symposium-toolbar_admin_functions.php:1364
-#: wp-symposium-toolbar_admin_functions.php:1401
+#: wp-symposium-toolbar_admin_functions.php:1452
+#: wp-symposium-toolbar_admin_functions.php:1476
+#: wp-symposium-toolbar_admin_functions.php:1534
+#: wp-symposium-toolbar_admin_functions.php:1568
+#: wp-symposium-toolbar_admin_functions.php:1622
+#: wp-symposium-toolbar_admin_functions.php:1659
 #@ wp-symposium-toolbar
 msgid ": the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set."
 msgstr ": el tab correspondiente fue desactivado en este sitio, por tanto esta opción debe ser importada desde el Sitio Principal donde está asignado."
-
-#: wp-symposium-toolbar_admin_functions.php:1409
-#: wp-symposium-toolbar_admin_functions.php:1411
-#@ wp-symposium-toolbar
-msgid "Other options (if any) have been imported successfully"
-msgstr "Otras opciones (si hay) han sido importadas satisfactoriamente"
 
 #: wp-symposium-toolbar_functions.php:1182
 #@ wp-symposium-toolbar
@@ -2654,7 +2471,7 @@ msgstr "El plugin no forzará esto, y cuando su Barra de Herramientas del sitio 
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
 msgstr "Cualquier otro cambio de estilos que usted pueda haber realizado serán reflejados en esta Barra de Herramientas de respuesta."
 
-#: wp-symposium-toolbar_admin_functions.php:2561
+#: wp-symposium-toolbar_admin_functions.php:2824
 #@ wp-symposium-toolbar
 msgid "Advertising"
 msgstr "Publicidad"
@@ -2763,12 +2580,16 @@ msgstr ""
 
 #: wp-symposium-toolbar_admin.php:1638
 #: wp-symposium-toolbar_admin.php:1877
+#: wp-symposium-toolbar_admin_functions.php:901
+#: wp-symposium-toolbar_admin_functions.php:1034
 #@ wp-symposium-toolbar
 msgid "Icon Size"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:1648
 #: wp-symposium-toolbar_admin.php:1886
+#: wp-symposium-toolbar_admin_functions.php:910
+#: wp-symposium-toolbar_admin_functions.php:1043
 #@ wp-symposium-toolbar
 msgid "Icon Colour"
 msgstr ""
@@ -2786,21 +2607,6 @@ msgstr ""
 #: wp-symposium-toolbar_help.php:101
 #@ wp-symposium-toolbar
 msgid "Share"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:811
-#@ wp-symposium-toolbar
-msgid "Toolbar Icon Size"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:816
-#@ wp-symposium-toolbar
-msgid "Toolbar Icon Colour"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:904
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Icon Colour"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:2692
@@ -2868,33 +2674,27 @@ msgstr ""
 msgid "Icons-Only Toolbar"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:899
-#: wp-symposium-toolbar_admin_functions.php:911
-#@ wp-symposium-toolbar
-msgid "Toolbar Hover Icon Size"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:1338
+#: wp-symposium-toolbar_admin_functions.php:1596
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"lightweight\", \"rounded\" or \"circle\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1340
+#: wp-symposium-toolbar_admin_functions.php:1598
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"lightweight\", \"rounded\" or \"circle\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1348
+#: wp-symposium-toolbar_admin_functions.php:1606
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"\" or \"top-secondary\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1350
+#: wp-symposium-toolbar_admin_functions.php:1608
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"\" or \"top-secondary\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1382
+#: wp-symposium-toolbar_admin_functions.php:1640
 #@ wp-symposium-toolbar
 msgid ": an array of non-empty values was expected, at least one value was not set correctly"
 msgstr ""
@@ -2951,12 +2751,12 @@ msgstr ""
 msgid "The current page, whichever it is"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1328
+#: wp-symposium-toolbar_admin_functions.php:1586
 #@ wp-symposium-toolbar
 msgid ": incorrect value, expected values are \"home\", \"single\" or \"current\""
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1330
+#: wp-symposium-toolbar_admin_functions.php:1588
 #@ wp-symposium-toolbar
 msgid ": incorrect format, a string was expected, either \"home\", \"single\" or \"current\""
 msgstr ""
@@ -3001,12 +2801,24 @@ msgstr ""
 #: wp-symposium-toolbar_admin.php:1424
 #: wp-symposium-toolbar_admin.php:1548
 #: wp-symposium-toolbar_admin.php:2121
-#: wp-symposium-toolbar_admin_functions.php:712
+#: wp-symposium-toolbar_admin_functions.php:747
 #@ wp-symposium-toolbar
 msgid "Opacity"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:1568
+#: wp-symposium-toolbar_admin_functions.php:860
+#: wp-symposium-toolbar_admin_functions.php:870
+#: wp-symposium-toolbar_admin_functions.php:881
+#: wp-symposium-toolbar_admin_functions.php:890
+#: wp-symposium-toolbar_admin_functions.php:901
+#: wp-symposium-toolbar_admin_functions.php:910
+#: wp-symposium-toolbar_admin_functions.php:922
+#: wp-symposium-toolbar_admin_functions.php:932
+#: wp-symposium-toolbar_admin_functions.php:948
+#: wp-symposium-toolbar_admin_functions.php:957
+#: wp-symposium-toolbar_admin_functions.php:966
+#: wp-symposium-toolbar_admin_functions.php:975
 #@ wp-symposium-toolbar
 msgid "Toolbar Items"
 msgstr ""
@@ -3017,74 +2829,21 @@ msgid "Borders"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:2141
+#: wp-symposium-toolbar_admin_functions.php:1193
+#: wp-symposium-toolbar_admin_functions.php:1202
+#: wp-symposium-toolbar_admin_functions.php:1214
+#: wp-symposium-toolbar_admin_functions.php:1230
+#: wp-symposium-toolbar_admin_functions.php:1239
+#: wp-symposium-toolbar_admin_functions.php:1248
+#: wp-symposium-toolbar_admin_functions.php:1257
 #@ wp-symposium-toolbar
 msgid "Dropdown Menus Items"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:632
-#: wp-symposium-toolbar_admin_functions.php:651
+#: wp-symposium-toolbar_admin_functions.php:638
+#: wp-symposium-toolbar_admin_functions.php:668
 #@ wp-symposium-toolbar
 msgid ": custom icon format not recognized"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:748
-#@ wp-symposium-toolbar
-msgid "Toolbar Horizontal Shadow"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:754
-#@ wp-symposium-toolbar
-msgid "Toolbar Vertical Shadow"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:760
-#@ wp-symposium-toolbar
-msgid "Toolbar Shadow Blur"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:766
-#@ wp-symposium-toolbar
-msgid "Toolbar Shadow Spread"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:771
-#@ wp-symposium-toolbar
-msgid "Toolbar Shadow Colour"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:777
-#@ wp-symposium-toolbar
-msgid "Toolbar Shadow Opacity"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:968
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Horizontal Shadow"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:974
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Vertical Shadow"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:980
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Shadow Blur"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:986
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Shadow Spread"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:991
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Shadow Colour"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:997
-#@ wp-symposium-toolbar
-msgid "Dropdown Menus Shadow Opacity"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:1426
@@ -3197,6 +2956,7 @@ msgid "Append to the User Menu"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:1574
+#: wp-symposium-toolbar_admin_functions.php:860
 #@ wp-symposium-toolbar
 msgid "Max Width"
 msgstr ""
@@ -3204,11 +2964,6 @@ msgstr ""
 #: wp-symposium-toolbar_admin.php:1576
 #@ wp-symposium-toolbar
 msgid "Limit Items Width in Frontend pages"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:784
-#@ wp-symposium-toolbar
-msgid "Items Max Width"
 msgstr ""
 
 #: wp-symposium-toolbar_admin.php:267
@@ -3466,16 +3221,6 @@ msgstr ""
 msgid "Imported Successfully"
 msgstr ""
 
-#: wp-symposium-toolbar_admin_functions.php:1123
-#@ wp-symposium-toolbar
-msgid "Errors occurred when saving options:"
-msgstr ""
-
-#: wp-symposium-toolbar_admin_functions.php:1125
-#@ wp-symposium-toolbar
-msgid "One error occurred when saving options:"
-msgstr ""
-
 #: wp-symposium-toolbar_help.php:31
 #@ wp-symposium-toolbar
 msgid "This Options page is split into tabs, reflecting those of the plugin settings page."
@@ -3484,5 +3229,181 @@ msgstr ""
 #: wp-symposium-toolbar_help.php:32
 #@ wp-symposium-toolbar
 msgid "For a more extended help, you may want to refer to the User Guide, available at this page."
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1518
+#@ wp-symposium-toolbar
+msgid "no known role for this menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1531
+#@ wp-symposium-toolbar
+msgid ": the value could not be de-serialized."
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:49
+#@ wp-symposium-toolbar
+msgid "Notice"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1363
+#@ wp-symposium-toolbar
+msgid "Errors occurred when saving settings"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1363
+#@ wp-symposium-toolbar
+msgid "The corresponding settings could not be saved"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1363
+#@ wp-symposium-toolbar
+msgid "Other settings were saved successfully"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1365
+#@ wp-symposium-toolbar
+msgid "One error occurred when saving settings"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1365
+#@ wp-symposium-toolbar
+msgid "The corresponding setting could not be saved"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1368
+#@ wp-symposium-toolbar
+msgid "The following settings could not be saved"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1441
+#: wp-symposium-toolbar_admin_functions.php:1509
+#: wp-symposium-toolbar_admin_functions.php:1546
+#@ wp-symposium-toolbar
+msgid "unknown roles were not imported:"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1671
+#: wp-symposium-toolbar_admin_functions.php:1676
+#@ wp-symposium-toolbar
+msgid "The following errors occurred during import"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1671
+#@ wp-symposium-toolbar
+msgid "The corresponding options could not be imported"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1673
+#: wp-symposium-toolbar_admin_functions.php:1678
+#@ wp-symposium-toolbar
+msgid "The following error occurred during import"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1673
+#@ wp-symposium-toolbar
+msgid "The corresponding option could not be imported"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1676
+#@ wp-symposium-toolbar
+msgid "The corresponding options were only partially imported"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:1678
+#@ wp-symposium-toolbar
+msgid "The corresponding option were only partially imported"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:638
+#: wp-symposium-toolbar_admin_functions.php:668
+#@ wp-symposium-toolbar
+msgid "menu"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:767
+#: wp-symposium-toolbar_admin_functions.php:997
+#@ wp-symposium-toolbar
+msgid "Gradient Top Height"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:776
+#: wp-symposium-toolbar_admin_functions.php:1006
+#@ wp-symposium-toolbar
+msgid "Gradient Top Colour"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:785
+#: wp-symposium-toolbar_admin_functions.php:1015
+#@ wp-symposium-toolbar
+msgid "Gradient Bottom Height"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:794
+#: wp-symposium-toolbar_admin_functions.php:1024
+#@ wp-symposium-toolbar
+msgid "Gradient Bottom Colour"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:804
+#: wp-symposium-toolbar_admin_functions.php:1138
+#@ wp-symposium-toolbar
+msgid "Horizontal Shadow"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:813
+#: wp-symposium-toolbar_admin_functions.php:1147
+#@ wp-symposium-toolbar
+msgid "Vertical Shadow"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:822
+#: wp-symposium-toolbar_admin_functions.php:1156
+#@ wp-symposium-toolbar
+msgid "Shadow Blur"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:831
+#: wp-symposium-toolbar_admin_functions.php:1165
+#@ wp-symposium-toolbar
+msgid "Shadow Spread"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:849
+#: wp-symposium-toolbar_admin_functions.php:1183
+#@ wp-symposium-toolbar
+msgid "Shadow Opacity"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:948
+#: wp-symposium-toolbar_admin_functions.php:1079
+#: wp-symposium-toolbar_admin_functions.php:1230
+#: wp-symposium-toolbar_admin_functions.php:1312
+#@ wp-symposium-toolbar
+msgid "Font Horizontal Shadow"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:957
+#: wp-symposium-toolbar_admin_functions.php:1088
+#: wp-symposium-toolbar_admin_functions.php:1239
+#: wp-symposium-toolbar_admin_functions.php:1321
+#@ wp-symposium-toolbar
+msgid "Font Vertical Shadow"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:975
+#: wp-symposium-toolbar_admin_functions.php:1106
+#: wp-symposium-toolbar_admin_functions.php:1257
+#: wp-symposium-toolbar_admin_functions.php:1339
+#@ wp-symposium-toolbar
+msgid "Font Shadow Colour"
+msgstr ""
+
+#: wp-symposium-toolbar_admin_functions.php:966
+#: wp-symposium-toolbar_admin_functions.php:1097
+#: wp-symposium-toolbar_admin_functions.php:1248
+#: wp-symposium-toolbar_admin_functions.php:1330
+#@ wp-symposium-toolbar
+msgid "Font Shadow Blur"
 msgstr ""
 

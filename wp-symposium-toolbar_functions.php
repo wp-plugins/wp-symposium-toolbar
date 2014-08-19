@@ -248,7 +248,7 @@ function symposium_toolbar_add_styles() {
 	
 	// Icons - Add classes to header for fonticons
 	if ( get_option( 'wpst_tech_icons_to_header', '' ) != '' )
-		echo '<style type="text/css">' . stripslashes( get_option( 'wpst_tech_icons_to_header', '' ) ) . '</style>';
+		echo '<style type="text/css">' . get_option( 'wpst_tech_icons_to_header', '' ) . '</style>';
 	
 	// Styles, both default and custom
 	// Backend - Add styles to the plugin options page only if active tab is "style"

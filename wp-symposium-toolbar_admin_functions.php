@@ -211,13 +211,20 @@ function symposium_toolbar_update() {
 		delete_option( 'wpst_toolbar_get_shortlink' );
 	}
 	
-	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2938 ) {
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2947 ) {
 		
 		$all_custom_menus_new = array();
 		$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
 		
 		foreach ( $all_custom_menus as $custom_menu ) {
 			
+			// Since 2947
+			// getting rid of the backslash that conflicts with the Import feature
+			// No need to update_option 'wpst_tech_icons_to_header'
+			$custom_menu[3] = stripslashes( $custom_menu[3] );
+			
+			// Since 2938
+			// split the "Add or replace" WP Logo in either "Left of" or "Add to"
 			if ( $custom_menu[1] == 'wp-logo' ) {
 				
 				$roles = $custom_menu[2];
@@ -383,7 +390,7 @@ function symposium_toolbar_update_tab( $subsite_id, $tab ) {
 function symposium_toolbar_save_before_render() {
 
 	global $wpdb, $current_screen, $wp_version;
-	global $wpst_locations, $wpst_failed, $wpst_notices, $wpst_shown_tabs, $wpst_subsites_tabs, $wpst_roles_all;
+	global $wpst_locations, $wpst_errors, $wpst_notices, $wpst_shown_tabs, $wpst_subsites_tabs, $wpst_roles_all;
 	
 	// Check for activated/deactivated WPS features, the $_POST['__wps__installation_update'] means WPS is activated
 	if ( isset( $_POST['__wps__installation_update'] ) && $_POST['__wps__installation_update'] == 'Y' ) {
@@ -435,7 +442,7 @@ function symposium_toolbar_save_before_render() {
 		$wpst_default_toolbar = symposium_toolbar_init_default_toolbar( $wp_version );
 		
 		// Error messages and notices that will be propagated via global to the admin page for display, in case of warnings upon saving
-		$wpst_failed = $wpst_notices = "";
+		$wpst_errors = $wpst_notices = "";
 		
 		// See if the admin has saved settings, update them
 		if ( isset( $_POST["Submit"] ) && $_POST["Submit"] == __( 'Save Changes', 'wp-symposium-toolbar' ) ) {
@@ -584,7 +591,7 @@ function symposium_toolbar_save_before_render() {
 							if ( trim( $_POST['rewrite_edit_link'] ) == '%symposium_profile%' )
 								update_option( 'wpst_myaccount_rewrite_edit_link', '%symposium_profile%' );
 							else
-								$wpst_failed .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'the alias symposium_profile shall be used alone, as a placeholder for a fully autodetected URL', 'wp-symposium-toolbar' ).'<br />';
+								$wpst_errors .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'the alias symposium_profile shall be used alone, as a placeholder for a fully autodetected URL', 'wp-symposium-toolbar' ).'<br />';
 						
 						// Link to any custom page, locally to this site
 						} else { 
@@ -597,9 +604,9 @@ function symposium_toolbar_save_before_render() {
 								if ( isset( $check_edit_link_arr['host'] ) && strstr( $host, $check_edit_link_arr['host'] ) )
 									update_option( 'wpst_myaccount_rewrite_edit_link', $rewrite_edit_link );
 								else
-									$wpst_failed .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'local URL expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'local URL expected', 'wp-symposium-toolbar' ).'<br />';
 							} else
-								$wpst_failed .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'valid URL expected', 'wp-symposium-toolbar' ).'<br />';
+								$wpst_errors .= __( 'Rewrite Edit Link', 'wp-symposium-toolbar' ).': '.__( 'valid URL expected', 'wp-symposium-toolbar' ).'<br />';
 						}
 					}
 				}
@@ -618,8 +625,20 @@ function symposium_toolbar_save_before_render() {
 					$range = array_keys( $_POST['display_custom_menu_slug'] );
 					if ( $range ) foreach ( $range as $key ) {
 						if ( ( $_POST["display_custom_menu_slug"][$key] != 'remove' ) && ( $_POST["display_custom_menu_location"][$key] != 'remove' ) ) {
+							
+							// Menu icon - either a fonticon or a URL
 							$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
-							$menu_icon = ( strstr( $display_custom_menu_icon, 'content: ' ) || filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) ? $display_custom_menu_icon : "";
+							if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
+								$menu_icon = stripslashes( $display_custom_menu_icon );
+								$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
+							} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
+								$menu_icon = $display_custom_menu_icon;
+							} else {
+								$menu_icon = "";
+								$wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
+							}
+							
+							// Add the menu to the array of menus
 							$all_custom_menus[] = array(
 								$_POST['display_custom_menu_slug'][$key],
 								$_POST['display_custom_menu_location'][$key],
@@ -628,16 +647,28 @@ function symposium_toolbar_save_before_render() {
 								( is_multisite() && is_main_site() ) ? ( isset( $_POST['display_custom_menu_network'][$key] ) ) : false,
 								isset( $_POST['display_custom_menu_responsive'][$key] )
 							);
-							if ( strstr( $menu_icon, 'content: ' ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.$menu_icon.'; display: block; } ';
-							if ( $display_custom_menu_icon != $menu_icon ) $wpst_failed .= $_POST['display_custom_menu_slug'][$key].', '.$_POST['display_custom_menu_location'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 						}
 					}
 				}
 				
-				// New menu, if any
+				// New menu
 				if ( isset( $_POST["new_custom_menu_slug"] ) && ( $_POST["new_custom_menu_slug"] != '' ) && isset( $_POST["new_custom_menu_location"] ) && ( $_POST["new_custom_menu_location"] != 'empty' ) ) {
+					
+					if ( !isset( $key) ) { $key = 0; } else { $key = $key + 1; }
+					
+					// Menu icon - either a fonticon or a URL
 					$display_custom_menu_icon = ( is_string( $_POST['new_custom_menu_icon'] ) ) ? strip_tags( trim( $_POST['new_custom_menu_icon'] ) ) : "";
-					$menu_icon = ( strstr( $display_custom_menu_icon, 'content: ' ) || filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) ? $display_custom_menu_icon : "";
+					if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
+						$menu_icon = stripslashes( $display_custom_menu_icon );
+						$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
+					} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
+						$menu_icon = $display_custom_menu_icon;
+					} else {
+						$menu_icon = "";
+						$wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
+					}
+					
+					// Add the menu to the array of menus
 					$all_custom_menus[] = array(
 						$_POST["new_custom_menu_slug"],
 						$_POST["new_custom_menu_location"],
@@ -646,9 +677,6 @@ function symposium_toolbar_save_before_render() {
 						( is_multisite() && is_main_site() ) ? ( isset( $_POST['new_custom_menu_network'] ) ) : false,
 						isset( $_POST['new_custom_menu_responsive'] )
 					);
-					if ( !isset( $key) ) { $key = 0; } else { $key = $key + 1; }
-					if ( strstr( $menu_icon, 'content: ' ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.$menu_icon.'; display: block; } ';
-					if ( $display_custom_menu_icon != $menu_icon ) $wpst_failed .= $_POST['display_custom_menu_slug'][$key].', '.$_POST['display_custom_menu_location'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
 				// Now, save options
@@ -698,14 +726,14 @@ function symposium_toolbar_save_before_render() {
 				$wpst_style_tb_current = array();
 				$wpst_style_tb_old = maybe_unserialize( get_option( 'wpst_style_tb_current', array() ) );
 				
-				// Toolbar Normal Style
-				// Toolbar Height
+				// Toolbar
+				// Height
 				if ( isset( $_POST['wpst_height'] ) && ( $_POST['wpst_height'] != '' ) && ( $_POST['wpst_height'] != $wpst_default_toolbar['height'] ) ) {
 					if ( $_POST['wpst_height'] == filter_var( $_POST['wpst_height'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) 
 						$wpst_style_tb_current['height'] = $_POST['wpst_height'];
 					else {
 						if ( isset( $wpst_style_tb_old['height'] ) ) $wpst_style_tb_current['height'] = $wpst_style_tb_old['height'];
-						$wpst_failed .= __( 'Toolbar Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -716,7 +744,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['transparency'] = $_POST['wpst_transparency'];
 					else {
 						if ( isset( $wpst_style_tb_old['transparency'] ) ) $wpst_style_tb_current['transparency'] = $wpst_style_tb_old['transparency'];
-						$wpst_failed .= __( 'Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -726,7 +754,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['background_colour'] = "#".trim( $_POST['wpst_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['background_colour'] ) ) $wpst_style_tb_current['background_colour'] = $wpst_style_tb_old['background_colour'];
-						$wpst_failed .= __( 'Toolbar Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -736,7 +764,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['top_gradient'] = $_POST['wpst_top_gradient'];
 					else {
 						if ( isset( $wpst_style_tb_old['top_gradient'] ) ) $wpst_style_tb_current['top_gradient'] = $wpst_style_tb_old['top_gradient'];
-						$wpst_failed .= __( 'Toolbar Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -745,7 +773,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['top_colour'] = "#".trim( $_POST['wpst_top_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['top_colour'] ) ) $wpst_style_tb_current['top_colour'] = $wpst_style_tb_old['top_colour'];
-						$wpst_failed .= __( 'Toolbar Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -754,7 +782,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['bottom_gradient'] = $_POST['wpst_bottom_gradient'];
 					else {
 						if ( isset( $wpst_style_tb_old['bottom_gradient'] ) ) $wpst_style_tb_current['bottom_gradient'] = $wpst_style_tb_old['bottom_gradient'];
-						$wpst_failed .= __( 'Toolbar Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -763,7 +791,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['bottom_colour'] = "#".trim( $_POST['wpst_bottom_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['bottom_colour'] ) ) $wpst_style_tb_current['bottom_colour'] = $wpst_style_tb_old['bottom_colour'];
-						$wpst_failed .= __( 'Toolbar Gradient Bottom Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Bottom Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -773,7 +801,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['h_shadow'] = $_POST['wpst_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['h_shadow'] ) ) $wpst_style_tb_current['h_shadow'] = $wpst_style_tb_old['h_shadow'];
-						$wpst_failed .= __( 'Toolbar Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -782,7 +810,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['v_shadow'] = $_POST['wpst_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['v_shadow'] ) ) $wpst_style_tb_current['v_shadow'] = $wpst_style_tb_old['v_shadow'];
-						$wpst_failed .= __( 'Toolbar Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -791,7 +819,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['shadow_blur'] = $_POST['wpst_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['shadow_blur'] ) ) $wpst_style_tb_current['shadow_blur'] = $wpst_style_tb_old['shadow_blur'];
-						$wpst_failed .= __( 'Toolbar Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -800,7 +828,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['shadow_spread'] = $_POST['wpst_shadow_spread'];
 					else {
 						if ( isset( $wpst_style_tb_old['shadow_spread'] ) ) $wpst_style_tb_current['shadow_spread'] = $wpst_style_tb_old['shadow_spread'];
-						$wpst_failed .= __( 'Toolbar Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -809,7 +837,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['shadow_colour'] = "#".trim( $_POST['wpst_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['shadow_colour'] ) ) $wpst_style_tb_current['shadow_colour'] = $wpst_style_tb_old['shadow_colour'];
-						$wpst_failed .= __( 'Toolbar Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -818,17 +846,18 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['shadow_transparency'] = $_POST['wpst_shadow_transparency'];
 					else {
 						if ( isset( $wpst_style_tb_old['shadow_transparency'] ) ) $wpst_style_tb_current['shadow_transparency'] = $wpst_style_tb_old['shadow_transparency'];
-						$wpst_failed .= __( 'Toolbar Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
+				// Toolbar Items
 				// Max-Width
 				if ( isset( $_POST['wpst_max_width'] ) && ( $_POST['wpst_max_width'] != '' ) ) {
 					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
 						$wpst_style_tb_current['max_width'] = $_POST['wpst_max_width'];
 					else {
 						if ( isset( $wpst_style_tb_old['max_width'] ) ) $wpst_style_tb_current['max_width'] = $wpst_style_tb_old['max_width'];
-						$wpst_failed .= __( 'Items Max Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -838,7 +867,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['border_width'] = $_POST['wpst_border_width'];
 					else {
 						if ( isset( $wpst_style_tb_old['border_width'] ) ) $wpst_style_tb_current['border_width'] = $wpst_style_tb_old['border_width'];
-						$wpst_failed .= __( 'Toolbar Border Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Border Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -849,7 +878,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['border_left_colour'] = "#".trim( $_POST['wpst_border_left_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['border_left_colour'] ) ) $wpst_style_tb_current['border_left_colour'] = $wpst_style_tb_old['border_left_colour'];
-						$wpst_failed .= __( 'Toolbar Border Left Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Border Left Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -858,7 +887,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['border_right_colour'] = "#".trim( $_POST['wpst_border_right_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['border_right_colour'] ) ) $wpst_style_tb_current['border_right_colour'] = $wpst_style_tb_old['border_right_colour'];
-						$wpst_failed .= __( 'Toolbar Border Right Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Border Right Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -869,7 +898,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['icon_size'] = $_POST['wpst_icon_size'];
 					else {
 						if ( isset( $wpst_style_tb_old['icon_size'] ) ) $wpst_style_tb_current['icon_size'] = $wpst_style_tb_old['icon_size'];
-						$wpst_failed .= __( 'Toolbar Icon Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Icon Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -878,7 +907,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['icon_colour'] = "#".trim( $_POST['wpst_icon_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['icon_colour'] ) ) $wpst_style_tb_current['icon_colour'] = $wpst_style_tb_old['icon_colour'];
-						$wpst_failed .= __( 'Toolbar Icon Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Icon Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -890,7 +919,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_size'] = $_POST['wpst_font_size'];
 					else {
 						if ( isset( $wpst_style_tb_old['font_size'] ) ) $wpst_style_tb_current['font_size'] = $wpst_style_tb_old['font_size'];
-						$wpst_failed .= __( 'Toolbar Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				$wpst_font_size = ( isset( $wpst_style_tb_current['font_size'] ) ) ? $wpst_style_tb_current['font_size'] : $wpst_default_toolbar['font_size'];
@@ -900,7 +929,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_colour'] = "#".trim( $_POST['wpst_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['font_colour'] ) ) $wpst_style_tb_current['font_colour'] = $wpst_style_tb_old['font_colour'];
-						$wpst_failed .= __( 'Toolbar Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -916,7 +945,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_h_shadow'] = $_POST['wpst_font_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['font_h_shadow'] ) ) $wpst_style_tb_current['font_h_shadow'] = $wpst_style_tb_old['font_h_shadow'];
-						$wpst_failed .= __( 'Toolbar Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -925,7 +954,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_v_shadow'] = $_POST['wpst_font_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['font_v_shadow'] ) ) $wpst_style_tb_current['font_v_shadow'] = $wpst_style_tb_old['font_v_shadow'];
-						$wpst_failed .= __( 'Toolbar Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -934,7 +963,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_shadow_blur'] = $_POST['wpst_font_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['font_shadow_blur'] ) ) $wpst_style_tb_current['font_shadow_blur'] = $wpst_style_tb_old['font_shadow_blur'];
-						$wpst_failed .= __( 'Toolbar Font Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -943,19 +972,19 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['font_shadow_colour'] = "#".trim( $_POST['wpst_font_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['font_shadow_colour'] ) ) $wpst_style_tb_current['font_shadow_colour'] = $wpst_style_tb_old['font_shadow_colour'];
-						$wpst_failed .= __( 'Toolbar Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
 				
-				// Toolbar Hover & Focus
+				// Toolbar Items Hover & Focus
 				// Hover Background Colour
 				if ( isset( $_POST['wpst_hover_background_colour'] ) && ( $_POST['wpst_hover_background_colour'] != '' ) && ( $_POST['wpst_hover_background_colour'] != $wpst_default_toolbar['hover_background_colour'] ) ) {
 					if ( symposium_toolbar_valid_colour( trim( $_POST['wpst_hover_background_colour'], "#" ) ) )
 						$wpst_style_tb_current['hover_background_colour'] = "#".trim( $_POST['wpst_hover_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_background_colour'] ) ) $wpst_style_tb_current['hover_background_colour'] = $wpst_style_tb_old['hover_background_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -965,7 +994,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_top_gradient'] = $_POST['wpst_hover_top_gradient'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_top_gradient'] ) ) $wpst_style_tb_current['hover_top_gradient'] = $wpst_style_tb_old['hover_top_gradient'];
-						$wpst_failed .= __( 'Toolbar Hover Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Top Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -974,7 +1003,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_top_colour'] = "#".trim( $_POST['wpst_hover_top_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_top_colour'] ) ) $wpst_style_tb_current['hover_top_colour'] = $wpst_style_tb_old['hover_top_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Top Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -983,7 +1012,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_bottom_gradient'] = $_POST['wpst_hover_bottom_gradient'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_bottom_gradient'] ) ) $wpst_style_tb_current['hover_bottom_gradient'] = $wpst_style_tb_old['hover_bottom_gradient'];
-						$wpst_failed .= __( 'Toolbar Hover Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Bottom Height', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -992,7 +1021,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_bottom_colour'] = "#".trim( $_POST['wpst_hover_bottom_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_bottom_colour'] ) ) $wpst_style_tb_current['hover_bottom_colour'] = $wpst_style_tb_old['hover_bottom_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Gradient Bottom Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Gradient Bottom Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1002,7 +1031,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_icon_size'] = $_POST['wpst_hover_icon_size'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_icon_size'] ) ) $wpst_style_tb_current['hover_icon_size'] = $wpst_style_tb_old['hover_icon_size'];
-						$wpst_failed .= __( 'Toolbar Hover Icon Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Icon Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1011,7 +1040,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_icon_colour'] = "#".trim( $_POST['wpst_hover_icon_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_icon_colour'] ) ) $wpst_style_tb_current['hover_icon_colour'] = $wpst_style_tb_old['hover_icon_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Icon Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Icon Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1021,7 +1050,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_size'] = $_POST['wpst_hover_font_size'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_size'] ) ) $wpst_style_tb_current['hover_font_size'] = $wpst_style_tb_old['hover_font_size'];
-						$wpst_failed .= __( 'Toolbar Hover Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1031,7 +1060,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_colour'] = "#".trim( $_POST['wpst_hover_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_colour'] ) ) $wpst_style_tb_current['hover_font_colour'] = $wpst_style_tb_old['hover_font_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1047,7 +1076,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_h_shadow'] = $_POST['wpst_hover_font_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_h_shadow'] ) ) $wpst_style_tb_current['hover_font_h_shadow'] = $wpst_style_tb_old['hover_font_h_shadow'];
-						$wpst_failed .= __( 'Toolbar Hover Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1056,7 +1085,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_v_shadow'] = $_POST['wpst_hover_font_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_v_shadow'] ) ) $wpst_style_tb_current['hover_font_v_shadow'] = $wpst_style_tb_old['hover_font_v_shadow'];
-						$wpst_failed .= __( 'Toolbar Hover Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1065,7 +1094,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_shadow_blur'] = $_POST['wpst_hover_font_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_shadow_blur'] ) ) $wpst_style_tb_current['hover_font_shadow_blur'] = $wpst_style_tb_old['hover_font_shadow_blur'];
-						$wpst_failed .= __( 'Toolbar Hover Font Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1074,7 +1103,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['hover_font_shadow_colour'] = "#".trim( $_POST['wpst_hover_font_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['hover_font_shadow_colour'] ) ) $wpst_style_tb_current['hover_font_shadow_colour'] = $wpst_style_tb_old['hover_font_shadow_colour'];
-						$wpst_failed .= __( 'Toolbar Hover Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Toolbar Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1087,7 +1116,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_background_colour'] = "#".trim( $_POST['wpst_menu_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_background_colour'] ) ) $wpst_style_tb_current['menu_background_colour'] = $wpst_style_tb_old['menu_background_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1096,7 +1125,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_ext_background_colour'] = "#".trim( $_POST['wpst_menu_ext_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_ext_background_colour'] ) ) $wpst_style_tb_current['menu_ext_background_colour'] = $wpst_style_tb_old['menu_ext_background_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Background Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1106,7 +1135,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_h_shadow'] = $_POST['wpst_menu_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_h_shadow'] ) ) $wpst_style_tb_current['menu_h_shadow'] = $wpst_style_tb_old['menu_h_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1115,7 +1144,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_v_shadow'] = $_POST['wpst_menu_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_v_shadow'] ) ) $wpst_style_tb_current['menu_v_shadow'] = $wpst_style_tb_old['menu_v_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1124,7 +1153,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_shadow_blur'] = $_POST['wpst_menu_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_shadow_blur'] ) ) $wpst_style_tb_current['menu_shadow_blur'] = $wpst_style_tb_old['menu_shadow_blur'];
-						$wpst_failed .= __( 'Dropdown Menus Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1133,7 +1162,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_shadow_spread'] = $_POST['wpst_menu_shadow_spread'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_shadow_spread'] ) ) $wpst_style_tb_current['menu_shadow_spread'] = $wpst_style_tb_old['menu_shadow_spread'];
-						$wpst_failed .= __( 'Dropdown Menus Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Spread', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1142,7 +1171,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_shadow_colour'] = "#".trim( $_POST['wpst_menu_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_shadow_colour'] ) ) $wpst_style_tb_current['menu_shadow_colour'] = $wpst_style_tb_old['menu_shadow_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1151,17 +1180,17 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_shadow_transparency'] = $_POST['wpst_menu_shadow_transparency'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_shadow_transparency'] ) ) $wpst_style_tb_current['menu_shadow_transparency'] = $wpst_style_tb_old['menu_shadow_transparency'];
-						$wpst_failed .= __( 'Dropdown Menus Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus', 'wp-symposium-toolbar' ).' > '.__( 'Shadow Opacity', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'ranging from 0 to 100', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
-				// Dropdown Menus Font Color
+				// Dropdown Menus Items Font Color
 				if ( isset( $_POST['wpst_menu_font_colour'] ) && ( $_POST['wpst_menu_font_colour'] != '' ) && ( $_POST['wpst_menu_font_colour'] != $wpst_default_toolbar['menu_font_colour'] ) ) {
 					if ( symposium_toolbar_valid_colour( trim( $_POST['wpst_menu_font_colour'], "#" ) ) )
 						$wpst_style_tb_current['menu_font_colour'] = "#".trim( $_POST['wpst_menu_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_colour'] ) ) $wpst_style_tb_current['menu_font_colour'] = $wpst_style_tb_old['menu_font_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1170,11 +1199,11 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_ext_font_colour'] = "#".trim( $_POST['wpst_menu_ext_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_ext_font_colour'] ) ) $wpst_style_tb_current['menu_ext_font_colour'] = $wpst_style_tb_old['menu_ext_font_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Font Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
-				// Dropdown Menus Font
+				// Dropdown Menus Items Font
 				if ( isset( $_POST['wpst_menu_font'] ) && ( $_POST['wpst_menu_font'] != '' ) ) $wpst_style_tb_current['menu_font'] = str_replace( '"', '', $_POST['wpst_menu_font'] );
 				
 				if ( isset( $_POST['wpst_menu_font_size'] ) && ( $_POST['wpst_menu_font_size'] != '' ) && ( $_POST['wpst_menu_font_size'] != $wpst_font_size ) ) {
@@ -1182,23 +1211,23 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_font_size'] = $_POST['wpst_menu_font_size'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_size'] ) ) $wpst_style_tb_current['menu_font_size'] = $wpst_style_tb_old['menu_font_size'];
-						$wpst_failed .= __( 'Toolbar Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Size', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
-				// Dropdown Menus Font Attributes & Case
+				// Dropdown Menus Items Font Attributes & Case
 				if ( isset( $_POST['wpst_menu_font_style'] ) && ( $_POST['wpst_menu_font_style'] != '' ) ) $wpst_style_tb_current['menu_font_style'] = $_POST['wpst_menu_font_style'];
 				if ( isset( $_POST['wpst_menu_font_weight'] ) && ( $_POST['wpst_menu_font_weight'] != '' ) ) $wpst_style_tb_current['menu_font_weight'] = $_POST['wpst_menu_font_weight'];
 				if ( isset( $_POST['wpst_menu_font_line'] ) && ( $_POST['wpst_menu_font_line'] != '' ) ) $wpst_style_tb_current['menu_font_line'] = $_POST['wpst_menu_font_line'];
 				if ( isset( $_POST['wpst_menu_font_case'] ) && ( $_POST['wpst_menu_font_case'] != '' ) ) $wpst_style_tb_current['menu_font_case'] = $_POST['wpst_menu_font_case'];
 				
-				// Dropdown Menus Font Shadow
+				// Dropdown Menus Items Font Shadow
 				if ( isset( $_POST['wpst_menu_font_h_shadow'] ) && ( $_POST['wpst_menu_font_h_shadow'] != '' ) ) {
 					if ( $_POST['wpst_menu_font_h_shadow'] == filter_var( $_POST['wpst_menu_font_h_shadow'], FILTER_VALIDATE_INT ) ) 
 						$wpst_style_tb_current['menu_font_h_shadow'] = $_POST['wpst_menu_font_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_h_shadow'] ) ) $wpst_style_tb_current['menu_font_h_shadow'] = $wpst_style_tb_old['menu_font_h_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1207,7 +1236,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_font_v_shadow'] =  $_POST['wpst_menu_font_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_v_shadow'] ) ) $wpst_style_tb_current['menu_font_v_shadow'] = $wpst_style_tb_old['menu_font_v_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1216,7 +1245,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_font_shadow_blur'] = $_POST['wpst_menu_font_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_shadow_blur'] ) ) $wpst_style_tb_current['menu_font_shadow_blur'] = $wpst_style_tb_old['menu_font_shadow_blur'];
-						$wpst_failed .= __( 'Dropdown Menus Font Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1225,18 +1254,18 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_font_shadow_colour'] = "#".trim( $_POST['wpst_menu_font_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_font_shadow_colour'] ) ) $wpst_style_tb_current['menu_font_shadow_colour'] = $wpst_style_tb_old['menu_font_shadow_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
 				
-				// Dropdown Menus Hover & Focus Background Color
+				// Dropdown Menus Items Hover & Focus Background Color
 				if ( isset( $_POST['wpst_menu_hover_background_colour'] ) && ( $_POST['wpst_menu_hover_background_colour'] != '' ) && ( $_POST['wpst_menu_hover_background_colour'] != $wpst_default_toolbar['menu_hover_background_colour'] ) ) {
 					if ( symposium_toolbar_valid_colour( trim( $_POST['wpst_menu_hover_background_colour'], "#" ) ) )
 						$wpst_style_tb_current['menu_hover_background_colour'] = "#".trim( $_POST['wpst_menu_hover_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_background_colour'] ) ) $wpst_style_tb_current['menu_hover_background_colour'] = $wpst_style_tb_old['menu_hover_background_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1245,17 +1274,17 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_hover_ext_background_colour'] = "#".trim( $_POST['wpst_menu_hover_ext_background_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_ext_background_colour'] ) ) $wpst_style_tb_current['menu_hover_ext_background_colour'] = $wpst_style_tb_old['menu_hover_ext_background_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Background Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Background Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
-				// Dropdown Menus Hover & Focus Font Color
+				// Dropdown Menus Items Hover & Focus Font Color
 				if ( isset( $_POST['wpst_menu_hover_font_colour'] ) && ( $_POST['wpst_menu_hover_font_colour'] != '' ) && ( $_POST['wpst_menu_hover_font_colour'] != $wpst_default_toolbar['menu_hover_font_colour'] ) ) {
 					if ( symposium_toolbar_valid_colour( trim( $_POST['wpst_menu_hover_font_colour'], "#" ) ) )
 						$wpst_style_tb_current['menu_hover_font_colour'] = "#".trim( $_POST['wpst_menu_hover_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_font_colour'] ) ) $wpst_style_tb_current['menu_hover_font_colour'] = $wpst_style_tb_old['menu_hover_font_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1264,23 +1293,23 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_hover_ext_font_colour'] = "#".trim( $_POST['wpst_menu_hover_ext_font_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_ext_font_colour'] ) ) $wpst_style_tb_current['menu_hover_ext_font_colour'] = $wpst_style_tb_old['menu_hover_ext_font_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Colour for Highlighted Items', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
-				// Dropdown Menus Hover & Focus Font Attributes & Case
+				// Dropdown Menus Items Hover & Focus Font Attributes & Case
 				if ( isset( $_POST['wpst_menu_hover_font_style'] ) && ( $_POST['wpst_menu_hover_font_style'] != '' ) ) $wpst_style_tb_current['menu_hover_font_style'] = $_POST['wpst_menu_hover_font_style'];
 				if ( isset( $_POST['wpst_menu_hover_font_weight'] ) && ( $_POST['wpst_menu_hover_font_weight'] != '' ) ) $wpst_style_tb_current['menu_hover_font_weight'] = $_POST['wpst_menu_hover_font_weight'];
 				if ( isset( $_POST['wpst_menu_hover_font_line'] ) && ( $_POST['wpst_menu_hover_font_line'] != '' ) ) $wpst_style_tb_current['menu_hover_font_line'] = $_POST['wpst_menu_hover_font_line'];
 				if ( isset( $_POST['wpst_menu_hover_font_case'] ) && ( $_POST['wpst_menu_hover_font_case'] != '' ) ) $wpst_style_tb_current['menu_hover_font_case'] = $_POST['wpst_menu_hover_font_case'];
 				
-				// Dropdown Menus Hover & Focus Font Shadow
+				// Dropdown Menus Items Hover & Focus Font Shadow
 				if ( isset( $_POST['wpst_menu_hover_font_h_shadow'] ) && ( $_POST['wpst_menu_hover_font_h_shadow'] != '' ) ) {
 					if ( $_POST['wpst_menu_hover_font_h_shadow'] == filter_var( $_POST['wpst_menu_hover_font_h_shadow'], FILTER_VALIDATE_INT ) ) 
 						$wpst_style_tb_current['menu_hover_font_h_shadow'] = $_POST['wpst_menu_hover_font_h_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_font_h_shadow'] ) ) $wpst_style_tb_current['menu_hover_font_h_shadow'] = $wpst_style_tb_old['menu_hover_font_h_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Horizontal Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1289,7 +1318,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_hover_font_v_shadow'] = $_POST['wpst_menu_hover_font_v_shadow'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_font_v_shadow'] ) ) $wpst_style_tb_current['menu_hover_font_v_shadow'] = $wpst_style_tb_old['menu_hover_font_v_shadow'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Vertical Shadow', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1298,7 +1327,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_hover_font_shadow_blur'] = $_POST['wpst_menu_hover_font_shadow_blur'];
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_font_shadow_blur'] ) ) $wpst_style_tb_current['menu_hover_font_shadow_blur'] = $wpst_style_tb_old['menu_hover_font_shadow_blur'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Blur', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1307,7 +1336,7 @@ function symposium_toolbar_save_before_render() {
 						$wpst_style_tb_current['menu_hover_font_shadow_colour'] = "#".trim( $_POST['wpst_menu_hover_font_shadow_colour'], "#" );
 					else {
 						if ( isset( $wpst_style_tb_old['menu_hover_font_shadow_colour'] ) ) $wpst_style_tb_current['menu_hover_font_shadow_colour'] = $wpst_style_tb_old['menu_hover_font_shadow_colour'];
-						$wpst_failed .= __( 'Dropdown Menus Hover Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Dropdown Menus Items Hover & Focus', 'wp-symposium-toolbar' ).' > '.__( 'Font Shadow Colour', 'wp-symposium-toolbar' ).': '.__( 'Hexadecimal value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
 				}
 				
@@ -1329,14 +1358,14 @@ function symposium_toolbar_save_before_render() {
 			}
 			
 			// Generate messages from the bits collected above
-			if ( $wpst_failed ) {
-				if ( count( explode( '<br />' , trim( $wpst_failed, '<br />') ) ) > 1 )
-					$wpst_failed = __( 'Errors occurred when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
+			if ( $wpst_errors ) {
+				if ( count( explode( '<br />' , trim( $wpst_errors, '<br />') ) ) > 1 )
+					$wpst_errors = __( 'Errors occurred when saving settings', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding settings could not be saved', 'wp-symposium-toolbar' ).' - '.__( 'Other settings were saved successfully', 'wp-symposium-toolbar' ).'<br />'.$wpst_errors;
 				else
-					$wpst_failed = __( 'One error occurred when saving options:', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options were saved successfully', 'wp-symposium-toolbar' );
+					$wpst_errors = __( 'One error occurred when saving settings', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding setting could not be saved', 'wp-symposium-toolbar' ).'<br />'.$wpst_errors;
 			}
 			if ( $wpst_notices )
-				$wpst_notices = __( 'The following settings could not be saved:', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
+				$wpst_notices = __( 'The following settings could not be saved', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
 		
 		
 		// Sixth set of options - Technical
@@ -1372,8 +1401,6 @@ function symposium_toolbar_save_before_render() {
 			
 			if ( $all_options && is_array( $all_options ) ) {
 				
-				$wpst_custom_menu_notice = __( 'please check the menu settings from the Custom Menu tab, and save', 'wp-symposium-toolbar' );
-				$wpst_trailer_notice = __( 'please check plugin settings, and save', 'wp-symposium-toolbar' );
 				foreach ( $all_options as $imported_option ) {
 					if ( strpos( $imported_option, "=>" ) ) {
 						$imported_option_arr = explode( "=>", trim( stripslashes( $imported_option ) ) );
@@ -1390,9 +1417,9 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "", "empty", "top-secondary"
 							} elseif ( $option_name == 'wpst_toolbar_move_search_field' ) {
@@ -1400,27 +1427,29 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "empty", "top-secondary" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "", "empty" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "", "empty" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "", "empty" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "", "empty" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// Array-based options - check roles
 							} else {
 								if ( is_array( $option_value ) ) {
 									$ret_roles = symposium_toolbar_valid_roles( $option_value );
-									if ( $ret_roles != $option_value ) {
-										$wpst_notices .= $option_name.': '.__( 'unknown role', 'wp-symposium-toolbar' ).' ';
-										// if ( is_array( array_diff( $option_value, $ret_roles ) ) )
-											// $wpst_notices .= implode( ', ', array_diff( $option_value, $ret_roles ) );
-										$wpst_notices .= ', '.$wpst_trailer_notice.'<br />';;
+									if ( $ret_roles == $option_value )
+										update_option( $option_name, $option_value );
+									else {
+										$wpst_notices .= $option_name.': '.__( 'unknown roles were not imported:', 'wp-symposium-toolbar' );
+										if ( is_array( array_diff( $option_value, $ret_roles ) ) )
+											$wpst_notices .= ' '.implode( ', ', array_diff( $option_value, $ret_roles ) );
+										$wpst_notices .= '<br />';
+										update_option( $option_name, $ret_roles );
 									}
-									update_option( $option_name, $option_value );
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, an array of roles was expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, an array of roles was expected', 'wp-symposium-toolbar' ).'<br />';
 							}
 						
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 						// User Menu tab options
 						if ( strstr ( $option_name, 'wpst_myaccount' ) ) if ( isset( $wpst_shown_tabs[ 'myaccount' ] ) ) {
@@ -1430,7 +1459,7 @@ function symposium_toolbar_save_before_render() {
 								if ( $option_value == strip_tags( $option_value ) )
 									update_option( $option_name, stripslashes( $option_value ) );
 								else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based options - check if content is in a few possible values
 							} else {
@@ -1438,56 +1467,71 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 							}
 							
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 						// Custom menus tab options
 						if ( $option_name == 'wpst_custom_menus' ) if ( isset( $wpst_shown_tabs[ 'menus' ] ) ) {
 							
-							// Array of menus - check location and roles
-							if ( is_array( $option_name ) ) {
+							// Array of menus - check slug, location and roles
+							if ( is_array( $option_value ) ) {
 								
-								// $option_value is an array of custom menus that we'll check and dump into $all_custom_menus
+								// $option_value is an array of custom menus that we'll check and copy into $all_custom_menus, one by one
 								$all_navmenus_slugs = array();
 								if ( $all_navmenus = wp_get_nav_menus() ) foreach ( $all_navmenus as $navmenu ) { $all_navmenus_slugs[] = $navmenu->slug; }
-								(array)$all_custom_menus = array();
-								(bool)$valid_location = true;
+								$all_custom_menus = array();
+								$all_custom_icons = "";
+								(int)$key = 0;
+								
 								foreach ( $option_value as $custom_menu ) {
 									
 									// $custom_menu[0] = menu slug
 									(bool)$valid_menu_slug = ( in_array( $custom_menu[0], $all_navmenus_slugs ) );
 									if ( !$valid_menu_slug )
-										$wpst_failed .= $option_name.', '.$custom_menu[0].': '.__( 'unknown menu','wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.', '.$custom_menu[0].': '.__( 'unknown menu','wp-symposium-toolbar' ).'<br />';
 									
 									// $custom_menu[1] = location slug
 									(bool)$valid_location = in_array( $custom_menu[1], array_keys( $wpst_locations ) );
 									if ( !$valid_location )
-										$wpst_failed .= $option_name.', '.$custom_menu[0].', '.$custom_menu[1].': '.__( 'unknown location', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.', '.$custom_menu[0].', '.$custom_menu[1].': '.__( 'unknown location', 'wp-symposium-toolbar' ).'<br />';
 									
-									// If at least the menu slug and the menu location are correct, import this menu
+									// $custom_menu[2] = selected roles for this menu
+									// $ret_roles = known roles from this array
+									$ret_roles = symposium_toolbar_valid_roles( $custom_menu[2] );
+									if ( $ret_roles != $custom_menu[2] ) {
+										
+										// Keep only known roles and produce a notice on screen
+										$wpst_notices .= $option_name.', '.$custom_menu[0].', '.$custom_menu[1].': '.__( 'unknown roles were not imported:', 'wp-symposium-toolbar' );
+										if ( is_array( array_diff( $custom_menu[2], $ret_roles ) ) )
+											$wpst_notices .= ' '.implode( ', ', array_diff( $custom_menu[2], $ret_roles ) );
+										$wpst_notices .= '<br />';
+										$custom_menu[2] = $ret_roles;
+									}
+									
+									// If no role for this menu, produce a notice
+									if ( empty( $custom_menu[2] ) )
+										$wpst_notices .= $option_name.', '.$custom_menu[0].', '.$custom_menu[1].': '.__( 'no known role for this menu', 'wp-symposium-toolbar' ).', '.__( 'please check the menu settings from the Custom Menu tab, and save', 'wp-symposium-toolbar' ).'<br />';
+									
+									// Import the menu if at least the slug and the location are correct
 									if ( $valid_menu_slug && $valid_location ) {
 										$all_custom_menus[] = $custom_menu;
-										
-										// $custom_menu[2] = selected roles for this menu
-										$ret_roles = symposium_toolbar_valid_roles( $custom_menu[2] );
-										(bool)$valid_roles = ( $ret_roles == $custom_menu[2] );
-										if ( !$valid_roles ) {
-											$wpst_notices .= $option_name.', '.$custom_menu[0].': '.__( 'unknown role', 'wp-symposium-toolbar' ).' ';
-											// if ( is_array( array_diff( $custom_menu[2], $ret_roles ) ) )
-												// $wpst_notices .= implode( ', ', array_diff( $custom_menu[2], $ret_roles ) );
-											$wpst_notices .= ', '.$wpst_custom_menu_notice.'<br />';;
-										}
+										$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $custom_menu[3] ).' display: block; } ';
 									}
+									$key = $key + 1;
 								}
 								update_option( 'wpst_custom_menus', $all_custom_menus );
-							}
+								update_option( 'wpst_tech_icons_to_header', $all_custom_icons );
+							
+							} else
+								$wpst_errors .= $option_name.__( ': the value could not be de-serialized.', 'wp-symposium-toolbar' ).'<br />';
+							
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 						// WP Symposium tab options
 						if ( strstr ( $option_name, 'wpst_wps' ) ) if ( isset( $wpst_shown_tabs[ 'wps' ] ) ) {
@@ -1496,15 +1540,18 @@ function symposium_toolbar_save_before_render() {
 							if ( ( $option_name == 'wpst_wps_notification_friendship' ) || ( $option_name == 'wpst_wps_notification_mail' ) ) {
 								if ( is_array( $option_value ) ) {
 									$ret_roles = symposium_toolbar_valid_roles( $option_value );
-									if ( $ret_roles != $option_value ) {
-										$wpst_notices .= $option_name.': '.__( 'unknown role', 'wp-symposium-toolbar' ).' ';
-										// if ( is_array( array_diff( $option_value, $ret_roles ) ) )
-											// $wpst_notices .= implode( ', ', array_diff( $option_value, $ret_roles ) );
-										$wpst_notices .= ', '.$wpst_trailer_notice.'<br />';;
+									if ( $ret_roles == $option_value )
+										update_option( $option_name, $option_value );
+									else {
+										$wpst_notices .= $option_name.': '.__( 'unknown roles were not imported:', 'wp-symposium-toolbar' );
+										if ( is_array( array_diff( $option_value, $ret_roles ) ) )
+											$wpst_notices .= ' '.implode( ', ', array_diff( $option_value, $ret_roles ) );
+										$wpst_notices .= '<br />';
+										update_option( $option_name, $ret_roles );
 									}
-									update_option( $option_name, $option_value );
+									
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, an array of roles was expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, an array of roles was expected', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based options - check if content is in a few possible values
 							} else {
@@ -1512,13 +1559,13 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 							}
 							
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 						// Share Social Icons tab options
 						if ( strstr ( $option_name, 'wpst_share' ) ) if ( isset( $wpst_shown_tabs[ 'share' ] ) ) {
@@ -1528,7 +1575,7 @@ function symposium_toolbar_save_before_render() {
 								if ( is_array( $option_value ) ) {
 									update_option( $option_name, $option_value ); // TODO check the $option_value is an array of social network names
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, an array was expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, an array was expected', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "home" or "current"
 							} elseif ( $option_name == 'wpst_share_content' ) {
@@ -1536,9 +1583,9 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "home", "single", "current" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "home", "single" or "current"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "home", "single" or "current"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "home", "single" or "current"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "home", "single" or "current"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "lightweight", "rounded" or "circle"
 							} elseif ( $option_name == 'wpst_share_icons_set' ) {
@@ -1546,9 +1593,9 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "lightweight", "rounded", "circle" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "lightweight", "rounded" or "circle"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "lightweight", "rounded" or "circle"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "lightweight", "rounded" or "circle"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "lightweight", "rounded" or "circle"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "" or "top-secondary"
 							} elseif ( $option_name == 'wpst_share_icons_position' ) {
@@ -1556,9 +1603,9 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "top-secondary" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "" or "on"
 							} elseif ( $option_name == 'wpst_share_icons_color' ) {
@@ -1566,13 +1613,13 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 							}
 						
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 						// Style tab options
 						if ( strstr ( $option_name, 'wpst_style' ) ) if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {
@@ -1590,9 +1637,9 @@ function symposium_toolbar_save_before_render() {
 										$wpst_style_tb_current = array_diff_assoc( $option_value, $wpst_default_toolbar );
 										update_option( 'wpst_style_tb_current', $wpst_style_tb_current );
 									} else
-									$wpst_failed .= $option_name.__( ': an array of non-empty values was expected, at least one value was not set correctly', 'wp-symposium-toolbar' ).' ('.$key.')<br />';
+										$wpst_errors .= $option_name.__( ': an array of non-empty values was expected, at least one value was not set correctly', 'wp-symposium-toolbar' ).' ('.$key.')<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, an array was expected', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, an array was expected', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based options - check if content is in a few possible values
 							} elseif ( $option_name == 'wpst_style_tb_in_admin' ) {
@@ -1600,30 +1647,35 @@ function symposium_toolbar_save_before_render() {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_failed .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_failed .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "on"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// Option name not recognized
 							} else
 								$wpst_notices .= $option_name.__( ': option not recognized', 'wp-symposium-toolbar' ).'<br />';
 							
 						} else
-							$wpst_failed .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
+							$wpst_errors .= $option_name.__( ': the corresponding tab was deactivated on this site, therefore this option must be imported from the Main Site where it is set.', 'wp-symposium-toolbar' ).'<br />';
 						
 					} elseif ( trim( $imported_option ) != '' ) $wpst_notices .= $imported_option.__( ': option not recognized', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
-				// Create an error message made of the bits collected above
-				if ( $wpst_failed )
-					if ( count( explode( '<br />' , trim( $wpst_failed, '<br />') ) ) >1 )
-						$wpst_failed = __( 'The following errors occured during import and the corresponding options couldn\'t be taken into account', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options (if any) have been imported successfully', 'wp-symposium-toolbar' );
-					else
-						$wpst_failed = __( 'The following error occured during import and the corresponding option couldn\'t be taken into account', 'wp-symposium-toolbar' ).'<br />'.$wpst_failed.'<br />'.__( 'Other options (if any) have been imported successfully', 'wp-symposium-toolbar' );
-				
 			// Field empty
 			} else
-				$wpst_failed =__( 'No option to import!!', 'wp-symposium-toolbar' );
+				$wpst_errors =__( 'No option to import!!', 'wp-symposium-toolbar' );
+			
+			// Generate messages from the bits collected above
+			if ( $wpst_errors )
+				if ( count( explode( '<br />' , trim( $wpst_errors, '<br />') ) ) > 1 )
+					$wpst_errors = __( 'The following errors occurred during import', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding options could not be imported', 'wp-symposium-toolbar' ).'<br />'.$wpst_errors;
+				else
+					$wpst_errors = __( 'The following error occurred during import', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding option could not be imported', 'wp-symposium-toolbar' ).'<br />'.$wpst_errors;
+			if ( $wpst_notices )
+				if ( count( explode( '<br />' , trim( $wpst_notices, '<br />') ) ) > 1 )
+					$wpst_notices = __( 'The following errors occurred during import', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding options were only partially imported', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
+				else
+					$wpst_notices = __( 'The following error occurred during import', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding option were only partially imported', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
 		}
 		
 		// Post update cleaning tasks
