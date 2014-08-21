@@ -216,12 +216,12 @@ function symposium_toolbar_update() {
 		$all_custom_menus_new = array();
 		$all_custom_menus = ( !in_array( 'menus', get_option( 'wpst_wpms_hidden_tabs', array() ) ) ) ? get_option( 'wpst_custom_menus', array() ) : array();
 		
-		foreach ( $all_custom_menus as $custom_menu ) {
+		if ( $all_custom_menus ) foreach ( $all_custom_menus as $custom_menu ) {
 			
 			// Since 2947
 			// getting rid of the backslash that conflicts with the Import feature
 			// No need to update_option 'wpst_tech_icons_to_header'
-			$custom_menu[3] = stripslashes( $custom_menu[3] );
+			if ( isset( $custom_menu[3] ) ) $custom_menu[3] = stripslashes( $custom_menu[3] );
 			
 			// Since 2938
 			// split the "Add or replace" WP Logo in either "Left of" or "Add to"
@@ -249,6 +249,11 @@ function symposium_toolbar_update() {
 			}
 		}
 		update_option( 'wpst_custom_menus', $all_custom_menus_new );
+	}
+	
+	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2951 ) {
+		
+		update_option( 'wpst_share_icons_hover_color', get_option( 'wpst_share_icons_color', '' ) );
 	}
 	
 	// Store build nr
@@ -635,7 +640,7 @@ function symposium_toolbar_save_before_render() {
 								$menu_icon = $display_custom_menu_icon;
 							} else {
 								$menu_icon = "";
-								$wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
+								if ( $display_custom_menu_icon != "" ) $wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 							}
 							
 							// Add the menu to the array of menus
@@ -665,7 +670,7 @@ function symposium_toolbar_save_before_render() {
 						$menu_icon = $display_custom_menu_icon;
 					} else {
 						$menu_icon = "";
-						$wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
+						if ( $display_custom_menu_icon != "" ) $wpst_errors .= __( 'menu', 'wp-symposium-toolbar' ).' '.($key+1).', '.$_POST['display_custom_menu_slug'][$key].__( ': custom icon format not recognized', 'wp-symposium-toolbar' ).'<br />';
 					}
 					
 					// Add the menu to the array of menus
@@ -708,15 +713,21 @@ function symposium_toolbar_save_before_render() {
 				$share['facebook'] = isset( $_POST["share_facebook"] ) ? 'on' : '';
 				$share['twitter'] = isset( $_POST["share_twitter"] ) ? 'on' : '';
 				$share['google_plus'] = isset( $_POST["share_google_plus"] ) ? 'on' : '';
+				// $share['tumblr'] = isset( $_POST["share_tumblr"] ) ? 'on' : '';
 				// $share['pinterest'] = isset( $_POST["share_pinterest"] ) ? 'on' : '';
 				$share['stumbleupon'] = isset( $_POST["share_stumbleupon"] ) ? 'on' : '';
+				$share['rss'] = isset( $_POST["share_rss"] ) ? 'on' : '';
+				$share['mailto'] = isset( $_POST["share_mailto"] ) ? 'on' : '';
 				update_option( 'wpst_share_icons', $share );
 				
 				update_option( 'wpst_share_content', isset( $_POST["shared_content"] ) ? $_POST["shared_content"] : '' );
 				update_option( 'wpst_share_icons_set', isset( $_POST["icons_set"] ) ? $_POST["icons_set"] : 'lightweight' );
 				update_option( 'wpst_share_icons_position', isset( $_POST["icons_position"] ) ? $_POST["icons_position"] : '' );
 				update_option( 'wpst_share_icons_color', isset( $_POST["icons_color"] ) ? 'on' : '' );
-				// update_option( 'wpst_share_icons_hover_color', isset( $_POST["icons_hover_color"] ) ? 'on' : '' );
+				update_option( 'wpst_share_icons_hover_color', isset( $_POST["icons_hover_color"] ) ? 'on' : '' );
+				
+				// Prepare update of styles based on above settings
+				$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
 			}
 			
 			// Styles
@@ -1952,9 +1963,10 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 	}
 	
 	// Add max-width to Toolbar quicklinks
-	if ( isset( $wpst_style_tb_current['max_width'] ) && ( $wpst_style_tb_current['max_width'] != '' ) ) {
+	if ( isset( $wpst_style_tb_current['max_width'] ) && ( $wpst_style_tb_current['max_width'] != '' ) )
 		update_option( 'wpst_tech_align_to_header', '#wp-toolbar { display: block; margin-left: auto; margin-right: auto; max-width: '.$wpst_style_tb_current['max_width'].'px; } ' );
-	}
+	else
+		update_option( 'wpst_tech_align_to_header', '' );
 	
 	// Toolbar borders / dividers
 	$wpst_style_tb_current = array_merge( array( 'border_width' => $wpst_default_toolbar['border_width'], 'border_style' => $wpst_default_toolbar['border_style'] ), $wpst_style_tb_current );
@@ -2444,6 +2456,10 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_saved .= '#wpadminbar .ab-top-menu > li:hover > .ab-item:before, #wpadminbar .ab-top-menu > li.hover > .ab-item:before, ';
 		// admin-bar.css:274 also wp-admin\css\colors\***\colors.css:202
 		$style_saved .= '#wpadminbar li:hover .ab-icon:before, #wpadminbar li:hover .ab-item:before, #wpadminbar li a:focus .ab-icon:before, #wpadminbar li .ab-item:focus:before, #wpadminbar li.hover .ab-icon:before, #wpadminbar li.hover .ab-item:before, #wpadminbar li:hover #adminbarsearch:before { '.$icon_colour.$font_shadow.'} ';
+		
+		// Ensure social icons will adhere to the hover colour when admin forces brand colours but not on hover
+		if ( ( $icon_colour != '' ) && ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) && ( get_option( 'wpst_share_icons_hover_color', '' ) == '' ) )
+			$style_saved .= '#wpadminbar li.symposium-toolbar-share-icon:hover > .ab-item:before { '.trim( $icon_colour, '; ' ).' !Important; } ';
 	}
 	
 	// Add icon colour as border to Toolbar Avatar

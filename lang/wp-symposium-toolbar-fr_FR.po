@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WP Symposium Toolbar v0.29.48\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-08-19 15:04:19+0000\n"
+"PO-Revision-Date: 2014-08-20 10:21:29+0000\n"
 "Last-Translator: AlphaGolf <alphagolf@rocketmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2064,12 +2064,7 @@ msgstr "Sur les installations WP Symposium, les icônes de notification pointero
 #: wp-symposium-toolbar_admin.php:517
 #@ wp-symposium-toolbar
 msgid "Logged-in users will no longer be able to show / hide it from their WP Profile page."
-msgstr "Les utilisateurs connectés ne pourront alors plus la masquer depuis leur page Profil WP."
-
-#: wp-symposium-toolbar_admin.php:517
-#@ wp-symposium-toolbar
-msgid "Force the display of the WP Toolbar."
-msgstr "Forcer l'affichage de la Barre d'Outils WP."
+msgstr "Les utilisateurs connectés ne pourront alors plus choisir de l'afficher ou la masquer depuis leur page Profil WP."
 
 #: wp-symposium-toolbar_admin.php:1113
 #@ wp-symposium-toolbar
@@ -2439,7 +2434,7 @@ msgstr "Vous tentez de rediriger le lien Editer Mon Profil vers la page Profil d
 #: wp-symposium-toolbar_admin.php:2650
 #@ wp-symposium-toolbar
 msgid "For screens of smaller sizes, WordPress 3.8 introduces a new, responsive Toolbar.  The big avatar is no longer displayed in the User Menu, while an avatar of intermediate size (26px) replaces the small avatar in the Toolbar. The Howdy message is not displayed in this mode."
-msgstr "Pour les écrans de petite dimension, WordPress 3.8 introduit une nouvelle Barre d'Outils dite responsive.  Le plus grand avatar n'est plus affiché dans le Menu Utilisateur, tandis qu'un avatar de taille intermédiaire (26px) remplace le petit avatar dans la Barre d'Outils.  Le message de bienvenue n'est pas affiché dans ce mode."
+msgstr "Pour les écrans de petite dimension, WordPress 3.8 introduit une nouvelle Barre d'Outils dite réactive.  Le plus grand avatar n'est plus affiché dans le Menu Utilisateur, tandis qu'un avatar de taille intermédiaire (26px) remplace le petit avatar dans la Barre d'Outils.  Le message de bienvenue n'est pas affiché dans ce mode."
 
 #: wp-symposium-toolbar_admin.php:2650
 #@ wp-symposium-toolbar
@@ -2449,7 +2444,7 @@ msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché d
 #: wp-symposium-toolbar_admin.php:2650
 #@ wp-symposium-toolbar
 msgid "Any other modification you may have performed on this User Menu will be reflected in this responsive Toolbar."
-msgstr "Toute autre modification que vous pourriez avoir apportée à ce Menu Utilisateur sera répliquée dans cette Barre d'Outils responsive."
+msgstr "Toute autre modification que vous pourriez avoir apportée à ce Menu Utilisateur sera répliquée dans cette Barre d'Outils réactive."
 
 #: wp-symposium-toolbar_admin.php:2682
 #@ wp-symposium-toolbar
@@ -2464,12 +2459,12 @@ msgstr "Mode Tablette"
 #: wp-symposium-toolbar_admin.php:2694
 #@ wp-symposium-toolbar
 msgid "The plugin will not enforce this, and when your site Toolbar is displayed in this \"tablet mode\", some of your WPS Toolbar settings will be dropped so as to preserve this responsive Toolbar: the Toolbar height and the font sizes will not be taken into account."
-msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché dans ce \"mode tablette\", certains de vos paramètres seront laissés de côté afin de préserver cette Barre d'Outils responsive : la hauteur de la Barre d'Outils et les dimensions de police ne seront pas prises en compte."
+msgstr "L'extension ne modifiera pas cela, et lorsque votre site sera affiché dans ce \"mode tablette\", certains de vos paramètres seront laissés de côté afin de préserver cette Barre d'Outils réactive : la hauteur de la Barre d'Outils et les dimensions de police ne seront pas prises en compte."
 
 #: wp-symposium-toolbar_admin.php:2694
 #@ wp-symposium-toolbar
 msgid "Any other style changes you may have performed will be reflected in this responsive Toolbar."
-msgstr "Toute autre modification que vous pourriez avoir apportée sera répliquée dans cette Barre d'Outils responsive."
+msgstr "Toute autre modification que vous pourriez avoir apportée sera répliquée dans cette Barre d'Outils réactive."
 
 #: wp-symposium-toolbar_admin_functions.php:2824
 #@ wp-symposium-toolbar
@@ -2729,7 +2724,7 @@ msgstr "Partager sur StumbleUpon"
 #: wp-symposium-toolbar_admin.php:996
 #@ wp-symposium-toolbar
 msgid "Display this menu in responsive mode (for devices with screen width smaller than 783px)"
-msgstr "Afficher ce menu en mode responsif (sur un écran d'une largeur inférieure à 783px)"
+msgstr "Afficher ce menu en mode réactif (sur un écran d'une largeur inférieure à 783px)"
 
 #: wp-symposium-toolbar_admin.php:1160
 #@ wp-symposium-toolbar
@@ -2779,7 +2774,7 @@ msgstr "Les autres paramètres déterminent l'aspect visuel de ces icones.  Si v
 #: wp-symposium-toolbar_help.php:73
 #@ wp-symposium-toolbar
 msgid "You may also choose to force the display of a menu in responsive mode. You should make sure your Toolbar will not get overcrowed and it has enough room for all your items."
-msgstr "Vous pouvez également forcer l'affichage d'un menu en mode responsif.  Assurez-vous que votre Barre d'Outils ne sera pas surpeuplée et qu'il y a suffisamment de place pour tous les éléments à afficher."
+msgstr "Vous pouvez également forcer l'affichage d'un menu en mode réactif.  Assurez-vous que votre Barre d'Outils ne deviendra pas surpeuplée et qu'il y a suffisamment de place pour tous les éléments à afficher."
 
 #: wp-symposium-toolbar_help.php:73
 #@ wp-symposium-toolbar
@@ -2919,12 +2914,12 @@ msgstr "Vous pouvez également afficher une dashicon, une icône utilisée par W
 #: wp-symposium-toolbar_admin.php:2663
 #@ wp-symposium-toolbar
 msgid "Last but not least, for screens of smaller sizes, WordPress will switch into a so-called responsive mode, where most of the Toolbar items will be hidden, as well as their labels."
-msgstr "Enfin, pour les écrans de petite taille, WordPress affichera une Barre d'Outils dite responsive, où la plupart des éléments seront masqués, ainsi que les étiquettes."
+msgstr "Enfin, pour les écrans de petite taille, WordPress affichera une Barre d'Outils dite réactive, où la plupart des éléments seront masqués, ainsi que les étiquettes."
 
 #: wp-symposium-toolbar_admin.php:2694
 #@ wp-symposium-toolbar
 msgid "For screens of smaller sizes, WordPress will display a responsive Toolbar, of a fixed height of 46px and a content made of icons without labels. Dropdown menus have a larger font and line height, ending up in tapable menu items."
-msgstr "Pour les écrans de petite dimension, WordPress affichera une Barre d'Outils dite responsive, d'une taille fixe de 46px, et composée d'icônes sans étiquettes. Les éléments de menus déroulants comportent une fonte plus large et un interligne plus important, ce qui permet de les atteindre avec le doigt."
+msgstr "Pour les écrans de petite dimension, WordPress affichera une Barre d'Outils dite réactive, d'une taille fixe de 46px, et composée d'icônes sans étiquettes. Les éléments de menus déroulants comportent une fonte plus large et un interligne plus important, ce qui permet de les atteindre avec le doigt."
 
 #: wp-symposium-toolbar_admin.php:2662
 #@ wp-symposium-toolbar
@@ -2934,7 +2929,7 @@ msgstr "Si vous utilisez des icônes avec vos menus, il est recommandé d'utilis
 #: wp-symposium-toolbar_admin.php:2663
 #@ wp-symposium-toolbar
 msgid "For each of your custom menus, you will have the option to force its display in responsive mode, if it is attached directly to the Toolbar.  Whenever the menu is appended to a default menu, the rule for the display of that menu will apply."
-msgstr "Pour chacun de vos menus personnalisés, vous avez la possibilité d'en forcer l'affichage en mode responsive, si il est attaché directement à la Barre d'Outils.  Lorsque votre menu est ajouté à un menu par défaut, la régle d'affichage de celui-ci s'applique."
+msgstr "Pour chacun de vos menus personnalisés, vous avez la possibilité d'en forcer l'affichage en mode réactif, si il est attaché directement à la Barre d'Outils.  Lorsque votre menu est ajouté à un menu par défaut, la régle d'affichage de celui-ci s'applique."
 
 #: wp-symposium-toolbar_admin.php:606
 #: wp-symposium-toolbar_admin.php:1286
@@ -3123,7 +3118,7 @@ msgstr "Onglet Styles"
 #: wp-symposium-toolbar_admin.php:997
 #@ wp-symposium-toolbar
 msgid "Note: Will not be used when appending the menu to an existing menu, as the display of the resulting menu in responsive mode will be handled separately"
-msgstr "Note : Ne sera pas utilisé lorsque le Menu Personnalisé est ajouté à un menu existant, dont l'affichage en mode responsif continuera d'être géré séparément"
+msgstr "Note : Ne sera pas utilisé lorsque le Menu Personnalisé est ajouté à un menu existant, dont l'affichage en mode réactif sera géré séparément"
 
 #: wp-symposium-toolbar_admin.php:248
 #, php-format
@@ -3406,4 +3401,9 @@ msgstr "Couleur de l'Ombre de la Police de Caractères"
 #@ wp-symposium-toolbar
 msgid "Font Shadow Blur"
 msgstr "Flou de l'Ombre de la Police de Caractères"
+
+#: wp-symposium-toolbar_admin.php:517
+#@ wp-symposium-toolbar
+msgid "Force the display of the WP Toolbar for the roles selected above."
+msgstr "Forcer l'affichage de la Barre d'Outils WP pour les rôles sélectionnés ci-dessus."
 

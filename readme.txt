@@ -8,7 +8,7 @@ Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, b
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.48
+Version: 0.29.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,6 +151,8 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Change: Toolbar, remove "Shortlink" setting
 * Change: code improvement, simplify the way avatars are hidden from Toolbar
 * Change: Styles, add a setting to limit the width of Toolbar items container, so admins can manually align Toolbar items with page content
+* Change: Share, add RSS Feed and Mail To links to social icons
+* Change: Share, add the option to use their brand colors on hover
 * Bugfix: Import, less restrictive validation for strings: allow quotes etc.
 * Bugfix: WPS, incorrect top margins for mail and friend icons when only one icon is displayed
 * Bugfix: Styles, missing Toolbar shadow in responsive mode

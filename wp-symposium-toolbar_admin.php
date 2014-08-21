@@ -514,7 +514,7 @@ function symposium_toolbar_admintab_toolbar() {
 						}
 						echo '"';
 					}
-					echo '/><span> ' . __( 'Force the display of the WP Toolbar.', 'wp-symposium-toolbar' ).' '.__( 'Logged-in users will no longer be able to show / hide it from their WP Profile page.', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '/><span> ' . __( 'Force the display of the WP Toolbar for the roles selected above.', 'wp-symposium-toolbar' ).' '.__( 'Logged-in users will no longer be able to show / hide it from their WP Profile page.', 'wp-symposium-toolbar' ) . '</span><br />';
 					if ( $error ) echo '<div id="display_wps_admin_menu_error" class="wpst-error-message"><b>'.__( 'Important!', 'wp-symposium-toolbar' ).'</b> '.__( 'There is an issue with the option stored in your database for this item: please check your settings, and try saving to fix the issue!', 'wp-symposium-toolbar' ).'</div>';
 				echo '</td>';
 			echo '</tr>';
@@ -1149,7 +1149,22 @@ function symposium_toolbar_admintab_share() {
 	global $wpst_roles_all_incl_user;
 	(bool)$error = false;
 
+	$social = array(
+		'linkedin'		=> __( 'LinkedIn',    'wp-symposium-toolbar' ),
+		'facebook'		=> __( 'Facebook',    'wp-symposium-toolbar' ),
+		'twitter'		=> __( 'Twitter',     'wp-symposium-toolbar' ),
+		'google_plus'	=> __( 'Google Plus', 'wp-symposium-toolbar' ),
+		// 'tumblr'		=> __( 'Tumblr',      'wp-symposium-toolbar' ),
+		// 'pinterest'		=> __( 'Pinterest',   'wp-symposium-toolbar' ),
+		'stumbleupon'	=> __( 'StumbleUpon', 'wp-symposium-toolbar' ),
+		'rss'			=> __( 'RSS Feed',    'wp-symposium-toolbar' ),
+		'mailto'		=> __( 'Mail To',     'wp-symposium-toolbar' )
+	);
+	$defaults = array();
+	foreach ( $social as $key => $value ) { $defaults[$key] = ''; }
+	
 	$share = get_option( 'wpst_share_icons', array() );
+	$share = array_merge( $defaults, $share );
 	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table wpst-form-table">';
@@ -1159,75 +1174,20 @@ function symposium_toolbar_admintab_share() {
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Allow members and visitors to share this site:', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					echo '<input type="checkbox" name="share_linkedin" id="share_linkedin" class="wpst-admin';
-					if ( isset( $share['linkedin'] ) ) {
-						if ( $share['linkedin'] == "on" )
+					foreach ( $social as $key => $value ) {
+						echo '<input type="checkbox" name="share_'.$key.'" id="share_'.$key.'" class="wpst-admin';
+						if ( $share[$key] == "on" )
 							echo '" CHECKED';
 						else {
-							if ( $share['linkedin'] != '' ) {
+							if ( $share[$key] != '' ) {
 								$error = true;
 								echo ' wpst-error';
 							}
 							echo '"';
 						}
+						echo '/><span class="description wpst-checkbox"> ' . $value . '</span><br />';
 					}
-					echo '/><span class="description wpst-checkbox"> ' . __( 'LinkedIn', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					echo '<input type="checkbox" name="share_facebook" id="share_facebook" class="wpst-admin';
-					if ( isset( $share['facebook'] ) ) {
-						if ( $share['facebook'] == "on" )
-							echo '" CHECKED';
-						else {
-							if ( $share['facebook'] != '' ) {
-								$error = true;
-								echo ' wpst-error';
-							}
-							echo '"';
-						}
-					}
-					echo '/><span class="description wpst-checkbox"> ' . __( 'Facebook', 'wp-symposium-toolbar' ) . '</span><br />';
-					
-					echo '<input type="checkbox" name="share_twitter" id="share_twitter" class="wpst-admin';
-					if ( isset( $share['twitter'] ) ) {
-						if ( $share['twitter'] == "on" )
-							echo '" CHECKED';
-						else {
-							if ( $share['twitter'] != '' ) {
-								$error = true;
-								echo ' wpst-error';
-							}
-							echo '"';
-						}
-					}
-					echo '/><span class="description wpst-checkbox"> ' . __( 'Twitter', 'wp-symposium-toolbar' ) . '</span><br />';
-					
-					echo '<input type="checkbox" name="share_google_plus" id="share_google_plus" class="wpst-admin';
-					if ( isset( $share['google_plus'] ) ) {
-						if ( $share['google_plus'] == "on" )
-							echo '" CHECKED';
-						else {
-							if ( $share['google_plus'] != '' ) {
-								$error = true;
-								echo ' wpst-error';
-							}
-							echo '"';
-						}
-					}
-					echo '/><span class="description wpst-checkbox"> ' . __( 'Google Plus', 'wp-symposium-toolbar' ) . '</span><br />';
-					
-					echo '<input type="checkbox" name="share_stumbleupon" id="share_stumbleupon" class="wpst-admin';
-					if ( isset( $share['stumbleupon'] ) ) {
-						if ( $share['stumbleupon'] == "on" )
-							echo '" CHECKED';
-						else {
-							if ( $share['stumbleupon'] != '' ) {
-								$error = true;
-								echo ' wpst-error';
-							}
-							echo '"';
-						}
-					}
-					echo '/><span class="description wpst-checkbox"> ' . __( 'StumbleUpon', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
 			echo '</tr>';
 			
@@ -1290,7 +1250,7 @@ function symposium_toolbar_admintab_share() {
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'At the left of the User Menu', 'wp-symposium-toolbar' ) . '</span><br /><br />';
 					
-					// echo '<span>' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span>' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="icons_color" class="wpst-admin';
 					if ( get_option( 'wpst_share_icons_color', '' ) == "on" )
@@ -1302,19 +1262,19 @@ function symposium_toolbar_admintab_share() {
 						}
 						echo '"';
 					}
-					echo '/><span class="wpst-checkbox"> ' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '/><span class="description wpst-checkbox"> ' . __( 'When not hovered', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					// echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin"';
-					// if ( get_option( 'wpst_share_icons_hover_color', '' ) == "on" )
-						// echo '" CHECKED';
-					// else {
-						// if ( get_option( 'wpst_share_icons_hover_color', '' ) != '' ) {
-							// $error = true;
-							// echo ' wpst-error';
-						// }
-						// echo '"';
-					// }
-					// echo '/><span class="description wpst-checkbox"> ' . __( 'On hover', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin"';
+					if ( get_option( 'wpst_share_icons_hover_color', '' ) == "on" )
+						echo '" CHECKED';
+					else {
+						if ( get_option( 'wpst_share_icons_hover_color', '' ) != '' ) {
+							$error = true;
+							echo ' wpst-error';
+						}
+						echo '"';
+					}
+					echo '/><span class="description wpst-checkbox"> ' . __( 'On mouse hover', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<span class="description">' . __( 'Note: if unchecked, the icons will adhere to the same style as the other icons ; if checked, you will still be able to add background and shadow colours to these icons', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';

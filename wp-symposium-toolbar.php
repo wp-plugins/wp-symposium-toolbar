@@ -10,7 +10,7 @@ Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, bran
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.29.0
-Version: 0.29.48
+Version: 0.29.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 2948 );
+define( "WPST_BUILD_NR", 2951 );
 
 
 // Exit if accessed directly

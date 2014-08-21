@@ -935,6 +935,7 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	$http_prefix = ( is_ssl() ) ? "https://" : "http://";
 	$class = get_option( 'wpst_share_icons_set', 'lightweight' );
 	if ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) $class .= ' brand';
+	if ( get_option( 'wpst_share_icons_hover_color', '' ) == 'on' ) $class .= ' brand_h';
 	
 	switch( get_option( 'wpst_share_content', 'home' ) ) {
 		case 'home' :
@@ -1007,6 +1008,30 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 			'title' => '',
 			'href' => $http_prefix . 'www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
 			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// RSS
+	if ( isset( $share['rss'] ) && ( $share['rss'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-rss',
+			'parent' => $parent,
+			'title' => '',
+			'href' => $shared_url.'/feed/',
+			'meta' => array( 'title' => __( "RSS Feed", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-rss '.$class )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+	
+	// Mail
+	if ( isset( $share['mailto'] ) && ( $share['mailto'] == "on" ) ) {
+		$args = array(
+			'id' => 'symposium-toolbar-share-mailto',
+			'parent' => $parent,
+			'title' => '',
+			'href' => 'mailto:?Subject=' . $blog_name . '&Body=' . $shared_url,
+			'meta' => array( 'title' => __( "Mail to a friend", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-mailto '.$class )
 		);
 		$wp_admin_bar->add_node( $args );
 	}

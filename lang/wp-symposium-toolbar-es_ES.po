@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WP Symposium Toolbar v0.29.48\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-08-19 15:03:39+0000\n"
+"PO-Revision-Date: 2014-08-20 10:16:09+0000\n"
 "Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2066,11 +2066,6 @@ msgstr "En las instalaciones de WP Symposium, los iconos de notificación apunta
 msgid "Logged-in users will no longer be able to show / hide it from their WP Profile page."
 msgstr "Los usuarios autenticados no serán capaces de mostrarlo/ocultarlo desde la página del Perfil WP. "
 
-#: wp-symposium-toolbar_admin.php:517
-#@ wp-symposium-toolbar
-msgid "Force the display of the WP Toolbar."
-msgstr "Forzar el mostrado del  WP Toolbar."
-
 #: wp-symposium-toolbar_admin.php:1113
 #@ wp-symposium-toolbar
 msgid "Note: WPS features must be activated and correctly set up from the WPS Install page"
@@ -3405,5 +3400,10 @@ msgstr ""
 #: wp-symposium-toolbar_admin_functions.php:1330
 #@ wp-symposium-toolbar
 msgid "Font Shadow Blur"
+msgstr ""
+
+#: wp-symposium-toolbar_admin.php:517
+#@ wp-symposium-toolbar
+msgid "Force the display of the WP Toolbar for the roles selected above."
 msgstr ""
 
