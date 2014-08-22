@@ -1533,7 +1533,7 @@ function symposium_toolbar_admintab_styles() {
 			echo '<tr valign="top">';
 				echo '<td scope="row" style="width:15%; "><span>'.__( 'Max Width', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="6">';
-					echo '<span>' . __( 'Limit Items Width in Frontend pages', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span>' . __( 'Adjusts the width of the total items container in the frontend Toolbar.', 'wp-symposium-toolbar' ) . '  ' . __( 'Will not apply in the Backend.', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="wpst_max_width" id="wpst_max_width" ';
 					echo 'class="wpst-admin wpst-default wpst-positive-int" value="';
 					if ( isset( $wpst_style_tb_current['max_width'] ) ) echo $wpst_style_tb_current['max_width'];

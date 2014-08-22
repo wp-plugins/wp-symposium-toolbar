@@ -864,9 +864,11 @@ function symposium_toolbar_save_before_render() {
 				// Toolbar Items
 				// Max-Width
 				if ( isset( $_POST['wpst_max_width'] ) && ( $_POST['wpst_max_width'] != '' ) ) {
-					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
+					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) {
 						$wpst_style_tb_current['max_width'] = $_POST['wpst_max_width'];
-					else {
+						if ( ( $wpst_style_tb_current['max_width'] < 783 ) && ( $wpst_style_tb_current['max_width'] != $wpst_style_tb_old['max_width'] ) )
+							$wpst_notices .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'please double check on the frontend to make sure you have the result you are looking for', 'wp-symposium-toolbar' ).'<br />';
+					} else {
 						if ( isset( $wpst_style_tb_old['max_width'] ) ) $wpst_style_tb_current['max_width'] = $wpst_style_tb_old['max_width'];
 						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
 					}
@@ -1375,8 +1377,11 @@ function symposium_toolbar_save_before_render() {
 				else
 					$wpst_errors = __( 'One error occurred when saving settings', 'wp-symposium-toolbar' ).' - '.__( 'The corresponding setting could not be saved', 'wp-symposium-toolbar' ).'<br />'.$wpst_errors;
 			}
-			if ( $wpst_notices )
-				$wpst_notices = __( 'The following settings could not be saved', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
+			// if ( $wpst_notices )
+				// if ( count( explode( '<br />' , trim( $wpst_notices, '<br />') ) ) > 1 )
+					// $wpst_notices = __( 'The following errors occurred', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
+				// else
+					// $wpst_notices = __( 'The following error occurred', 'wp-symposium-toolbar' ).'<br />'.$wpst_notices;
 		
 		
 		// Sixth set of options - Technical
@@ -1619,7 +1624,7 @@ function symposium_toolbar_save_before_render() {
 									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "" or "top-secondary"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "" or "on"
-							} elseif ( $option_name == 'wpst_share_icons_color' ) {
+							} elseif ( ( $option_name == 'wpst_share_icons_color' ) || ( $option_name == 'wpst_share_icons_hover_color' ) ) {
 								if ( is_string( $option_value ) ) {
 									if ( in_array( $option_value, array( "", "on" ) ) )
 										update_option( $option_name, $option_value );
