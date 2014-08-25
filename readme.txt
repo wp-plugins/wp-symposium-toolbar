@@ -7,8 +7,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 0.29.0
-Version: 0.29.55
+Stable tag: 0.30.0
+Version: 0.30.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,10 +102,11 @@ It will show only in the frontend and not in the backend, have you checked in th
 
 == Screenshots ==
 
-1. Share your thoughts with the World under your custom Toolbar: gradients, transparency, colorful
-2. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
-3. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
-4. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
+1. Share your thoughts with the World under your custom Toolbar: gradients, transparency, colorful...
+2. Choose amongst a wide variety of possibilities for colours, sizes, etc., so that the WP Toolbar matches your theme
+3. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
+4. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
+5. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
 
 == Credits ==
 

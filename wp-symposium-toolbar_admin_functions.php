@@ -120,7 +120,7 @@ function symposium_toolbar_update() {
 	global $wpdb;
 	global $wpst_roles_all_incl_visitor, $wpst_roles_all_incl_user, $wpst_roles_all, $wpst_roles_author, $wpst_roles_new_content, $wpst_roles_comment, $wpst_roles_updates, $wpst_roles_administrator;
 	
-	// if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
+	if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
 	
 	if ( get_option( 'wpst_tech_buildnr', 0 ) < 2101 ) {
 		
@@ -439,10 +439,6 @@ function symposium_toolbar_save_before_render() {
 	
 	if ( isset( $_POST["symposium_toolbar_view"] ) && ( check_admin_referer( 'wpst_save_options', 'wpst_save_options_nonce_field' ) ) ) {
 		
-		// Ensure globals are set
-		// if ( !$wpst_roles_all ) symposium_toolbar_init_globals();
-		// if ( !$wpst_shown_tabs ) symposium_toolbar_init_admin_globals();
-		
 		// Init default Toolbar style
 		$wpst_default_toolbar = symposium_toolbar_init_default_toolbar( $wp_version );
 		
@@ -748,7 +744,7 @@ function symposium_toolbar_save_before_render() {
 					}
 				}
 				
-				// Main Container Max-Width
+				// Max-Width
 				if ( isset( $_POST['wpst_max_width'] ) && ( $_POST['wpst_max_width'] != '' ) ) {
 					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) {
 						$wpst_style_tb_current['max_width'] = $_POST['wpst_max_width'];

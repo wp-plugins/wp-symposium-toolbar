@@ -69,35 +69,55 @@
 	top: 2px;
 }
 
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e610'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e611'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e612'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e613'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e610'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e611'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e612'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e613'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e614'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e615'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e616'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss > .ab-item:before 					{ font-family: WPST-icons !important; content: '\e617'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e616'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e617'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-mailto > .ab-item:before 				{ font-family: WPST-icons !important; content: '\e618'; }
 
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e620'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e621'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e622'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e623'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e620'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e621'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e622'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus.rounded > .ab-item:before { font-family: WPST-icons !important; content: '\e623'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e624'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e625'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon.rounded > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e626'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss.rounded > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e627'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon.rounded > .ab-item:before { font-family: WPST-icons !important; content: '\e626'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e627'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-mailto.rounded > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e628'; }
 
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e630'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e631'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.circle > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e630'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.circle > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e631'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e632'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus.circle > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e633'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e634'; }
-#wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e635'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest.circle > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e635'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon.circle > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e636'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-rss.circle > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e637'; }
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-mailto.circle > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e638'; }
+/*
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e640'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e641'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e642'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus.ring > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e643'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e644'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e645'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon.ring > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e646'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss.ring > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e647'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-mailto.ring > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e648'; }
+
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.lines > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e650'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-facebook.lines > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e651'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-twitter.lines > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e652'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-google-plus.lines > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e653'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-tumblr.lines > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e654'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-pinterest.lines > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e655'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-stumbleupon.lines > .ab-item:before 	{ font-family: WPST-icons !important; content: '\e656'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-rss.lines > .ab-item:before 			{ font-family: WPST-icons !important; content: '\e657'; }
+#wpadminbar #wp-admin-bar-symposium-toolbar-share-mailto.lines > .ab-item:before 		{ font-family: WPST-icons !important; content: '\e658'; }
 
 /* http://brandcolors.net/ */
 #wpadminbar #wp-admin-bar-symposium-toolbar-share-linkedin.brand > .ab-item:before,
