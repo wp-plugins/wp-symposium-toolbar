@@ -1264,7 +1264,7 @@ function symposium_toolbar_admintab_share() {
 					}
 					echo '/><span class="description wpst-checkbox"> ' . __( 'When not hovered', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin"';
+					echo '<input type="checkbox" name="icons_hover_color" class="wpst-admin';
 					if ( get_option( 'wpst_share_icons_hover_color', '' ) == "on" )
 						echo '" CHECKED';
 					else {
@@ -1377,6 +1377,24 @@ function symposium_toolbar_admintab_styles() {
 				echo '<td></td>';
 				echo '<td></td>';
 				echo '<td></td>';
+			echo '</tr>';
+			
+			// Max-Width
+			echo '<tr valign="top">';
+				echo '<td scope="row" style="width:15%; "><span>'.__( 'Max Width', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td colspan="3">';
+					echo '<span>' . __( 'Maximum width for the Toolbar', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_max_width" id="wpst_max_width" ';
+					echo 'class="wpst-admin wpst-default wpst-positive-int" value="';
+					if ( isset( $wpst_style_tb_current['max_width'] ) ) echo $wpst_style_tb_current['max_width'];
+					echo '" />px<br />';
+					echo '<input type="checkbox" name="wpst_max_width_narrow" class="wpst-admin"';
+					if ( isset( $wpst_style_tb_current['max_width_narrow'] ) ) echo 'CHECKED';
+					echo '/><span class="wpst-checkbox"> ' . __( 'Apply to the whole Toolbar (or if unchecked, only to its items)', 'wp-symposium-toolbar' ) . '</span><br />';
+				echo '</td>';
+				echo '<td colspan="3">';
+					echo '<span class="description">' . __( 'Note: this adjusts the width of the Toolbar, or only its items as selected, on top of the theme\'s pages.', 'wp-symposium-toolbar' ) . '  ' . __( 'Will not apply in the Administration part of the site where they will span across the whole browser window.', 'wp-symposium-toolbar' ) . '  ' . __( 'Always check in the frontend to see that you are getting the results you want with these settings.', 'wp-symposium-toolbar' ) . '</span>';
+				echo '</td>';
 			echo '</tr>';
 			
 			// Opacity
@@ -1528,18 +1546,6 @@ function symposium_toolbar_admintab_styles() {
 		echo '<h3 id="wp_toolbar_items" class="hndle wpst-hndle" style="cursor:pointer;" title="'.__( 'Click to toggle' ).'"><span>'.__( 'Toolbar Items', 'wp-symposium-toolbar' ).'</span></h3>';
 		
 		echo '<table id="wp_toolbar_items_inside" class="widefat wpst-widefat wpst-style-widefat"><tbody>';
-			
-			// Max-Width
-			echo '<tr valign="top">';
-				echo '<td scope="row" style="width:15%; "><span>'.__( 'Max Width', 'wp-symposium-toolbar' ).'</span></td>';
-				echo '<td colspan="6">';
-					echo '<span>' . __( 'Adjusts the width of the total items container in the frontend Toolbar.', 'wp-symposium-toolbar' ) . '  ' . __( 'Will not apply in the Backend.', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" name="wpst_max_width" id="wpst_max_width" ';
-					echo 'class="wpst-admin wpst-default wpst-positive-int" value="';
-					if ( isset( $wpst_style_tb_current['max_width'] ) ) echo $wpst_style_tb_current['max_width'];
-					echo '" />px';
-				echo '</td>';
-			echo '</tr>';
 			
 			// Items Borders
 			echo '<tr valign="top">';

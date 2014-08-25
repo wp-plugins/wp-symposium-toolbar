@@ -1019,7 +1019,7 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 			'parent' => $parent,
 			'title' => '',
 			'href' => $shared_url.'/feed/',
-			'meta' => array( 'title' => __( "RSS Feed", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-rss '.$class )
+			'meta' => array( 'title' => __( "Subscribe to the RSS Feed", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-rss '.$class )
 		);
 		$wp_admin_bar->add_node( $args );
 	}

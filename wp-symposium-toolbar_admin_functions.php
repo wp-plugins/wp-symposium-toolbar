@@ -748,6 +748,19 @@ function symposium_toolbar_save_before_render() {
 					}
 				}
 				
+				// Main Container Max-Width
+				if ( isset( $_POST['wpst_max_width'] ) && ( $_POST['wpst_max_width'] != '' ) ) {
+					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) {
+						$wpst_style_tb_current['max_width'] = $_POST['wpst_max_width'];
+						if ( ( $wpst_style_tb_current['max_width'] < 783 ) && ( $wpst_style_tb_current['max_width'] != $wpst_style_tb_old['max_width'] ) )
+							$wpst_notices .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'please double check on the frontend to make sure you have the result you are looking for', 'wp-symposium-toolbar' ).'<br />';
+					} else {
+						if ( isset( $wpst_style_tb_old['max_width'] ) ) $wpst_style_tb_current['max_width'] = $wpst_style_tb_old['max_width'];
+						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
+					}
+				}
+				if ( isset( $_POST["wpst_max_width_narrow"] ) ) $wpst_style_tb_current['max_width_narrow'] = 'on';
+				
 				// Opacity
 				$wpst_transparency = ( isset( $_POST['wpst_transparency'] ) && ( $_POST['wpst_transparency'] != '' ) ) ? $_POST['wpst_transparency'] : $wpst_default_toolbar['transparency'];
 				if ( isset( $_POST['wpst_transparency'] ) && ( $_POST['wpst_transparency'] != '' ) && ( $_POST['wpst_transparency'] != $wpst_default_toolbar['transparency'] ) ) {
@@ -862,18 +875,6 @@ function symposium_toolbar_save_before_render() {
 				}
 				
 				// Toolbar Items
-				// Max-Width
-				if ( isset( $_POST['wpst_max_width'] ) && ( $_POST['wpst_max_width'] != '' ) ) {
-					if ( $_POST['wpst_max_width'] == filter_var( $_POST['wpst_max_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) ) {
-						$wpst_style_tb_current['max_width'] = $_POST['wpst_max_width'];
-						if ( ( $wpst_style_tb_current['max_width'] < 783 ) && ( $wpst_style_tb_current['max_width'] != $wpst_style_tb_old['max_width'] ) )
-							$wpst_notices .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'please double check on the frontend to make sure you have the result you are looking for', 'wp-symposium-toolbar' ).'<br />';
-					} else {
-						if ( isset( $wpst_style_tb_old['max_width'] ) ) $wpst_style_tb_current['max_width'] = $wpst_style_tb_old['max_width'];
-						$wpst_errors .= __( 'Toolbar Items', 'wp-symposium-toolbar' ).' > '.__( 'Max Width', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).'<br />';
-					}
-				}
-				
 				// Borders
 				if ( isset( $_POST['wpst_border_width'] ) && ( $_POST['wpst_border_width'] != '' ) && ( $_POST['wpst_border_width'] != $wpst_default_toolbar['border_width'] ) ) {
 					if ( $_POST['wpst_border_width'] == filter_var( $_POST['wpst_border_width'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0 ) ) ) )
@@ -1857,6 +1858,16 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_saved .= '} ';
 	}
 	
+	// Toolbar Max Width
+	if ( isset( $wpst_style_tb_current['max_width'] ) && ( $wpst_style_tb_current['max_width'] != '' ) ) {
+		if ( isset( $wpst_style_tb_current['max_width_narrow'] ) && ( $wpst_style_tb_current['max_width_narrow'] != '' ) )
+			$wpst_tech_align_to_header = '#wpadminbar { position: fixed; left: 0; right: 0; width: '.$wpst_style_tb_current['max_width'].'px; margin: auto; max-width: 100%; } ';
+		else
+			$wpst_tech_align_to_header = '#wp-toolbar { display: block; margin-left: auto; margin-right: auto; max-width: '.$wpst_style_tb_current['max_width'].'px; } ';
+	} else
+		$wpst_tech_align_to_header = '';
+	update_option( 'wpst_tech_align_to_header', $wpst_tech_align_to_header );
+	
 	// Toolbar - Opacity
 	$transparency = '';
 	if ( isset( $wpst_style_tb_current['transparency'] ) && ( $wpst_style_tb_current['transparency'] != '' ) && ( $wpst_style_tb_current['transparency'] != $wpst_default_toolbar['transparency'] ) ) {
@@ -1966,12 +1977,6 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk_tablet = "";
 		$has_gradient = false;
 	}
-	
-	// Add max-width to Toolbar quicklinks
-	if ( isset( $wpst_style_tb_current['max_width'] ) && ( $wpst_style_tb_current['max_width'] != '' ) )
-		update_option( 'wpst_tech_align_to_header', '#wp-toolbar { display: block; margin-left: auto; margin-right: auto; max-width: '.$wpst_style_tb_current['max_width'].'px; } ' );
-	else
-		update_option( 'wpst_tech_align_to_header', '' );
 	
 	// Toolbar borders / dividers
 	$wpst_style_tb_current = array_merge( array( 'border_width' => $wpst_default_toolbar['border_width'], 'border_style' => $wpst_default_toolbar['border_style'] ), $wpst_style_tb_current );
