@@ -10,7 +10,7 @@ Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, bran
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.30.0
-Version: 0.30.0
+Version: 0.31.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3000 );
+define( "WPST_BUILD_NR", 3100 );
 
 
 // Exit if accessed directly
@@ -40,12 +40,34 @@ if ( is_admin() ) include_once( 'wp-symposium-toolbar_admin_functions.php' );
 include_once( 'wp-symposium-toolbar_functions.php' );
 include_once( 'wp-symposium-toolbar_help.php' );
 
-// Is WP Symposium running ?
-global $wpdb;
-if ( is_multisite() ) {
+// Is WP Symposium running on this site ?
+if ( is_multisite() )
 	(bool)$is_wps_active = ( is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' ) || is_plugin_active( 'wp-symposium/wp-symposium.php' ) );
-	(bool)$is_wps_available = $is_wps_active;
-	if ( !$is_wps_available ) {
+else
+	(bool)$is_wps_active = is_plugin_active( 'wp-symposium/wp-symposium.php' );
+
+define( "WPST_IS_WPS_ACTIVE", $is_wps_active );
+// true when WPS active on the current site, either network activated or site activated, false otherwise
+
+if ( WPST_IS_WPS_ACTIVE ) {
+	if ( !function_exists( '__wps__get_url' ) ) include_once( plugin_dir_path( __FILE__ ).'../wp-symposium/functions.php' );
+	if ( !defined( 'WPS_TEXT_DOMAIN' ) ) define( 'WPS_TEXT_DOMAIN', 'wp-symposium' );
+	if ( !defined( 'WPS_DIR' ) ) define( 'WPS_DIR', 'wp-symposium' );
+}
+
+
+/* ==================================================================== MAIN / ADMIN ======================================================================= */
+
+function symposium_toolbar_main() {
+	// Ties in with add_toolbar_installation_row() function below.
+}
+
+function symposium_toolbar_init() {
+	
+	// Is WP Symposium available somewhere on the network ?
+	global $wpdb;
+	(bool)$is_wps_available = WPST_IS_WPS_ACTIVE;
+	if ( is_multisite() ) if ( !$is_wps_available ) {
 		$blogs = wp_get_sites();
 		foreach ($blogs as $blog) {
 			$wpdb_prefix = ( $blog['blog_id'] == "1" ) ? $wpdb->base_prefix : $wpdb->base_prefix.$blog['blog_id']."_";
@@ -56,40 +78,18 @@ if ( is_multisite() ) {
 			if ( $is_wps_available ) break;
 		}
 	}
+	define( "WPST_IS_WPS_AVAILABLE", $is_wps_available );
+	// true when WPS is available from any site of the network, false otherwise
 	
-} else {
-	(bool)$is_wps_active = is_plugin_active( 'wp-symposium/wp-symposium.php' );
-	(bool)$is_wps_available = $is_wps_active;
-}
-
-// WPMS - Needed for WPS icons and paths when WPS is activated on the network but not the current site
-if ( $is_wps_available ) {
-	if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
-	(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
-
-} else
+	// Is there a WP Symposium Profile page defined somewhere on the network ?
+	// Needed in WPMS for WPS icons and paths
 	(bool)$is_wps_profile_active = false;
-
-if ( $is_wps_active ) {
-	if ( !function_exists( '__wps__get_url' ) ) include_once( plugin_dir_path( __FILE__ ).'../wp-symposium/functions.php' );
-	if ( !defined( 'WPS_TEXT_DOMAIN' ) ) define( 'WPS_TEXT_DOMAIN', 'wp-symposium' );
-	if ( !defined( 'WPS_DIR' ) ) define( 'WPS_DIR', 'wp-symposium' );
-}
-
-define( "WPST_IS_WPS_ACTIVE", $is_wps_active );					// true when WPS active on the current site, either network activated or site activated, false otherwise
-define( "WPST_IS_WPS_AVAILABLE", $is_wps_available );			// true when WPS is available from any site of the network, false otherwise.
-define( "WPST_IS_WPS_PROFILE_ACTIVE", $is_wps_profile_active );	// true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
-
-// OK, we're all set now...
-
-
-/* ==================================================================== MAIN / ADMIN ======================================================================= */
-
-function symposium_toolbar_main() {
-	// Ties in with add_toolbar_installation_row() function below.
-}
-
-function symposium_toolbar_init() {
+	if ( $is_wps_available ) {
+		if ( !defined( 'WPS_OPTIONS_PREFIX' ) ) define( 'WPS_OPTIONS_PREFIX', 'symposium' );
+		(bool)$is_wps_profile_active = ( symposium_toolbar_wps_url_for( 'profile' ) != array() );
+	}
+	define( "WPST_IS_WPS_PROFILE_ACTIVE", $is_wps_profile_active );
+	// true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
 	
 	// CSS
 	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
@@ -332,6 +332,9 @@ add_filter( 'show_admin_bar', 'symposium_toolbar_show_admin_bar', 10, 1 );
 // Add styles to pages header
 add_action( 'admin_head', 'symposium_toolbar_add_styles', 20 );
 add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
+
+// Add meta to frontend pages header
+add_action( 'wp_head', 'symposium_toolbar_add_meta', 0 );
 
 // Toolbar styles callback
 add_theme_support( 'admin-bar', array( 'callback' => 'symposium_toolbar_admin_bar_cb' ) );

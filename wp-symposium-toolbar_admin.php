@@ -745,7 +745,7 @@ function symposium_toolbar_admintab_myaccount() {
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-no-title"><span>&nbsp;</span></td>';
 				echo '<td colspan="2">';
-					echo '<span>' . __( 'Rewrite the Profile URL, to link to the following page, leave empty to use WordPress default Profile page', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span>' . __( 'Rewrite the Profile URL over the Howdy and User Info items, to link to the following page, leave empty to use WordPress default Profile page', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="rewrite_edit_link" id="rewrite_edit_link" value="'.get_option( 'wpst_myaccount_rewrite_edit_link', '' ).'" class="wpst-admin';
 					if ( !WPST_IS_WPS_PROFILE_ACTIVE ) {
 						echo ' wpst-no-wps';
@@ -1169,6 +1169,7 @@ function symposium_toolbar_admintab_share() {
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table wpst-form-table">';
 			
+			// Share / Subscribe
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Share', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
@@ -1191,6 +1192,7 @@ function symposium_toolbar_admintab_share() {
 				echo '</td>';
 			echo '</tr>';
 			
+			// Shared Content
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Shared Content', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
@@ -1211,15 +1213,30 @@ function symposium_toolbar_admintab_share() {
 					echo '<input type="radio" name="shared_content" class="wpst-admin" value="current"';
 					if ( get_option( 'wpst_share_content', 'home' ) == "current" ) echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page, whichever it is', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page, whichever it is', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					
+					// Meta
+					echo '<input type="checkbox" name="shared_content_meta" id="shared_content_meta" class="wpst-admin';
+					if ( get_option( 'wpst_share_content_meta', 'on' ) == "on" )
+						echo '" CHECKED';
+					else {
+						if ( get_option( 'wpst_share_content_meta', '' ) != '' ) {
+							$error = true;
+							echo ' wpst-error';
+						}
+						echo '"';
+					}
+					echo '/><span> ' . __( 'Add metadata to site pages header', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span class="description"> ' . __( 'Note: your theme or another plugin might already do that', 'wp-symposium-toolbar' ) . '</span><br />';
 				echo '</td>';
 			echo '</tr>';
 			
+			// Icons
 			echo '<tr valign="top">';
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Which set of icons should be used?', 'wp-symposium-toolbar' ) . '</span><br />';
-					$style = ( in_array( get_option( 'wpst_share_icons_set', 'lightweight' ), array( "lightweight", "rounded", "circle" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';
+					$style = ( in_array( get_option( 'wpst_share_icons_set', 'lightweight' ), array( "lightweight", "rounded", "circle", "ring", "elegant" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';
 					if ( $style != "" ) $error = true;
 					
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="lightweight"';
@@ -1235,7 +1252,17 @@ function symposium_toolbar_admintab_share() {
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="circle"';
 					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "circle" ) echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles', 'wp-symposium-toolbar' ) . '</span><br />';
+					
+					echo '<input type="radio" name="icons_set" class="wpst-admin" value="ring"';
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "ring" ) echo " CHECKED";
+					echo $style;
+					echo '> <span class="description wpst-checkbox"> ' . __( 'Rings', 'wp-symposium-toolbar' ) . '</span><br />';
+					
+					echo '<input type="radio" name="icons_set" class="wpst-admin" value="elegant"';
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "elegant" ) echo " CHECKED";
+					echo $style;
+					echo '> <span class="description wpst-checkbox"> ' . __( 'Elegant Lines', 'wp-symposium-toolbar' ) . '</span><br /><br />';
 			
 					echo '<span>' . __( 'Where should they be displayed?', 'wp-symposium-toolbar' ) . '</span><br />';
 					$style = ( in_array( get_option( 'wpst_share_icons_position', '' ), array( "", "top-secondary" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';
@@ -1250,6 +1277,7 @@ function symposium_toolbar_admintab_share() {
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'At the left of the User Menu', 'wp-symposium-toolbar' ) . '</span><br /><br />';
 					
+					//  Brand Colors
 					echo '<span>' . __( 'Use their brand colours', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					echo '<input type="checkbox" name="icons_color" class="wpst-admin';

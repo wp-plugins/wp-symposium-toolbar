@@ -47,6 +47,7 @@ jQuery(document).ready(function($){
 	
 	// KEEPERS
 	
+	var wpstZeroPx = "0px ";
 	var wpstDefaultHeight = "32";
 	var wpstResponsiveHeight = "46";
 	var $wpstBorderWidth = "0";
@@ -68,9 +69,11 @@ jQuery(document).ready(function($){
 	var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
 	var wpstIconHoverEmptyColor = "#2ea2cc";
 	var wpstIconHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
-	var wpstFontShadowHoriz = "0";
-	var wpstFontShadowVert = "0";
+	// var wpstFontShadowHoriz = "0";
+	// var wpstFontShadowVert = "0";
 	
+	var wpstMenuShadowVertical = "3px ";
+	var wpstMenuShadowBlur = "5px ";
 	var wpstMenuShadowColour = "#000000";
 	var wpstMenuShadowTransparency = "20";
 	
@@ -249,10 +252,10 @@ jQuery(document).ready(function($){
 		
 		var shadow = ($("#wpadminbar").css("box-shadow")) ? "box-shadow" : "-webkit-box-shadow";
 		
-		var tbHorizontalShadow = ( ( $('#wpst_h_shadow').val() !== "" ) && ( parseInt($('#wpst_h_shadow').val()) == $('#wpst_h_shadow').val() ) ) ? $('#wpst_h_shadow').val()+"px " : "0px ";
-		var tbVerticalShadow = ( ( $('#wpst_v_shadow').val() !== "" ) && ( parseInt($('#wpst_v_shadow').val()) == $('#wpst_v_shadow').val() ) ) ? $('#wpst_v_shadow').val()+"px " : "0px ";
-		var tbShadowBlur = ( ( $('#wpst_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_shadow_blur').val()) == $('#wpst_shadow_blur').val() ) ) ? $('#wpst_shadow_blur').val()+"px " : "0px ";
-		var tbShadowSpread = ( ( $('#wpst_shadow_spread').val() !== "" ) && ( parseInt($('#wpst_shadow_spread').val()) == $('#wpst_shadow_spread').val() ) ) ? $('#wpst_shadow_spread').val()+"px " : "0px ";
+		var tbHorizontalShadow = ( ( $('#wpst_h_shadow').val() !== "" ) && ( parseInt($('#wpst_h_shadow').val()) == $('#wpst_h_shadow').val() ) ) ? $('#wpst_h_shadow').val()+"px " : wpstZeroPx;
+		var tbVerticalShadow = ( ( $('#wpst_v_shadow').val() !== "" ) && ( parseInt($('#wpst_v_shadow').val()) == $('#wpst_v_shadow').val() ) ) ? $('#wpst_v_shadow').val()+"px " : wpstZeroPx;
+		var tbShadowBlur = ( ( $('#wpst_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_shadow_blur').val()) == $('#wpst_shadow_blur').val() ) ) ? $('#wpst_shadow_blur').val()+"px " : wpstZeroPx;
+		var tbShadowSpread = ( ( $('#wpst_shadow_spread').val() !== "" ) && ( parseInt($('#wpst_shadow_spread').val()) == $('#wpst_shadow_spread').val() ) ) ? $('#wpst_shadow_spread').val()+"px " : wpstZeroPx;
 		var tbShadowColour = ( $('#wpst_shadow_colour').val() !== "" ) ? $('#wpst_shadow_colour').val() : wpstShadowColour;
 		var tbShadowTransparency = ( ( $('#wpst_shadow_transparency').val() !== "" ) && ( parseInt($('#wpst_shadow_transparency').val()) == $('#wpst_shadow_transparency').val() ) ) ? $('#wpst_shadow_transparency').val() : wpstShadowTransparency;
 		
@@ -540,9 +543,9 @@ jQuery(document).ready(function($){
 	function update_tb_font_shadow() {
 		
 		// Normal font shadow
-		var tbFontShadowHoriz = ( ( $('#wpst_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_font_h_shadow').val()) == $('#wpst_font_h_shadow').val() ) ) ? $('#wpst_font_h_shadow').val()+"px " : "0px ";
-		var tbFontShadowVert = ( ( $('#wpst_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_font_v_shadow').val()) == $('#wpst_font_v_shadow').val() ) ) ? $('#wpst_font_v_shadow').val()+"px " : "0px ";
-		var tbFontShadowBlur = ( ( $('#wpst_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_font_shadow_blur').val()) == $('#wpst_font_shadow_blur').val() ) ) ? $('#wpst_font_shadow_blur').val()+"px " : "0px ";
+		var tbFontShadowHoriz = ( ( $('#wpst_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_font_h_shadow').val()) == $('#wpst_font_h_shadow').val() ) ) ? $('#wpst_font_h_shadow').val()+"px " : wpstZeroPx;
+		var tbFontShadowVert = ( ( $('#wpst_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_font_v_shadow').val()) == $('#wpst_font_v_shadow').val() ) ) ? $('#wpst_font_v_shadow').val()+"px " : wpstZeroPx;
+		var tbFontShadowBlur = ( ( $('#wpst_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_font_shadow_blur').val()) == $('#wpst_font_shadow_blur').val() ) ) ? $('#wpst_font_shadow_blur').val()+"px " : wpstZeroPx;
 		
 		if ( $('#wpst_font_shadow_colour').val() !== '' )
 			var tbFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_font_shadow_colour').val())+", "+hexToG($('#wpst_font_shadow_colour').val())+", "+hexToB($('#wpst_font_shadow_colour').val())+")" : $('#wpst_font_shadow_colour').val();
@@ -555,9 +558,9 @@ jQuery(document).ready(function($){
 			var tbNormalFontShadow = tbFontShadowHoriz + tbFontShadowVert + tbFontShadowBlur + tbFontShadowColor;
 		
 		// Hover font shadow
-		var tbHoverFontShadowHoriz = ( ( $('#wpst_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_h_shadow').val()) == $('#wpst_hover_font_h_shadow').val() ) ) ? $('#wpst_hover_font_h_shadow').val()+"px " : "0px ";
-		var tbHoverFontShadowVert = ( ( $('#wpst_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_v_shadow').val()) == $('#wpst_hover_font_v_shadow').val() ) ) ? $('#wpst_hover_font_v_shadow').val()+"px " : "0px ";
-		var tbHoverFontShadowBlur = ( ( $('#wpst_hover_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_hover_font_shadow_blur').val()) == $('#wpst_hover_font_shadow_blur').val() ) ) ? $('#wpst_hover_font_shadow_blur').val()+"px " : "0px ";
+		var tbHoverFontShadowHoriz = ( ( $('#wpst_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_h_shadow').val()) == $('#wpst_hover_font_h_shadow').val() ) ) ? $('#wpst_hover_font_h_shadow').val()+"px " : wpstZeroPx;
+		var tbHoverFontShadowVert = ( ( $('#wpst_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_hover_font_v_shadow').val()) == $('#wpst_hover_font_v_shadow').val() ) ) ? $('#wpst_hover_font_v_shadow').val()+"px " : wpstZeroPx;
+		var tbHoverFontShadowBlur = ( ( $('#wpst_hover_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_hover_font_shadow_blur').val()) == $('#wpst_hover_font_shadow_blur').val() ) ) ? $('#wpst_hover_font_shadow_blur').val()+"px " : wpstZeroPx;
 		
 		if ( $('#wpst_hover_font_shadow_colour').val() !== '' )
 			var tbHoverFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_hover_font_shadow_colour').val())+")" : $('#wpst_hover_font_shadow_colour').val();
@@ -607,10 +610,10 @@ jQuery(document).ready(function($){
 		
 		var shadow = ($("#wpadminbar").css("box-shadow")) ? "box-shadow" : "-webkit-box-shadow";
 		
-		var menuHorizontalShadow = ( ( $('#wpst_menu_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_h_shadow').val()) == $('#wpst_menu_h_shadow').val() ) ) ? $('#wpst_menu_h_shadow').val()+"px " : "0px ";
-		var menuVerticalShadow = ( ( $('#wpst_menu_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_v_shadow').val()) == $('#wpst_menu_v_shadow').val() ) ) ? $('#wpst_menu_v_shadow').val()+"px " : "0px ";
-		var menuShadowBlur = ( ( $('#wpst_menu_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_shadow_blur').val()) == $('#wpst_menu_shadow_blur').val() ) ) ? $('#wpst_menu_shadow_blur').val()+"px " : "0px ";
-		var menuShadowSpread = ( ( $('#wpst_menu_shadow_spread').val() !== "" ) && ( parseInt($('#wpst_menu_shadow_spread').val()) == $('#wpst_menu_shadow_spread').val() ) ) ? $('#wpst_menu_shadow_spread').val()+"px " : "0px ";
+		var menuHorizontalShadow = ( ( $('#wpst_menu_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_h_shadow').val()) == $('#wpst_menu_h_shadow').val() ) ) ? $('#wpst_menu_h_shadow').val()+"px " : wpstZeroPx;
+		var menuVerticalShadow = ( ( $('#wpst_menu_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_v_shadow').val()) == $('#wpst_menu_v_shadow').val() ) ) ? $('#wpst_menu_v_shadow').val()+"px " : wpstMenuShadowVertical;
+		var menuShadowBlur = ( ( $('#wpst_menu_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_shadow_blur').val()) == $('#wpst_menu_shadow_blur').val() ) ) ? $('#wpst_menu_shadow_blur').val()+"px " : wpstMenuShadowBlur;
+		var menuShadowSpread = ( ( $('#wpst_menu_shadow_spread').val() !== "" ) && ( parseInt($('#wpst_menu_shadow_spread').val()) == $('#wpst_menu_shadow_spread').val() ) ) ? $('#wpst_menu_shadow_spread').val()+"px " : wpstZeroPx;
 		var menuShadowColour = ( $('#wpst_menu_shadow_colour').val() !== "" ) ? $('#wpst_menu_shadow_colour').val() : wpstMenuShadowColour;
 		var menuShadowTransparency = ( ( $('#wpst_menu_shadow_transparency').val() !== "" ) && ( parseInt($('#wpst_menu_shadow_transparency').val()) == $('#wpst_menu_shadow_transparency').val() ) ) ? $('#wpst_menu_shadow_transparency').val() : wpstMenuShadowTransparency;
 		
@@ -769,9 +772,9 @@ jQuery(document).ready(function($){
 	function update_menu_font_shadow() {
 		
 		// Normal font shadow
-		var menuFontShadowHoriz = ( ( $('#wpst_menu_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_h_shadow').val()) == $('#wpst_menu_font_h_shadow').val() ) ) ? $('#wpst_menu_font_h_shadow').val()+"px " : "0px ";
-		var menuFontShadowVert = ( ( $('#wpst_menu_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_v_shadow').val()) == $('#wpst_menu_font_v_shadow').val() ) ) ? $('#wpst_menu_font_v_shadow').val()+"px " : "0px ";
-		var menuFontShadowBlur = ( ( $('#wpst_menu_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_font_shadow_blur').val()) == $('#wpst_menu_font_shadow_blur').val() ) ) ? $('#wpst_menu_font_shadow_blur').val()+"px " : "0px ";
+		var menuFontShadowHoriz = ( ( $('#wpst_menu_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_h_shadow').val()) == $('#wpst_menu_font_h_shadow').val() ) ) ? $('#wpst_menu_font_h_shadow').val()+"px " : wpstZeroPx;
+		var menuFontShadowVert = ( ( $('#wpst_menu_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_font_v_shadow').val()) == $('#wpst_menu_font_v_shadow').val() ) ) ? $('#wpst_menu_font_v_shadow').val()+"px " : wpstZeroPx;
+		var menuFontShadowBlur = ( ( $('#wpst_menu_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_font_shadow_blur').val()) == $('#wpst_menu_font_shadow_blur').val() ) ) ? $('#wpst_menu_font_shadow_blur').val()+"px " : wpstZeroPx;
 		
 		if ( $('#wpst_menu_font_shadow_colour').val() !== '' )
 			var menuFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_font_shadow_colour').val())+")" : $('#wpst_menu_font_shadow_colour').val();
@@ -784,9 +787,9 @@ jQuery(document).ready(function($){
 			var menuNormalFontShadow = menuFontShadowHoriz + menuFontShadowVert + menuFontShadowBlur + menuFontShadowColor;
 		
 		// Hover font shadow
-		var menuHoverFontShadowHoriz = ( ( $('#wpst_menu_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_h_shadow').val()) == $('#wpst_menu_hover_font_h_shadow').val() ) ) ? $('#wpst_menu_hover_font_h_shadow').val()+"px " : "0px ";
-		var menuHoverFontShadowVert = ( ( $('#wpst_menu_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_v_shadow').val()) == $('#wpst_menu_hover_font_v_shadow').val() ) ) ? $('#wpst_menu_hover_font_v_shadow').val()+"px " : "0px ";
-		var menuHoverFontShadowBlur = ( ( $('#wpst_menu_hover_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_shadow_blur').val()) == $('#wpst_menu_hover_font_shadow_blur').val() ) ) ? $('#wpst_menu_hover_font_shadow_blur').val()+"px " : "0px ";
+		var menuHoverFontShadowHoriz = ( ( $('#wpst_menu_hover_font_h_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_h_shadow').val()) == $('#wpst_menu_hover_font_h_shadow').val() ) ) ? $('#wpst_menu_hover_font_h_shadow').val()+"px " : wpstZeroPx;
+		var menuHoverFontShadowVert = ( ( $('#wpst_menu_hover_font_v_shadow').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_v_shadow').val()) == $('#wpst_menu_hover_font_v_shadow').val() ) ) ? $('#wpst_menu_hover_font_v_shadow').val()+"px " : wpstZeroPx;
+		var menuHoverFontShadowBlur = ( ( $('#wpst_menu_hover_font_shadow_blur').val() !== "" ) && ( parseInt($('#wpst_menu_hover_font_shadow_blur').val()) == $('#wpst_menu_hover_font_shadow_blur').val() ) ) ? $('#wpst_menu_hover_font_shadow_blur').val()+"px " : wpstZeroPx;
 		
 		if ( $('#wpst_menu_hover_font_shadow_colour').val() !== '' )
 			var menuHoverFontShadowColor = wpstRgbColors ? "rgb("+hexToR($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToG($('#wpst_menu_hover_font_shadow_colour').val())+", "+hexToB($('#wpst_menu_hover_font_shadow_colour').val())+")" : $('#wpst_menu_hover_font_shadow_colour').val();
@@ -817,7 +820,7 @@ jQuery(document).ready(function($){
 			$(this).find("span").css( "text-shadow", menuNormalFontShadow );
 		} });
 		
-		// Blavatar
+		// Arrows & Blavatar
 		if ( document.getElementById("wpstMenuFontShadow") )
 			var style = document.getElementById("wpstMenuFontShadow");
 		else {
@@ -825,9 +828,13 @@ jQuery(document).ready(function($){
 			style.id = 'wpstMenuFontShadow';
 		}
 		
-		style.innerHTML = '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before { text-shadow: '+menuNormalFontShadow+'; } ';
+		style.innerHTML = '#wpadminbar .menupop .menupop > .ab-item:before, ';
+		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:before, ';
+		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li > a > .blavatar:before { text-shadow: '+menuNormalFontShadow+'; } ';
 		
-		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before, #wpadminbar .quicklinks li a:hover .blavatar:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before { text-shadow: '+menuHoverFontShadow+'; } ';
+		style.innerHTML += '#wpadminbar .menupop li.menupop:hover > .ab-item:before, #wpadminbar .menupop li.menupop.hover > .ab-item:before, #wpadminbar .menupop li.menupop > .ab-item:hover:before, ';
+		style.innerHTML += '#wpadminbar .menupop .ab-sub-secondary > li.menupop:hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > li.menupop.hover > .ab-item:before, #wpadminbar .menupop .ab-sub-secondary > .menupop > .ab-item:hover:before, ';
+		style.innerHTML += '#wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar, #wpadminbar .quicklinks .ab-sub-secondary > li.hover > a > .blavatar:before, #wpadminbar .quicklinks li a:hover .blavatar:before { text-shadow: '+menuHoverFontShadow+'; } ';
 		
 		document.head.appendChild(style);
 	}
@@ -905,6 +912,9 @@ jQuery(document).ready(function($){
 		hide: true,
 		palettes: false
 	});
+	
+	
+	// TOOLBAR ITEMS
 	
 	// Toolbar Borders
 	$('.wpst_border').change(function() {
@@ -1342,6 +1352,9 @@ jQuery(document).ready(function($){
 		hide: true,
 		palettes: false
 	});
+	
+	
+	// MENUS ITEMS
 	
 	// Menus Font Colour
 	$('.wpst_menu_font_colour').wpColorPicker({

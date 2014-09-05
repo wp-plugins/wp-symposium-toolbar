@@ -80,7 +80,7 @@ class WPST_Admin_Bar extends WP_Admin_Bar {
 		// WP Symposium related.
 		// Add the WPS Admin menu
 		if ( WPST_IS_WPS_ACTIVE && current_user_can( 'manage_options' ) && ( get_option( 'wpst_wps_admin_menu', 'on' ) == "on" ) )
-			add_action( 'admin_bar_menu', 'symposium_toolbar_symposium_admin', 50 );
+			add_action( 'admin_bar_menu', 'symposium_toolbar_symposium_admin', 75 );
 
 		// Add the WPS Notification icons
 		if ( WPST_IS_WPS_AVAILABLE ) add_action( 'admin_bar_menu', 'symposium_toolbar_symposium_notifications', 90 );

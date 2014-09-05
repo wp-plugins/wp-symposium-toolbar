@@ -69,7 +69,7 @@ function symposium_toolbar_add_help_text( $contextual_help, $screen_id, $screen 
 		
 		// Custom Menus
 		$help_content = '<p>' . __('You may add your custom menus to a small number of predefined locations. Build your menus using the neat interface WordPress provides for NavMenus, then add them from this page.', 'wp-symposium-toolbar') . '</p>';
-		$help_content .= '<p>' . __('Select your menu title, the location where you want it to show, and select the roles for which it should be displayed. Optionally, you may specify a custom icon for the toplevel menu item (full URL).', 'wp-symposium-toolbar') . '</p>';
+		$help_content .= '<p>' . __('Select your menu title, the location where you want it to show, and select the roles for which it should be displayed. Optionally, you may specify a custom icon for the toplevel menu item (in the Toolbar).', 'wp-symposium-toolbar') . '</p>';
 		$help_content .= '<p>' . __('You may also choose to force the display of a menu in responsive mode. You should make sure your Toolbar will not get overcrowed and it has enough room for all your items.', 'wp-symposium-toolbar') . '  ' . __('It should be stressed that this option will apply only when your custom menu is actually connected to the Toolbar.  If it\'s appended to a WordPress menu, the display of that menu will be left to WordPress.', 'wp-symposium-toolbar') . '</p>';
 		if ( WPST_IS_NETWORK_ADMIN ) $help_content .= '<p>' . __('When the plugin is network activated, Super Admins will have the option to make a custom menu, a Network Menu, so that it is displayed accross the whole network without Site Admins being able to hide it or modify it.', 'wp-symposium-toolbar') . '</p>';
 		

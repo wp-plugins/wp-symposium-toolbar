@@ -278,6 +278,33 @@ function symposium_toolbar_add_styles() {
 }
 
 /**
+ * Called on top of frontend pages
+ * Add metadata to the WP header
+ *
+ * @since 0.31.0
+ *
+ * @param  none
+ * @return none
+ */
+function symposium_toolbar_add_meta() {
+	
+	$image_url = 'http://emmi91.fr/ressources/headers/emmi91_rond.jpg';
+	
+	// Open Graph tags
+	echo '<meta property="og:title" content="'.get_bloginfo('name').'"/>';
+	echo '<meta property="og:type" content="article" />';
+	echo '<meta property="og:description" content="'.get_bloginfo('description').'"/>';
+	echo '<meta property="og:url" content="'.get_bloginfo('url').'"/>';
+	echo '<meta property="og:image" content="'.$image_url.'"/>';
+	
+	// Twitter cards
+	echo '<meta property="twitter:title" content="'.get_bloginfo('name').'"/>';
+	echo '<meta property="twitter:description" content="'.get_bloginfo('description').'"/>';
+	echo '<meta property="twitter:url" content="'.get_bloginfo('url').'"/>';
+	echo '<meta property="twitter:image" content="'.$image_url.'"/>';
+}
+
+/**
  * Called on top of each page through the hook 'show_admin_bar',
  * Shows the WP Toolbar or hide it completely depending on user's role, according to plugin settings
  *
@@ -930,7 +957,7 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 		return;
 	
 	$share = get_option( 'wpst_share_icons', array() );
-	$blog_name = get_bloginfo('name');
+	$blog_name = get_bloginfo( 'name' );
 	$parent = get_option( 'wpst_share_icons_position', '' );
 	$http_prefix = ( is_ssl() ) ? "https://" : "http://";
 	$class = get_option( 'wpst_share_icons_set', 'lightweight' );
@@ -939,16 +966,16 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	
 	switch( get_option( 'wpst_share_content', 'home' ) ) {
 		case 'home' :
-			$shared_url = htmlentities( get_bloginfo('url') );
+			$shared_url = urlencode( get_bloginfo( 'url' ) );
 			break;
 		case 'single' :
 			if ( is_single() )
-				$shared_url = htmlentities( home_url( add_query_arg( array(), $wp->request ) ) );
+				$shared_url = urlencode( home_url( add_query_arg( array(), $wp->request ) ) );
 			else
-				$shared_url = htmlentities( get_bloginfo('url') );
+				$shared_url = urlencode( get_bloginfo( 'url' ) );
 			break;
 		case 'current' :
-			$shared_url = htmlentities( home_url( add_query_arg( array(), $wp->request ) ) );
+			$shared_url = urlencode( home_url( add_query_arg( array(), $wp->request ) ) );
 	}
 	
 	// LinkedIn
@@ -969,7 +996,7 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 			'id' => 'symposium-toolbar-share-facebook',
 			'parent' => $parent,
 			'title' => '',
-			'href' => $http_prefix . 'www.facebook.com/sharer.php?u=' . $shared_url,
+			'href' => $http_prefix . 'www.facebook.com/sharer.php?s=100&u=' . $shared_url,
 			'meta' => array( 'title' => __( "Share this on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -981,8 +1008,8 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 			'id' => 'symposium-toolbar-share-twitter',
 			'parent' => $parent,
 			'title' => '',
-			'href' => $http_prefix . 'twitter.com/share?url=' . $shared_url . '&text=' . $blog_name,
-			/* translators: alternatively, this could be translated with "share this on Twitter" */
+			'href' => $http_prefix . 'twitter.com/share?url=' . $shared_url . '&text=' . urlencode( $blog_name ),
+			/* translators: alternatively, this could be translated with "Share this on Twitter" */
 			'meta' => array( 'title' => __( "Tweet this", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -1006,7 +1033,7 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 			'id' => 'symposium-toolbar-share-stumbleupon',
 			'parent' => $parent,
 			'title' => '',
-			'href' => $http_prefix . 'www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . $blog_name,
+			'href' => $http_prefix . 'www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . urlencode( $blog_name ),
 			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
@@ -1079,6 +1106,7 @@ function symposium_toolbar_wps_url_for( $feature, $user_id = 0, $option_name = '
 		(bool)$wps_network_activated = is_plugin_active_for_network( 'wp-symposium/wp-symposium.php' );
 		(bool)$wps_activated = (bool)$feature_activated = false;
 		
+		// Browse all sites of the network and see if WPS is activated locally
 		$blogs = wp_get_sites();
 		if ( $blogs ) foreach ( $blogs as $blog ) {
 			
