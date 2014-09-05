@@ -9,7 +9,7 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 0.30.0
+Stable tag: 0.31.0
 Version: 0.31.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
