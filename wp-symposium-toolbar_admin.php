@@ -1213,11 +1213,12 @@ function symposium_toolbar_admintab_share() {
 					echo '<input type="radio" name="shared_content" class="wpst-admin" value="current"';
 					if ( get_option( 'wpst_share_content', 'home' ) == "current" ) echo " CHECKED";
 					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page, whichever it is', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					echo '> <span class="description wpst-checkbox"> ' . __( 'The current page, whichever it is', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					// Meta
+/*					echo '<br />';
 					echo '<input type="checkbox" name="shared_content_meta" id="shared_content_meta" class="wpst-admin';
-					if ( get_option( 'wpst_share_content_meta', 'on' ) == "on" )
+					if ( get_option( 'wpst_share_content_meta', '' ) == "on" )
 						echo '" CHECKED';
 					else {
 						if ( get_option( 'wpst_share_content_meta', '' ) != '' ) {
@@ -1227,7 +1228,12 @@ function symposium_toolbar_admintab_share() {
 						echo '"';
 					}
 					echo '/><span> ' . __( 'Add metadata to site pages header', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<span class="description"> ' . __( 'Note: your theme or another plugin might already do that', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<span class="description"> ' . __( 'Note: this will add Open Graph and Twitter cards to your site header, helping populate the "sharer" window with page content - your theme or another plugin might already do that', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					
+					echo '<span>' . __( 'URL of the image to be used as metadata', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="shared_content_image_link" id="shared_content_image_link" value="'.get_option( 'wpst_share_content_image_link', '' ).'" class="wpst-admin" /><br />';
+					echo '<span class="description"> ' . __( 'Note: other data will be gathered from the WordPress General page settings', 'wp-symposium-toolbar' ) . '</span><br />';
+ */
 				echo '</td>';
 			echo '</tr>';
 			
@@ -1254,15 +1260,16 @@ function symposium_toolbar_admintab_share() {
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					echo '<input type="radio" name="icons_set" class="wpst-admin" value="ring"';
-					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "ring" ) echo " CHECKED";
-					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'Rings', 'wp-symposium-toolbar' ) . '</span><br />';
+					// echo '<input type="radio" name="icons_set" class="wpst-admin" value="ring"';
+					// if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "ring" ) echo " CHECKED";
+					// echo $style;
+					// echo '> <span class="description wpst-checkbox"> ' . __( 'Rings', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					echo '<input type="radio" name="icons_set" class="wpst-admin" value="elegant"';
-					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "elegant" ) echo " CHECKED";
-					echo $style;
-					echo '> <span class="description wpst-checkbox"> ' . __( 'Elegant Lines', 'wp-symposium-toolbar' ) . '</span><br /><br />';
+					// echo '<input type="radio" name="icons_set" class="wpst-admin" value="elegant"';
+					// if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "elegant" ) echo " CHECKED";
+					// echo $style;
+					// echo '> <span class="description wpst-checkbox"> ' . __( 'Elegant Lines', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<br />';
 			
 					echo '<span>' . __( 'Where should they be displayed?', 'wp-symposium-toolbar' ) . '</span><br />';
 					$style = ( in_array( get_option( 'wpst_share_icons_position', '' ), array( "", "top-secondary" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';

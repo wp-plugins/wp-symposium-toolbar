@@ -281,27 +281,30 @@ function symposium_toolbar_add_styles() {
  * Called on top of frontend pages
  * Add metadata to the WP header
  *
- * @since 0.31.0
+ * @since 0.32.0
  *
  * @param  none
  * @return none
  */
 function symposium_toolbar_add_meta() {
 	
-	$image_url = 'http://emmi91.fr/ressources/headers/emmi91_rond.jpg';
+	if ( get_option( 'wpst_share_content_meta', '' ) != "on" )
+		exit;
+	
+	$image_url = urlencode( get_option( 'wpst_share_content_image_link', '' ) );
 	
 	// Open Graph tags
 	echo '<meta property="og:title" content="'.get_bloginfo('name').'"/>';
 	echo '<meta property="og:type" content="article" />';
 	echo '<meta property="og:description" content="'.get_bloginfo('description').'"/>';
 	echo '<meta property="og:url" content="'.get_bloginfo('url').'"/>';
-	echo '<meta property="og:image" content="'.$image_url.'"/>';
+	if ( $image_url != '' ) echo '<meta property="og:image" content="'.$image_url.'"/>';
 	
 	// Twitter cards
 	echo '<meta property="twitter:title" content="'.get_bloginfo('name').'"/>';
 	echo '<meta property="twitter:description" content="'.get_bloginfo('description').'"/>';
 	echo '<meta property="twitter:url" content="'.get_bloginfo('url').'"/>';
-	echo '<meta property="twitter:image" content="'.$image_url.'"/>';
+	if ( $image_url != '' ) echo '<meta property="twitter:image" content="'.$image_url.'"/>';
 }
 
 /**

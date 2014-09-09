@@ -631,7 +631,7 @@ function symposium_toolbar_save_before_render() {
 							$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
 							if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
 								$menu_icon = stripslashes( $display_custom_menu_icon );
-								$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
+								if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).'; display: block; } ';
 							} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
 								$menu_icon = $display_custom_menu_icon;
 							} else {
@@ -661,7 +661,7 @@ function symposium_toolbar_save_before_render() {
 					$display_custom_menu_icon = ( is_string( $_POST['new_custom_menu_icon'] ) ) ? strip_tags( trim( $_POST['new_custom_menu_icon'] ) ) : "";
 					if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
 						$menu_icon = stripslashes( $display_custom_menu_icon );
-						$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
+						if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).'; display: block; } ';
 					} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
 						$menu_icon = $display_custom_menu_icon;
 					} else {
@@ -704,6 +704,7 @@ function symposium_toolbar_save_before_render() {
 			// Share Social Icons
 			if ( $_POST["symposium_toolbar_view"] == 'share' ) {
 				
+				// Share / Subscribe
 				$share = array();
 				$share['linkedin'] = isset( $_POST["share_linkedin"] ) ? 'on' : '';
 				$share['facebook'] = isset( $_POST["share_facebook"] ) ? 'on' : '';
@@ -716,7 +717,20 @@ function symposium_toolbar_save_before_render() {
 				$share['mailto'] = isset( $_POST["share_mailto"] ) ? 'on' : '';
 				update_option( 'wpst_share_icons', $share );
 				
+				// Shared Content
 				update_option( 'wpst_share_content', isset( $_POST["shared_content"] ) ? $_POST["shared_content"] : '' );
+				update_option( 'wpst_share_content_meta', isset( $_POST["shared_content_meta"] ) ? 'on' : '' );
+				if ( $_POST['shared_content_image_link'] == filter_var( $_POST['shared_content_image_link'], FILTER_VALIDATE_URL ) ) {
+					$content_image_link_arr = parse_url( $_POST['shared_content_image_link'] );
+					$host = ( is_multisite() ) ? network_site_url() : site_url();
+					if ( isset( $content_image_link_arr['host'] ) && strstr( $host, $content_image_link_arr['host'] ) )
+						update_option( 'wpst_share_content_image_link', $_POST['shared_content_image_link'] );
+					else
+						$wpst_errors .= __( 'Shared Content', 'wp-symposium-toolbar' ).' - '.__( 'meta image', 'wp-symposium-toolbar' ).': '.__( 'local URL expected', 'wp-symposium-toolbar' ).'<br />';
+				} else
+					$wpst_errors .= __( 'Shared Content', 'wp-symposium-toolbar' ).' - '.__( 'meta image', 'wp-symposium-toolbar' ).': '.__( 'valid URL expected', 'wp-symposium-toolbar' ).'<br />';
+				
+				// Icons
 				update_option( 'wpst_share_icons_set', isset( $_POST["icons_set"] ) ? $_POST["icons_set"] : 'lightweight' );
 				update_option( 'wpst_share_icons_position', isset( $_POST["icons_position"] ) ? $_POST["icons_position"] : '' );
 				update_option( 'wpst_share_icons_color', isset( $_POST["icons_color"] ) ? 'on' : '' );
@@ -1533,7 +1547,7 @@ function symposium_toolbar_save_before_render() {
 									// Import the menu if at least the slug and the location are correct
 									if ( $valid_menu_slug && $valid_location ) {
 										$all_custom_menus[] = $custom_menu;
-										$all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $custom_menu[3] ).' display: block; } ';
+										if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) )  $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $custom_menu[3] ).'; display: block; } ';
 									}
 									$key = $key + 1;
 								}

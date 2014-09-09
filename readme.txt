@@ -8,7 +8,7 @@ Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, b
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.31.0
-Version: 0.31.0
+Version: 0.31.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -140,6 +140,10 @@ Last but not least, please note that all brand icons are trademarks of their res
 * Spanish translation by Maria Ramos at WebHostingHub
 
 == Changelog ==
+
+= 0.32.0. =
+
+* Bugfix: Custom Menus no longer picking fonticons
 
 = 0.31.0. =
 

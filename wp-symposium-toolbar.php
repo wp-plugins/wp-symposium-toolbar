@@ -10,7 +10,7 @@ Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, bran
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.31.0
-Version: 0.31.0
+Version: 0.31.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3100 );
+define( "WPST_BUILD_NR", 3101 );
 
 
 // Exit if accessed directly
@@ -334,7 +334,7 @@ add_action( 'admin_head', 'symposium_toolbar_add_styles', 20 );
 add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
 
 // Add meta to frontend pages header
-add_action( 'wp_head', 'symposium_toolbar_add_meta', 0 );
+// add_action( 'wp_head', 'symposium_toolbar_add_meta', 0 );
 
 // Toolbar styles callback
 add_theme_support( 'admin-bar', array( 'callback' => 'symposium_toolbar_admin_bar_cb' ) );

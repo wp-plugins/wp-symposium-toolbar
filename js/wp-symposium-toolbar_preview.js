@@ -69,8 +69,6 @@ jQuery(document).ready(function($){
 	var wpstIconEmptyColorRgb = "rgb( 153, 153, 153 )";
 	var wpstIconHoverEmptyColor = "#2ea2cc";
 	var wpstIconHoverEmptyColorRgb = "rgb( 46, 162, 204 )";
-	// var wpstFontShadowHoriz = "0";
-	// var wpstFontShadowVert = "0";
 	
 	var wpstMenuShadowVertical = "3px ";
 	var wpstMenuShadowBlur = "5px ";
