@@ -221,7 +221,7 @@ function symposium_toolbar_update() {
 			// Since 2947
 			// getting rid of the backslash that conflicts with the Import feature
 			// No need to update_option 'wpst_tech_icons_to_header'
-			if ( isset( $custom_menu[3] ) ) $custom_menu[3] = stripslashes( $custom_menu[3] );
+			if ( isset( $custom_menu[3] ) ) $custom_menu[3] = str_replace( '\\', '', $custom_menu[3] );
 			
 			// Since 2938
 			// split the "Add or replace" WP Logo in either "Left of" or "Add to"
@@ -630,8 +630,8 @@ function symposium_toolbar_save_before_render() {
 							// Menu icon - either a fonticon or a URL
 							$display_custom_menu_icon = ( is_string( $_POST['display_custom_menu_icon'][$key] ) ) ? strip_tags( trim( $_POST['display_custom_menu_icon'][$key] ) ) : "";
 							if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
-								$menu_icon = stripslashes( $display_custom_menu_icon );
-								if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).'; display: block; } ';
+								$menu_icon = str_replace( '\\', '', $display_custom_menu_icon );
+								if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
 							} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
 								$menu_icon = $display_custom_menu_icon;
 							} else {
@@ -660,8 +660,8 @@ function symposium_toolbar_save_before_render() {
 					// Menu icon - either a fonticon or a URL
 					$display_custom_menu_icon = ( is_string( $_POST['new_custom_menu_icon'] ) ) ? strip_tags( trim( $_POST['new_custom_menu_icon'] ) ) : "";
 					if ( strstr( $display_custom_menu_icon, 'content: ' ) ) {
-						$menu_icon = stripslashes( $display_custom_menu_icon );
-						if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).'; display: block; } ';
+						$menu_icon = str_replace( '\\', '', $display_custom_menu_icon );
+						if ( !empty( $menu_icon ) ) $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $menu_icon ).' display: block; } ';
 					} elseif ( filter_var( $display_custom_menu_icon, FILTER_VALIDATE_URL ) ) {
 						$menu_icon = $display_custom_menu_icon;
 					} else {
@@ -1547,7 +1547,7 @@ function symposium_toolbar_save_before_render() {
 									// Import the menu if at least the slug and the location are correct
 									if ( $valid_menu_slug && $valid_location ) {
 										$all_custom_menus[] = $custom_menu;
-										if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) )  $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $custom_menu[3] ).'; display: block; } ';
+										if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) )  $all_custom_icons .= '#wpadminbar li.wpst-custom-icon-'.$key.' > .ab-item:before { font-family: dashicons !important; '.str_replace( ': "', ': "\\', $custom_menu[3] ).' display: block; } ';
 									}
 									$key = $key + 1;
 								}
