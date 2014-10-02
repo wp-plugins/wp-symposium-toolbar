@@ -10,7 +10,7 @@ Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, bran
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.31.0
-Version: 0.31.2
+Version: 0.31.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3102 );
+define( "WPST_BUILD_NR", 3103 );
 
 
 // Exit if accessed directly
@@ -113,7 +113,7 @@ function symposium_toolbar_init() {
 		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
 			$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_default.css', __FILE__ );
 			$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_default.css';
-			if ( file_exists($adminStyleFile) ) {
+			if ( file_exists( $adminStyleFile ) ) {
 				wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), WPST_BUILD_NR );
 			}
 		}
@@ -123,6 +123,13 @@ function symposium_toolbar_init() {
 			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), WPST_BUILD_NR );
 		}
 	}
+	
+	// Toolbar styles callback
+	if ( current_theme_supports( 'admin-bar' ) ) {
+		$admin_bar_args = get_theme_support( 'admin-bar' );
+		$header_callback = $admin_bar_args[0]['callback'];
+	}
+	if ( empty( $header_callback ) ) add_theme_support( 'admin-bar', array( 'callback' => 'symposium_toolbar_admin_bar_cb' ) );
 	
 	// Language files
 	// Get mo file name from locale
@@ -335,9 +342,6 @@ add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
 
 // Add meta to frontend pages header
 // add_action( 'wp_head', 'symposium_toolbar_add_meta', 0 );
-
-// Toolbar styles callback
-add_theme_support( 'admin-bar', array( 'callback' => 'symposium_toolbar_admin_bar_cb' ) );
 
 // Toolbar Extended
 function symposium_toolbar_extends_class( $class ) {

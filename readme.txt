@@ -8,7 +8,7 @@ Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, b
 Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 0.31.0
-Version: 0.31.2
+Version: 0.31.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,7 +103,7 @@ It will show only in the frontend and not in the backend, have you checked in th
 == Screenshots ==
 
 1. Share your thoughts with the World under your custom Toolbar: gradients, transparency, colorful...
-2. Choose amongst a wide variety of possibilities for colours, sizes, etc., so that the WP Toolbar matches your theme
+2. Make the WP Toolbar match your theme using a wide variety of possibilities for colours, sizes, etc.
 3. Under the WP Help tabs, the first section of the options allows selecting Toolbar items for each role of your site
 4. Create your custom User Menu ("My Account"), here in a minimalist set to which the WPS Profile menu was attached, displayed along with notification icons for WP Symposium mail and friends
 5. Ever dreamt of attaching your custom menu to the WP Toolbar ? Now your dream comes true...  Multisite users, even better: define Network Custom Menus from one place...
@@ -144,6 +144,7 @@ Last but not least, please note that all brand icons are trademarks of their res
 = 0.32.0. =
 
 * Bugfix: Custom Menus no longer picking fonticons
+* Bugfix: fix conflict with theme, regression introduced by using add_theme_support
 
 = 0.31.0. =
 

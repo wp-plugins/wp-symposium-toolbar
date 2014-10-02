@@ -2947,13 +2947,13 @@ function symposium_toolbar_make_title( $slug ) {
 
 function symposium_toolbar_make_slug( $title, $all = array() ) {
 	
-	$slug = strtolower( $title );
+	$slug = sanitize_key( $title );
 	$slug = str_replace( ' ', '_', $slug );
 	$slug = filter_var( $slug, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
 	$slug = filter_var( $slug , FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW );
 	
 	// Slugs must be unique across all items, check amongst $all if it was provided
-	if ( is_array( $all ) ) if ( in_array( $slug, $all ) ) {
+	if ( is_array( $all ) && in_array( $slug, $all ) ) {
 		$suffix = 2;
 		do {
 			$alt_slug = $slug . "-" . $suffix;
