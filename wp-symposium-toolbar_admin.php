@@ -79,7 +79,7 @@ function symposium_toolbar_admin_page() {
 		
 		echo '<strong><label for="select-nav-menu">'.__( 'Select Page:', 'wp-symposium-toolbar' ).'</label></strong>';
 		echo '<select class="select-nav-menu" name="symposium_toolbar_view_no_js">';
-			foreach( $wpst_shown_tabs as $tab_key => $tab_title ) {
+			if ( $wpst_shown_tabs ) foreach( $wpst_shown_tabs as $tab_key => $tab_title ) {
 				echo '<option value="'.$tab_key.'"';
 				if ( $tab_key == $wpst_active_tab ) echo ' SELECTED';
 				echo '>'.$tab_title.'</option>';
@@ -95,7 +95,7 @@ function symposium_toolbar_admin_page() {
 		echo '<div id="wpst-nav-tabs-arrow-left" class="wpst-nav-tabs-arrow"><a>&laquo;</a></div>';
 		echo '<div id="wpst-nav-tabs-wrapper" class="nav-tabs-wrapper hide-if-no-js">'; // hide-if-no-js
 		echo '<h3 id="wpst-nav-tabs" class="nav-tabs">';
-		foreach ( $wpst_shown_tabs as $tab_key => $tab_title ) {
+		if ( $wpst_shown_tabs ) foreach ( $wpst_shown_tabs as $tab_key => $tab_title ) {
 			if ( ( ( $tab_key != 'wps' ) && ( $tab_key != 'css' ) )
 			  || ( ( $tab_key == 'wps' ) && ( WPST_IS_WPS_ACTIVE ) )
 			  || ( $tab_key == $wpst_active_tab ) ) {
@@ -400,7 +400,7 @@ function symposium_toolbar_admintab_sites() {
 						echo '<td style="border-bottom-color: '.$color.';"><span class="description"><a href="http://'.trim( $blog['domain'], 'http://' ).'/'.trim( $blog['path'], '/' ).'/wp-admin/"> '.$blog_details->blogname.'</a></span></td>';
 						echo '<td style="border-bottom-color: '.$color.';"><div id="blog_'.$blog['blog_id'].'_row" class="wpst-checkboxes">';
 						
-						foreach ( $wpst_subsites_tabs as $key => $title ) {
+						if ( $wpst_subsites_tabs ) foreach ( $wpst_subsites_tabs as $key => $title ) {
 							if ( $key == 'css' ) 
 								echo '<input type="hidden" id="blog_'.$blog['blog_id'].'[]" name="blog_'.$blog['blog_id'].'[]" value="css">';
 							elseif ( ( WPST_IS_WPS_AVAILABLE && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
@@ -440,7 +440,7 @@ function symposium_toolbar_admintab_sites() {
 					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf;"><span class="description"> New Site Default Tabs</span></td>';
 					echo '<td style="border-top-color: #ffffff; border-bottom-color: #dfdfdf;"><div id="blog_new_row" class="wpst-checkboxes">';
 					
-					foreach ( $wpst_subsites_tabs as $key => $title ) {
+					if ( $wpst_subsites_tabs ) foreach ( $wpst_subsites_tabs as $key => $title ) {
 						if ( $key == 'css' ) 
 							echo '<input type="hidden" id="blog_new[]" name="blog_new[]" value="css">';
 						elseif ( ( WPST_IS_WPS_AVAILABLE && ( $key == 'wps' ) ) || ( $key != 'wps' ) ) {
@@ -868,7 +868,7 @@ function symposium_toolbar_admintab_menus() {
 					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Location', 'wp-symposium-toolbar' ) . '</span><br />';
 						if ( $wpst_locations ) {
-							echo '<select class="wpst-admin" id="display_custom_menu_location_'.$count.'" name="display_custom_menu_location['.$count.']">';
+							echo '<select id="display_custom_menu_location_'.$count.'" name="display_custom_menu_location['.$count.']" class="wpst-admin">';
 							echo '<option value="remove" SELECTED>{{'.__( 'Remove from Toolbar', 'wp-symposium-toolbar' ).'}}</option>';
 							foreach ( $wpst_locations as $slug => $description ) {
 								echo '<option value="'. $slug.'"';
@@ -882,7 +882,7 @@ function symposium_toolbar_admintab_menus() {
 					// Point to a custom icon
 					echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 						echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
-						echo '<input type="text" style="min-width:170px; width:100%;" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']"';
+						echo '<input type="text" id="display_custom_menu_icon['.$custom_menu[0].'_'.$custom_menu[1].']" name="display_custom_menu_icon['.$count.']" class="wpst-admin" style="min-width:170px; width:100%;"';
 						if ( isset( $custom_menu[3] ) ) if ( is_string( $custom_menu[3] ) && !empty( $custom_menu[3] ) ) echo " value='".str_replace( ': "', ': "\\', $custom_menu[3] )."'";
 						echo '/>';
 						echo '<span class="description">';
@@ -966,7 +966,7 @@ function symposium_toolbar_admintab_menus() {
 				echo '</td>';
 				echo '<td style="border-top-color: #555555; border-bottom-color: '.$color.';">';
 					echo '<span>' . __( 'Custom Icon', 'wp-symposium-toolbar' ) . '</span><br />';
-					echo '<input type="text" style="min-width:170px; width:100%;" name="new_custom_menu_icon" id="new_custom_menu_icon" />';
+					echo '<input type="text" style="min-width:170px; width:100%;" name="new_custom_menu_icon" id="new_custom_menu_icon" class="wpst-admin" />';
 					echo '<span class="description">';
 					printf( __( 'Note: Copy/paste the CSS of a %s, or alternatively, the full path to a custom icon file', 'wp-symposium-toolbar' ), '<a href="http://melchoyce.github.io/dashicons/" target="blank">dashicon</a>' );
 					echo '</span>';
@@ -1166,6 +1166,9 @@ function symposium_toolbar_admintab_share() {
 	$share = get_option( 'wpst_share_icons', array() );
 	$share = array_merge( $defaults, $share );
 	
+	$wpst_share_breakpoint_default = '782';
+	$wpst_share_breakpoint = get_option( 'wpst_share_breakpoint', $wpst_share_breakpoint_default );
+	
 	echo '<div class="postbox"><div class="inside">';
 		echo '<table class="form-table wpst-form-table">';
 			
@@ -1242,7 +1245,7 @@ function symposium_toolbar_admintab_share() {
 				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Icons', 'wp-symposium-toolbar' ).'</span></td>';
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Which set of icons should be used?', 'wp-symposium-toolbar' ) . '</span><br />';
-					$style = ( in_array( get_option( 'wpst_share_icons_set', 'lightweight' ), array( "lightweight", "rounded", "circle", "ring", "elegant" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';
+					$style = ( in_array( get_option( 'wpst_share_icons_set', 'lightweight' ), array( "lightweight", "rounded", "circle", "altcircle", "ring" ) ) ) ? "" : ' style="outline:1px solid #CC0000;"';
 					if ( $style != "" ) $error = true;
 					
 					echo '<input type="radio" name="icons_set" class="wpst-admin" value="lightweight"';
@@ -1260,10 +1263,15 @@ function symposium_toolbar_admintab_share() {
 					echo $style;
 					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles', 'wp-symposium-toolbar' ) . '</span><br />';
 					
-					// echo '<input type="radio" name="icons_set" class="wpst-admin" value="ring"';
-					// if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "ring" ) echo " CHECKED";
-					// echo $style;
-					// echo '> <span class="description wpst-checkbox"> ' . __( 'Rings', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="radio" name="icons_set" class="wpst-admin" value="altcircle"';
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "altcircle" ) echo " CHECKED";
+					echo $style;
+					echo '> <span class="description wpst-checkbox"> ' . __( 'Plain Circles (alternate)', 'wp-symposium-toolbar' ) . '</span><br />';
+					
+					echo '<input type="radio" name="icons_set" class="wpst-admin" value="ring"';
+					if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "ring" ) echo " CHECKED";
+					echo $style;
+					echo '> <span class="description wpst-checkbox"> ' . __( 'Rings', 'wp-symposium-toolbar' ) . '</span><br />';
 					
 					// echo '<input type="radio" name="icons_set" class="wpst-admin" value="elegant"';
 					// if ( get_option( 'wpst_share_icons_set', 'lightweight' ) == "elegant" ) echo " CHECKED";
@@ -1315,6 +1323,23 @@ function symposium_toolbar_admintab_share() {
 				echo '</td>';
 			echo '</tr>';
 			
+			// Responsive mode for mobiles
+			echo '<tr valign="top">';
+				echo '<td scope="row" class="wpst-form-item-title"><span>'.__( 'Mobile', 'wp-symposium-toolbar' ).'</span></td>';
+				echo '<td colspan="2">';
+					echo '<span>' . __( 'Display these icons in responsive mode (for devices with smaller screen width) down to the following breakpoint', 'wp-symposium-toolbar' ) . '</span><br />';
+					echo '<input type="text" name="wpst_share_breakpoint" id="wpst_share_breakpoint" ';
+					echo 'class="wpst-admin wpst-default ';
+					if ( $wpst_share_breakpoint == $wpst_share_breakpoint_default ) echo 'wpst-has-default ';
+					echo 'wpst-responsive-int" value="'.$wpst_share_breakpoint.'" />px';
+					echo '<input type="hidden" id="wpst_share_breakpoint_default" value="'.$wpst_share_breakpoint_default.'" />';
+					echo '<br />';
+					
+					echo '<span class="description">' . __( 'Note: From this value downwards, the share icons will be hidden.', 'wp-symposium-toolbar' ) . ' '.__( 'Use this field to force the display of these icons below the WordPress standard breakpoint of 782px.', 'wp-symposium-toolbar' ) . ' '.__( 'Always check in the frontend that the number of icons and their size permit a correct display at all screen widths, by dragging your browser\'s window edge horizontally.', 'wp-symposium-toolbar' ).'</span><br />';
+				echo '</td>';
+			echo '</tr>';
+			
+			// Error handler
 			if ( $error ) {
 				echo '<tr valign="top">';
 					echo '<td scope="row" class="wpst-form-item-title"><span>&nbsp;</span></td>';

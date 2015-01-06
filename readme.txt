@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 0.31.0
-Version: 0.31.4
+Version: 0.31.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -123,7 +123,7 @@ The set of fonticons bundled with the plugin was created using [IcoMoon](http://
 * WP Symposium Friends icon: IcoMoon
 * WP Symposium Mail icon: Font Awesome
 * WP Symposium icon: by Louis at [Central Geek](http://centralgeek.com)
-* Social icons from: IcoMoon (Lightweight, Rounded Corners), Entypo (Plain Circles), Typicons (Lightweight)
+* Social icons from: IcoMoon (Lightweight, Rounded Corners, Plain Circles alternate), Entypo (Plain Circles), Typicons (Lightweight, Rings)
 
 With my thanks for their work, I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
 
@@ -144,7 +144,10 @@ Last but not least, please note that all brand icons are trademarks of their res
 = 0.32.0. =
 
 * Bugfix: Custom Menus no longer picking fonticons
-* Bugfix: fix conflict with theme, regression introduced by using add_theme_support
+* Bugfix: fix conflict with theme, introduced by using add_theme_support
+* Change: change prefix symposium-toolbar-share for CSS IDs and classes into wpst-share
+* Bugfix: add a test to check for WP roles before actually using them
+* Change: add two sets to the social fonticons, Share tab
 
 = 0.31.0. =
 

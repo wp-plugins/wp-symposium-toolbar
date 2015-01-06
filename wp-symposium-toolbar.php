@@ -8,20 +8,18 @@ Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 0.31.0
-Version: 0.31.4
+Version: 0.31.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-// References:
-// http://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
+// Reference:
 // http://melchoyce.github.io/dashicons/
-// http://hofmannsven.com/2013/laboratory/wordpress-admin-ui/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3103 );
+define( "WPST_BUILD_NR", 3110 );
 
 
 // Exit if accessed directly
@@ -123,13 +121,6 @@ function symposium_toolbar_init() {
 			wp_enqueue_script( 'wp-symposium-toolbar_preview', plugins_url( 'js/wp-symposium-toolbar_preview.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), WPST_BUILD_NR );
 		}
 	}
-	
-	// Toolbar styles callback
-	if ( current_theme_supports( 'admin-bar' ) ) {
-		$admin_bar_args = get_theme_support( 'admin-bar' );
-		$header_callback = $admin_bar_args[0]['callback'];
-	}
-	if ( empty( $header_callback ) ) add_theme_support( 'admin-bar', array( 'callback' => 'symposium_toolbar_admin_bar_cb' ) );
 	
 	// Language files
 	// Get mo file name from locale
@@ -342,6 +333,8 @@ add_action( 'wp_head', 'symposium_toolbar_add_styles', 20 );
 
 // Add meta to frontend pages header
 // add_action( 'wp_head', 'symposium_toolbar_add_meta', 0 );
+// To remove the default padding styles from WordPress for the Toolbar, use the following code:
+// add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
 
 // Toolbar Extended
 function symposium_toolbar_extends_class( $class ) {

@@ -216,6 +216,18 @@ jQuery(document).ready(function($){
 		}
 	});
 	
+	// In such fields, User shall input a positive integer, lower than 782
+	$(".wpst-responsive-int").keyup(function() {
+	
+		if ( ( $(this).val() != "" ) && ( ( ( parseInt($(this).val()) < 0 ) ||( parseInt($(this).val()) > 782 ) ) || ( parseInt($(this).val()) != $(this).val() ) ) ) {
+			$(this).css("background-color", "#FFEBE8");
+			$(this).css("border", "1px solid #CC0000");
+		} else {
+			$(this).css("background-color", "#ffffff");
+			$(this).css("border", "1px solid #dfdfdf");
+		}
+	});
+	
 	// In such fields, User shall input a percentage, positive integer from 0 to 100
 	$(".wpst-percent").keyup(function() {
 	

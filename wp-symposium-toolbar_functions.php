@@ -37,7 +37,7 @@ function symposium_toolbar_init_globals() {
 	$cpts = (array) get_post_types( array( 'show_in_admin_bar' => true ), 'objects' );
 	$create_posts = ( isset( $cpts['post'] ) ? $cpts['post']->cap->create_posts : "edit_posts" );
 	
-	foreach ( $wp_roles->roles as $key => $role ) {
+	if ( $wp_roles->roles ) foreach ( $wp_roles->roles as $key => $role ) {
 		$role_name = ( isset( $role['name'] ) ) ? $role['name'] : $key;
 		$wpst_roles_all[$key] = $role_name;
 		if ( isset( $role['capabilities'][$create_posts] ) ) {
@@ -124,7 +124,7 @@ function symposium_toolbar_init_globals() {
  */
 function symposium_toolbar_init_default_toolbar( $wp_version ) {
 
-	// Build the array of default values for the Toolbar, based on WP Version
+	// Build the array of default values for the Toolbar
 	$wpst_default_toolbar = array();
 	if ( version_compare( $wp_version, '3.8-alpha', '>' ) ) {
 		
@@ -181,7 +181,7 @@ function symposium_toolbar_init_default_toolbar( $wp_version ) {
 		$wpst_default_toolbar['menu_font_shadow_blur'] = "0";
 		
 		// Dropdown Menus Items Hover / Focus
-		// We need the first two for compliancy with pre-3.8
+		// We need the first two for compliance with pre-3.8
 		$wpst_default_toolbar['menu_hover_background_colour'] = ""; // #333333
 		$wpst_default_toolbar['menu_hover_ext_background_colour'] = ""; // #4b4b4b
 		$wpst_default_toolbar['menu_hover_font_colour'] = "#2ea2cc";
@@ -192,38 +192,6 @@ function symposium_toolbar_init_default_toolbar( $wp_version ) {
 	}
 	
 	return $wpst_default_toolbar;
-}
-
-/**
- * Toolbar callback
- * Add Toolbar height to the WP header
- *
- * @since 0.30.0
- *
- * @param  none
- * @return none
- */
-function symposium_toolbar_admin_bar_cb() {
-
-	global $wp_version;
-	
-	// Init default Toolbar style
-	$wpst_default_toolbar = symposium_toolbar_init_default_toolbar( $wp_version );
-	
-	// Toolbar Height
-	$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
-	$height = ( isset( $wpst_style_tb_current['height'] ) ) ? $wpst_style_tb_current['height'] : $wpst_default_toolbar['height'] ;
-	if ( $height == 0 ) $height = $wpst_default_toolbar['height'];
-	
-	echo '<style type="text/css" media="screen">';
-		echo 'html { margin-top: '.$height.'px !important; } ';
-		echo '* html body { margin-top: '.$height.'px !important; } ';
-		// Responsive Toolbar unchanged
-		echo '@media screen and ( max-width: 782px ) { ';
-			echo 'html { margin-top: 46px !important; } ';
-			echo '* html body { margin-top: 46px !important; } ';
-		echo '}';
-	echo '</style>';
 }
 
 /**
@@ -727,7 +695,7 @@ function symposium_toolbar_custom_menu_walker( $wp_admin_bar, $custom_menu, $cur
 			
 			// Get post data for these items, and add nav_menu_item data
 			if ( $items ) {
-				$sql="SELECT * FROM ".$wpdb->prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
+				$sql = "SELECT * FROM ".$wpdb->prefix."posts WHERE ID IN ( ".implode( ",", $items )." ) AND post_type = 'nav_menu_item' AND post_status = 'publish' ORDER BY menu_order ASC ";
 				$menu_items = array_map( 'wp_setup_nav_menu_item', $wpdb->get_results( $sql ) );
 			}
 		}
@@ -749,15 +717,14 @@ function symposium_toolbar_custom_menu_walker( $wp_admin_bar, $custom_menu, $cur
 				// Add the icon to toplevel menu items connected to the Toolbar
 				if ( !empty( $custom_menu[3] ) && is_string( $custom_menu[3] ) && ( ( $custom_menu[1] == "" ) || ( $custom_menu[1] == "top-secondary" ) ) ) {
 					
-					// Replacing the title with a custom icon, while keeping the title for mouse hover
+					// If a file icon, replace the title with the icon, while keeping the title for mouse hover
 					if ( filter_var( $custom_menu[3], FILTER_VALIDATE_URL ) ) {
 						$meta['title'] = $title;
 						$title = '<img src="'.$custom_menu[3].'" class="wpst-icon">';
-					
-					// Add a fonticon to the toplevel menu item
-					} else {
-						$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-custom-icon-'.$count : 'wpst-custom-icon-'.$count;
 					}
+					
+					// Add a custom class to the toplevel menu item, to either define a fonticon or style a file icon
+					$meta['class'] .= ( $meta['class'] != '' ) ? ' wpst-custom-icon-'.$count : 'wpst-custom-icon-'.$count;
 				}
 				
 			} else {
@@ -905,11 +872,11 @@ function symposium_toolbar_symposium_notifications( $wp_admin_bar ) {
 		
 		if ( isset( $inbox ) && $inbox ) {
 			$args = apply_filters( 'symposium_toolbar_wps_item_for_mail', array(
-				'id' => 'symposium-toolbar-notifications-mail',
+				'id' => 'wpst-notifications-mail',
 				'parent' => 'top-secondary',
 				'title' => $inbox,
 				'href' => array_shift( $mail_url_arr ),
-				'meta' => array( 'title' => $title, 'class' => 'menupop symposium-toolbar-notifications symposium-toolbar-notifications-mail' )
+				'meta' => array( 'title' => $title, 'class' => 'menupop wpst-notifications wpst-notifications-mail' )
 			) );
 			$wp_admin_bar->add_node( $args );
 		}
@@ -934,11 +901,11 @@ function symposium_toolbar_symposium_notifications( $wp_admin_bar ) {
 			$friends_url = array_shift( $friends_url_arr );
 			$friends_url .= ( strpos( $friends_url, '?' ) !== FALSE ) ? "&view=friends" : "?view=friends";
 			$args = apply_filters( 'symposium_toolbar_wps_item_for_friends', array(
-				'id' => 'symposium-toolbar-notifications-friendship',
+				'id' => 'wpst-notifications-friendship',
 				'parent' => 'top-secondary',
 				'title' => $friends,
 				'href' => $friends_url,
-				'meta' => array( 'title' => $title, 'class' => 'menupop symposium-toolbar-notifications symposium-toolbar-notifications-friendship' )
+				'meta' => array( 'title' => $title, 'class' => 'menupop wpst-notifications wpst-notifications-friendship' )
 			) );
 			$wp_admin_bar->add_node( $args );
 		}
@@ -984,11 +951,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// LinkedIn
 	if ( isset( $share['linkedin'] ) && ( $share['linkedin'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-linkedin',
+			'id' => 'wpst-share-linkedin',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $http_prefix . 'www.linkedin.com/shareArticle?mini=true&url=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-linkedin '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on LinkedIn", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -996,11 +963,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// Facebook
 	if ( isset( $share['facebook'] ) && ( $share['facebook'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-facebook',
+			'id' => 'wpst-share-facebook',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $http_prefix . 'www.facebook.com/sharer.php?s=100&u=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this on Facebook", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-facebook '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on Facebook", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -1008,12 +975,12 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// Twitter
 	if ( isset( $share['twitter'] ) && ( $share['twitter'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-twitter',
+			'id' => 'wpst-share-twitter',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $http_prefix . 'twitter.com/share?url=' . $shared_url . '&text=' . urlencode( $blog_name ),
 			/* translators: alternatively, this could be translated with "Share this on Twitter" */
-			'meta' => array( 'title' => __( "Tweet this", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-twitter '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Tweet this", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -1021,11 +988,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// Google Plus
 	if ( isset( $share['google_plus'] ) && ( $share['google_plus'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-google-plus',
+			'id' => 'wpst-share-google-plus',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $http_prefix . 'plus.google.com/share?url=' . $shared_url,
-			'meta' => array( 'title' => __( "Share this on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-google-plus '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on Google Plus", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -1033,11 +1000,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// StumbleUpon
 	if ( isset( $share['stumbleupon'] ) && ( $share['stumbleupon'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-stumbleupon',
+			'id' => 'wpst-share-stumbleupon',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $http_prefix . 'www.stumbleupon.com/submit?url=' . $shared_url . '&title=' . urlencode( $blog_name ),
-			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-stumbleupon '.$class, 'target' => '_blank' )
+			'meta' => array( 'title' => __( "Share this on StumbleUpon", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class, 'target' => '_blank' )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -1045,11 +1012,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// RSS
 	if ( isset( $share['rss'] ) && ( $share['rss'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-rss',
+			'id' => 'wpst-share-rss',
 			'parent' => $parent,
 			'title' => '',
 			'href' => $shared_url.'/feed/',
-			'meta' => array( 'title' => __( "Subscribe to the RSS Feed", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-rss '.$class )
+			'meta' => array( 'title' => __( "Subscribe to the RSS Feed", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class )
 		);
 		$wp_admin_bar->add_node( $args );
 	}
@@ -1057,11 +1024,11 @@ function symposium_toolbar_social_icons( $wp_admin_bar ) {
 	// Mail
 	if ( isset( $share['mailto'] ) && ( $share['mailto'] == "on" ) ) {
 		$args = array(
-			'id' => 'symposium-toolbar-share-mailto',
+			'id' => 'wpst-share-mailto',
 			'parent' => $parent,
 			'title' => '',
 			'href' => 'mailto:?Subject=' . $blog_name . '&Body=' . $shared_url,
-			'meta' => array( 'title' => __( "Mail to a friend", 'wp-symposium-toolbar' ), 'class' => 'symposium-toolbar-share-icon symposium-toolbar-share-mailto '.$class )
+			'meta' => array( 'title' => __( "Mail to a friend", 'wp-symposium-toolbar' ), 'class' => 'wpst-share '.$class )
 		);
 		$wp_admin_bar->add_node( $args );
 	}

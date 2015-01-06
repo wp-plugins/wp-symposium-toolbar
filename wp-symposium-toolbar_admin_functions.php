@@ -719,7 +719,7 @@ function symposium_toolbar_save_before_render() {
 				
 				// Shared Content
 				update_option( 'wpst_share_content', isset( $_POST["shared_content"] ) ? $_POST["shared_content"] : '' );
-				update_option( 'wpst_share_content_meta', isset( $_POST["shared_content_meta"] ) ? 'on' : '' );
+/*				update_option( 'wpst_share_content_meta', isset( $_POST["shared_content_meta"] ) ? 'on' : '' );
 				if ( $_POST['shared_content_image_link'] == filter_var( $_POST['shared_content_image_link'], FILTER_VALIDATE_URL ) ) {
 					$content_image_link_arr = parse_url( $_POST['shared_content_image_link'] );
 					$host = ( is_multisite() ) ? network_site_url() : site_url();
@@ -729,12 +729,23 @@ function symposium_toolbar_save_before_render() {
 						$wpst_errors .= __( 'Shared Content', 'wp-symposium-toolbar' ).' - '.__( 'meta image', 'wp-symposium-toolbar' ).': '.__( 'local URL expected', 'wp-symposium-toolbar' ).'<br />';
 				} else
 					$wpst_errors .= __( 'Shared Content', 'wp-symposium-toolbar' ).' - '.__( 'meta image', 'wp-symposium-toolbar' ).': '.__( 'valid URL expected', 'wp-symposium-toolbar' ).'<br />';
-				
+*/				
 				// Icons
 				update_option( 'wpst_share_icons_set', isset( $_POST["icons_set"] ) ? $_POST["icons_set"] : 'lightweight' );
 				update_option( 'wpst_share_icons_position', isset( $_POST["icons_position"] ) ? $_POST["icons_position"] : '' );
 				update_option( 'wpst_share_icons_color', isset( $_POST["icons_color"] ) ? 'on' : '' );
 				update_option( 'wpst_share_icons_hover_color', isset( $_POST["icons_hover_color"] ) ? 'on' : '' );
+				
+				// Responsive mode for Mobiles
+				if ( isset( $_POST['wpst_share_breakpoint'] ) && ( $_POST['wpst_share_breakpoint'] != '' ) ) {
+					if ( $_POST['wpst_share_breakpoint'] == filter_var( $_POST['wpst_share_breakpoint'], FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 782 ) ) ) ) {
+						if ( $_POST['wpst_share_breakpoint'] == '782' )
+							delete_option( 'wpst_share_breakpoint' );
+						else
+							update_option( 'wpst_share_breakpoint', $_POST["wpst_share_breakpoint"] );
+					} else
+						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Share Icons Breakpoint', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).' '.__( ' and lower than the standard WordPress value of 782px', 'wp-symposium-toolbar' ).'<br />';
+				}
 				
 				// Prepare update of styles based on above settings
 				$wpst_style_tb_current = get_option( 'wpst_style_tb_current', array() );
@@ -1614,15 +1625,15 @@ function symposium_toolbar_save_before_render() {
 								} else
 									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "home", "single" or "current"', 'wp-symposium-toolbar' ).'<br />';
 							
-							// String-based option - check if content is in a few possible values: "lightweight", "rounded", "circle", "ring", "elegant"
+							// String-based option - check if content is in a few possible values: "lightweight", "rounded", "circle", "altcircle", "ring"
 							} elseif ( $option_name == 'wpst_share_icons_set' ) {
 								if ( is_string( $option_value ) ) {
-									if ( in_array( $option_value, array( "lightweight", "rounded", "circle", "ring", "elegant" ) ) )
+									if ( in_array( $option_value, array( "lightweight", "rounded", "circle", "altcircle", "ring" ) ) )
 										update_option( $option_name, $option_value );
 									else
-										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "lightweight", "rounded", "circle", "ring", "elegant"', 'wp-symposium-toolbar' ).'<br />';
+										$wpst_errors .= $option_name.__( ': incorrect value, expected values are "lightweight", "rounded", "circle", "altcircle", "ring"', 'wp-symposium-toolbar' ).'<br />';
 								} else
-									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "lightweight", "rounded", "circle", "ring", "elegant"', 'wp-symposium-toolbar' ).'<br />';
+									$wpst_errors .= $option_name.__( ': incorrect format, a string was expected, either "lightweight", "rounded", "circle", "altcircle", "ring"', 'wp-symposium-toolbar' ).'<br />';
 							
 							// String-based option - check if content is in a few possible values: "" or "top-secondary"
 							} elseif ( $option_name == 'wpst_share_icons_position' ) {
@@ -1862,7 +1873,9 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$style_chunk = 'height: '.$height.'px; ';
 		$style_saved .= '@media screen and ( min-width: 783px ) { ';
 		$style_saved .= '#wpadminbar .quicklinks > ul > li, #wpadminbar .quicklinks a, #wpadminbar .quicklinks .ab-empty-item, #wpadminbar .shortlink-input { '.$style_chunk.'} ';
-		$style_saved .= '#wpwrap { margin-top: '.$margin_top.'px; } ';														// Move dashboard pages body
+		// $style_saved .= '#wpwrap { margin-top: '.$margin_top.'px; } ';														// Move dashboard pages body
+		// $style_saved .= 'html { margin-top: 0px !important; } html.wp-toolbar { padding-top: 0px; } #wpbody, body { margin-top: '.$height.'px; } ';	// Move page body
+		$style_saved .= '#wpbody, body { margin-top: '.$margin_top.'px; } ';												// Move page body
 		$style_saved .= '#wpadminbar.ie7 .shortlink-input, #wpadminbar .menupop .ab-sub-wrapper { top:'.$height.'px; } ';	// Move the dropdown menus according to new Toolbar height
 		$style_saved .= '#wpadminbar .menupop .ab-sub-wrapper .ab-sub-wrapper { top:26px; } ';								// Force back submenus to their original location relatively to parent menu
 		
@@ -2238,18 +2251,30 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		$comma = '';
 		$style_chunk = "";
 		if ( get_option( 'wpst_wps_admin_menu', "" ) != "" ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-symposium-admin > .ab-item > span.ab-icon:before'; $comma = ', '; }
-		if ( get_option( 'wpst_wps_notification_friendship', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.symposium-toolbar-notifications-friendship > .ab-item > .ab-icon:before'; $comma = ', '; }
-		if ( get_option( 'wpst_wps_notification_mail', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.symposium-toolbar-notifications-mail > .ab-item > .ab-icon:before'; }
+		if ( get_option( 'wpst_wps_notification_friendship', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.wpst-notifications-friendship > .ab-item > .ab-icon:before'; $comma = ', '; }
+		if ( get_option( 'wpst_wps_notification_mail', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar li.wpst-notifications-mail > .ab-item > .ab-icon:before'; }
 		if ( $style_chunk != "" ) $style_saved .= $style_chunk.' { top: '.$icon_S_margin_top.'px; } ';
 		
 		$style_saved .= '} ';
 	
-	} else {
-		$comma = '';
-		$style_chunk = "";
-		if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
-		if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
-		if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
+	// } else {
+		// $comma = '';
+		// $style_chunk = "";
+		// if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
+		// if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
+		// if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
+		// TODO bug here, style chunk is not used...
+	}
+	
+	// Responsive mode for icons when a specific breakpoint is set
+	$wpst_share_breakpoint_default = 782;
+	(int)$wpst_share_breakpoint = get_option( 'wpst_share_breakpoint', $wpst_share_breakpoint_default );
+	if ( ( $wpst_share_breakpoint > 0 ) and ( $wpst_share_breakpoint < 783 ) ) {
+	
+		$style_saved .= '@media screen and (min-width: '.$wpst_share_breakpoint.'px) and (max-width: 782px) { ';
+		$style_saved .= '#wp-toolbar > ul > li { display: block; } ';
+		$style_saved .= '#wpadminbar li.wpst-share > .ab-item:before { display: block; text-indent: 0; font: 400 32px/1 dashicons; speak: none; top: 7px; width: 52px; text-align: center; -webkit-font-smoothing: antialiased; } ';
+		$style_saved .= '} ';
 	}
 	
 	// Search
@@ -2272,7 +2297,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 				$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
 			else
 				$style_saved .= '#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input';
-			$style_saved .= ' { height: '. $search_height . 'px; top: -4px; line-height: '.$height.'px; ';
+			$style_saved .= ' { height: '. $search_height . 'px; top: -4px; ';// line-height: '.$height.'px; ';
 			if ( isset( $icon_size ) ) $style_saved .= 'padding-left: '.$icon_size.'px; ';
 			if ( isset( $wpst_style_tb_current['font_size'] ) && ( $wpst_style_tb_current['font_size'] > 0 ) ) $style_saved .= 'font-size: '.$wpst_style_tb_current['font_size'].'px; ';
 			$style_saved .= '} ';
@@ -2494,7 +2519,7 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		
 		// Ensure social icons will adhere to the hover colour when admin forces brand colours but not on hover
 		if ( ( $icon_colour != '' ) && ( get_option( 'wpst_share_icons_color', '' ) == 'on' ) && ( get_option( 'wpst_share_icons_hover_color', '' ) == '' ) )
-			$style_saved .= '#wpadminbar li.symposium-toolbar-share-icon:hover > .ab-item:before { '.trim( $icon_colour, '; ' ).' !Important; } ';
+			$style_saved .= '#wpadminbar li.wpst-share:hover > .ab-item:before { '.trim( $icon_colour, '; ' ).' !Important; } ';
 	}
 	
 	// Add icon colour as border to Toolbar Avatar
