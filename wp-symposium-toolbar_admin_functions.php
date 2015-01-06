@@ -744,7 +744,7 @@ function symposium_toolbar_save_before_render() {
 						else
 							update_option( 'wpst_share_breakpoint', $_POST["wpst_share_breakpoint"] );
 					} else
-						$wpst_errors .= __( 'Toolbar', 'wp-symposium-toolbar' ).' > '.__( 'Share Icons Breakpoint', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).' '.__( ' and lower than the standard WordPress value of 782px', 'wp-symposium-toolbar' ).'<br />';
+						$wpst_errors .= __( 'Share', 'wp-symposium-toolbar' ).' > '.__( 'Icons Display Breakpoint', 'wp-symposium-toolbar' ).': '.__( 'Integer value expected', 'wp-symposium-toolbar' ).', '.__( 'greater than 0', 'wp-symposium-toolbar' ).' '.__( ' and lower than the standard WordPress value of 782px', 'wp-symposium-toolbar' ).'<br />';
 				}
 				
 				// Prepare update of styles based on above settings
@@ -1615,6 +1615,13 @@ function symposium_toolbar_save_before_render() {
 								} else
 									$wpst_errors .= $option_name.__( ': incorrect format, an array was expected', 'wp-symposium-toolbar' ).'<br />';
 							
+							// Integer-based option - check if content is of type integer and comprised between limits
+							} elseif ( $option_name == 'wpst_share_breakpoint' ) {
+								if ( filter_var( $option_value, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 0, 'max_range' => 782 ) ) ) ) {
+									update_option( $option_name, $option_value );
+								} else
+									$wpst_errors .= $option_name.__( ': incorrect value, expected value is', 'wp-symposium-toolbar' ).' '.__( 'greater than 0', 'wp-symposium-toolbar' ).' '.__( ' and lower than the standard WordPress value of 782px', 'wp-symposium-toolbar' ).'<br />';
+							
 							// String-based option - check if content is in a few possible values: "home" or "current"
 							} elseif ( $option_name == 'wpst_share_content' ) {
 								if ( is_string( $option_value ) ) {
@@ -1662,6 +1669,7 @@ function symposium_toolbar_save_before_render() {
 						// Style tab options
 						if ( strstr ( $option_name, 'wpst_style' ) ) if ( isset( $wpst_shown_tabs[ 'style' ] ) ) {
 							
+							// Array-based value
 							if ( $option_name == 'wpst_style_tb_current' ) {
 								if ( is_array( $option_value ) ) {
 									(bool)$stop_updating_me = false;
@@ -2263,16 +2271,15 @@ function symposium_toolbar_update_styles( $wpst_style_tb_current, $blog_id = "1"
 		// if ( get_option( 'wpst_toolbar_my_sites', array() ) != array() ) { $style_chunk .= '#wpadminbar #wp-admin-bar-my-sites > .ab-item:before'; $comma = ', '; }
 		// if ( get_option( 'wpst_toolbar_site_name', array() ) != array() ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-site-name > .ab-item:before'; $comma = ', '; }
 		// if ( get_option( 'wpst_wpms_network_superadmin_menu', 'on' ) == "on" ) { $style_chunk .= $comma.'#wpadminbar #wp-admin-bar-my-wpms-admin > .ab-item:before'; $comma = ', '; }
-		// TODO bug here, style chunk is not used...
+		// TODO bug here, $style_chunk is not used...
 	}
 	
 	// Responsive mode for icons when a specific breakpoint is set
-	$wpst_share_breakpoint_default = 782;
-	(int)$wpst_share_breakpoint = get_option( 'wpst_share_breakpoint', $wpst_share_breakpoint_default );
-	if ( ( $wpst_share_breakpoint > 0 ) and ( $wpst_share_breakpoint < 783 ) ) {
+	(int)$wpst_share_breakpoint = get_option( 'wpst_share_breakpoint', 782 );
+	if ( ( $wpst_share_breakpoint > 0 ) and ( $wpst_share_breakpoint < 782 ) ) {
 	
 		$style_saved .= '@media screen and (min-width: '.$wpst_share_breakpoint.'px) and (max-width: 782px) { ';
-		$style_saved .= '#wp-toolbar > ul > li { display: block; } ';
+		$style_saved .= '#wp-toolbar > ul > li.wpst-share { display: block; } ';
 		$style_saved .= '#wpadminbar li.wpst-share > .ab-item:before { display: block; text-indent: 0; font: 400 32px/1 dashicons; speak: none; top: 7px; width: 52px; text-align: center; -webkit-font-smoothing: antialiased; } ';
 		$style_saved .= '} ';
 	}

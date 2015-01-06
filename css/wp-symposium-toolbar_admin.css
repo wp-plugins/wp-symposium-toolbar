@@ -374,7 +374,7 @@
 #wpadminbar .wpst-icon {
 	position: relative;
 	float: left;
-	width: 16px;
+	width: auto;
 	height: 16px;
 	margin-top: 6px;
 }

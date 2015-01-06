@@ -1329,7 +1329,7 @@ function symposium_toolbar_admintab_share() {
 				echo '<td colspan="2">';
 					echo '<span>' . __( 'Display these icons in responsive mode (for devices with smaller screen width) down to the following breakpoint', 'wp-symposium-toolbar' ) . '</span><br />';
 					echo '<input type="text" name="wpst_share_breakpoint" id="wpst_share_breakpoint" ';
-					echo 'class="wpst-admin wpst-default ';
+					echo 'style="width: 80%; max-width: 50px; display: inline-block;" class="wpst-admin wpst-default ';
 					if ( $wpst_share_breakpoint == $wpst_share_breakpoint_default ) echo 'wpst-has-default ';
 					echo 'wpst-responsive-int" value="'.$wpst_share_breakpoint.'" />px';
 					echo '<input type="hidden" id="wpst_share_breakpoint_default" value="'.$wpst_share_breakpoint_default.'" />';

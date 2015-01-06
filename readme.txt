@@ -8,7 +8,7 @@ Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, b
 Requires at least: 3.8
 Tested up to: 4.1
 Stable tag: 0.31.0
-Version: 0.31.10
+Version: 0.31.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,9 +145,10 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 * Bugfix: Custom Menus no longer picking fonticons
 * Bugfix: fix conflict with theme, introduced by using add_theme_support
-* Change: change prefix symposium-toolbar-share for CSS IDs and classes into wpst-share
+* Change: change prefix symposium-toolbar-share into wpst-share, for CSS IDs and classes
 * Bugfix: add a test to check for WP roles before actually using them
-* Change: add two sets to the social fonticons, Share tab
+* Change: Share tab, add two sets of icons to the social fonticons
+* Change: Share tab, add a field for a custom breakpoint below which social icons are hidden
 
 = 0.31.0. =
 

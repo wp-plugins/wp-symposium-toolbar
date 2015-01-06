@@ -10,7 +10,7 @@ Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, bran
 Requires at least: 3.8
 Tested up to: 4.1
 Stable tag: 0.31.0
-Version: 0.31.10
+Version: 0.31.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // http://melchoyce.github.io/dashicons/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3110 );
+define( "WPST_BUILD_NR", 3111 );
 
 
 // Exit if accessed directly
