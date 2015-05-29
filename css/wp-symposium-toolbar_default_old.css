@@ -1,0 +1,177 @@
+/*  Copyright 2013-2015 Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as 
+	published by the Free Software Foundation.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/**
+ * Default Toolbar Style
+ */
+
+/* admin-bar.css:72 */
+#wpadminbar,
+
+#wpadminbar .ab-top-secondary {
+	color: #ccc;
+	background: #222;
+}
+
+#wpadminbar .ab-item, 
+
+/* admin-bar.css:30 */
+#wpadminbar a.ab-item,
+#wpadminbar > #wp-toolbar span.ab-label,
+#wpadminbar > #wp-toolbar span.noticon,
+
+/* admin-bar.css:263 */
+#wpadminbar .ab-submenu .ab-item,
+
+/* admin-bar.css:267 */
+#wpadminbar .quicklinks .menupop ul li a,
+#wpadminbar .quicklinks .menupop ul li a strong,
+#wpadminbar .quicklinks .menupop.hover ul li a,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a,
+
+/* admin-bar.css:477 */
+#wpadminbar .quicklinks li .blavatar,
+
+/* wp-admin\css\colors\***\colors.css:199 */
+#wpadminbar .menupop .menupop > .ab-item:before,
+
+/* wp-admin\css\colors\***\colors.css:237 */
+#wpadminbar #wp-admin-bar-user-info .display-name {
+	color: #eee;
+}
+
+/* admin-bar.css:243 */
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:before,
+#wpadminbar #adminbarsearch:before,
+
+/* admin-bar.css:437 */
+#wpadminbar #wp-admin-bar-user-info .username,
+
+/* wp-admin\css\colors\***\colors.css:176 */
+#wpadminbar .ab-icon,
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:before, 
+#wpadminbar .ab-item:after {
+	color: #999;
+}
+
+/* admin-bar.css:442 */
+#wpadminbar #wp-admin-bar-my-account.with-avatar > a img {
+	border: 1px solid #888;
+	background: #eee;
+}
+
+/* admin-bar.css:333 */
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+	background: #4b4b4b;
+}
+
+/* admin-bar.css:215 */
+#wpadminbar .ab-top-menu > li > .ab-item:focus,
+#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+#wpadminbar .ab-top-menu > li:hover > .ab-item,
+#wpadminbar .ab-top-menu > li.hover > .ab-item,
+
+/* wp-admin\css\colors\***\colors.css:179 */
+#wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
+#wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
+#wpadminbar .menupop.focus .ab-label {
+	color: #45bbe6;
+	background: #333;
+}
+
+/* admin-bar.css:223 */
+#wpadminbar > #wp-toolbar li:hover span.ab-label,
+#wpadminbar > #wp-toolbar li.hover span.ab-label,
+#wpadminbar > #wp-toolbar a:focus span.ab-label,
+
+/* admin-bar.css:274 */
+#wpadminbar .quicklinks .menupop ul li a:hover,
+#wpadminbar .quicklinks .menupop ul li a:focus,
+#wpadminbar .quicklinks .menupop ul li a:hover strong,
+#wpadminbar .quicklinks .menupop ul li a:focus strong,
+#wpadminbar .quicklinks .menupop.hover ul li a:hover,
+#wpadminbar .quicklinks .menupop.hover ul li a:focus,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus,
+#wpadminbar li:hover .ab-icon:before,
+#wpadminbar li:hover .ab-item:before,
+#wpadminbar li a:focus .ab-icon:before,
+#wpadminbar li .ab-item:focus:before,
+#wpadminbar li.hover .ab-icon:before,
+#wpadminbar li.hover .ab-item:before,
+#wpadminbar li:hover #adminbarsearch:before,
+
+/* admin-bar.css:338 */
+#wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover,
+#wpadminbar .quicklinks .menupop .ab-sub-secondary > li .ab-item:focus,
+
+/* admin-bar.css:486 */
+#wpadminbar .quicklinks li a:hover .blavatar,
+
+/* wp-admin\css\colors\***\colors.css:205 */
+#wpadminbar .menupop .menupop > .ab-item:hover:before,
+
+/* wp-admin\css\colors\***\colors.css:240 */
+#wpadminbar #wp-admin-bar-user-info a:hover .display-name ,
+
+/* wp-admin\css\colors\***\colors.css:307 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li:hover span.ab-label,
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.hover span.ab-label {
+	color: #45bbe6;
+}
+
+/* admin-bar.css:139 */
+#wpadminbar .menupop .ab-sub-wrapper {
+	background-color: #333;
+}
+
+/* admin-bar.css:343 */
+#wpadminbar .quicklinks a span#ab-updates {
+	color: #333;
+}
+
+/* The following needed for JetPack when Search icon in backend */
+
+/* admin-bar.css:577 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	color: #ccc;
+	background-color: rgba( 255, 255, 255, 0 );
+}
+
+/* admin-bar.css:610 */
+#wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	color: #000;
+	background-color: rgba( 255, 255, 255, 0.9 );
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
+	background-color: #464646;
+}
+
+#wpadminbar.ie8 > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
+	background-color: #fff;
+}
+
+/* admin-bar.css:633 */
+#wpadminbar #adminbarsearch .adminbar-input::-webkit-input-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input:-moz-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input::-moz-placeholder,
+#wpadminbar #adminbarsearch .adminbar-input:-ms-input-placeholder {
+	color: #999;
+}
