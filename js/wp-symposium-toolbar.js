@@ -1,4 +1,4 @@
-/*  Copyright 2013-2014 Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
+/*  Copyright 2013-2015 Guillaume Assire aka AlphaGolf (alphagolf@rocketmail.com)
  *	
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License, version 2, as 
@@ -115,9 +115,9 @@ jQuery(document).ready(function($){
 	});
 	
 	
-	// ADMIN CHECKERS
+	// STYLE TAB BOXES
 	
-	// Close all Style boxes by default
+	// Close all boxes by default
 	$(".wpst-style-widefat").hide();
 	
 	// When a Style h3 is clicked, open / close the box underneath
@@ -131,6 +131,9 @@ jQuery(document).ready(function($){
 			item.style.display = 'table';
 		}
 	});
+	
+	
+	// ADMIN CHECKERS
 	
 	// Data was edited, user needs to confirm when leaving page
 	$(".wpst-admin").change(function() {

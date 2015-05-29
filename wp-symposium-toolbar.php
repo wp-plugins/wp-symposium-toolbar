@@ -1,25 +1,25 @@
 <?php
 /*
 Plugin Name: WP Symposium Toolbar
-Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your Social Network site
+Description: The Ultimate Toolbar Plugin - And the WordPress Toolbar can finally be part of your site
 Author: AlphaGolf_fr
 Author URI: http://profiles.wordpress.org/AlphaGolf_fr/
 Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: toolbar, admin, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 0.31.0
-Version: 0.31.11
+Tested up to: 4.2.2
+Stable tag: 0.32.0
+Version: 0.32.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Reference:
-// http://melchoyce.github.io/dashicons/
+// http://developer.wordpress.org/resource/dashicons/
 	
 // Increase Build nr at each version
-define( "WPST_BUILD_NR", 3111 );
+define( "WPST_BUILD_NR", 3213 );
 
 
 // Exit if accessed directly
@@ -36,7 +36,7 @@ if ( ! function_exists( 'is_plugin_active_for_network' ) || ! function_exists( '
 if ( is_admin() ) include_once( 'wp-symposium-toolbar_admin.php' );
 if ( is_admin() ) include_once( 'wp-symposium-toolbar_admin_functions.php' );
 include_once( 'wp-symposium-toolbar_functions.php' );
-include_once( 'wp-symposium-toolbar_help.php' );
+if ( is_admin() ) include_once( 'wp-symposium-toolbar_help.php' );
 
 // Is WP Symposium running on this site ?
 if ( is_multisite() )
@@ -90,7 +90,7 @@ function symposium_toolbar_init() {
 	// true when WPS Profile feature was activated and a profile page is defined on the site or network of sites
 	
 	// CSS
-	// Admin pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
+	// Admin settings pages CSS is merged with Toolbar CSS that applies at all pages, both frontend and backend
 	
 	$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_admin.css', __FILE__ );
 	$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_admin.css';
@@ -99,18 +99,25 @@ function symposium_toolbar_init() {
 	}
 	
 	// Get screen tab ID
-	$wpst_active_tab = '';
+	$wpst_active_tab = 'welcome';
 	if ( isset( $_GET["tab"] ) ) $wpst_active_tab = $_GET["tab"];
 	if ( isset( $_POST["symposium_toolbar_view"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view"];
-	if ( isset( $_POST["symposium_toolbar_view_no_js"] ) ) $wpst_active_tab = $_POST["symposium_toolbar_view_no_js"];
 	
-	if ( is_admin() ) {
+	// CSS / JS files
+	$doing_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+	if ( is_admin() && ! $doing_ajax ) {
 		
 		// Default CSS - load at 'Styles'/'CSS' tabs solely, unless Admin chooses to style the whole admin dashboard...
-		// Dep on 'colors' to ensure this CSS is loaded before, and override its values with 'default'
+		// Dependant on 'colors' to ensure this CSS is loaded before, and override its values with 'default'
+		global $wp_version;
 		if ( ( $wpst_active_tab == 'style' ) || ( $wpst_active_tab == 'css' ) || ( get_option( 'wpst_style_tb_in_admin', '' ) == "on" ) ) {
-			$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_default.css', __FILE__ );
-			$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_default.css';
+			if ( version_compare( $wp_version, '4.2-alpha', '<' ) ) {
+				$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_default_old.css', __FILE__ );
+				$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_default_old.css';
+			} else {
+				$adminStyleUrl = plugins_url( 'css/wp-symposium-toolbar_default.css', __FILE__ );
+				$adminStyleFile = plugin_dir_path( __FILE__ ).'css/wp-symposium-toolbar_default.css';
+			}
 			if ( file_exists( $adminStyleFile ) ) {
 				wp_enqueue_style( 'wp-symposium-toolbar_default', $adminStyleUrl, array( 'colors' ), WPST_BUILD_NR );
 			}
@@ -294,7 +301,7 @@ if ( is_multisite() && is_plugin_active_for_network( 'wp-symposium-toolbar/wp-sy
 	add_action( 'wpmu_new_blog', 'symposium_toolbar_new_site_default', 10, 6 );
 }
 
-// Load at plugin options page only...
+// Load at Admin settings page only...
 function symposium_toolbar_load_settings_page() {
 	
 	// Ensure update was performed earlier

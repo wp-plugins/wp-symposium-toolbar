@@ -18,12 +18,12 @@
  * Default Toolbar Style
  */
 
-/* admin-bar.css:74 */
+/* admin-bar.css:72 */
 #wpadminbar,
 
 #wpadminbar .ab-top-secondary {
 	color: #ccc;
-	background: #23282d;
+	background: #222;
 }
 
 #wpadminbar .ab-item, 
@@ -33,15 +33,16 @@
 #wpadminbar > #wp-toolbar span.ab-label,
 #wpadminbar > #wp-toolbar span.noticon,
 
-/* admin-bar.css:258 */
+/* admin-bar.css:263 */
 #wpadminbar .ab-submenu .ab-item,
 
-/* admin-bar.css:263 */
+/* admin-bar.css:267 */
 #wpadminbar .quicklinks .menupop ul li a,
 #wpadminbar .quicklinks .menupop ul li a strong,
 #wpadminbar .quicklinks .menupop.hover ul li a,
 #wpadminbar.nojs .quicklinks .menupop:hover ul li a,
 
+/* admin-bar.css:477 */
 #wpadminbar .quicklinks li .blavatar,
 
 /* wp-admin\css\colors\***\colors.css:199 */
@@ -49,16 +50,15 @@
 
 /* wp-admin\css\colors\***\colors.css:237 */
 #wpadminbar #wp-admin-bar-user-info .display-name {
-	color: #b4b9be;
-	color: rgba(240,245,250,0.7);
+	color: #eee;
 }
 
-/* admin-bar.css:238 */
+/* admin-bar.css:243 */
 #wpadminbar .ab-icon:before,
 #wpadminbar .ab-item:before,
 #wpadminbar #adminbarsearch:before,
 
-/* admin-bar.css:439 */
+/* admin-bar.css:437 */
 #wpadminbar #wp-admin-bar-user-info .username,
 
 /* wp-admin\css\colors\***\colors.css:176 */
@@ -66,23 +66,22 @@
 #wpadminbar .ab-icon:before,
 #wpadminbar .ab-item:before, 
 #wpadminbar .ab-item:after {
-	color: #a0a5aa;
-	color: rgba(240,245,250,0.6);
+	color: #999;
 }
 
-/* admin-bar.css:444 */
+/* admin-bar.css:442 */
 #wpadminbar #wp-admin-bar-my-account.with-avatar > a img {
-	border: 1px solid #82878c;
+	border: 1px solid #888;
 	background: #eee;
 }
 
-/* admin-bar.css:331 */
+/* admin-bar.css:333 */
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
-	background: #464b50;
+	background: #4b4b4b;
 }
 
-/* admin-bar.css:210 */
+/* admin-bar.css:215 */
 #wpadminbar .ab-top-menu > li > .ab-item:focus,
 #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
 #wpadminbar .ab-top-menu > li:hover > .ab-item,
@@ -92,16 +91,16 @@
 #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item,
 #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
 #wpadminbar .menupop.focus .ab-label {
-	background: #32373c;
-	color: #00b9eb;
+	color: #45bbe6;
+	background: #333;
 }
 
-/* admin-bar.css:218 */
+/* admin-bar.css:223 */
 #wpadminbar > #wp-toolbar li:hover span.ab-label,
 #wpadminbar > #wp-toolbar li.hover span.ab-label,
 #wpadminbar > #wp-toolbar a:focus span.ab-label,
 
-/* admin-bar.css:271 */
+/* admin-bar.css:274 */
 #wpadminbar .quicklinks .menupop ul li a:hover,
 #wpadminbar .quicklinks .menupop ul li a:focus,
 #wpadminbar .quicklinks .menupop ul li a:hover strong,
@@ -117,13 +116,12 @@
 #wpadminbar li.hover .ab-icon:before,
 #wpadminbar li.hover .ab-item:before,
 #wpadminbar li:hover #adminbarsearch:before,
-#wpadminbar li #adminbarsearch.adminbar-focused:before,
 
-/* admin-bar.css:336 */
+/* admin-bar.css:338 */
 #wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover,
 #wpadminbar .quicklinks .menupop .ab-sub-secondary > li .ab-item:focus,
 
-/* admin-bar.css:492 */
+/* admin-bar.css:486 */
 #wpadminbar .quicklinks li a:hover .blavatar,
 
 /* wp-admin\css\colors\***\colors.css:205 */
@@ -135,28 +133,28 @@
 /* wp-admin\css\colors\***\colors.css:307 */
 #wpadminbar > #wp-toolbar > #wp-admin-bar-root-default li:hover span.ab-label,
 #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary li.hover span.ab-label {
-	color: #00b9eb;
+	color: #45bbe6;
 }
 
-/* admin-bar.css:134 */
+/* admin-bar.css:139 */
 #wpadminbar .menupop .ab-sub-wrapper {
-	background: #32373c;
+	background-color: #333;
 }
 
-/* admin-bar.css:341 */
+/* admin-bar.css:343 */
 #wpadminbar .quicklinks a span#ab-updates {
-	color: #32373c;
+	color: #333;
 }
 
 /* The following needed for JetPack when Search icon in backend */
 
-/* admin-bar.css:592 */
+/* admin-bar.css:577 */
 #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input {
 	color: #ccc;
 	background-color: rgba( 255, 255, 255, 0 );
 }
 
-/* admin-bar.css:619 */
+/* admin-bar.css:610 */
 #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
 	color: #000;
 	background-color: rgba( 255, 255, 255, 0.9 );
@@ -170,7 +168,7 @@
 	background-color: #fff;
 }
 
-/* admin-bar.css:648 */
+/* admin-bar.css:633 */
 #wpadminbar #adminbarsearch .adminbar-input::-webkit-input-placeholder,
 #wpadminbar #adminbarsearch .adminbar-input:-moz-placeholder,
 #wpadminbar #adminbarsearch .adminbar-input::-moz-placeholder,

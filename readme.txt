@@ -6,9 +6,9 @@ Contributors: AlphaGolf_fr, Central Geek
 Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DELJEHZEFGHQ
 Tags: toolbar, adminbar, bar, navigation, nav-menu, menu, menus, theme, brand, branding, members, membership
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 0.31.0
-Version: 0.31.11
+Tested up to: 4.2.2
+Stable tag: 0.32.0
+Version: 0.32.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,9 +92,9 @@ Performances have been addressed as best as possible. Most of the job of the plu
 
 In WPS Toolbar settings, make sure the Toolbar should actually show for the role you are using.  Even if you already did this, check again.
 
-There's a personal setting in the WP profile page for each user to show or hide it independantly, the plugin doesn't enforce this setting so if it's hidden from there, it won't show.
+There's a personal setting in the WP profile page for each user to show or hide it independantly, so if the Toolbar is hidden from there, it won't show.  The plugin may enforce this, through its setting "Force the display of the WP Toolbar" from the "Toolbar" tab.  When activated, the user setting will be hidden from the WP profile page and the Toolbar will be focibly displayed for selected roles.
 
-Some themes will interfere with the WP Toolbar, some will even stop it from showing at all.  Likewise for plugins, but you should be a little more aware of what the plugins you installed do.  If unsure, switch to the WordPress default theme, deactivate all plugins but WPS Toolbar, and check if the Toolbar now shows in the frontend.
+Some themes will interfere with the WP Toolbar, some will even stop it from showing at all.  Likewise for plugins, but you should be a little more aware of what the plugins you installed do.  If unsure, switch to the WordPress default theme, deactivate all plugins but WPS Toolbar.  If the Toolbar now shows in the frontend, reactivate them one by one until you found the conflict.
 
 = According to my settings, the admin role should see the Search icon, however I can't see it ! =
 
@@ -123,7 +123,7 @@ The set of fonticons bundled with the plugin was created using [IcoMoon](http://
 * WP Symposium Friends icon: IcoMoon
 * WP Symposium Mail icon: Font Awesome
 * WP Symposium icon: by Louis at [Central Geek](http://centralgeek.com)
-* Social icons from: IcoMoon (Lightweight, Rounded Corners, Plain Circles alternate), Entypo (Plain Circles), Typicons (Lightweight, Rings)
+* Share icons from: IcoMoon (Lightweight, Rounded Corners, Plain Circles variant), Entypo (Plain Circles), Typicons (Lightweight, Rings)
 
 With my thanks for their work, I'm happy to attribute these fonts as follows.  Most of these icons were resized so they fit in the Toolbar with the same apparent size, which is the only modification I did.
 
@@ -141,14 +141,19 @@ Last but not least, please note that all brand icons are trademarks of their res
 
 == Changelog ==
 
+= 0.33.0. =
+
+
 = 0.32.0. =
 
+* Change: adjust default colors in preview mode for WP 4.2+ as per #31234
+* Change: Share tab, add two sets of icons
+* Change: Share tab, add a field for a custom breakpoint value below which share icons are hidden
 * Bugfix: Custom Menus no longer picking fonticons
+* Bugfix: WPMS, network menus loose their fonticon on subsites
 * Bugfix: fix conflict with theme, introduced by using add_theme_support
-* Change: change prefix symposium-toolbar-share into wpst-share, for CSS IDs and classes
 * Bugfix: add a test to check for WP roles before actually using them
-* Change: Share tab, add two sets of icons to the social fonticons
-* Change: Share tab, add a field for a custom breakpoint below which social icons are hidden
+* Bugfix: add a test on DOING_AJAX when loading backend-only CSS files to avoid conflicts in frontend with AJAX plugins/themes
 
 = 0.31.0. =
 
